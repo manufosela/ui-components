@@ -1,0 +1,61 @@
+{
+  "name": "@manufosela/ui-components",
+  "version": "0.1.0",
+  "description": "Reusable Lit web components for UI: AppModal, SlideNotification, MultiSelect",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./app-modal": {
+      "import": "./dist/app-modal.js",
+      "types": "./dist/app-modal.d.ts"
+    },
+    "./slide-notification": {
+      "import": "./dist/slide-notification.js",
+      "types": "./dist/slide-notification.d.ts"
+    },
+    "./multi-select": {
+      "import": "./dist/multi-select.js",
+      "types": "./dist/multi-select.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "node build.js",
+    "build:watch": "node build.js --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "lit",
+    "web-components",
+    "modal",
+    "notification",
+    "multiselect",
+    "ui"
+  ],
+  "author": "manufosela",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manufosela/ui-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "homepage": "https://github.com/manufosela/ui-components#readme",
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.20.0",
+    "lit": "^3.0.2"
+  }
+}
