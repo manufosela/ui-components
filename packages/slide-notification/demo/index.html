@@ -48,6 +48,7 @@
     .btn-custom { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
     a { color: #3b82f6; }
     p { color: #86868b; line-height: 1.6; }
+    .code-block { background: #1d1d1f; color: #f5f5f7; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; overflow-x: auto; white-space: pre; }
   </style>
 </head>
 <body>
@@ -63,21 +64,29 @@
       <button class="btn-warning" id="showWarning">Warning</button>
       <button class="btn-error" id="showError">Error</button>
     </div>
+    <div class="code-block">showSlideNotification({ type: 'success', title: 'Success!', message: 'Done.' });</div>
   </div>
 
   <div class="demo-section">
     <h2>Custom Duration</h2>
+    <p>Control how long the notification stays visible.</p>
     <div class="button-grid">
       <button class="btn-info" id="showLong">Long (5s)</button>
       <button class="btn-info" id="showShort">Short (1s)</button>
     </div>
+    <div class="code-block">showSlideNotification({ message: 'Quick!', timetohide: 1000 });</div>
   </div>
 
   <div class="demo-section">
     <h2>Custom Background</h2>
+    <p>Use any color or gradient.</p>
     <div class="button-grid">
       <button class="btn-custom" id="showCustom">Custom Color</button>
     </div>
+    <div class="code-block">showSlideNotification({
+  message: 'Gradient!',
+  backgroundColor: 'linear-gradient(135deg, #8b5cf6, #ec4899)'
+});</div>
   </div>
 
   <div class="demo-section">
@@ -86,14 +95,19 @@
     <div class="button-grid">
       <button class="btn-info" id="showPersistent">Show Persistent</button>
     </div>
+    <div class="code-block">showSlideNotification({ message: 'Click me!', persistent: true });</div>
   </div>
 
   <div class="demo-section">
     <h2>Manual Control</h2>
+    <p>Use declarative element with show()/hide() methods.</p>
     <div class="button-grid">
       <button class="btn-info" id="showManual">Show</button>
       <button class="btn-error" id="hideManual">Hide</button>
     </div>
+    <div class="code-block">&lt;slide-notification id="n" title="Hello" message="..." persistent&gt;&lt;/slide-notification&gt;
+&lt;button onclick="n.show()"&gt;Show&lt;/button&gt;
+&lt;button onclick="n.hide()"&gt;Hide&lt;/button&gt;</div>
   </div>
 
   <slide-notification id="manualNotification" title="Manual" message="Controlled manually." persistent></slide-notification>
