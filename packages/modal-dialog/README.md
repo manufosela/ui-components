@@ -131,6 +131,30 @@ Use `width` and `height` attributes for precise control:
 </modal-dialog>
 ```
 
+## modal-dialog vs app-modal
+
+This library includes two modal components. Choose based on your needs:
+
+| Feature | modal-dialog | app-modal |
+|---------|--------------|-----------|
+| **Use case** | Custom content, forms, declarative modals | Confirmations, alerts, programmatic modals |
+| **Content** | Default slot (full control) | `message` attribute + `setContent()` |
+| **Buttons** | Slot-based (any content) | 3 configurable buttons with callbacks |
+| **API** | Declarative (HTML-first) | Programmatic (`showModal()` helper) |
+| **Sizes** | 5 presets + custom width/height | max-width/max-height only |
+| **Best for** | Complex forms, custom UI | "Are you sure?" dialogs |
+
+**Use `modal-dialog` when:**
+- You need full control over modal content
+- You're using slots for custom layouts
+- You want size presets (small/medium/large/full/fullscreen)
+- You prefer declarative HTML patterns
+
+**Use `app-modal` when:**
+- You need quick confirmation dialogs
+- You want predefined button layouts (OK/Cancel/Other)
+- You're creating modals programmatically
+
 ## License
 
 MIT

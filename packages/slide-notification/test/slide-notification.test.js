@@ -81,45 +81,56 @@ describe('SlideNotification', () => {
     });
   });
 
+  // Helper to wait for double requestAnimationFrame
+  const waitForAnimation = () => new Promise(r =>
+    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 50)))
+  );
+
   describe('Animation', () => {
-    it('adds visible class on connect', async () => {
+    it('adds visible class on show', async () => {
       const el = await fixture(html`<slide-notification></slide-notification>`);
-      await new Promise(r => setTimeout(r, 50));
+      el.show();
+      await waitForAnimation();
       expect(el.classList.contains('visible')).to.be.true;
     });
 
     it('adds hiding class on hide', async () => {
       const el = await fixture(html`<slide-notification></slide-notification>`);
+      el.show();
+      await waitForAnimation();
       el.hide();
       expect(el.classList.contains('hiding')).to.be.true;
     });
   });
 
   describe('Auto-hide', () => {
-    it('removes itself after timetohide', async () => {
+    it('auto-hides after timetohide when shown', async () => {
       const el = await fixture(html`<slide-notification timetohide="100"></slide-notification>`);
+      el.show();
       await new Promise(r => setTimeout(r, 800));
-      expect(document.querySelector('slide-notification')).to.be.null;
+      expect(el.classList.contains('hiding')).to.be.true;
     });
 
     it('does not auto-hide when timetohide is 0', async () => {
       const el = await fixture(html`<slide-notification timetohide="0"></slide-notification>`);
+      el.show();
       await new Promise(r => setTimeout(r, 200));
-      expect(el.isConnected).to.be.true;
+      expect(el._isVisible).to.be.true;
     });
   });
 
   describe('Events', () => {
-    it('dispatches slide-notification-shown on appear', async () => {
-      const el = document.createElement('slide-notification');
-      setTimeout(() => document.body.appendChild(el));
+    it('dispatches slide-notification-shown on show', async () => {
+      const el = await fixture(html`<slide-notification></slide-notification>`);
+      setTimeout(() => el.show());
       const event = await oneEvent(el, 'slide-notification-shown');
       expect(event).to.exist;
-      el.remove();
     });
 
     it('dispatches slide-notification-hidden on hide', async () => {
       const el = await fixture(html`<slide-notification></slide-notification>`);
+      el.show();
+      await new Promise(r => setTimeout(r, 100));
       setTimeout(() => el.hide());
       const event = await oneEvent(el, 'slide-notification-hidden');
       expect(event).to.exist;
@@ -127,19 +138,31 @@ describe('SlideNotification', () => {
   });
 
   describe('Methods', () => {
-    it('hide() removes after animation', async () => {
+    it('hide() adds hiding class', async () => {
       const el = await fixture(html`<slide-notification></slide-notification>`);
+      el.show();
+      await new Promise(r => setTimeout(r, 100));
       el.hide();
-      await new Promise(r => setTimeout(r, 700));
-      expect(document.querySelector('slide-notification')).to.be.null;
+      expect(el.classList.contains('hiding')).to.be.true;
     });
 
-    it('show() appends to body', async () => {
-      const el = document.createElement('slide-notification');
-      el.message = 'Test';
+    it('show() makes notification visible', async () => {
+      const el = await fixture(html`<slide-notification></slide-notification>`);
       el.show();
-      expect(document.body.contains(el)).to.be.true;
-      el.remove();
+      await new Promise(r => setTimeout(r, 100));
+      expect(el.classList.contains('visible')).to.be.true;
+    });
+
+    it('can show and hide multiple times', async () => {
+      const el = await fixture(html`<slide-notification></slide-notification>`);
+      el.show();
+      await new Promise(r => setTimeout(r, 100));
+      expect(el._isVisible).to.be.true;
+      el.hide();
+      expect(el._isVisible).to.be.false;
+      el.show();
+      await new Promise(r => setTimeout(r, 100));
+      expect(el._isVisible).to.be.true;
     });
   });
 
@@ -184,20 +207,39 @@ describe('SlideNotification', () => {
 
     it('does not auto-hide when persistent', async () => {
       const el = await fixture(html`<slide-notification persistent timetohide="100"></slide-notification>`);
+      el.show();
       await new Promise(r => setTimeout(r, 200));
-      expect(el.isConnected).to.be.true;
+      expect(el._isVisible).to.be.true;
     });
 
     it('hides on click when persistent', async () => {
       const el = await fixture(html`<slide-notification persistent></slide-notification>`);
+      el.show();
+      await new Promise(r => setTimeout(r, 100));
       el.click();
-      await new Promise(r => setTimeout(r, 700));
-      expect(document.querySelector('slide-notification')).to.be.null;
+      expect(el._isVisible).to.be.false;
     });
 
     it('reflects persistent attribute', async () => {
       const el = await fixture(html`<slide-notification persistent></slide-notification>`);
       expect(el.hasAttribute('persistent')).to.be.true;
+    });
+  });
+
+  describe('Programmatic creation', () => {
+    it('auto-shows when created via showSlideNotification', async () => {
+      const { showSlideNotification } = await import('../src/slide-notification.js');
+      const el = showSlideNotification({ message: 'Test' });
+      await new Promise(r => setTimeout(r, 100));
+      expect(el.classList.contains('visible')).to.be.true;
+      el.hide();
+    });
+
+    it('auto-removes from DOM when hidden (programmatic)', async () => {
+      const { showSlideNotification } = await import('../src/slide-notification.js');
+      const el = showSlideNotification({ message: 'Test', timetohide: 100 });
+      await new Promise(r => setTimeout(r, 800));
+      expect(document.body.contains(el)).to.be.false;
     });
   });
 });

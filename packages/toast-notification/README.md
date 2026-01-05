@@ -105,6 +105,30 @@ document.dispatchEvent(new CustomEvent('toast-notification-hide'));
 | `--toast-warning-bg`   | `#d97706`          | Warning background   |
 | `--toast-info-bg`      | `#2563eb`          | Info background      |
 
+## toast-notification vs slide-notification
+
+This library includes two notification components. Choose based on your needs:
+
+| Feature | toast-notification | slide-notification |
+|---------|-------------------|-------------------|
+| **Animation** | Appears in corner | Slides in from right edge |
+| **Position** | 6 positions (corners + centers) | Right side only |
+| **Stacking** | Multiple stack vertically | One at a time |
+| **Progress bar** | Yes | No |
+| **Close button** | Yes | No (click anywhere) |
+| **Persistent mode** | `duration="0"` | `persistent` attribute |
+| **Best for** | Multiple sequential notifications | Single important messages |
+
+**Use `toast-notification` when:**
+- You need to show multiple notifications
+- You want position flexibility (6 options)
+- You need a progress bar indicator
+
+**Use `slide-notification` when:**
+- You want a prominent single notification
+- You prefer slide-in animation
+- You want click-anywhere-to-close behavior
+
 ## License
 
 MIT

@@ -131,6 +131,29 @@ document.dispatchEvent(new CustomEvent('close-modal', {
 | `--app-modal-confirm-bg`      | `#4caf50`       | Confirm button bg        |
 | `--app-modal-cancel-bg`       | `#f44336`       | Cancel button bg         |
 
+## app-modal vs modal-dialog
+
+This library includes two modal components. Choose based on your needs:
+
+| Feature | app-modal | modal-dialog |
+|---------|-----------|--------------|
+| **Use case** | Confirmations, alerts, programmatic modals | Custom content, forms, declarative modals |
+| **Buttons** | 3 configurable buttons with callbacks | Slot-based (any content) |
+| **Content** | `message` attribute + `setContent()` | Default slot (full control) |
+| **API** | Programmatic (`showModal()` helper) | Declarative (HTML-first) |
+| **Close events** | Global `close-modal` event | `modal-close` event |
+| **Best for** | "Are you sure?" dialogs | Complex forms, custom UI |
+
+**Use `app-modal` when:**
+- You need quick confirmation dialogs
+- You want predefined button layouts (OK/Cancel/Other)
+- You're creating modals programmatically
+
+**Use `modal-dialog` when:**
+- You need full control over modal content
+- You're using slots for custom layouts
+- You prefer declarative HTML patterns
+
 ## License
 
 MIT

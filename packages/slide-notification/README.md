@@ -37,20 +37,21 @@ showSlideNotification({
 
 ## Attributes
 
-| Attribute          | Type   | Default | Description                    |
-| ------------------ | ------ | ------- | ------------------------------ |
-| `title`            | String | `''`    | Notification title             |
-| `message`          | String | `''`    | Message (supports HTML)        |
-| `type`             | String | `info`  | Type: info, success, warning, error |
-| `timetohide`       | Number | `3000`  | Auto-hide delay in ms (0 = never) |
-| `background-color` | String | `''`    | Custom background color        |
+| Attribute          | Type    | Default | Description                    |
+| ------------------ | ------- | ------- | ------------------------------ |
+| `title`            | String  | `''`    | Notification title             |
+| `message`          | String  | `''`    | Message (supports HTML)        |
+| `type`             | String  | `info`  | Type: info, success, warning, error |
+| `timetohide`       | Number  | `3000`  | Auto-hide delay in ms (0 = never) |
+| `background-color` | String  | `''`    | Custom background color        |
+| `persistent`       | Boolean | `false` | Stay visible until clicked     |
 
 ## Methods
 
-| Method   | Description                    |
-| -------- | ------------------------------ |
-| `show()` | Append to body and show        |
-| `hide()` | Hide and remove from DOM       |
+| Method   | Description                              |
+| -------- | ---------------------------------------- |
+| `show()` | Show the notification                    |
+| `hide()` | Hide the notification                    |
 
 ## Events
 
@@ -84,14 +85,26 @@ showSlideNotification({
   timetohide: 1000
 });
 
-// Persistent (must close manually)
-const notification = showSlideNotification({
-  message: 'Click to close',
-  timetohide: 0
+// Persistent (click to close)
+showSlideNotification({
+  message: 'Click me to close',
+  persistent: true
 });
+```
 
-// Close programmatically
-notification.hide();
+## Declarative Usage
+
+For manual control, use the element in HTML:
+
+```html
+<slide-notification id="myNotification"
+  title="Hello"
+  message="Click buttons to control"
+  persistent>
+</slide-notification>
+
+<button onclick="myNotification.show()">Show</button>
+<button onclick="myNotification.hide()">Hide</button>
 ```
 
 ## Custom Colors
@@ -116,6 +129,30 @@ showSlideNotification({
 | `--slide-notification-bottom`     | `20px`                         | Bottom position    |
 | `--slide-notification-z-index`    | `10000`                        | Z-index            |
 | `--slide-notification-min-height` | `80px`                         | Minimum height     |
+
+## slide-notification vs toast-notification
+
+This library includes two notification components. Choose based on your needs:
+
+| Feature | slide-notification | toast-notification |
+|---------|--------------------|-------------------|
+| **Animation** | Slides in from right edge | Appears in corner |
+| **Position** | Right side only | 6 positions (corners + centers) |
+| **Stacking** | One at a time | Multiple stack vertically |
+| **Progress bar** | No | Yes |
+| **Close button** | No (click anywhere) | Yes |
+| **Persistent mode** | `persistent` attribute | `duration="0"` |
+| **Best for** | Single important messages | Multiple sequential notifications |
+
+**Use `slide-notification` when:**
+- You want a prominent single notification
+- You prefer slide-in animation
+- You want click-anywhere-to-close behavior
+
+**Use `toast-notification` when:**
+- You need to show multiple notifications
+- You want position flexibility (6 options)
+- You need a progress bar indicator
 
 ## License
 

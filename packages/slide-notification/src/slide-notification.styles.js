@@ -12,7 +12,7 @@ export const slideNotificationStyles = css`
     right: calc(-20px - var(--_width));
     width: var(--_width);
     min-height: var(--slide-notification-min-height, 80px);
-    background-color: var(--_bg);
+    background: var(--_bg);
     color: var(--_color);
     border-radius: var(--slide-notification-radius, 8px);
     border-left: 4px solid rgba(255, 255, 255, 0.3);

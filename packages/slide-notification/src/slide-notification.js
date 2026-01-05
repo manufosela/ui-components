@@ -4,7 +4,7 @@ import { slideNotificationStyles } from './slide-notification.styles.js';
 
 const DEFAULT_COLORS = {
   error: '#dc3545',
-  success: '#2196F3',
+  success: '#22c55e',
   warning: '#ffc107',
   info: '#17a2b8'
 };
@@ -57,14 +57,30 @@ export class SlideNotification extends LitElement {
     this.backgroundColor = '';
     this.persistent = false;
     this._hideTimeout = null;
+    this._isVisible = false;
+    this._createdProgrammatically = false;
+    this._removeOnHide = false;
   }
 
   connectedCallback() {
     super.connectedCallback();
 
-    // Show animation
+    // Click to close for persistent notifications
+    this.addEventListener('click', this._handleClick);
+
+    // Only auto-show if created programmatically (via helper function)
+    if (this._createdProgrammatically) {
+      this._showNotification();
+    }
+  }
+
+  _showNotification() {
+    if (this._isVisible) return;
+    this._isVisible = true;
+
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
+        this.classList.remove('hiding');
         this.classList.add('visible');
 
         this.dispatchEvent(new CustomEvent('slide-notification-shown', {
@@ -81,9 +97,6 @@ export class SlideNotification extends LitElement {
         }, this.timetohide);
       }
     });
-
-    // Click to close for persistent notifications
-    this.addEventListener('click', this._handleClick);
   }
 
   _handleClick = () => {
@@ -102,6 +115,14 @@ export class SlideNotification extends LitElement {
   }
 
   hide() {
+    if (!this._isVisible) return;
+    this._isVisible = false;
+
+    if (this._hideTimeout) {
+      clearTimeout(this._hideTimeout);
+      this._hideTimeout = null;
+    }
+
     this.classList.remove('visible');
     this.classList.add('hiding');
 
@@ -110,11 +131,14 @@ export class SlideNotification extends LitElement {
       composed: true
     }));
 
-    setTimeout(() => this.remove(), 600);
+    // Remove from DOM if created programmatically
+    if (this._removeOnHide) {
+      setTimeout(() => this.remove(), 600);
+    }
   }
 
   show() {
-    document.body.appendChild(this);
+    this._showNotification();
   }
 
   _getBackgroundColor() {
@@ -176,6 +200,9 @@ export function showSlideNotification(options = {}) {
     notification.backgroundColor = options.backgroundColor;
   }
 
+  // Mark as programmatically created so it auto-shows and auto-removes
+  notification._createdProgrammatically = true;
+  notification._removeOnHide = true;
   document.body.appendChild(notification);
   return notification;
 }
