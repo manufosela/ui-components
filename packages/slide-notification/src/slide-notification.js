@@ -1,0 +1,165 @@
+import { LitElement, html } from 'lit';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { slideNotificationStyles } from './slide-notification.styles.js';
+
+const DEFAULT_COLORS = {
+  error: '#dc3545',
+  success: '#2196F3',
+  warning: '#ffc107',
+  info: '#17a2b8'
+};
+
+const ICONS = {
+  error: '❌',
+  success: '✅',
+  warning: '⚠️',
+  info: 'ℹ️'
+};
+
+/**
+ * A slide-in notification component from the right edge.
+ *
+ * @element slide-notification
+ * @fires slide-notification-shown - Fired when notification appears
+ * @fires slide-notification-hidden - Fired when notification is hidden
+ *
+ * @attr {String} title - Notification title
+ * @attr {String} message - Notification message (supports HTML)
+ * @attr {Number} timetohide - Time in ms before auto-hide (default: 3000)
+ * @attr {String} type - Type: 'info', 'success', 'warning', 'error'
+ * @attr {String} background-color - Custom background color
+ *
+ * @cssprop --slide-notification-width - Width (default: 300px)
+ * @cssprop --slide-notification-bg - Background color (default: #17a2b8)
+ * @cssprop --slide-notification-color - Text color (default: white)
+ * @cssprop --slide-notification-radius - Border radius (default: 8px)
+ * @cssprop --slide-notification-z-index - Z-index (default: 10000)
+ */
+export class SlideNotification extends LitElement {
+  static styles = slideNotificationStyles;
+
+  static properties = {
+    title: { type: String },
+    message: { type: String },
+    timetohide: { type: Number },
+    backgroundColor: { type: String, attribute: 'background-color' },
+    type: { type: String, reflect: true },
+  };
+
+  constructor() {
+    super();
+    this.title = '';
+    this.message = '';
+    this.timetohide = 3000;
+    this.type = 'info';
+    this.backgroundColor = '';
+    this._hideTimeout = null;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    // Show animation
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        this.classList.add('visible');
+
+        this.dispatchEvent(new CustomEvent('slide-notification-shown', {
+          bubbles: true,
+          composed: true
+        }));
+      });
+
+      // Auto-hide after timeout
+      if (this.timetohide > 0) {
+        this._hideTimeout = setTimeout(() => {
+          this.hide();
+        }, this.timetohide);
+      }
+    });
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this._hideTimeout) {
+      clearTimeout(this._hideTimeout);
+      this._hideTimeout = null;
+    }
+  }
+
+  hide() {
+    this.classList.remove('visible');
+    this.classList.add('hiding');
+
+    this.dispatchEvent(new CustomEvent('slide-notification-hidden', {
+      bubbles: true,
+      composed: true
+    }));
+
+    setTimeout(() => this.remove(), 600);
+  }
+
+  show() {
+    document.body.appendChild(this);
+  }
+
+  _getBackgroundColor() {
+    if (this.backgroundColor) return this.backgroundColor;
+    return DEFAULT_COLORS[this.type] || DEFAULT_COLORS.info;
+  }
+
+  _getTextColor() {
+    return this.type === 'warning' ? '#212529' : 'white';
+  }
+
+  _getTextShadow() {
+    return this.type === 'warning'
+      ? '1px 1px 2px rgba(0, 0, 0, 0.3)'
+      : '1px 1px 2px rgba(0, 0, 0, 0.5)';
+  }
+
+  render() {
+    const icon = ICONS[this.type] || ICONS.info;
+    const bgColor = this._getBackgroundColor();
+    const textColor = this._getTextColor();
+    const textShadow = this._getTextShadow();
+
+    this.style.setProperty('--_bg', bgColor);
+    this.style.setProperty('--_color', textColor);
+    this.style.setProperty('--_text-shadow', textShadow);
+
+    return html`
+      ${this.title ? html`<div class="title">${this.title}</div>` : ''}
+      <div class="notification-content">
+        <span class="icon">${icon}</span>
+        <div class="message">${unsafeHTML(this.message)}</div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('slide-notification', SlideNotification);
+
+/**
+ * Helper function to show a slide notification
+ * @param {Object} options - Notification options
+ * @param {string} options.title - Notification title
+ * @param {string} options.message - Notification message (supports HTML)
+ * @param {number} options.timetohide - Time in ms before auto-hide (default: 3000)
+ * @param {string} options.type - Type: 'info' | 'success' | 'warning' | 'error'
+ * @param {string} options.backgroundColor - Custom background color
+ * @returns {SlideNotification} The created notification element
+ */
+export function showSlideNotification(options = {}) {
+  const notification = document.createElement('slide-notification');
+  notification.title = options.title || '';
+  notification.message = options.message || 'Notification';
+  notification.timetohide = options.timetohide ?? 3000;
+  notification.type = options.type || 'info';
+  if (options.backgroundColor) {
+    notification.backgroundColor = options.backgroundColor;
+  }
+
+  document.body.appendChild(notification);
+  return notification;
+}
