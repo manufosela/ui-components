@@ -1,0 +1,58 @@
+{
+  "name": "@manufosela/rich-select",
+  "version": "2.0.0",
+  "description": "A customizable rich select dropdown web component with search, keyboard navigation, and extensive styling options, built with Lit",
+  "license": "Apache-2.0",
+  "author": "manufosela",
+  "type": "module",
+  "main": "src/rich-select.js",
+  "module": "src/rich-select.js",
+  "exports": {
+    ".": {
+      "import": "./src/rich-select.js"
+    },
+    "./rich-select.js": {
+      "import": "./src/rich-select.js"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage",
+    "lint": "eslint src test --ext .js",
+    "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/rich-select"
+  },
+  "keywords": [
+    "web-component",
+    "lit",
+    "select",
+    "dropdown",
+    "rich-select",
+    "search",
+    "keyboard-navigation",
+    "ui"
+  ],
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/rich-select#readme",
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^4.0.0",
+    "@web/dev-server": "^0.4.6",
+    "@web/test-runner": "^0.19.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.4.2"
+  }
+}

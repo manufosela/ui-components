@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading Layer - Demo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f7; margin: 0; padding: 2rem; }
+    .container { max-width: 800px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 3rem; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .subtitle { color: #86868b; }
+    .demo-card { background: #fff; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .demo-card h2 { margin: 0 0 0.5rem 0; }
+    .demo-card p { color: #86868b; margin: 0 0 1.5rem 0; }
+    .buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    button { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; background: #3b82f6; color: #fff; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
+    button:hover { background: #2563eb; }
+    button.secondary { background: #6b7280; }
+    button.secondary:hover { background: #4b5563; }
+    .code-block { background: #1d1d1f; color: #f5f5f7; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Loading Layer</h1>
+      <p class="subtitle">A customizable loading overlay with animated spinner</p>
+    </header>
+
+    <div class="demo-card">
+      <h2>Basic Usage</h2>
+      <p>Show a loading overlay with spinner (auto-hides in 3s)</p>
+      <div class="buttons">
+        <button onclick="document.getElementById('basic').show()">Show Loading (3s)</button>
+      </div>
+      <loading-layer id="basic" timeout="3"></loading-layer>
+      <div class="code-block">&lt;loading-layer timeout="3"&gt;&lt;/loading-layer&gt;
+document.getElementById('basic').show();</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>With Message</h2>
+      <p>Display a message below the spinner</p>
+      <div class="buttons">
+        <button onclick="document.getElementById('message').show()">Show with Message (3s)</button>
+      </div>
+      <loading-layer id="message" timeout="3" message="Loading data, please wait..."></loading-layer>
+      <div class="code-block">&lt;loading-layer message="Loading data, please wait..."&gt;&lt;/loading-layer&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Custom Colors</h2>
+      <p>Customize spinner color and size</p>
+      <div class="buttons">
+        <button onclick="document.getElementById('custom').show()">Show Custom (3s)</button>
+      </div>
+      <loading-layer id="custom" timeout="3" color="#22c55e" size="80" stroke-width="6" message="Almost done..."></loading-layer>
+      <div class="code-block">&lt;loading-layer color="#22c55e" size="80" stroke-width="6"&gt;&lt;/loading-layer&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Different Timeouts</h2>
+      <p>Auto-hide after specified seconds</p>
+      <div class="buttons">
+        <button onclick="document.getElementById('t1').show()">1 second</button>
+        <button onclick="document.getElementById('t2').show()">2 seconds</button>
+        <button onclick="document.getElementById('t5').show()">5 seconds</button>
+      </div>
+      <loading-layer id="t1" timeout="1" message="Hiding in 1 second..."></loading-layer>
+      <loading-layer id="t2" timeout="2" message="Hiding in 2 seconds..."></loading-layer>
+      <loading-layer id="t5" timeout="5" message="Hiding in 5 seconds..."></loading-layer>
+      <div class="code-block">&lt;loading-layer timeout="2" message="Hiding in 2 seconds..."&gt;&lt;/loading-layer&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Global Events</h2>
+      <p>Trigger loading layer via custom events</p>
+      <div class="buttons">
+        <button onclick="showGlobal()">Show via Event (3s)</button>
+      </div>
+      <loading-layer id="global" timeout="3"></loading-layer>
+      <div class="code-block">document.dispatchEvent(new CustomEvent('loading-layer-show', {
+  detail: { message: 'Triggered via event!' }
+}));</div>
+    </div>
+  </div>
+  <script type="module">
+    import '../src/loading-layer.js';
+
+    window.showGlobal = () => {
+      document.dispatchEvent(new CustomEvent('loading-layer-show', {
+        detail: { message: 'Triggered via global event!' }
+      }));
+    };
+  </script>
+</body>
+</html>

@@ -1,132 +1,120 @@
 # @manufosela/ui-components
 
-Reusable Lit web components for UI: AppModal, SlideNotification, MultiSelect.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+A collection of modern, accessible, and customizable web components built with [Lit](https://lit.dev/).
+
+## Demo
+
+Visit the [live demo](https://manufosela.github.io/ui-components/) to see all components in action.
+
+## Packages
+
+| Package | Version | Description |
+| ------- | ------- | ----------- |
+| [@manufosela/arc-slider](./packages/arc-slider) | ![npm](https://img.shields.io/npm/v/@manufosela/arc-slider) | Circular arc slider control |
+| [@manufosela/rich-select](./packages/rich-select) | ![npm](https://img.shields.io/npm/v/@manufosela/rich-select) | Customizable dropdown with rich options |
+| [@manufosela/circle-percent](./packages/circle-percent) | ![npm](https://img.shields.io/npm/v/@manufosela/circle-percent) | Circular progress indicator |
+| [@manufosela/loading-layer](./packages/loading-layer) | ![npm](https://img.shields.io/npm/v/@manufosela/loading-layer) | Full-screen loading overlay |
+| [@manufosela/theme-toggle](./packages/theme-toggle) | ![npm](https://img.shields.io/npm/v/@manufosela/theme-toggle) | Light/dark theme switcher |
+| [@manufosela/stars-rating](./packages/stars-rating) | ![npm](https://img.shields.io/npm/v/@manufosela/stars-rating) | Interactive star rating |
+| [@manufosela/lcd-digit](./packages/lcd-digit) | ![npm](https://img.shields.io/npm/v/@manufosela/lcd-digit) | 7-segment LCD digit display |
+| [@manufosela/toast-notification](./packages/toast-notification) | ![npm](https://img.shields.io/npm/v/@manufosela/toast-notification) | Toast notification messages |
+| [@manufosela/modal-dialog](./packages/modal-dialog) | ![npm](https://img.shields.io/npm/v/@manufosela/modal-dialog) | Modal dialog with slots |
+| [@manufosela/app-modal](./packages/app-modal) | ![npm](https://img.shields.io/npm/v/@manufosela/app-modal) | Feature-rich modal with buttons |
+| [@manufosela/multi-select](./packages/multi-select) | ![npm](https://img.shields.io/npm/v/@manufosela/multi-select) | Multi-select dropdown |
+| [@manufosela/slide-notification](./packages/slide-notification) | ![npm](https://img.shields.io/npm/v/@manufosela/slide-notification) | Slide-in notifications |
 
 ## Installation
 
+Install individual packages as needed:
+
 ```bash
-npm install @manufosela/ui-components
+pnpm add @manufosela/arc-slider
+pnpm add @manufosela/modal-dialog
+pnpm add @manufosela/toast-notification
+# etc.
 ```
 
-## Components
-
-### AppModal
-
-A flexible modal dialog component.
+## Usage
 
 ```javascript
-import { AppModal, showModal } from '@manufosela/ui-components';
-
-// Using helper function
-showModal({
-  title: 'Confirm Action',
-  message: 'Are you sure?',
-  button1Text: 'Yes',
-  button2Text: 'No',
-  button1Action: () => console.log('Confirmed'),
-  button2Action: () => console.log('Cancelled'),
-  // Optional: inject logger
-  logger: console
-});
-
-// Or create element directly
-const modal = document.createElement('app-modal');
-modal.title = 'My Modal';
-modal.logger = console; // Optional
-document.body.appendChild(modal);
+import '@manufosela/arc-slider';
+import '@manufosela/modal-dialog';
 ```
 
-### SlideNotification
+```html
+<arc-slider min-range="0" max-range="100" color1="#FF5500" color2="#0055FF"></arc-slider>
 
-A slide-in notification component.
-
-```javascript
-import { SlideNotification, showSlideNotification } from '@manufosela/ui-components';
-
-// Using helper function
-showSlideNotification({
-  title: 'Success',
-  message: 'Operation completed',
-  type: 'success', // 'info' | 'success' | 'warning' | 'error'
-  timetohide: 3000,
-  // Optional: inject logger
-  logger: console
-});
+<modal-dialog size="medium">
+  <span slot="header">My Modal</span>
+  <p>Modal content here</p>
+  <button slot="footer">Close</button>
+</modal-dialog>
 ```
 
-### MultiSelect
+## Development
 
-A multi-select dropdown component.
+### Prerequisites
 
-```javascript
-import { MultiSelect } from '@manufosela/ui-components';
+- Node.js >= 18
+- pnpm
 
-// In HTML
-<multi-select
-  .options=${[
-    { value: 'a', label: 'Option A' },
-    { value: 'b', label: 'Option B' }
-  ]}
-  .selectedValues=${['a']}
-  placeholder="Select options..."
-  @change=${(e) => console.log(e.detail.selectedValues)}
-></multi-select>
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/manufosela/ui-components.git
+cd ui-components
+
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm start
 ```
 
-## Dependency Injection
+### Commands
 
-All components support optional dependency injection for logging:
+```bash
+# Run all tests
+pnpm test
 
-```javascript
-// Without logging (default)
-showModal({ title: 'Test' });
+# Run tests in watch mode
+pnpm test:watch
 
-// With console logging
-showModal({ title: 'Test', logger: console });
+# Lint all packages
+pnpm lint
 
-// With custom logger
-showModal({
-  title: 'Test',
-  logger: {
-    log: (...args) => myLogger.debug(...args),
-    warn: (...args) => myLogger.warn(...args),
-    error: (...args) => myLogger.error(...args)
-  }
-});
+# Format code
+pnpm format
 ```
 
-### AppModal specific dependencies
+### Project Structure
 
-```javascript
-showModal({
-  title: 'Test',
-  logger: console,
-  // Modal registry for managing multiple modals
-  modalRegistry: {
-    register: (id, element) => myRegistry.add(id, element),
-    unregister: (id) => myRegistry.remove(id)
-  },
-  // Custom ID generator
-  idGenerator: (prefix) => `${prefix}_${crypto.randomUUID()}`
-});
+```
+ui-components/
+├── packages/           # Individual component packages
+│   ├── arc-slider/
+│   ├── rich-select/
+│   ├── circle-percent/
+│   ├── loading-layer/
+│   ├── theme-toggle/
+│   ├── stars-rating/
+│   ├── lcd-digit/
+│   ├── toast-notification/
+│   ├── modal-dialog/
+│   ├── app-modal/
+│   ├── multi-select/
+│   └── slide-notification/
+├── index.html         # Component catalog
+└── pnpm-workspace.yaml
 ```
 
-## Events
+## Contributing
 
-### AppModal Events
-- `modal-action1` - First button clicked
-- `modal-action2` - Second button clicked
-- `modal-action3` - Third button clicked
-- `modal-closed-requested` - Modal close requested
-- `close-modal` - Global event to close modals
-
-### MultiSelect Events
-- `change` - Selection changed, `detail: { selectedValues: string[] }`
-
-## Peer Dependencies
-
-- `lit` ^3.0.0
+Contributions are welcome! Please read our [contributing guidelines](./CONTRIBUTING.md) before submitting a PR.
 
 ## License
 
-MIT
+MIT - see [LICENSE](./LICENSE) for details.

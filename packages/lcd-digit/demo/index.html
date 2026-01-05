@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LCD Digit - Demo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1f2937; color: #f3f4f6; margin: 0; padding: 2rem; }
+    .container { max-width: 800px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 3rem; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .subtitle { color: #9ca3af; }
+    .demo-card { background: #374151; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+    .demo-card h2 { margin: 0 0 0.5rem 0; }
+    .demo-card p { color: #9ca3af; margin: 0 0 1.5rem 0; }
+    .demo-content { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; padding: 1rem; background: #111827; border-radius: 8px; }
+    .buttons { display: flex; gap: 0.5rem; margin-top: 1rem; }
+    button { padding: 0.5rem 1rem; border: none; border-radius: 6px; background: #4b5563; color: #fff; cursor: pointer; transition: background 0.2s; }
+    button:hover { background: #6b7280; }
+    .code-block { background: #111827; color: #f5f5f7; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; overflow-x: auto; }
+    lcd-digit { --lcd-segment-length: 30px; --lcd-segment-width: 6px; }
+    .clock-display { display: flex; gap: 8px; align-items: center; }
+    .clock-display lcd-digit { --lcd-digit-on-color: #ef4444; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>LCD Digit</h1>
+      <p class="subtitle">7-segment LCD digit display component</p>
+    </header>
+
+    <div class="demo-card">
+      <h2>All Digits</h2>
+      <p>Display digits 0-9</p>
+      <div class="demo-content">
+        <lcd-digit digit="0"></lcd-digit>
+        <lcd-digit digit="1"></lcd-digit>
+        <lcd-digit digit="2"></lcd-digit>
+        <lcd-digit digit="3"></lcd-digit>
+        <lcd-digit digit="4"></lcd-digit>
+        <lcd-digit digit="5"></lcd-digit>
+        <lcd-digit digit="6"></lcd-digit>
+        <lcd-digit digit="7"></lcd-digit>
+        <lcd-digit digit="8"></lcd-digit>
+        <lcd-digit digit="9"></lcd-digit>
+      </div>
+      <div class="code-block">&lt;lcd-digit digit="0"&gt;&lt;/lcd-digit&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Interactive Counter</h2>
+      <p>Use buttons to increment/decrement</p>
+      <div class="demo-content">
+        <lcd-digit id="counter" digit="5"></lcd-digit>
+      </div>
+      <div class="buttons">
+        <button onclick="document.getElementById('counter').decrement()">- Decrement</button>
+        <button onclick="document.getElementById('counter').increment()">+ Increment</button>
+      </div>
+      <div class="code-block">digit.increment();
+digit.decrement();</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Clock Display</h2>
+      <p>Use colon for time displays</p>
+      <div class="demo-content">
+        <div class="clock-display">
+          <lcd-digit id="h1" digit="1"></lcd-digit>
+          <lcd-digit id="h2" digit="2" colon colon-on></lcd-digit>
+          <lcd-digit id="m1" digit="3"></lcd-digit>
+          <lcd-digit id="m2" digit="4" colon colon-on></lcd-digit>
+          <lcd-digit id="s1" digit="5"></lcd-digit>
+          <lcd-digit id="s2" digit="6"></lcd-digit>
+        </div>
+      </div>
+      <div class="code-block">&lt;lcd-digit digit="1" colon colon-on&gt;&lt;/lcd-digit&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Custom Colors</h2>
+      <p>Customize with CSS properties</p>
+      <div class="demo-content" style="display: flex; gap: 2rem;">
+        <div style="--lcd-digit-on-color: #3b82f6;">
+          <lcd-digit digit="8"></lcd-digit>
+        </div>
+        <div style="--lcd-digit-on-color: #f59e0b;">
+          <lcd-digit digit="8"></lcd-digit>
+        </div>
+        <div style="--lcd-digit-on-color: #ec4899;">
+          <lcd-digit digit="8"></lcd-digit>
+        </div>
+      </div>
+      <div class="code-block">lcd-digit {
+  --lcd-digit-on-color: #3b82f6;
+  --lcd-digit-glow-color: rgba(59, 130, 246, 0.5);
+}</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Special Characters</h2>
+      <p>Minus sign and blank</p>
+      <div class="demo-content">
+        <lcd-digit digit="-"></lcd-digit>
+        <lcd-digit digit="5"></lcd-digit>
+        <lcd-digit digit=" "></lcd-digit>
+        <lcd-digit digit="3"></lcd-digit>
+      </div>
+      <div class="code-block">&lt;lcd-digit digit="-"&gt;&lt;/lcd-digit&gt;</div>
+    </div>
+  </div>
+  <script type="module">
+    import '../src/lcd-digit.js';
+
+    // Animate clock
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+
+      document.getElementById('h1').digit = h[0];
+      document.getElementById('h2').digit = h[1];
+      document.getElementById('m1').digit = m[0];
+      document.getElementById('m2').digit = m[1];
+      document.getElementById('s1').digit = s[0];
+      document.getElementById('s2').digit = s[1];
+
+      // Blink colons
+      const blink = now.getMilliseconds() < 500;
+      document.getElementById('h2').colonOn = blink;
+      document.getElementById('m2').colonOn = blink;
+    }
+
+    updateClock();
+    setInterval(updateClock, 100);
+  </script>
+</body>
+</html>

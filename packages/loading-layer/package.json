@@ -1,0 +1,52 @@
+{
+  "name": "@manufosela/loading-layer",
+  "version": "2.0.0",
+  "description": "A customizable loading overlay web component with animated spinner, built with Lit",
+  "license": "MIT",
+  "author": "manufosela",
+  "type": "module",
+  "main": "src/loading-layer.js",
+  "module": "src/loading-layer.js",
+  "exports": {
+    ".": {
+      "import": "./src/loading-layer.js"
+    },
+    "./loading-layer.js": {
+      "import": "./src/loading-layer.js"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/loading-layer"
+  },
+  "keywords": [
+    "web-component",
+    "lit",
+    "loading",
+    "spinner",
+    "overlay",
+    "ui"
+  ],
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^4.0.0",
+    "@web/dev-server": "^0.4.6",
+    "@web/test-runner": "^0.19.0"
+  },
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/loading-layer#readme",
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  }
+}

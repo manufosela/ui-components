@@ -1,0 +1,58 @@
+{
+  "name": "@manufosela/circle-percent",
+  "version": "2.0.0",
+  "description": "A circular progress indicator web component with animated SVG arc and customizable styling, built with Lit",
+  "license": "MIT",
+  "author": "manufosela",
+  "type": "module",
+  "main": "src/circle-percent.js",
+  "module": "src/circle-percent.js",
+  "exports": {
+    ".": {
+      "import": "./src/circle-percent.js"
+    },
+    "./circle-percent.js": {
+      "import": "./src/circle-percent.js"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage",
+    "lint": "eslint src test --ext .js",
+    "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/circle-percent"
+  },
+  "keywords": [
+    "web-component",
+    "lit",
+    "progress",
+    "circle",
+    "percent",
+    "svg",
+    "indicator",
+    "ui"
+  ],
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/circle-percent#readme",
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^4.0.0",
+    "@web/dev-server": "^0.4.6",
+    "@web/test-runner": "^0.19.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.4.2"
+  }
+}

@@ -1,61 +1,37 @@
 {
-  "name": "@manufosela/ui-components",
-  "version": "0.1.0",
-  "description": "Reusable Lit web components for UI: AppModal, SlideNotification, MultiSelect",
+  "name": "@manufosela/ui-components-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo for @manufosela UI web components built with Lit",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./app-modal": {
-      "import": "./dist/app-modal.js",
-      "types": "./dist/app-modal.d.ts"
-    },
-    "./slide-notification": {
-      "import": "./dist/slide-notification.js",
-      "types": "./dist/slide-notification.d.ts"
-    },
-    "./multi-select": {
-      "import": "./dist/multi-select.js",
-      "types": "./dist/multi-select.d.ts"
-    }
-  },
-  "files": [
-    "dist",
-    "src"
+  "workspaces": [
+    "packages/*"
   ],
   "scripts": {
-    "build": "node build.js",
-    "build:watch": "node build.js --watch",
-    "prepublishOnly": "npm run build"
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test",
+    "test:watch": "pnpm -r run test:watch",
+    "lint": "pnpm -r run lint",
+    "format": "pnpm -r run format",
+    "start": "web-dev-server --node-resolve --open --root-dir .",
+    "start:demo": "web-dev-server --node-resolve --open index.html --root-dir ."
   },
   "keywords": [
     "lit",
     "web-components",
-    "modal",
-    "notification",
-    "multiselect",
-    "ui"
+    "ui",
+    "monorepo"
   ],
   "author": "manufosela",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manufosela/ui-components.git"
+    "url": "https://github.com/manufosela/ui-components"
   },
-  "bugs": {
-    "url": "https://github.com/manufosela/ui-components/issues"
-  },
-  "homepage": "https://github.com/manufosela/ui-components#readme",
-  "peerDependencies": {
-    "lit": "^3.0.0"
+  "engines": {
+    "node": ">=18.0.0"
   },
   "devDependencies": {
-    "esbuild": "^0.20.0",
-    "lit": "^3.0.2"
+    "@web/dev-server": "^0.4.6"
   }
 }

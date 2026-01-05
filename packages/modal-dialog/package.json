@@ -1,0 +1,44 @@
+{
+  "name": "@manufosela/modal-dialog",
+  "version": "2.0.0",
+  "description": "Modal dialog web component with Lit",
+  "main": "src/modal-dialog.js",
+  "module": "src/modal-dialog.js",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage"
+  },
+  "keywords": [
+    "web-components",
+    "lit",
+    "modal",
+    "dialog",
+    "popup"
+  ],
+  "author": "manufosela",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/modal-dialog"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^4.0.0",
+    "@web/dev-server": "^0.4.6",
+    "@web/test-runner": "^0.19.0"
+  },
+  "customElements": "custom-elements.json",
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/modal-dialog#readme",
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  }
+}

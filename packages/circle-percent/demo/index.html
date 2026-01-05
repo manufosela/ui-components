@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circle Percent - Demo</title>
+    <style>
+      :root {
+        --bg-color: #f5f5f7;
+        --card-bg: #ffffff;
+        --text-color: #1d1d1f;
+        --text-muted: #86868b;
+        --border-color: #d2d2d7;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 2rem;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .demo-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .demo-card h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .demo-card p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin: 0 0 1.5rem 0;
+      }
+
+      .demo-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        min-height: 150px;
+      }
+
+      .code-block {
+        background: #1d1d1f;
+        color: #f5f5f7;
+        padding: 1rem;
+        border-radius: 8px;
+        font-family: 'SF Mono', Monaco, monospace;
+        font-size: 0.75rem;
+        overflow-x: auto;
+        margin-top: 1rem;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-color);
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      footer a {
+        color: var(--text-color);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      .wide-card {
+        grid-column: span 2;
+      }
+
+      .row {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .controls {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .control-group label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      .control-group input {
+        padding: 0.5rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 0.9rem;
+        width: 80px;
+      }
+
+      @media (max-width: 768px) {
+        .wide-card {
+          grid-column: span 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Circle Percent</h1>
+        <p class="subtitle">A circular progress indicator with animated SVG arc</p>
+      </header>
+
+      <div class="demo-grid">
+        <!-- Basic Usage -->
+        <div class="demo-card">
+          <h2>Basic Usage</h2>
+          <p>Simple circular progress indicator</p>
+          <div class="demo-content">
+            <circle-percent percent="75" title="Progress"></circle-percent>
+          </div>
+          <div class="code-block">&lt;circle-percent percent="75" title="Progress"&gt;&lt;/circle-percent&gt;</div>
+        </div>
+
+        <!-- Different Percentages -->
+        <div class="demo-card">
+          <h2>Different Values</h2>
+          <p>Various percentage levels</p>
+          <div class="demo-content">
+            <div class="row">
+              <circle-percent percent="25" radius="40" stroke-width="4"></circle-percent>
+              <circle-percent percent="50" radius="40" stroke-width="4"></circle-percent>
+              <circle-percent percent="100" radius="40" stroke-width="4"></circle-percent>
+            </div>
+          </div>
+          <div class="code-block">&lt;circle-percent percent="25"&gt;&lt;/circle-percent&gt;
+&lt;circle-percent percent="50"&gt;&lt;/circle-percent&gt;
+&lt;circle-percent percent="100"&gt;&lt;/circle-percent&gt;</div>
+        </div>
+
+        <!-- Custom Colors -->
+        <div class="demo-card">
+          <h2>Custom Colors</h2>
+          <p>Different stroke colors</p>
+          <div class="demo-content">
+            <div class="row">
+              <circle-percent percent="60" stroke-color="#22c55e" radius="40" title="Success"></circle-percent>
+              <circle-percent percent="40" stroke-color="#f59e0b" radius="40" title="Warning"></circle-percent>
+              <circle-percent percent="20" stroke-color="#ef4444" radius="40" title="Error"></circle-percent>
+            </div>
+          </div>
+          <div class="code-block">&lt;circle-percent percent="60" stroke-color="#22c55e"&gt;&lt;/circle-percent&gt;
+&lt;circle-percent percent="40" stroke-color="#f59e0b"&gt;&lt;/circle-percent&gt;
+&lt;circle-percent percent="20" stroke-color="#ef4444"&gt;&lt;/circle-percent&gt;</div>
+        </div>
+
+        <!-- Custom Sizes -->
+        <div class="demo-card">
+          <h2>Custom Sizes</h2>
+          <p>Different radius and stroke width</p>
+          <div class="demo-content">
+            <div class="row">
+              <circle-percent percent="65" radius="30" stroke-width="3" size="small"></circle-percent>
+              <circle-percent percent="65" radius="50" stroke-width="6"></circle-percent>
+              <circle-percent percent="65" radius="70" stroke-width="8" size="large"></circle-percent>
+            </div>
+          </div>
+          <div class="code-block">&lt;circle-percent radius="30" stroke-width="3" size="small"&gt;&lt;/circle-percent&gt;
+&lt;circle-percent radius="50" stroke-width="6"&gt;&lt;/circle-percent&gt;
+&lt;circle-percent radius="70" stroke-width="8" size="large"&gt;&lt;/circle-percent&gt;</div>
+        </div>
+
+        <!-- Without Percent Text -->
+        <div class="demo-card">
+          <h2>Without Percentage</h2>
+          <p>Hide the percentage text</p>
+          <div class="demo-content">
+            <circle-percent percent="80" stroke-color="#8b5cf6" title="Loading..."></circle-percent>
+          </div>
+          <div class="code-block">&lt;circle-percent percent="80" show-percent="false" title="Loading..."&gt;&lt;/circle-percent&gt;</div>
+        </div>
+
+        <!-- Thick Stroke -->
+        <div class="demo-card">
+          <h2>Thick Stroke</h2>
+          <p>Larger stroke width for emphasis</p>
+          <div class="demo-content">
+            <circle-percent percent="85" stroke-width="12" stroke-color="#06b6d4" radius="60"></circle-percent>
+          </div>
+          <div class="code-block">&lt;circle-percent percent="85" stroke-width="12" stroke-color="#06b6d4"&gt;&lt;/circle-percent&gt;</div>
+        </div>
+
+        <!-- Interactive Demo -->
+        <div class="demo-card wide-card">
+          <h2>Interactive Demo</h2>
+          <p>Adjust the percentage dynamically</p>
+          <div class="demo-content">
+            <circle-percent id="interactive" percent="50" stroke-color="#3b82f6" radius="60" title="Interactive"></circle-percent>
+            <div class="controls">
+              <div class="control-group">
+                <label>Percent</label>
+                <input type="range" id="percent-slider" min="0" max="100" value="50" style="width: 200px;">
+              </div>
+              <div class="control-group">
+                <label>Radius</label>
+                <input type="number" id="radius-input" min="20" max="100" value="60">
+              </div>
+              <div class="control-group">
+                <label>Stroke</label>
+                <input type="number" id="stroke-input" min="2" max="20" value="6">
+              </div>
+              <div class="control-group">
+                <label>Color</label>
+                <input type="color" id="color-input" value="#3b82f6">
+              </div>
+            </div>
+          </div>
+          <div class="code-block" id="interactive-code">&lt;circle-percent percent="50" stroke-color="#3b82f6" radius="60"&gt;&lt;/circle-percent&gt;</div>
+        </div>
+      </div>
+
+      <footer>
+        <p>
+          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+          <a href="https://www.npmjs.com/package/@manufosela/circle-percent">npm</a>
+        </p>
+      </footer>
+    </div>
+
+    <script type="module">
+      import '../src/circle-percent.js';
+
+      // Interactive demo
+      const interactive = document.getElementById('interactive');
+      const percentSlider = document.getElementById('percent-slider');
+      const radiusInput = document.getElementById('radius-input');
+      const strokeInput = document.getElementById('stroke-input');
+      const colorInput = document.getElementById('color-input');
+      const codeDisplay = document.getElementById('interactive-code');
+
+      function updateCode() {
+        const attrs = [];
+        attrs.push(`percent="${interactive.percent}"`);
+        if (interactive.strokeColor !== '#3b82f6') attrs.push(`stroke-color="${interactive.strokeColor}"`);
+        if (interactive.radius !== 60) attrs.push(`radius="${interactive.radius}"`);
+        if (interactive.strokeWidth !== 6) attrs.push(`stroke-width="${interactive.strokeWidth}"`);
+        codeDisplay.textContent = `<circle-percent ${attrs.join(' ')}></circle-percent>`;
+      }
+
+      percentSlider.addEventListener('input', (e) => {
+        interactive.percent = parseInt(e.target.value, 10);
+        updateCode();
+      });
+
+      radiusInput.addEventListener('input', (e) => {
+        interactive.radius = parseInt(e.target.value, 10);
+        updateCode();
+      });
+
+      strokeInput.addEventListener('input', (e) => {
+        interactive.strokeWidth = parseInt(e.target.value, 10);
+        updateCode();
+      });
+
+      colorInput.addEventListener('input', (e) => {
+        interactive.strokeColor = e.target.value;
+        updateCode();
+      });
+    </script>
+  </body>
+</html>

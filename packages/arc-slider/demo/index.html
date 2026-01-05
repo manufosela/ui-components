@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arc Slider - Demo</title>
+    <style>
+      :root {
+        --bg-color: #f5f5f7;
+        --card-bg: #ffffff;
+        --text-color: #1d1d1f;
+        --text-muted: #86868b;
+        --border-color: #d2d2d7;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 2rem;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+      }
+
+      .demo-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .demo-card h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .demo-card p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin: 0 0 1.5rem 0;
+      }
+
+      .demo-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 180px;
+      }
+
+      .value-display {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        background: var(--bg-color);
+        border-radius: 8px;
+        font-family: 'SF Mono', Monaco, monospace;
+        font-size: 0.9rem;
+      }
+
+      .code-block {
+        background: #1d1d1f;
+        color: #f5f5f7;
+        padding: 1rem;
+        border-radius: 8px;
+        font-family: 'SF Mono', Monaco, monospace;
+        font-size: 0.8rem;
+        overflow-x: auto;
+        margin-top: 1rem;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .interactive-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .control-group label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      .control-group input[type='color'],
+      .control-group input[type='number'] {
+        padding: 0.5rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 0.9rem;
+      }
+
+      .control-group input[type='color'] {
+        width: 60px;
+        height: 36px;
+        padding: 2px;
+      }
+
+      .control-group input[type='number'] {
+        width: 80px;
+      }
+
+      arc-slider {
+        --arc-slider-width: 200px;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-color);
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      footer a {
+        color: var(--text-color);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      .wide-card {
+        grid-column: span 2;
+      }
+
+      @media (max-width: 768px) {
+        .wide-card {
+          grid-column: span 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Arc Slider</h1>
+        <p class="subtitle">A customizable arc slider web component with gradient colors</p>
+      </header>
+
+      <div class="demo-grid">
+        <!-- 1. Upward arc (default) -->
+        <div class="demo-card">
+          <h2>Upward (default)</h2>
+          <p>Min a la derecha, Max a la izquierda</p>
+          <div class="demo-content">
+            <arc-slider id="basic"></arc-slider>
+            <div class="value-display">Value: <span id="basic-value">50</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 2. Downward arc (smile) -->
+        <div class="demo-card">
+          <h2>Downward (clockwise)</h2>
+          <p>Min a la derecha, Max a la izquierda</p>
+          <div class="demo-content">
+            <arc-slider id="range" clockwise min-range="-50" max-range="50" arc-value="0"></arc-slider>
+            <div class="value-display">Value: <span id="range-value">0</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider clockwise&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 3. Upward with custom colors -->
+        <div class="demo-card">
+          <h2>Upward - Custom Colors</h2>
+          <p>Min a la derecha, Max a la izquierda</p>
+          <div class="demo-content">
+            <arc-slider id="colors" color1="#22C55E" color2="#3B82F6"></arc-slider>
+            <div class="value-display">Value: <span id="colors-value">50</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider color1="#22C55E" color2="#3B82F6"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 4. Downward temperature -->
+        <div class="demo-card">
+          <h2>Downward - Temperature</h2>
+          <p>16°C a la derecha, 30°C a la izquierda</p>
+          <div class="demo-content">
+            <arc-slider id="temp" clockwise min-range="16" max-range="30" arc-value="22" color1="#0EA5E9" color2="#EF4444"></arc-slider>
+            <div class="value-display"><span id="temp-value">22</span>°C</div>
+          </div>
+          <div class="code-block">&lt;arc-slider clockwise min-range="16" max-range="30"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 5. With reverse (left-to-right) -->
+        <div class="demo-card">
+          <h2>Upward + Reverse</h2>
+          <p>Min a la IZQUIERDA, Max a la DERECHA</p>
+          <div class="demo-content">
+            <arc-slider id="top" reverse color1="#8B5CF6" color2="#EC4899"></arc-slider>
+            <div class="value-display">Value: <span id="top-value">50</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider reverse&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 6. Quarter Arc -->
+        <div class="demo-card">
+          <h2>Quarter Arc (Upper Right)</h2>
+          <p>Arc from 270° to 0° (top-right quadrant)</p>
+          <div class="demo-content">
+            <arc-slider id="quarter-up" start-angle="270" end-angle="0" color1="#F59E0B" color2="#10B981"></arc-slider>
+            <div class="value-display">Value: <span id="quarter-up-value">50</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider start-angle="270" end-angle="0"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 7. Downward disabled -->
+        <div class="demo-card">
+          <h2>Downward - Disabled</h2>
+          <p>Non-interactive smile slider</p>
+          <div class="demo-content">
+            <arc-slider id="disabled" clockwise arc-value="75" disabled></arc-slider>
+            <div class="value-display">Value: 75 (disabled)</div>
+          </div>
+          <div class="code-block">&lt;arc-slider clockwise disabled arc-value="75"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 8. Upward custom size -->
+        <div class="demo-card">
+          <h2>Upward - Custom Size</h2>
+          <p>Smaller radius with thicker stroke</p>
+          <div class="demo-content">
+            <arc-slider id="custom-size" radius="60" stroke-width="12" color1="#06B6D4" color2="#6366F1" style="--arc-slider-width: 150px;"></arc-slider>
+            <div class="value-display">Value: <span id="custom-size-value">50</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider radius="60" stroke-width="12"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- Interactive Playground -->
+        <div class="demo-card wide-card">
+          <h2>Interactive Playground</h2>
+          <p>Try different configurations</p>
+          <div style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+            <div class="demo-content" style="flex: 1; min-width: 250px;">
+              <arc-slider id="playground"></arc-slider>
+              <div class="value-display">Value: <span id="playground-value">50</span></div>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+              <div class="interactive-controls" style="border-top: none; padding-top: 0; margin-top: 0;">
+                <div class="control-group">
+                  <label>Color 1</label>
+                  <input type="color" id="ctrl-color1" value="#FF1122" />
+                </div>
+                <div class="control-group">
+                  <label>Color 2</label>
+                  <input type="color" id="ctrl-color2" value="#1122FF" />
+                </div>
+                <div class="control-group">
+                  <label>Min</label>
+                  <input type="number" id="ctrl-min" value="0" />
+                </div>
+                <div class="control-group">
+                  <label>Max</label>
+                  <input type="number" id="ctrl-max" value="100" />
+                </div>
+                <div class="control-group">
+                  <label>Start Angle</label>
+                  <input type="number" id="ctrl-start-angle" value="180" min="0" max="360" />
+                </div>
+                <div class="control-group">
+                  <label>End Angle</label>
+                  <input type="number" id="ctrl-end-angle" value="0" min="0" max="360" />
+                </div>
+                <div class="control-group">
+                  <label>Radius</label>
+                  <input type="number" id="ctrl-radius" value="100" min="20" max="200" />
+                </div>
+                <div class="control-group">
+                  <label>Stroke</label>
+                  <input type="number" id="ctrl-stroke" value="8" min="2" max="30" />
+                </div>
+              </div>
+              <div class="code-block" id="playground-code">&lt;arc-slider&gt;&lt;/arc-slider&gt;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <p>
+          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+          <a href="https://www.npmjs.com/package/@manufosela/arc-slider">npm</a>
+        </p>
+      </footer>
+    </div>
+
+    <script type="module">
+      import '../src/arc-slider.js';
+
+      // Update value displays
+      const sliders = {
+        basic: document.getElementById('basic'),
+        range: document.getElementById('range'),
+        colors: document.getElementById('colors'),
+        temp: document.getElementById('temp'),
+        top: document.getElementById('top'),
+        'quarter-up': document.getElementById('quarter-up'),
+        'custom-size': document.getElementById('custom-size'),
+        playground: document.getElementById('playground'),
+      };
+
+      Object.entries(sliders).forEach(([key, slider]) => {
+        if (!slider) return;
+        slider.addEventListener('change', (e) => {
+          const display = document.getElementById(`${key}-value`);
+          if (display) {
+            display.textContent = e.detail.value;
+          }
+        });
+      });
+
+      // Interactive playground controls
+      const playground = document.getElementById('playground');
+      const codeDisplay = document.getElementById('playground-code');
+      const ctrlColor1 = document.getElementById('ctrl-color1');
+      const ctrlColor2 = document.getElementById('ctrl-color2');
+      const ctrlMin = document.getElementById('ctrl-min');
+      const ctrlMax = document.getElementById('ctrl-max');
+      const ctrlStartAngle = document.getElementById('ctrl-start-angle');
+      const ctrlEndAngle = document.getElementById('ctrl-end-angle');
+      const ctrlRadius = document.getElementById('ctrl-radius');
+      const ctrlStroke = document.getElementById('ctrl-stroke');
+
+      function updatePlaygroundCode() {
+        const attrs = [];
+        if (ctrlMin.value !== '0') attrs.push(`min-range="${ctrlMin.value}"`);
+        if (ctrlMax.value !== '100') attrs.push(`max-range="${ctrlMax.value}"`);
+        if (ctrlColor1.value.toUpperCase() !== '#FF1122') attrs.push(`color1="${ctrlColor1.value}"`);
+        if (ctrlColor2.value.toUpperCase() !== '#1122FF') attrs.push(`color2="${ctrlColor2.value}"`);
+        if (ctrlStartAngle.value !== '180') attrs.push(`start-angle="${ctrlStartAngle.value}"`);
+        if (ctrlEndAngle.value !== '0') attrs.push(`end-angle="${ctrlEndAngle.value}"`);
+        if (ctrlRadius.value !== '100') attrs.push(`radius="${ctrlRadius.value}"`);
+        if (ctrlStroke.value !== '8') attrs.push(`stroke-width="${ctrlStroke.value}"`);
+
+        const attrStr = attrs.length ? ' ' + attrs.join(' ') : '';
+        codeDisplay.textContent = `<arc-slider${attrStr}></arc-slider>`;
+      }
+
+      ctrlColor1.addEventListener('input', (e) => {
+        playground.color1 = e.target.value;
+        updatePlaygroundCode();
+      });
+
+      ctrlColor2.addEventListener('input', (e) => {
+        playground.color2 = e.target.value;
+        updatePlaygroundCode();
+      });
+
+      ctrlMin.addEventListener('input', (e) => {
+        playground.minRange = parseInt(e.target.value, 10);
+        updatePlaygroundCode();
+      });
+
+      ctrlMax.addEventListener('input', (e) => {
+        playground.maxRange = parseInt(e.target.value, 10);
+        updatePlaygroundCode();
+      });
+
+      ctrlStartAngle.addEventListener('input', (e) => {
+        playground.startAngle = parseInt(e.target.value, 10);
+        updatePlaygroundCode();
+      });
+
+      ctrlEndAngle.addEventListener('input', (e) => {
+        playground.endAngle = parseInt(e.target.value, 10);
+        updatePlaygroundCode();
+      });
+
+      ctrlRadius.addEventListener('input', (e) => {
+        playground.radius = parseInt(e.target.value, 10);
+        updatePlaygroundCode();
+      });
+
+      ctrlStroke.addEventListener('input', (e) => {
+        playground.strokeWidth = parseInt(e.target.value, 10);
+        updatePlaygroundCode();
+      });
+    </script>
+  </body>
+</html>

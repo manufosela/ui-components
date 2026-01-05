@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modal Dialog - Demo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f7; margin: 0; padding: 2rem; }
+    .container { max-width: 800px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 3rem; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .subtitle { color: #86868b; }
+    .demo-card { background: #fff; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .demo-card h2 { margin: 0 0 0.5rem 0; }
+    .demo-card p { color: #86868b; margin: 0 0 1.5rem 0; }
+    .buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    button { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { background: #3b82f6; color: #fff; }
+    .btn-primary:hover { background: #2563eb; }
+    .btn-secondary { background: #6b7280; color: #fff; }
+    .btn-secondary:hover { background: #4b5563; }
+    .code-block { background: #1d1d1f; color: #f5f5f7; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; overflow-x: auto; white-space: pre; }
+    /* Custom modal button styles */
+    modal-dialog button { padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; }
+    modal-dialog .btn-cancel { background: #e5e7eb; color: #374151; }
+    modal-dialog .btn-confirm { background: #3b82f6; color: #fff; }
+    modal-dialog .btn-danger { background: #dc2626; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Modal Dialog</h1>
+      <p class="subtitle">Modal dialogs with header, body, and footer</p>
+    </header>
+
+    <div class="demo-card">
+      <h2>Basic Modal</h2>
+      <p>Simple modal with title and content</p>
+      <div class="buttons">
+        <button class="btn-primary" onclick="document.getElementById('basic').show()">Open Modal</button>
+      </div>
+      <div class="code-block">&lt;modal-dialog title="Welcome"&gt;
+  &lt;p&gt;This is a basic modal dialog.&lt;/p&gt;
+  &lt;p&gt;Click outside or press Escape to close.&lt;/p&gt;
+&lt;/modal-dialog&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Confirmation Dialog</h2>
+      <p>Modal with confirm and cancel actions</p>
+      <div class="buttons">
+        <button class="btn-primary" onclick="document.getElementById('confirm').show()">Delete Item</button>
+      </div>
+      <div class="code-block">&lt;modal-dialog id="confirm" title="Delete Item?" size="small"&gt;
+  &lt;p&gt;Are you sure? This action cannot be undone.&lt;/p&gt;
+  &lt;button slot="footer" onclick="confirm.cancel()"&gt;Cancel&lt;/button&gt;
+  &lt;button slot="footer" onclick="confirm.confirm()"&gt;Delete&lt;/button&gt;
+&lt;/modal-dialog&gt;
+
+&lt;script&gt;
+  confirm.addEventListener('modal-confirm', () =&gt; {
+    alert('Item deleted!');
+  });
+&lt;/script&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Size Variants</h2>
+      <p>Small, medium, large, full width, and fullscreen</p>
+      <div class="buttons">
+        <button class="btn-secondary" onclick="showSize('small')">Small</button>
+        <button class="btn-secondary" onclick="showSize('medium')">Medium</button>
+        <button class="btn-secondary" onclick="showSize('large')">Large</button>
+        <button class="btn-secondary" onclick="showSize('full')">Full Width</button>
+        <button class="btn-secondary" onclick="showSize('fullscreen')">Fullscreen</button>
+      </div>
+      <div class="code-block" id="size-code">&lt;modal-dialog size="small" title="Small Modal"&gt;
+  &lt;p&gt;This is a small modal with limited width (360px).&lt;/p&gt;
+&lt;/modal-dialog&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Custom Size</h2>
+      <p>Set exact dimensions with width and height attributes</p>
+      <div class="buttons">
+        <button class="btn-secondary" onclick="showCustom('50vw', '70vh')">50vw × 70vh</button>
+        <button class="btn-secondary" onclick="showCustom('80%', '400px')">80% × 400px</button>
+        <button class="btn-secondary" onclick="showCustom('600px', '50vh')">600px × 50vh</button>
+      </div>
+      <div class="code-block" id="custom-code">&lt;modal-dialog width="50vw" height="70vh" title="Custom Size"&gt;
+  &lt;p&gt;Modal with custom dimensions: 50vw × 70vh&lt;/p&gt;
+&lt;/modal-dialog&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Form Modal</h2>
+      <p>Modal containing a form</p>
+      <div class="buttons">
+        <button class="btn-primary" onclick="document.getElementById('form').show()">Open Form</button>
+      </div>
+      <div class="code-block">&lt;modal-dialog id="form" title="Contact Form"&gt;
+  &lt;form&gt;
+    &lt;input type="text" placeholder="Name" /&gt;
+    &lt;input type="email" placeholder="Email" /&gt;
+    &lt;textarea placeholder="Message"&gt;&lt;/textarea&gt;
+  &lt;/form&gt;
+  &lt;button slot="footer" onclick="form.cancel()"&gt;Cancel&lt;/button&gt;
+  &lt;button slot="footer" onclick="form.confirm()"&gt;Submit&lt;/button&gt;
+&lt;/modal-dialog&gt;</div>
+    </div>
+  </div>
+
+  <!-- Basic Modal -->
+  <modal-dialog id="basic" title="Welcome">
+    <p>This is a basic modal dialog.</p>
+    <p>Click outside or press Escape to close.</p>
+  </modal-dialog>
+
+  <!-- Confirmation Modal -->
+  <modal-dialog id="confirm" title="Delete Item?" size="small">
+    <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+    <button slot="footer" class="btn-cancel" onclick="document.getElementById('confirm').cancel()">Cancel</button>
+    <button slot="footer" class="btn-danger" onclick="document.getElementById('confirm').confirm()">Delete</button>
+  </modal-dialog>
+
+  <!-- Size Variants - Single modal that changes size -->
+  <modal-dialog id="size-modal" title="Small Modal" size="small">
+    <p id="size-content">This is a small modal with limited width (360px).</p>
+  </modal-dialog>
+
+  <!-- Custom Size Modal -->
+  <modal-dialog id="custom-modal" title="Custom Size">
+    <p id="custom-content">Modal with custom dimensions: 50vw × 70vh</p>
+  </modal-dialog>
+
+  <!-- Form Modal -->
+  <modal-dialog id="form" title="Contact Form">
+    <form id="contact-form" style="display: flex; flex-direction: column; gap: 1rem;">
+      <label style="display: flex; flex-direction: column; gap: 0.25rem;">
+        Name
+        <input type="text" placeholder="Your name" style="padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px;">
+      </label>
+      <label style="display: flex; flex-direction: column; gap: 0.25rem;">
+        Email
+        <input type="email" placeholder="your@email.com" style="padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px;">
+      </label>
+      <label style="display: flex; flex-direction: column; gap: 0.25rem;">
+        Message
+        <textarea rows="3" placeholder="Your message..." style="padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px;"></textarea>
+      </label>
+    </form>
+    <button slot="footer" class="btn-cancel" onclick="document.getElementById('form').cancel()">Cancel</button>
+    <button slot="footer" class="btn-confirm" onclick="document.getElementById('form').confirm()">Submit</button>
+  </modal-dialog>
+
+  <script type="module">
+    import '../src/modal-dialog.js';
+
+    const sizeConfig = {
+      small: {
+        title: 'Small Modal',
+        content: 'This is a small modal with limited width (360px).',
+        code: `&lt;modal-dialog size="small" title="Small Modal"&gt;
+  &lt;p&gt;This is a small modal with limited width (360px).&lt;/p&gt;
+&lt;/modal-dialog&gt;`
+      },
+      medium: {
+        title: 'Medium Modal',
+        content: 'This is the default medium-sized modal (500px).',
+        code: `&lt;modal-dialog size="medium" title="Medium Modal"&gt;
+  &lt;p&gt;This is the default medium-sized modal (500px).&lt;/p&gt;
+&lt;/modal-dialog&gt;`
+      },
+      large: {
+        title: 'Large Modal',
+        content: 'This is a large modal for more complex content (720px).',
+        code: `&lt;modal-dialog size="large" title="Large Modal"&gt;
+  &lt;p&gt;This is a large modal for more complex content (720px).&lt;/p&gt;
+&lt;/modal-dialog&gt;`
+      },
+      full: {
+        title: 'Full Width Modal',
+        content: 'This modal takes the full width but adapts height to content.',
+        code: `&lt;modal-dialog size="full" title="Full Width Modal"&gt;
+  &lt;p&gt;This modal takes the full width but adapts height to content.&lt;/p&gt;
+&lt;/modal-dialog&gt;`
+      },
+      fullscreen: {
+        title: 'Fullscreen Modal',
+        content: 'This modal takes up the entire screen (width and height). Perfect for complex interfaces, editors, or immersive content.',
+        code: `&lt;modal-dialog size="fullscreen" title="Fullscreen Modal"&gt;
+  &lt;p&gt;This modal takes up the entire screen (width and height).&lt;/p&gt;
+  &lt;p&gt;Perfect for complex interfaces, editors, or immersive content.&lt;/p&gt;
+&lt;/modal-dialog&gt;`
+      }
+    };
+
+    window.showSize = (size) => {
+      const modal = document.getElementById('size-modal');
+      const config = sizeConfig[size];
+
+      modal.size = size;
+      modal.title = config.title;
+      document.getElementById('size-content').textContent = config.content;
+      document.getElementById('size-code').innerHTML = config.code;
+
+      modal.show();
+    };
+
+    window.showCustom = (width, height) => {
+      const modal = document.getElementById('custom-modal');
+      modal.width = width;
+      modal.height = height;
+      document.getElementById('custom-content').textContent = `Modal with custom dimensions: ${width} × ${height}`;
+      document.getElementById('custom-code').innerHTML = `&lt;modal-dialog width="${width}" height="${height}" title="Custom Size"&gt;
+  &lt;p&gt;Modal with custom dimensions: ${width} × ${height}&lt;/p&gt;
+&lt;/modal-dialog&gt;`;
+      modal.show();
+    };
+
+    document.getElementById('confirm').addEventListener('modal-confirm', () => {
+      alert('Item deleted!');
+    });
+
+    document.getElementById('form').addEventListener('modal-confirm', () => {
+      alert('Form submitted!');
+    });
+  </script>
+</body>
+</html>

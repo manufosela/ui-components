@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stars Rating - Demo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f7; margin: 0; padding: 2rem; }
+    .container { max-width: 800px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 3rem; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .subtitle { color: #86868b; }
+    .demo-card { background: #fff; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .demo-card h2 { margin: 0 0 0.5rem 0; }
+    .demo-card p { color: #86868b; margin: 0 0 1.5rem 0; }
+    .demo-content { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .code-block { background: #1d1d1f; color: #f5f5f7; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; overflow-x: auto; }
+    .log { padding: 0.5rem 1rem; background: #f3f4f6; border-radius: 8px; font-family: monospace; font-size: 0.875rem; }
+    stars-rating { --stars-rating-size: 32px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Stars Rating</h1>
+      <p class="subtitle">An interactive star rating component</p>
+    </header>
+
+    <div class="demo-card">
+      <h2>Display Only</h2>
+      <p>Show a rating without interaction</p>
+      <div class="demo-content">
+        <stars-rating rating="3.5" half></stars-rating>
+        <span>3.5 / 5</span>
+      </div>
+      <div class="code-block">&lt;stars-rating rating="3.5" half&gt;&lt;/stars-rating&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Interactive Mode</h2>
+      <p>Click stars to set the rating</p>
+      <div class="demo-content">
+        <stars-rating id="interactive" manual></stars-rating>
+        <div class="log" id="log">Click a star...</div>
+      </div>
+      <div class="code-block">&lt;stars-rating manual&gt;&lt;/stars-rating&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Half-Star Rating</h2>
+      <p>Allow half-star precision</p>
+      <div class="demo-content">
+        <stars-rating id="half" manual half></stars-rating>
+        <div class="log" id="half-log">Supports 0.5 increments</div>
+      </div>
+      <div class="code-block">&lt;stars-rating manual half&gt;&lt;/stars-rating&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>With Reset Button</h2>
+      <p>Include a reset button to clear the rating</p>
+      <div class="demo-content">
+        <stars-rating manual reset rating="4"></stars-rating>
+      </div>
+      <div class="code-block">&lt;stars-rating manual reset&gt;&lt;/stars-rating&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Custom Stars</h2>
+      <p>Use custom characters and 10-star scale</p>
+      <div class="demo-content">
+        <stars-rating numstars="10" rating="7" star="♥" style="--stars-rating-color: #ef4444; --stars-rating-size: 28px;"></stars-rating>
+      </div>
+      <div class="code-block">&lt;stars-rating numstars="10" rating="7" star="♥"&gt;&lt;/stars-rating&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Custom Styling</h2>
+      <p>Customize colors and sizes with CSS properties</p>
+      <div class="demo-content">
+        <stars-rating manual rating="3" style="--stars-rating-size: 40px; --stars-rating-color: #8b5cf6; --stars-rating-empty-color: #ddd6fe;"></stars-rating>
+      </div>
+      <div class="code-block">stars-rating {
+  --stars-rating-size: 40px;
+  --stars-rating-color: #8b5cf6;
+  --stars-rating-empty-color: #ddd6fe;
+}</div>
+    </div>
+  </div>
+  <script type="module">
+    import '../src/stars-rating.js';
+    document.getElementById('interactive').addEventListener('rating-changed', (e) => {
+      document.getElementById('log').textContent = `Rating: ${e.detail.rating}`;
+    });
+    document.getElementById('half').addEventListener('rating-changed', (e) => {
+      document.getElementById('half-log').textContent = `Rating: ${e.detail.rating}`;
+    });
+  </script>
+</body>
+</html>

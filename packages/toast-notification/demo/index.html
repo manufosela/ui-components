@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toast Notification - Demo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f7; margin: 0; padding: 2rem; }
+    .container { max-width: 800px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 3rem; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .subtitle { color: #86868b; }
+    .demo-card { background: #fff; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .demo-card h2 { margin: 0 0 0.5rem 0; }
+    .demo-card p { color: #86868b; margin: 0 0 1.5rem 0; }
+    .buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    button { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: transform 0.1s; }
+    button:active { transform: scale(0.98); }
+    .btn-success { background: #059669; color: #fff; }
+    .btn-error { background: #dc2626; color: #fff; }
+    .btn-warning { background: #d97706; color: #fff; }
+    .btn-info { background: #2563eb; color: #fff; }
+    .btn-default { background: #374151; color: #fff; }
+    .code-block { background: #1d1d1f; color: #f5f5f7; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Toast Notification</h1>
+      <p class="subtitle">Brief messages for user feedback</p>
+    </header>
+
+    <div class="demo-card">
+      <h2>Toast Types</h2>
+      <p>Different types for different contexts</p>
+      <div class="buttons">
+        <button class="btn-success" onclick="showToast('success')">Success</button>
+        <button class="btn-error" onclick="showToast('error')">Error</button>
+        <button class="btn-warning" onclick="showToast('warning')">Warning</button>
+        <button class="btn-info" onclick="showToast('info')">Info</button>
+        <button class="btn-default" onclick="showToast('')">Default</button>
+      </div>
+      <div class="code-block">toast.show('Message', { type: 'success' });</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Positions</h2>
+      <p>Show toasts in different positions</p>
+      <div class="buttons">
+        <button class="btn-default" onclick="showPosition('top-left')">Top Left</button>
+        <button class="btn-default" onclick="showPosition('top-center')">Top Center</button>
+        <button class="btn-default" onclick="showPosition('top-right')">Top Right</button>
+        <button class="btn-default" onclick="showPosition('bottom-left')">Bottom Left</button>
+        <button class="btn-default" onclick="showPosition('bottom-center')">Bottom Center</button>
+        <button class="btn-default" onclick="showPosition('bottom-right')">Bottom Right</button>
+      </div>
+      <div class="code-block">&lt;toast-notification position="bottom-right"&gt;&lt;/toast-notification&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Custom Duration</h2>
+      <p>Control how long the toast stays visible</p>
+      <div class="buttons">
+        <button class="btn-info" onclick="showDuration(1000)">1 second</button>
+        <button class="btn-info" onclick="showDuration(5000)">5 seconds</button>
+        <button class="btn-info" onclick="showDuration(0)">No auto-hide</button>
+      </div>
+      <div class="code-block">toast.show('Message', { duration: 5000 });</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Global Events</h2>
+      <p>Trigger toasts from anywhere via events</p>
+      <div class="buttons">
+        <button class="btn-success" onclick="triggerGlobal()">Trigger via Event</button>
+      </div>
+      <div class="code-block">document.dispatchEvent(new CustomEvent('toast-notification-show', {
+  detail: { message: 'Hello!', type: 'success' }
+}));</div>
+    </div>
+  </div>
+
+  <toast-notification id="toast"></toast-notification>
+  <toast-notification id="position-toast"></toast-notification>
+
+  <script type="module">
+    import '../src/toast-notification.js';
+
+    const toast = document.getElementById('toast');
+    const positionToast = document.getElementById('position-toast');
+
+    const messages = {
+      success: 'Operation completed successfully!',
+      error: 'Something went wrong. Please try again.',
+      warning: 'Please save your work before leaving.',
+      info: 'New updates are available.',
+      '': 'This is a default notification.'
+    };
+
+    window.showToast = (type) => {
+      toast.show(messages[type], { type });
+    };
+
+    window.showPosition = (position) => {
+      positionToast.position = position;
+      positionToast.show(`Toast at ${position}`, { type: 'info' });
+    };
+
+    window.showDuration = (duration) => {
+      const text = duration === 0 ? 'This stays until you close it' : `Auto-hides in ${duration/1000}s`;
+      toast.show(text, { duration });
+    };
+
+    window.triggerGlobal = () => {
+      document.dispatchEvent(new CustomEvent('toast-notification-show', {
+        detail: { message: 'Triggered via global event!', type: 'success' }
+      }));
+    };
+  </script>
+</body>
+</html>

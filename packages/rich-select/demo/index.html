@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rich Select - Demo</title>
+    <style>
+      :root {
+        --bg-color: #f5f5f7;
+        --card-bg: #ffffff;
+        --text-color: #1d1d1f;
+        --text-muted: #86868b;
+        --border-color: #d2d2d7;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 2rem;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      .demo-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .demo-card h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .demo-card p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin: 0 0 1.5rem 0;
+      }
+
+      .demo-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        min-height: 80px;
+      }
+
+      .value-display {
+        padding: 0.5rem 1rem;
+        background: var(--bg-color);
+        border-radius: 8px;
+        font-family: 'SF Mono', Monaco, monospace;
+        font-size: 0.85rem;
+      }
+
+      .code-block {
+        background: #1d1d1f;
+        color: #f5f5f7;
+        padding: 1rem;
+        border-radius: 8px;
+        font-family: 'SF Mono', Monaco, monospace;
+        font-size: 0.75rem;
+        overflow-x: auto;
+        margin-top: 1rem;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-color);
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      footer a {
+        color: var(--text-color);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      .wide-card {
+        grid-column: span 2;
+      }
+
+      @media (max-width: 768px) {
+        .wide-card {
+          grid-column: span 1;
+        }
+        .demo-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Dark mode demo container */
+      .dark-mode-container {
+        background: #1f2937;
+        padding: 1.5rem;
+        border-radius: 12px;
+      }
+
+      .dark-mode-container.dark {
+        color: #e5e7eb;
+      }
+
+      /* Custom styled select */
+      .custom-styled rich-select {
+        --rich-select-width: 100%;
+        --caller-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --caller-color: white;
+        --caller-border: none;
+        --caller-border-radius: 12px;
+        --caller-padding: 12px 16px;
+        --arrow-color: white;
+        --option-active-background: #667eea;
+        --selectOptions-border-radius: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Rich Select</h1>
+        <p class="subtitle">A customizable select dropdown with search, keyboard navigation, and extensive styling</p>
+      </header>
+
+      <div class="demo-grid">
+        <!-- Basic Usage -->
+        <div class="demo-card">
+          <h2>Basic Usage</h2>
+          <p>Simple dropdown with arrow indicator</p>
+          <div class="demo-content">
+            <rich-select id="basic" arrow>
+              <rich-option value="apple">Apple</rich-option>
+              <rich-option value="banana">Banana</rich-option>
+              <rich-option value="cherry">Cherry</rich-option>
+              <rich-option value="date">Date</rich-option>
+            </rich-select>
+            <div class="value-display">Selected: <span id="basic-value">apple</span></div>
+          </div>
+          <div class="code-block">&lt;rich-select arrow&gt;
+  &lt;rich-option value="apple"&gt;Apple&lt;/rich-option&gt;
+  &lt;rich-option value="banana"&gt;Banana&lt;/rich-option&gt;
+  &lt;rich-option value="cherry"&gt;Cherry&lt;/rich-option&gt;
+&lt;/rich-select&gt;</div>
+        </div>
+
+        <!-- With Search -->
+        <div class="demo-card">
+          <h2>With Search</h2>
+          <p>Searchable dropdown for long lists</p>
+          <div class="demo-content">
+            <rich-select id="search-demo" arrow search placeholder="Type to filter...">
+              <rich-option value="argentina">Argentina</rich-option>
+              <rich-option value="australia">Australia</rich-option>
+              <rich-option value="brazil">Brazil</rich-option>
+              <rich-option value="canada">Canada</rich-option>
+              <rich-option value="denmark">Denmark</rich-option>
+              <rich-option value="egypt">Egypt</rich-option>
+              <rich-option value="france">France</rich-option>
+              <rich-option value="germany">Germany</rich-option>
+              <rich-option value="india">India</rich-option>
+              <rich-option value="japan">Japan</rich-option>
+              <rich-option value="korea">South Korea</rich-option>
+              <rich-option value="mexico">Mexico</rich-option>
+            </rich-select>
+            <div class="value-display">Selected: <span id="search-demo-value">argentina</span></div>
+          </div>
+          <div class="code-block">&lt;rich-select arrow search placeholder="Type to filter..."&gt;
+  &lt;rich-option value="argentina"&gt;Argentina&lt;/rich-option&gt;
+  ...
+&lt;/rich-select&gt;</div>
+        </div>
+
+        <!-- Pre-selected Value -->
+        <div class="demo-card">
+          <h2>Pre-selected Value</h2>
+          <p>Select with default selected option</p>
+          <div class="demo-content">
+            <rich-select id="preselected" arrow animated>
+              <rich-option value="small">Small</rich-option>
+              <rich-option value="medium" selected>Medium</rich-option>
+              <rich-option value="large">Large</rich-option>
+              <rich-option value="xlarge">X-Large</rich-option>
+            </rich-select>
+            <div class="value-display">Selected: <span id="preselected-value">medium</span></div>
+          </div>
+          <div class="code-block">&lt;rich-select arrow animated&gt;
+  &lt;rich-option value="small"&gt;Small&lt;/rich-option&gt;
+  &lt;rich-option value="medium" selected&gt;Medium&lt;/rich-option&gt;
+  &lt;rich-option value="large"&gt;Large&lt;/rich-option&gt;
+&lt;/rich-select&gt;</div>
+        </div>
+
+        <!-- Disabled Options -->
+        <div class="demo-card">
+          <h2>Disabled Options</h2>
+          <p>Some options can be disabled</p>
+          <div class="demo-content">
+            <rich-select id="disabled-opts" arrow>
+              <rich-option value="free">Free Plan</rich-option>
+              <rich-option value="pro">Pro Plan</rich-option>
+              <rich-option value="enterprise" disabled>Enterprise (Contact Sales)</rich-option>
+              <rich-option value="custom" disabled>Custom Plan</rich-option>
+            </rich-select>
+            <div class="value-display">Selected: <span id="disabled-opts-value">free</span></div>
+          </div>
+          <div class="code-block">&lt;rich-select arrow&gt;
+  &lt;rich-option value="free"&gt;Free Plan&lt;/rich-option&gt;
+  &lt;rich-option value="enterprise" disabled&gt;Enterprise&lt;/rich-option&gt;
+&lt;/rich-select&gt;</div>
+        </div>
+
+        <!-- Disabled Select -->
+        <div class="demo-card">
+          <h2>Disabled Select</h2>
+          <p>Entire select can be disabled</p>
+          <div class="demo-content">
+            <rich-select id="disabled-select" arrow disabled>
+              <rich-option value="opt1">Option 1</rich-option>
+              <rich-option value="opt2">Option 2</rich-option>
+              <rich-option value="opt3">Option 3</rich-option>
+            </rich-select>
+            <div class="value-display">Selected: opt1 (disabled)</div>
+          </div>
+          <div class="code-block">&lt;rich-select arrow disabled&gt;
+  &lt;rich-option value="opt1"&gt;Option 1&lt;/rich-option&gt;
+  ...
+&lt;/rich-select&gt;</div>
+        </div>
+
+        <!-- With Record for Search -->
+        <div class="demo-card">
+          <h2>Custom Search Records</h2>
+          <p>Use record attribute for enhanced search</p>
+          <div class="demo-content">
+            <rich-select id="records" arrow search placeholder="Try 'emoji' or 'face'...">
+              <rich-option value="smile" record="emoji face happy smile">Smile</rich-option>
+              <rich-option value="heart" record="emoji love heart">Heart</rich-option>
+              <rich-option value="star" record="emoji star favorite">Star</rich-option>
+              <rich-option value="fire" record="emoji fire hot trending">Fire</rich-option>
+              <rich-option value="rocket" record="emoji rocket launch ship">Rocket</rich-option>
+            </rich-select>
+            <div class="value-display">Selected: <span id="records-value">smile</span></div>
+          </div>
+          <div class="code-block">&lt;rich-select arrow search&gt;
+  &lt;rich-option value="smile" record="emoji face happy"&gt;Smile&lt;/rich-option&gt;
+  &lt;rich-option value="heart" record="emoji love heart"&gt;Heart&lt;/rich-option&gt;
+&lt;/rich-select&gt;</div>
+        </div>
+
+        <!-- Dark Mode -->
+        <div class="demo-card">
+          <h2>Dark Mode</h2>
+          <p>Automatic dark mode with .dark class</p>
+          <div class="demo-content">
+            <div class="dark-mode-container dark">
+              <rich-select id="dark-mode" arrow search>
+                <rich-option value="dark">Dark Theme</rich-option>
+                <rich-option value="light">Light Theme</rich-option>
+                <rich-option value="system" selected>System Default</rich-option>
+                <rich-option value="custom">Custom Theme</rich-option>
+              </rich-select>
+            </div>
+            <div class="value-display">Selected: <span id="dark-mode-value">system</span></div>
+          </div>
+          <div class="code-block">&lt;div class="dark"&gt;
+  &lt;rich-select arrow search&gt;...&lt;/rich-select&gt;
+&lt;/div&gt;</div>
+        </div>
+
+        <!-- Custom Styled -->
+        <div class="demo-card">
+          <h2>Custom Styling</h2>
+          <p>Fully customizable with CSS custom properties</p>
+          <div class="demo-content custom-styled">
+            <rich-select id="custom-styled" arrow animated>
+              <rich-option value="design">Design</rich-option>
+              <rich-option value="develop">Development</rich-option>
+              <rich-option value="deploy">Deployment</rich-option>
+              <rich-option value="monitor">Monitoring</rich-option>
+            </rich-select>
+            <div class="value-display">Selected: <span id="custom-styled-value">design</span></div>
+          </div>
+          <div class="code-block">rich-select {
+  --caller-background: linear-gradient(135deg, #667eea, #764ba2);
+  --caller-color: white;
+  --caller-border: none;
+  --caller-border-radius: 12px;
+  --option-active-background: #667eea;
+}</div>
+        </div>
+
+        <!-- Event Handling -->
+        <div class="demo-card wide-card">
+          <h2>Event Handling</h2>
+          <p>Listen for change events to respond to selections</p>
+          <div class="demo-content">
+            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+              <rich-select id="events" arrow name="categorySelect" style="min-width: 200px;">
+                <rich-option value="electronics">Electronics</rich-option>
+                <rich-option value="clothing">Clothing</rich-option>
+                <rich-option value="books">Books</rich-option>
+                <rich-option value="home">Home & Garden</rich-option>
+                <rich-option value="sports">Sports & Outdoors</rich-option>
+              </rich-select>
+              <div class="value-display" style="flex: 1;">
+                Event log: <span id="events-log">Waiting for selection...</span>
+              </div>
+            </div>
+          </div>
+          <div class="code-block">const select = document.querySelector('rich-select');
+select.addEventListener('change', (e) => {
+  console.log('Selected:', e.detail.value);
+  console.log('Name:', e.detail.name);
+});</div>
+        </div>
+      </div>
+
+      <footer>
+        <p>
+          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+          <a href="https://www.npmjs.com/package/@manufosela/rich-select">npm</a>
+        </p>
+      </footer>
+    </div>
+
+    <script type="module">
+      import '../src/rich-select.js';
+
+      // Helper to update value displays
+      function setupValueDisplay(id) {
+        const select = document.getElementById(id);
+        const display = document.getElementById(`${id}-value`);
+        if (select && display) {
+          select.addEventListener('change', (e) => {
+            display.textContent = e.detail.value;
+          });
+        }
+      }
+
+      // Setup all value displays
+      ['basic', 'search-demo', 'preselected', 'disabled-opts', 'records', 'dark-mode', 'custom-styled'].forEach(setupValueDisplay);
+
+      // Events demo with detailed logging
+      const eventsSelect = document.getElementById('events');
+      const eventsLog = document.getElementById('events-log');
+      if (eventsSelect && eventsLog) {
+        eventsSelect.addEventListener('change', (e) => {
+          const timestamp = new Date().toLocaleTimeString();
+          eventsLog.textContent = `[${timestamp}] name="${e.detail.name}", value="${e.detail.value}"`;
+        });
+      }
+    </script>
+  </body>
+</html>
