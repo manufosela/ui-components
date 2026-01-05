@@ -1,0 +1,44 @@
+{
+  "name": "@manufosela/marked-calendar",
+  "version": "2.0.0",
+  "description": "Interactive calendar web component for tracking moods, habits, or marking dates",
+  "main": "src/marked-calendar.js",
+  "module": "src/marked-calendar.js",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage"
+  },
+  "keywords": [
+    "web-components",
+    "lit",
+    "calendar",
+    "mood-tracker",
+    "habit-tracker",
+    "year-in-pixels"
+  ],
+  "author": "manufosela",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/marked-calendar"
+  },
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/marked-calendar#readme",
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^4.0.0",
+    "@web/dev-server": "^0.4.6",
+    "@web/test-runner": "^0.19.0"
+  }
+}
