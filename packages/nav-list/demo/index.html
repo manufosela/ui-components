@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nav List Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f7;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+    .code-block { background: #1d1d1f; color: #f5f5f7; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; overflow-x: auto; white-space: pre; }
+    .buttons { display: flex; gap: 0.5rem; margin-top: 1rem; }
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #3b82f6;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover { background: #2563eb; }
+
+    /* Custom styling examples */
+    .styled-nav {
+      --nav-list-selected-border-color: #8b5cf6;
+      --nav-list-border-radius: 20px;
+      --nav-list-padding: 8px 16px;
+      --nav-list-hover-bg: rgba(139, 92, 246, 0.1);
+    }
+
+    .pill-nav {
+      --nav-list-selected-border-color: transparent;
+      --nav-list-selected-bg: #3b82f6;
+      --nav-list-selected-color: white;
+      --nav-list-border-radius: 999px;
+      --nav-list-padding: 8px 20px;
+      --nav-list-gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nav List</h1>
+  <p><a href="../../../">&larr; Back to components</a></p>
+
+  <div class="demo-section">
+    <h2>Basic Usage</h2>
+    <p>Click items to select them.</p>
+    <nav-list id="basic" title="Select Option"></nav-list>
+    <div class="output" id="basicOutput">Selected: none</div>
+    <div class="code-block">&lt;nav-list title="Select Option" .listValues="${['Option 1', 'Option 2', 'Option 3']}"&gt;&lt;/nav-list&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Light DOM Items</h2>
+    <p>Define items using HTML.</p>
+    <nav-list id="lightdom" title="Categories">
+      <ul>
+        <li>Electronics</li>
+        <li>Clothing</li>
+        <li>Books</li>
+        <li>Home</li>
+      </ul>
+    </nav-list>
+    <div class="output" id="lightdomOutput">Selected: none</div>
+    <div class="code-block">&lt;nav-list title="Categories"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Electronics&lt;/li&gt;
+    &lt;li&gt;Clothing&lt;/li&gt;
+    &lt;li&gt;Books&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav-list&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Pre-selected Value</h2>
+    <p>Set initial selection with the selected attribute.</p>
+    <nav-list id="preselected" selected="Medium"></nav-list>
+    <div class="output" id="preselectedOutput">Selected: Medium</div>
+    <div class="code-block">&lt;nav-list selected="Medium" .listValues="${['Small', 'Medium', 'Large']}"&gt;&lt;/nav-list&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Fixed (Read-only)</h2>
+    <p>Display-only, no interaction.</p>
+    <nav-list id="fixed" selected="Active" fixed></nav-list>
+    <div class="code-block">&lt;nav-list fixed selected="Active" .listValues="${['Active', 'Inactive']}"&gt;&lt;/nav-list&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Event-driven Navigation</h2>
+    <p>Control selection via external events.</p>
+    <nav-list id="events" selected="Page 1" listen-events></nav-list>
+    <div class="buttons">
+      <button id="prevBtn">Previous</button>
+      <button id="nextBtn">Next</button>
+    </div>
+    <div class="output" id="eventsOutput">Selected: Page 1</div>
+    <div class="code-block">&lt;nav-list id="events" listen-events&gt;&lt;/nav-list&gt;
+document.dispatchEvent(new CustomEvent('navlist-next', { detail: { id: 'events' } }));</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Styling - Purple</h2>
+    <nav-list id="styled" class="styled-nav" title="Theme"></nav-list>
+    <div class="code-block">nav-list {
+  --nav-list-selected-border-color: #8b5cf6;
+  --nav-list-border-radius: 20px;
+  --nav-list-hover-bg: rgba(139, 92, 246, 0.1);
+}</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Styling - Pills</h2>
+    <nav-list id="pills" class="pill-nav"></nav-list>
+    <div class="code-block">nav-list {
+  --nav-list-selected-bg: #3b82f6;
+  --nav-list-selected-color: white;
+  --nav-list-border-radius: 999px;
+}</div>
+  </div>
+
+  <script type="module">
+    import '../src/nav-list.js';
+
+    // Basic
+    const basic = document.getElementById('basic');
+    basic.listValues = ['Option 1', 'Option 2', 'Option 3'];
+    basic.addEventListener('navlist-changed', (e) => {
+      document.getElementById('basicOutput').textContent = `Selected: ${e.detail.value} (position: ${e.detail.pos})`;
+    });
+
+    // Light DOM
+    const lightdom = document.getElementById('lightdom');
+    lightdom.addEventListener('navlist-changed', (e) => {
+      document.getElementById('lightdomOutput').textContent = `Selected: ${e.detail.value}`;
+    });
+
+    // Pre-selected
+    const preselected = document.getElementById('preselected');
+    preselected.listValues = ['Small', 'Medium', 'Large'];
+    preselected.addEventListener('navlist-changed', (e) => {
+      document.getElementById('preselectedOutput').textContent = `Selected: ${e.detail.value}`;
+    });
+
+    // Fixed
+    const fixed = document.getElementById('fixed');
+    fixed.listValues = ['Active', 'Inactive'];
+
+    // Events
+    const events = document.getElementById('events');
+    events.listValues = ['Page 1', 'Page 2', 'Page 3', 'Page 4', 'Page 5'];
+    events.addEventListener('navlist-changed', (e) => {
+      document.getElementById('eventsOutput').textContent = `Selected: ${e.detail.value}`;
+    });
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('navlist-last', { detail: { id: 'events' } }));
+    });
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('navlist-next', { detail: { id: 'events' } }));
+    });
+
+    // Styled
+    const styled = document.getElementById('styled');
+    styled.listValues = ['Light', 'Dark', 'System'];
+
+    // Pills
+    const pills = document.getElementById('pills');
+    pills.listValues = ['All', 'Active', 'Completed', 'Archived'];
+  </script>
+</body>
+</html>
