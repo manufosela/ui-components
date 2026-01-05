@@ -1,180 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Multi Select - Demo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi Select Demo</title>
   <style>
-    * { box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f7; margin: 0; padding: 2rem; }
-    .container { max-width: 800px; margin: 0 auto; }
-    header { text-align: center; margin-bottom: 3rem; }
-    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .subtitle { color: #86868b; }
-    .demo-card { background: #fff; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-    .demo-card h2 { margin: 0 0 0.5rem 0; }
-    .demo-card p { color: #86868b; margin: 0 0 1.5rem 0; }
-    .demo-area { margin-bottom: 1rem; }
-    .output { padding: 0.5rem; background: #f8f9fa; border-radius: 4px; font-family: monospace; font-size: 0.9rem; min-height: 2rem; }
-    .buttons { display: flex; gap: 0.5rem; margin-top: 1rem; }
-    button { padding: 0.5rem 1rem; border: none; border-radius: 4px; background: #3b82f6; color: #fff; cursor: pointer; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    .demo-row { margin: 1.5rem 0; }
+    label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #86868b; }
+    .output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f7;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+    multi-select { width: 300px; }
+    .actions { margin-top: 1rem; display: flex; gap: 0.5rem; }
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #3b82f6;
+      color: white;
+      cursor: pointer;
+    }
     button:hover { background: #2563eb; }
-    .code-block { background: #1d1d1f; color: #f5f5f7; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; overflow-x: auto; white-space: pre; }
-    multi-select { max-width: 300px; }
+    a { color: #3b82f6; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Multi Select</h1>
-      <p class="subtitle">Dropdown with multiple checkbox selections</p>
-    </header>
+  <h1>Multi Select</h1>
+  <p><a href="../../">&larr; Back to components</a></p>
 
-    <div class="demo-card">
-      <h2>Basic Usage</h2>
-      <p>Select multiple options from a dropdown</p>
-      <div class="demo-area">
-        <multi-select id="basic"></multi-select>
-      </div>
-      <div class="output" id="basic-output">Selected: none</div>
-      <div class="code-block">&lt;multi-select id="basic"&gt;&lt;/multi-select&gt;
-
-&lt;script&gt;
-  const select = document.getElementById('basic');
-  select.options = [
-    { value: 'js', label: 'JavaScript' },
-    { value: 'ts', label: 'TypeScript' },
-    { value: 'py', label: 'Python' }
-  ];
-&lt;/script&gt;</div>
+  <div class="demo-section">
+    <h2>Declarative Usage (HTML)</h2>
+    <div class="demo-row">
+      <label>Select size:</label>
+      <multi-select id="declarative" placeholder="Choose size...">
+        <option value="xs">Extra Small</option>
+        <option value="s">Small</option>
+        <option value="m" selected>Medium</option>
+        <option value="l">Large</option>
+        <option value="xl" selected>Extra Large</option>
+      </multi-select>
+      <div class="output" id="output0">Selected: m, xl</div>
     </div>
+  </div>
 
-    <div class="demo-card">
-      <h2>With Pre-selection</h2>
-      <p>Initialize with some options already selected</p>
-      <div class="demo-area">
-        <multi-select id="preselected"></multi-select>
-      </div>
-      <div class="output" id="preselected-output">Selected: React, Vue</div>
-      <div class="code-block">select.options = [...];
-select.selectedValues = ['react', 'vue'];</div>
+  <div class="demo-section">
+    <h2>Programmatic Usage</h2>
+    <div class="demo-row">
+      <label>Select fruits:</label>
+      <multi-select id="fruits"></multi-select>
+      <div class="output" id="output1">Selected: none</div>
     </div>
+  </div>
 
-    <div class="demo-card">
-      <h2>Programmatic Control</h2>
-      <p>Select all or clear selections programmatically</p>
-      <div class="demo-area">
-        <multi-select id="programmatic"></multi-select>
-      </div>
-      <div class="buttons">
-        <button onclick="document.getElementById('programmatic').selectAll()">Select All</button>
-        <button onclick="document.getElementById('programmatic').clearAll()">Clear All</button>
-      </div>
-      <div class="output" id="programmatic-output">Selected: none</div>
-      <div class="code-block">select.selectAll();  // Select all options
-select.clearAll();   // Clear all selections</div>
+  <div class="demo-section">
+    <h2>With Preselection</h2>
+    <div class="demo-row">
+      <label>Select colors:</label>
+      <multi-select id="colors"></multi-select>
+      <div class="output" id="output2">Selected: red, blue</div>
     </div>
+  </div>
 
-    <div class="demo-card">
-      <h2>Custom Placeholder</h2>
-      <p>Customize the placeholder text</p>
-      <div class="demo-area">
-        <multi-select id="placeholder" placeholder="Choose your skills..."></multi-select>
+  <div class="demo-section">
+    <h2>With Select All / Clear All</h2>
+    <div class="demo-row">
+      <label>Select countries:</label>
+      <multi-select id="countries"></multi-select>
+      <div class="actions">
+        <button id="selectAll">Select All</button>
+        <button id="clearAll">Clear All</button>
       </div>
-      <div class="code-block">&lt;multi-select placeholder="Choose your skills..."&gt;&lt;/multi-select&gt;</div>
+      <div class="output" id="output3">Selected: none</div>
     </div>
+  </div>
 
-    <div class="demo-card">
-      <h2>Disabled State</h2>
-      <p>Disable the entire select</p>
-      <div class="demo-area">
-        <multi-select id="disabled" disabled></multi-select>
-      </div>
-      <div class="code-block">&lt;multi-select disabled&gt;&lt;/multi-select&gt;</div>
-    </div>
-
-    <div class="demo-card">
-      <h2>Custom Styling</h2>
-      <p>Use CSS custom properties to style</p>
-      <div class="demo-area">
-        <multi-select id="styled" style="
-          --multi-select-border-color: #8b5cf6;
-          --multi-select-border-focus: #7c3aed;
-          --multi-select-checkbox-color: #8b5cf6;
-          --multi-select-option-selected-bg: #ede9fe;
-        "></multi-select>
-      </div>
-      <div class="code-block">multi-select {
-  --multi-select-border-color: #8b5cf6;
-  --multi-select-border-focus: #7c3aed;
-  --multi-select-checkbox-color: #8b5cf6;
-  --multi-select-option-selected-bg: #ede9fe;
-}</div>
+  <div class="demo-section">
+    <h2>Disabled State</h2>
+    <div class="demo-row">
+      <label>Cannot select (disabled):</label>
+      <multi-select id="disabled" disabled placeholder="Disabled..."></multi-select>
     </div>
   </div>
 
   <script type="module">
     import '../src/multi-select.js';
 
-    const languages = [
-      { value: 'js', label: 'JavaScript' },
-      { value: 'ts', label: 'TypeScript' },
-      { value: 'py', label: 'Python' },
-      { value: 'go', label: 'Go' },
-      { value: 'rust', label: 'Rust' },
-    ];
-
-    const frameworks = [
-      { value: 'react', label: 'React' },
-      { value: 'vue', label: 'Vue' },
-      { value: 'angular', label: 'Angular' },
-      { value: 'svelte', label: 'Svelte' },
-    ];
-
-    // Basic
-    const basic = document.getElementById('basic');
-    basic.options = languages;
-    basic.addEventListener('change', (e) => {
-      document.getElementById('basic-output').textContent =
+    // Declarative example
+    const declarative = document.getElementById('declarative');
+    declarative.addEventListener('change', (e) => {
+      document.getElementById('output0').textContent =
         `Selected: ${e.detail.selectedValues.join(', ') || 'none'}`;
     });
 
-    // Preselected
-    const preselected = document.getElementById('preselected');
-    preselected.options = frameworks;
-    preselected.selectedValues = ['react', 'vue'];
-    preselected.addEventListener('change', (e) => {
-      const labels = e.detail.selectedValues.map(v =>
-        frameworks.find(f => f.value === v)?.label || v
-      );
-      document.getElementById('preselected-output').textContent =
-        `Selected: ${labels.join(', ') || 'none'}`;
-    });
-
-    // Programmatic
-    const programmatic = document.getElementById('programmatic');
-    programmatic.options = languages;
-    programmatic.addEventListener('change', (e) => {
-      document.getElementById('programmatic-output').textContent =
+    const fruits = document.getElementById('fruits');
+    fruits.options = [
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+      { value: 'cherry', label: 'Cherry' },
+      { value: 'grape', label: 'Grape' },
+      { value: 'orange', label: 'Orange' },
+    ];
+    fruits.placeholder = 'Choose fruits...';
+    fruits.addEventListener('change', (e) => {
+      document.getElementById('output1').textContent =
         `Selected: ${e.detail.selectedValues.join(', ') || 'none'}`;
     });
 
-    // Placeholder
-    const placeholder = document.getElementById('placeholder');
-    placeholder.options = [
-      { value: 'html', label: 'HTML' },
-      { value: 'css', label: 'CSS' },
-      { value: 'js', label: 'JavaScript' },
+    const colors = document.getElementById('colors');
+    colors.options = [
+      { value: 'red', label: 'Red' },
+      { value: 'green', label: 'Green' },
+      { value: 'blue', label: 'Blue' },
+      { value: 'yellow', label: 'Yellow' },
     ];
+    colors.selectedValues = ['red', 'blue'];
+    colors.addEventListener('change', (e) => {
+      document.getElementById('output2').textContent =
+        `Selected: ${e.detail.selectedValues.join(', ') || 'none'}`;
+    });
 
-    // Disabled
+    const countries = document.getElementById('countries');
+    countries.options = [
+      { value: 'es', label: 'Spain' },
+      { value: 'fr', label: 'France' },
+      { value: 'de', label: 'Germany' },
+      { value: 'it', label: 'Italy' },
+      { value: 'uk', label: 'United Kingdom' },
+    ];
+    countries.addEventListener('change', (e) => {
+      document.getElementById('output3').textContent =
+        `Selected: ${e.detail.selectedValues.join(', ') || 'none'}`;
+    });
+
+    document.getElementById('selectAll').addEventListener('click', () => {
+      countries.selectAll();
+      document.getElementById('output3').textContent =
+        `Selected: ${countries.selectedValues.join(', ')}`;
+    });
+    document.getElementById('clearAll').addEventListener('click', () => {
+      countries.clearAll();
+      document.getElementById('output3').textContent = 'Selected: none';
+    });
+
     const disabled = document.getElementById('disabled');
-    disabled.options = languages;
-    disabled.selectedValues = ['js', 'py'];
-
-    // Styled
-    const styled = document.getElementById('styled');
-    styled.options = frameworks;
+    disabled.options = [
+      { value: '1', label: 'Option 1' },
+      { value: '2', label: 'Option 2' },
+    ];
   </script>
 </body>
 </html>

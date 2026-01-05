@@ -25,9 +25,10 @@ const ICONS = {
  *
  * @attr {String} title - Notification title
  * @attr {String} message - Notification message (supports HTML)
- * @attr {Number} timetohide - Time in ms before auto-hide (default: 3000)
+ * @attr {Number} timetohide - Time in ms before auto-hide (default: 3000, 0 = persistent)
  * @attr {String} type - Type: 'info', 'success', 'warning', 'error'
  * @attr {String} background-color - Custom background color
+ * @attr {Boolean} persistent - If true, notification stays until clicked (same as timetohide=0)
  *
  * @cssprop --slide-notification-width - Width (default: 300px)
  * @cssprop --slide-notification-bg - Background color (default: #17a2b8)
@@ -44,6 +45,7 @@ export class SlideNotification extends LitElement {
     timetohide: { type: Number },
     backgroundColor: { type: String, attribute: 'background-color' },
     type: { type: String, reflect: true },
+    persistent: { type: Boolean, reflect: true },
   };
 
   constructor() {
@@ -53,6 +55,7 @@ export class SlideNotification extends LitElement {
     this.timetohide = 3000;
     this.type = 'info';
     this.backgroundColor = '';
+    this.persistent = false;
     this._hideTimeout = null;
   }
 
@@ -70,13 +73,23 @@ export class SlideNotification extends LitElement {
         }));
       });
 
-      // Auto-hide after timeout
-      if (this.timetohide > 0) {
+      // Auto-hide after timeout (unless persistent)
+      const shouldAutoHide = !this.persistent && this.timetohide > 0;
+      if (shouldAutoHide) {
         this._hideTimeout = setTimeout(() => {
           this.hide();
         }, this.timetohide);
       }
     });
+
+    // Click to close for persistent notifications
+    this.addEventListener('click', this._handleClick);
+  }
+
+  _handleClick = () => {
+    if (this.persistent || this.timetohide === 0) {
+      this.hide();
+    }
   }
 
   disconnectedCallback() {
@@ -85,6 +98,7 @@ export class SlideNotification extends LitElement {
       clearTimeout(this._hideTimeout);
       this._hideTimeout = null;
     }
+    this.removeEventListener('click', this._handleClick);
   }
 
   hide() {
@@ -145,9 +159,10 @@ customElements.define('slide-notification', SlideNotification);
  * @param {Object} options - Notification options
  * @param {string} options.title - Notification title
  * @param {string} options.message - Notification message (supports HTML)
- * @param {number} options.timetohide - Time in ms before auto-hide (default: 3000)
+ * @param {number} options.timetohide - Time in ms before auto-hide (default: 3000, 0 = persistent)
  * @param {string} options.type - Type: 'info' | 'success' | 'warning' | 'error'
  * @param {string} options.backgroundColor - Custom background color
+ * @param {boolean} options.persistent - If true, stays until clicked
  * @returns {SlideNotification} The created notification element
  */
 export function showSlideNotification(options = {}) {
@@ -156,6 +171,7 @@ export function showSlideNotification(options = {}) {
   notification.message = options.message || 'Notification';
   notification.timetohide = options.timetohide ?? 3000;
   notification.type = options.type || 'info';
+  notification.persistent = options.persistent || false;
   if (options.backgroundColor) {
     notification.backgroundColor = options.backgroundColor;
   }

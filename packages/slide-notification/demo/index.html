@@ -1,217 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Slide Notification - Demo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide Notification Demo</title>
   <style>
-    * { box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f7; margin: 0; padding: 2rem; }
-    .container { max-width: 800px; margin: 0 auto; }
-    header { text-align: center; margin-bottom: 3rem; }
-    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .subtitle { color: #86868b; }
-    .demo-card { background: #fff; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-    .demo-card h2 { margin: 0 0 0.5rem 0; }
-    .demo-card p { color: #86868b; margin: 0 0 1.5rem 0; }
-    .buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
-    button { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: background 0.2s; color: white; }
-    button.info { background: #17a2b8; }
-    button.info:hover { background: #138496; }
-    button.success { background: #2196F3; }
-    button.success:hover { background: #1976D2; }
-    button.warning { background: #ffc107; color: #212529; }
-    button.warning:hover { background: #e0a800; }
-    button.error { background: #dc3545; }
-    button.error:hover { background: #c82333; }
-    .code-block { background: #1d1d1f; color: #f5f5f7; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; overflow-x: auto; white-space: pre; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    button {
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .btn-info { background: #3b82f6; }
+    .btn-success { background: #22c55e; }
+    .btn-warning { background: #f59e0b; }
+    .btn-error { background: #ef4444; }
+    .btn-custom { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+    a { color: #3b82f6; }
+    p { color: #86868b; line-height: 1.6; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Slide Notification</h1>
-      <p class="subtitle">Slide-in notifications from the right edge</p>
-    </header>
+  <h1>Slide Notification</h1>
+  <p><a href="../../">&larr; Back to components</a></p>
 
-    <div class="demo-card">
-      <h2>Notification Types</h2>
-      <p>Four built-in types with appropriate colors and icons</p>
-      <div class="buttons">
-        <button class="info" onclick="showInfo()">Info</button>
-        <button class="success" onclick="showSuccess()">Success</button>
-        <button class="warning" onclick="showWarning()">Warning</button>
-        <button class="error" onclick="showError()">Error</button>
-      </div>
-      <div class="code-block">import { showSlideNotification } from '@manufosela/slide-notification';
-
-showSlideNotification({
-  type: 'success',
-  title: 'Success!',
-  message: 'Operation completed successfully.'
-});</div>
-    </div>
-
-    <div class="demo-card">
-      <h2>With Title</h2>
-      <p>Add a title above the message</p>
-      <div class="buttons">
-        <button class="info" onclick="showWithTitle()">Show with Title</button>
-      </div>
-      <div class="code-block">showSlideNotification({
-  type: 'info',
-  title: 'New Update',
-  message: 'A new version is available!'
-});</div>
-    </div>
-
-    <div class="demo-card">
-      <h2>Custom Duration</h2>
-      <p>Control how long the notification stays visible</p>
-      <div class="buttons">
-        <button class="info" onclick="showShort()">1 Second</button>
-        <button class="info" onclick="showLong()">5 Seconds</button>
-        <button class="info" onclick="showPersistent()">Persistent (click to close)</button>
-      </div>
-      <div class="code-block">showSlideNotification({
-  message: 'Quick notification',
-  timetohide: 1000  // 1 second
-});
-
-showSlideNotification({
-  message: 'Persistent notification',
-  timetohide: 0  // Never auto-hides
-});</div>
-    </div>
-
-    <div class="demo-card">
-      <h2>HTML Content</h2>
-      <p>Messages support HTML formatting</p>
-      <div class="buttons">
-        <button class="info" onclick="showHTML()">Show HTML</button>
-      </div>
-      <div class="code-block">showSlideNotification({
-  type: 'info',
-  message: '&lt;strong&gt;Bold&lt;/strong&gt; and &lt;em&gt;italic&lt;/em&gt; text'
-});</div>
-    </div>
-
-    <div class="demo-card">
-      <h2>Custom Color</h2>
-      <p>Override the default colors</p>
-      <div class="buttons">
-        <button style="background: #8b5cf6;" onclick="showCustomColor()">Purple</button>
-      </div>
-      <div class="code-block">showSlideNotification({
-  message: 'Custom colored notification',
-  backgroundColor: '#8b5cf6'
-});</div>
-    </div>
-
-    <div class="demo-card">
-      <h2>Programmatic Control</h2>
-      <p>Create and control notifications manually</p>
-      <div class="buttons">
-        <button class="info" onclick="showManual()">Show (hide after 2s)</button>
-      </div>
-      <div class="code-block">const notification = showSlideNotification({
-  message: 'Manual notification',
-  timetohide: 0
-});
-
-setTimeout(() => notification.hide(), 2000);</div>
+  <div class="demo-section">
+    <h2>Notification Types</h2>
+    <p>Click the buttons to show different notification types.</p>
+    <div class="button-grid">
+      <button class="btn-info" id="showInfo">Info</button>
+      <button class="btn-success" id="showSuccess">Success</button>
+      <button class="btn-warning" id="showWarning">Warning</button>
+      <button class="btn-error" id="showError">Error</button>
     </div>
   </div>
+
+  <div class="demo-section">
+    <h2>Custom Duration</h2>
+    <div class="button-grid">
+      <button class="btn-info" id="showLong">Long (5s)</button>
+      <button class="btn-info" id="showShort">Short (1s)</button>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Background</h2>
+    <div class="button-grid">
+      <button class="btn-custom" id="showCustom">Custom Color</button>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Persistent (click to close)</h2>
+    <p>This notification stays until you click on it.</p>
+    <div class="button-grid">
+      <button class="btn-info" id="showPersistent">Show Persistent</button>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Manual Control</h2>
+    <div class="button-grid">
+      <button class="btn-info" id="showManual">Show</button>
+      <button class="btn-error" id="hideManual">Hide</button>
+    </div>
+  </div>
+
+  <slide-notification id="manualNotification" title="Manual" message="Controlled manually."></slide-notification>
 
   <script type="module">
     import { showSlideNotification } from '../src/slide-notification.js';
 
-    window.showInfo = () => {
+    document.getElementById('showInfo').addEventListener('click', () => {
+      showSlideNotification({ title: 'Info', message: 'Informational message.', type: 'info' });
+    });
+
+    document.getElementById('showSuccess').addEventListener('click', () => {
+      showSlideNotification({ title: 'Success!', message: 'Operation completed.', type: 'success' });
+    });
+
+    document.getElementById('showWarning').addEventListener('click', () => {
+      showSlideNotification({ title: 'Warning', message: 'Please review.', type: 'warning' });
+    });
+
+    document.getElementById('showError').addEventListener('click', () => {
+      showSlideNotification({ title: 'Error', message: 'Something went wrong.', type: 'error' });
+    });
+
+    document.getElementById('showLong').addEventListener('click', () => {
+      showSlideNotification({ title: 'Long', message: 'Stays for 5 seconds.', timetohide: 5000 });
+    });
+
+    document.getElementById('showShort').addEventListener('click', () => {
+      showSlideNotification({ title: 'Quick!', message: 'Gone in 1 second.', timetohide: 1000 });
+    });
+
+    document.getElementById('showCustom').addEventListener('click', () => {
       showSlideNotification({
+        title: 'Custom',
+        message: 'Gradient background.',
+        backgroundColor: 'linear-gradient(135deg, #8b5cf6, #ec4899)'
+      });
+    });
+
+    document.getElementById('showPersistent').addEventListener('click', () => {
+      showSlideNotification({
+        title: 'Persistent',
+        message: 'Click me to close!',
         type: 'info',
-        message: 'This is an informational message.'
+        persistent: true
       });
-    };
+    });
 
-    window.showSuccess = () => {
-      showSlideNotification({
-        type: 'success',
-        message: 'Operation completed successfully!'
-      });
-    };
-
-    window.showWarning = () => {
-      showSlideNotification({
-        type: 'warning',
-        message: 'Please review your input.'
-      });
-    };
-
-    window.showError = () => {
-      showSlideNotification({
-        type: 'error',
-        message: 'An error occurred. Please try again.'
-      });
-    };
-
-    window.showWithTitle = () => {
-      showSlideNotification({
-        type: 'info',
-        title: 'New Update Available',
-        message: 'Version 2.0 is ready to install.'
-      });
-    };
-
-    window.showShort = () => {
-      showSlideNotification({
-        type: 'info',
-        message: 'Gone in 1 second!',
-        timetohide: 1000
-      });
-    };
-
-    window.showLong = () => {
-      showSlideNotification({
-        type: 'info',
-        message: 'This stays for 5 seconds.',
-        timetohide: 5000
-      });
-    };
-
-    let persistentNotification = null;
-    window.showPersistent = () => {
-      if (persistentNotification && persistentNotification.isConnected) {
-        persistentNotification.hide();
-        return;
-      }
-      persistentNotification = showSlideNotification({
-        type: 'info',
-        message: 'Click the button again to close.',
-        timetohide: 0
-      });
-    };
-
-    window.showHTML = () => {
-      showSlideNotification({
-        type: 'info',
-        message: '<strong>Bold</strong> and <em>italic</em> and <u>underlined</u> text!'
-      });
-    };
-
-    window.showCustomColor = () => {
-      showSlideNotification({
-        message: 'Purple notification!',
-        backgroundColor: '#8b5cf6'
-      });
-    };
-
-    window.showManual = () => {
-      const notification = showSlideNotification({
-        message: 'Will hide programmatically in 2 seconds...',
-        timetohide: 0
-      });
-      setTimeout(() => notification.hide(), 2000);
-    };
+    const manual = document.getElementById('manualNotification');
+    document.getElementById('showManual').addEventListener('click', () => manual.show());
+    document.getElementById('hideManual').addEventListener('click', () => manual.hide());
   </script>
 </body>
 </html>

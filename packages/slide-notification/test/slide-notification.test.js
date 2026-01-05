@@ -175,4 +175,29 @@ describe('SlideNotification', () => {
       expect(el.timetohide).to.equal(5000);
     });
   });
+
+  describe('Persistent mode', () => {
+    it('has persistent property', async () => {
+      const el = await fixture(html`<slide-notification persistent></slide-notification>`);
+      expect(el.persistent).to.be.true;
+    });
+
+    it('does not auto-hide when persistent', async () => {
+      const el = await fixture(html`<slide-notification persistent timetohide="100"></slide-notification>`);
+      await new Promise(r => setTimeout(r, 200));
+      expect(el.isConnected).to.be.true;
+    });
+
+    it('hides on click when persistent', async () => {
+      const el = await fixture(html`<slide-notification persistent></slide-notification>`);
+      el.click();
+      await new Promise(r => setTimeout(r, 700));
+      expect(document.querySelector('slide-notification')).to.be.null;
+    });
+
+    it('reflects persistent attribute', async () => {
+      const el = await fixture(html`<slide-notification persistent></slide-notification>`);
+      expect(el.hasAttribute('persistent')).to.be.true;
+    });
+  });
 });

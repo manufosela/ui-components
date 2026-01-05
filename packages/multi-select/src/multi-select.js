@@ -11,6 +11,16 @@ import { multiSelectStyles } from './multi-select.styles.js';
  * @attr {String} placeholder - Placeholder text when nothing selected
  * @attr {Boolean} disabled - Disable the select
  *
+ * @slot - Default slot for declarative option elements
+ *
+ * @example
+ * <!-- Declarative usage -->
+ * <multi-select placeholder="Select fruits...">
+ *   <option value="apple">Apple</option>
+ *   <option value="banana" selected>Banana</option>
+ *   <option value="cherry">Cherry</option>
+ * </multi-select>
+ *
  * @cssprop --multi-select-min-width - Minimum width (default: 200px)
  * @cssprop --multi-select-bg - Background color (default: white)
  * @cssprop --multi-select-border-color - Border color (default: #dee2e6)
@@ -36,12 +46,42 @@ export class MultiSelect extends LitElement {
     this.placeholder = 'Select...';
     this.disabled = false;
     this.isOpen = false;
+    this._slotOptionsProcessed = false;
 
     this._handleClickOutside = this._handleClickOutside.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
+    // Process declarative options from light DOM
+    this._processSlotOptions();
+  }
+
+  _processSlotOptions() {
+    // Only process if options weren't set programmatically
+    if (this.options.length > 0 || this._slotOptionsProcessed) return;
+
+    const slotOptions = this.querySelectorAll('option');
+    if (slotOptions.length > 0) {
+      this._slotOptionsProcessed = true;
+      const options = [];
+      const selectedValues = [];
+
+      slotOptions.forEach(option => {
+        options.push({
+          value: option.value || option.textContent.trim(),
+          label: option.textContent.trim()
+        });
+        if (option.hasAttribute('selected')) {
+          selectedValues.push(option.value || option.textContent.trim());
+        }
+      });
+
+      this.options = options;
+      if (selectedValues.length > 0 && this.selectedValues.length === 0) {
+        this.selectedValues = selectedValues;
+      }
+    }
   }
 
   disconnectedCallback() {

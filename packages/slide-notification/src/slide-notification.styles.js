@@ -39,6 +39,10 @@ export const slideNotificationStyles = css`
     transform: translateX(calc(var(--_width) + 40px));
   }
 
+  :host([persistent]) {
+    cursor: pointer;
+  }
+
   .title {
     font-weight: 600;
     margin-bottom: 0.25rem;

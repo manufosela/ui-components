@@ -269,4 +269,56 @@ describe('MultiSelect', () => {
       expect(display.textContent).to.include('unknown');
     });
   });
+
+  describe('Declarative options (slots)', () => {
+    it('reads options from child option elements', async () => {
+      const el = await fixture(html`
+        <multi-select>
+          <option value="x">Option X</option>
+          <option value="y">Option Y</option>
+          <option value="z">Option Z</option>
+        </multi-select>
+      `);
+
+      expect(el.options.length).to.equal(3);
+      expect(el.options[0].value).to.equal('x');
+      expect(el.options[0].label).to.equal('Option X');
+    });
+
+    it('reads selected attribute from option elements', async () => {
+      const el = await fixture(html`
+        <multi-select>
+          <option value="a">A</option>
+          <option value="b" selected>B</option>
+          <option value="c" selected>C</option>
+        </multi-select>
+      `);
+
+      expect(el.selectedValues).to.deep.equal(['b', 'c']);
+    });
+
+    it('uses textContent as value if value attribute missing', async () => {
+      const el = await fixture(html`
+        <multi-select>
+          <option>First</option>
+          <option>Second</option>
+        </multi-select>
+      `);
+
+      expect(el.options[0].value).to.equal('First');
+      expect(el.options[1].value).to.equal('Second');
+    });
+
+    it('prefers programmatic options over slot options', async () => {
+      const programmaticOptions = [{ value: 'prog', label: 'Programmatic' }];
+      const el = await fixture(html`
+        <multi-select .options="${programmaticOptions}">
+          <option value="slot">Slot</option>
+        </multi-select>
+      `);
+
+      expect(el.options.length).to.equal(1);
+      expect(el.options[0].value).to.equal('prog');
+    });
+  });
 });
