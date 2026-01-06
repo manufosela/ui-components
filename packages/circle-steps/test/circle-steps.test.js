@@ -7,7 +7,7 @@ describe('CircleSteps', () => {
       const el = await fixture(html`<circle-steps></circle-steps>`);
       expect(el).to.exist;
       expect(el.steps).to.deep.equal([]);
-      expect(el.current).to.equal(0);
+      expect(el.current).to.equal(-1);
       expect(el.orientation).to.equal('horizontal');
       expect(el.clickable).to.be.false;
       expect(el.showNumbers).to.be.true;
@@ -33,8 +33,8 @@ describe('CircleSteps', () => {
       el.steps = [{ label: 'First' }, { label: 'Second' }];
       await el.updateComplete;
       const labels = el.shadowRoot.querySelectorAll('.label');
-      expect(labels[0].textContent).to.equal('First');
-      expect(labels[1].textContent).to.equal('Second');
+      expect(labels[0].textContent.trim()).to.equal('First');
+      expect(labels[1].textContent.trim()).to.equal('Second');
     });
 
     it('renders step descriptions', async () => {
@@ -123,17 +123,17 @@ describe('CircleSteps', () => {
 
   describe('navigation', () => {
     it('next() advances to next step', async () => {
-      const el = await fixture(html`<circle-steps></circle-steps>`);
+      const el = await fixture(html`<circle-steps current="0"></circle-steps>`);
       el.steps = [{ label: 'A' }, { label: 'B' }, { label: 'C' }];
       el.next();
       expect(el.current).to.equal(1);
     });
 
-    it('next() does nothing on last step', async () => {
+    it('next() on last step marks all complete', async () => {
       const el = await fixture(html`<circle-steps current="2"></circle-steps>`);
       el.steps = [{ label: 'A' }, { label: 'B' }, { label: 'C' }];
       el.next();
-      expect(el.current).to.equal(2);
+      expect(el.current).to.equal(3); // 3 = all complete (steps.length)
     });
 
     it('prev() goes to previous step', async () => {
@@ -143,11 +143,11 @@ describe('CircleSteps', () => {
       expect(el.current).to.equal(1);
     });
 
-    it('prev() does nothing on first step', async () => {
+    it('prev() does nothing on not started state', async () => {
       const el = await fixture(html`<circle-steps></circle-steps>`);
       el.steps = [{ label: 'A' }, { label: 'B' }, { label: 'C' }];
       el.prev();
-      expect(el.current).to.equal(0);
+      expect(el.current).to.equal(-1);
     });
 
     it('goToStep() navigates to specific step', async () => {
@@ -160,17 +160,17 @@ describe('CircleSteps', () => {
     it('goToStep() ignores invalid index', async () => {
       const el = await fixture(html`<circle-steps current="1"></circle-steps>`);
       el.steps = [{ label: 'A' }, { label: 'B' }, { label: 'C' }];
-      el.goToStep(-1);
+      el.goToStep(-2);
       expect(el.current).to.equal(1);
       el.goToStep(10);
       expect(el.current).to.equal(1);
     });
 
-    it('reset() returns to first step', async () => {
+    it('reset() returns to not started state', async () => {
       const el = await fixture(html`<circle-steps current="2"></circle-steps>`);
       el.steps = [{ label: 'A' }, { label: 'B' }, { label: 'C' }];
       el.reset();
-      expect(el.current).to.equal(0);
+      expect(el.current).to.equal(-1);
     });
 
     it('fires step-change event on navigation', async () => {
@@ -178,9 +178,9 @@ describe('CircleSteps', () => {
       el.steps = [{ label: 'A' }, { label: 'B' }];
       setTimeout(() => el.next());
       const event = await oneEvent(el, 'step-change');
-      expect(event.detail.oldStep).to.equal(0);
-      expect(event.detail.newStep).to.equal(1);
-      expect(event.detail.step.label).to.equal('B');
+      expect(event.detail.oldStep).to.equal(-1);
+      expect(event.detail.newStep).to.equal(0);
+      expect(event.detail.step.label).to.equal('A');
     });
   });
 
@@ -358,7 +358,7 @@ describe('CircleSteps', () => {
       el.steps = [{}];
       await el.updateComplete;
       const label = el.shadowRoot.querySelector('.label');
-      expect(label.textContent).to.equal('');
+      expect(label.textContent.trim()).to.equal('');
     });
   });
 });
