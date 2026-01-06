@@ -20,6 +20,7 @@ Visit the [live demo](https://manufosela.github.io/ui-components/) to see all co
 | [@manufosela/circle-steps](./packages/circle-steps) | ![npm](https://img.shields.io/npm/v/@manufosela/circle-steps) | Step indicator with circular progress |
 | [@manufosela/click-clock](./packages/click-clock) | ![npm](https://img.shields.io/npm/v/@manufosela/click-clock) | Countdown, stopwatch, and clock |
 | [@manufosela/header-nav](./packages/header-nav) | ![npm](https://img.shields.io/npm/v/@manufosela/header-nav) | Responsive header with hamburger menu |
+| [@manufosela/historical-line](./packages/historical-line) | ![npm](https://img.shields.io/npm/v/@manufosela/historical-line) | Horizontal timeline visualization |
 | [@manufosela/lcd-digit](./packages/lcd-digit) | ![npm](https://img.shields.io/npm/v/@manufosela/lcd-digit) | 7-segment LCD digit display |
 | [@manufosela/loading-layer](./packages/loading-layer) | ![npm](https://img.shields.io/npm/v/@manufosela/loading-layer) | Full-screen loading overlay |
 | [@manufosela/marked-calendar](./packages/marked-calendar) | ![npm](https://img.shields.io/npm/v/@manufosela/marked-calendar) | Calendar for tracking habits/events |
@@ -116,6 +117,7 @@ ui-components/
 │   ├── circle-steps/
 │   ├── click-clock/
 │   ├── header-nav/
+│   ├── historical-line/
 │   ├── lcd-digit/
 │   ├── loading-layer/
 │   ├── marked-calendar/

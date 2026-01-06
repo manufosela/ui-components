@@ -1,0 +1,58 @@
+{
+  "name": "@manufosela/historical-line",
+  "version": "2.0.0",
+  "description": "A horizontal timeline visualization web component for displaying historical data, built with Lit",
+  "license": "MIT",
+  "author": "manufosela",
+  "type": "module",
+  "main": "src/historical-line.js",
+  "module": "src/historical-line.js",
+  "exports": {
+    ".": {
+      "import": "./src/historical-line.js"
+    },
+    "./historical-line.js": {
+      "import": "./src/historical-line.js"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage",
+    "lint": "eslint src test --ext .js",
+    "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/historical-line"
+  },
+  "keywords": [
+    "web-component",
+    "lit",
+    "timeline",
+    "historical",
+    "visualization",
+    "chart",
+    "history",
+    "ui"
+  ],
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/historical-line#readme",
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^4.0.0",
+    "@web/dev-server": "^0.4.6",
+    "@web/test-runner": "^0.19.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.4.2"
+  }
+}
