@@ -195,11 +195,7 @@ export class ModalDialog extends LitElement {
 
   render() {
     return html`
-      <div
-        class="overlay"
-        @click="${this._handleOverlayClick}"
-        role="presentation"
-      >
+      <div class="overlay" @click="${this._handleOverlayClick}" role="presentation">
         <div
           class="modal"
           role="dialog"
@@ -219,7 +215,9 @@ export class ModalDialog extends LitElement {
                           class="close-btn"
                           @click="${this._handleCloseClick}"
                           aria-label="Close modal"
-                        >✕</button>
+                        >
+                          ✕
+                        </button>
                       `
                     : nothing}
                 </div>

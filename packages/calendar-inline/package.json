@@ -2,9 +2,18 @@
   "name": "@manufosela/calendar-inline",
   "version": "2.0.0",
   "description": "Inline calendar web component with horizontal scrolling",
-  "main": "src/calendar-inline.js",
-  "module": "src/calendar-inline.js",
+  "license": "Apache-2.0",
+  "author": "manufosela",
   "type": "module",
+  "main": "./src/calendar-inline.js",
+  "module": "./src/calendar-inline.js",
+  "types": "./src/calendar-inline.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/calendar-inline.d.ts",
+      "import": "./src/calendar-inline.js"
+    }
+  },
   "files": [
     "src"
   ],
@@ -12,7 +21,13 @@
     "start": "web-dev-server --node-resolve --open demo/ --watch",
     "test": "web-test-runner",
     "test:watch": "web-test-runner --watch",
-    "test:coverage": "web-test-runner --coverage"
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/calendar-inline.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/calendar-inline"
   },
   "keywords": [
     "web-components",
@@ -21,19 +36,11 @@
     "date-picker",
     "inline-calendar"
   ],
-  "author": "manufosela",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/manufosela/ui-components",
-    "directory": "packages/calendar-inline"
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/calendar-inline#readme",
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
   },
   "dependencies": {
     "lit": "^3.2.1"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.19.0"
   }
 }

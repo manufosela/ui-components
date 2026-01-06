@@ -30,19 +30,45 @@ export class MarkedCalendar extends LitElement {
     /** Currently selected legend state */
     _selectedState: { type: Number, state: true },
     /** Calendar data */
-    _data: { type: Object, state: true }
+    _data: { type: Object, state: true },
   };
 
   static styles = [MarkedCalendarStyles];
 
   static MONTH_NAMES = {
-    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    en: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ],
+    es: [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
+    ],
   };
 
   static DAY_NAMES = {
     en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    es: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
+    es: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
   };
 
   static DEFAULT_LEGEND = [
@@ -51,7 +77,7 @@ export class MarkedCalendar extends LitElement {
     { code: '#3b82f6', label: '😊', title: 'Good' },
     { code: '#94a3b8', label: '😐', title: 'Okay' },
     { code: '#f59e0b', label: '😕', title: 'Meh' },
-    { code: '#ef4444', label: '😢', title: 'Bad' }
+    { code: '#ef4444', label: '😢', title: 'Bad' },
   ];
 
   constructor() {
@@ -87,20 +113,20 @@ export class MarkedCalendar extends LitElement {
     if (legendItems.length > 0) {
       this._legend = [
         { code: '#FFFFFF', label: '✕', title: 'Clear' },
-        ...legendItems.map(item => ({
+        ...legendItems.map((item) => ({
           code: item.getAttribute('code') || '#ccc',
           label: item.getAttribute('label') || '•',
-          title: item.textContent.trim()
-        }))
+          title: item.textContent.trim(),
+        })),
       ];
     }
   }
 
   _loadHolidaysFromLightDom() {
     const holidayItems = [...this.querySelectorAll('#holidays li')];
-    this._holidays = holidayItems.map(item => ({
+    this._holidays = holidayItems.map((item) => ({
       date: item.textContent.trim(),
-      title: item.getAttribute('title') || 'Holiday'
+      title: item.getAttribute('title') || 'Holiday',
     }));
   }
 
@@ -137,7 +163,7 @@ export class MarkedCalendar extends LitElement {
 
   _isHoliday(month, day) {
     const dateStr = `${day}/${month + 1}`;
-    return this._holidays.find(h => h.date === dateStr);
+    return this._holidays.find((h) => h.date === dateStr);
   }
 
   _getDayValue(year, month, day) {
@@ -154,11 +180,13 @@ export class MarkedCalendar extends LitElement {
     this._saveData();
     this.requestUpdate();
 
-    this.dispatchEvent(new CustomEvent('marked-calendar-change', {
-      detail: { year, month, day, value },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('marked-calendar-change', {
+        detail: { year, month, day, value },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _handleDayClick(year, month, day) {
@@ -213,11 +241,13 @@ export class MarkedCalendar extends LitElement {
   }
 
   _dispatchViewChange() {
-    this.dispatchEvent(new CustomEvent('marked-calendar-view-change', {
-      detail: { view: this.view, year: this.year, month: this.month },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('marked-calendar-view-change', {
+        detail: { view: this.view, year: this.year, month: this.month },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _renderLegend() {
@@ -225,18 +255,20 @@ export class MarkedCalendar extends LitElement {
       <div class="legend">
         <div class="legend-title">${this.saveData ? 'Select:' : 'Legend:'}</div>
         <div class="legend-items">
-          ${this._legend.map((item, index) => html`
-            <button
-              class="legend-item ${this._selectedState === index ? 'selected' : ''}"
-              style="--item-color: ${item.code}"
-              title="${item.title}"
-              @click="${() => this._handleLegendClick(index)}"
-              ?disabled="${!this.saveData}"
-            >
-              <span class="legend-color"></span>
-              <span class="legend-label">${item.label}</span>
-            </button>
-          `)}
+          ${this._legend.map(
+            (item, index) => html`
+              <button
+                class="legend-item ${this._selectedState === index ? 'selected' : ''}"
+                style="--item-color: ${item.code}"
+                title="${item.title}"
+                @click="${() => this._handleLegendClick(index)}"
+                ?disabled="${!this.saveData}"
+              >
+                <span class="legend-color"></span>
+                <span class="legend-label">${item.label}</span>
+              </button>
+            `
+          )}
         </div>
       </div>
     `;
@@ -250,14 +282,26 @@ export class MarkedCalendar extends LitElement {
 
     return html`
       <nav class="navigation">
-        <button class="nav-btn" @click="${() => isYear ? this._changeYear(-1) : this._changeMonth(-1)}">‹</button>
+        <button
+          class="nav-btn"
+          @click="${() => (isYear ? this._changeYear(-1) : this._changeMonth(-1))}"
+        >
+          ‹
+        </button>
         <span class="nav-title">${title}</span>
-        <button class="nav-btn" @click="${() => isYear ? this._changeYear(1) : this._changeMonth(1)}">›</button>
-        ${this.changeView ? html`
-          <button class="nav-btn view-btn" @click="${this._toggleView}">
-            ${isYear ? '📅' : '📆'}
-          </button>
-        ` : ''}
+        <button
+          class="nav-btn"
+          @click="${() => (isYear ? this._changeYear(1) : this._changeMonth(1))}"
+        >
+          ›
+        </button>
+        ${this.changeView
+          ? html`
+              <button class="nav-btn view-btn" @click="${this._toggleView}">
+                ${isYear ? '📅' : '📆'}
+              </button>
+            `
+          : ''}
       </nav>
     `;
   }
@@ -299,9 +343,7 @@ export class MarkedCalendar extends LitElement {
     return html`
       <div class="year-view">
         <div class="days-header">
-          ${Array.from({ length: 31 }, (_, i) => html`
-            <div class="day-number">${i + 1}</div>
-          `)}
+          ${Array.from({ length: 31 }, (_, i) => html` <div class="day-number">${i + 1}</div> `)}
         </div>
         <div class="months-container">
           ${Array.from({ length: 12 }, (_, monthIndex) => {
@@ -351,13 +393,11 @@ export class MarkedCalendar extends LitElement {
     return html`
       <div class="month-view">
         <div class="weekday-header">
-          ${MarkedCalendar.DAY_NAMES[this.lang].map(name => html`
-            <div class="weekday">${name}</div>
-          `)}
+          ${MarkedCalendar.DAY_NAMES[this.lang].map(
+            (name) => html` <div class="weekday">${name}</div> `
+          )}
         </div>
-        <div class="month-grid">
-          ${days}
-        </div>
+        <div class="month-grid">${days}</div>
       </div>
     `;
   }
@@ -366,8 +406,7 @@ export class MarkedCalendar extends LitElement {
     return html`
       <div class="calendar">
         <h2 class="title">${this.name}</h2>
-        ${this._renderLegend()}
-        ${this._renderNavigation()}
+        ${this._renderLegend()} ${this._renderNavigation()}
         ${this.view === 'year' ? this._renderYearView() : this._renderMonthView()}
       </div>
     `;

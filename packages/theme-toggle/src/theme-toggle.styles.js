@@ -50,21 +50,21 @@ export const themeToggleStyles = css`
   }
 
   /* Dark mode styles */
-  :host([theme="dark"]) .theme-toggle {
+  :host([theme='dark']) .theme-toggle {
     background: var(--theme-toggle-dark-bg, #374151);
     border-color: var(--theme-toggle-dark-border, #4b5563);
   }
 
-  :host([theme="dark"]) label {
+  :host([theme='dark']) label {
     color: var(--theme-toggle-dark-icon-color, #9ca3af);
   }
 
-  :host([theme="dark"]) label.active {
+  :host([theme='dark']) label.active {
     background: var(--theme-toggle-dark-active-bg, #4b5563);
     color: var(--theme-toggle-dark-active-color, #f9fafb);
   }
 
-  :host([theme="dark"]) label:hover {
+  :host([theme='dark']) label:hover {
     background: var(--theme-toggle-dark-hover-bg, rgba(255, 255, 255, 0.05));
   }
 `;

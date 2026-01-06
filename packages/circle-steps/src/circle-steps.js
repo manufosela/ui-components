@@ -30,8 +30,8 @@ export class CircleSteps extends LitElement {
           } catch {
             return [];
           }
-        }
-      }
+        },
+      },
     },
     /** Current step index (0-based) */
     current: { type: Number, reflect: true },
@@ -48,7 +48,7 @@ export class CircleSteps extends LitElement {
     /** Hide checkmarks (declarative alternative) */
     hideCheck: { type: Boolean, attribute: 'hide-check' },
     /** Size variant: small, medium, large */
-    size: { type: String }
+    size: { type: String },
   };
 
   static styles = css`
@@ -138,13 +138,13 @@ export class CircleSteps extends LitElement {
       border: 2px solid transparent;
     }
 
-    :host([size="small"]) .circle {
+    :host([size='small']) .circle {
       width: 28px;
       height: 28px;
       font-size: 0.75rem;
     }
 
-    :host([size="large"]) .circle {
+    :host([size='large']) .circle {
       width: 56px;
       height: 56px;
       font-size: 1rem;
@@ -213,12 +213,12 @@ export class CircleSteps extends LitElement {
       height: 20px;
     }
 
-    :host([size="small"]) .check-icon {
+    :host([size='small']) .check-icon {
       width: 14px;
       height: 14px;
     }
 
-    :host([size="large"]) .check-icon {
+    :host([size='large']) .check-icon {
       width: 28px;
       height: 28px;
     }
@@ -254,9 +254,9 @@ export class CircleSteps extends LitElement {
   _parseSlottedContent() {
     const stepElements = this.querySelectorAll('step-item');
     if (stepElements.length > 0) {
-      this.steps = Array.from(stepElements).map(el => ({
+      this.steps = Array.from(stepElements).map((el) => ({
         label: el.getAttribute('label') || el.textContent.trim() || '',
-        description: el.getAttribute('description') || ''
+        description: el.getAttribute('description') || '',
       }));
     }
   }
@@ -272,11 +272,13 @@ export class CircleSteps extends LitElement {
       this.goToStep(index);
     }
 
-    this.dispatchEvent(new CustomEvent('step-click', {
-      detail: { index, step: this.steps[index] },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('step-click', {
+        detail: { index, step: this.steps[index] },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _handleKeydown(e, index) {
@@ -296,17 +298,19 @@ export class CircleSteps extends LitElement {
 
     this.current = index;
 
-    this.dispatchEvent(new CustomEvent('step-change', {
-      detail: {
-        oldStep: oldCurrent,
-        newStep: index,
-        step: index >= 0 && index < this.steps.length ? this.steps[index] : null,
-        isComplete: index === this.steps.length,
-        isNotStarted: index === -1
-      },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('step-change', {
+        detail: {
+          oldStep: oldCurrent,
+          newStep: index,
+          step: index >= 0 && index < this.steps.length ? this.steps[index] : null,
+          isComplete: index === this.steps.length,
+          isNotStarted: index === -1,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   /** Go to next step (or complete all if on last step) */
@@ -353,8 +357,14 @@ export class CircleSteps extends LitElement {
 
   _renderCheckIcon() {
     return html`
-      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-        <path d="M5 12l5 5L19 7"/>
+      <svg
+        class="check-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3"
+      >
+        <path d="M5 12l5 5L19 7" />
       </svg>
     `;
   }
@@ -386,9 +396,14 @@ export class CircleSteps extends LitElement {
           return html`
             <div class="step">
               <div class="circle-wrapper">
-                ${!isVertical ? html`<div class="line ${isPrevComplete || isComplete ? 'complete' : ''}"></div>` : ''}
+                ${!isVertical
+                  ? html`<div class="line ${isPrevComplete || isComplete ? 'complete' : ''}"></div>`
+                  : ''}
                 <div
-                  class="circle ${isActive ? 'active' : ''} ${isComplete ? 'complete' : ''} ${this.clickable ? 'clickable' : ''}"
+                  class="circle ${isActive ? 'active' : ''} ${isComplete ? 'complete' : ''} ${this
+                    .clickable
+                    ? 'clickable'
+                    : ''}"
                   role="${this.clickable ? 'button' : 'presentation'}"
                   tabindex="${this.clickable ? 0 : -1}"
                   aria-current="${isActive ? 'step' : 'false'}"
@@ -399,13 +414,17 @@ export class CircleSteps extends LitElement {
                 </div>
                 ${!isVertical ? html`<div class="line ${isComplete ? 'complete' : ''}"></div>` : ''}
               </div>
-              ${isVertical && index < this.steps.length - 1 ? html`
-                <div class="circle-wrapper">
-                  <div class="line ${isComplete ? 'complete' : ''}"></div>
-                </div>
-              ` : ''}
+              ${isVertical && index < this.steps.length - 1
+                ? html`
+                    <div class="circle-wrapper">
+                      <div class="line ${isComplete ? 'complete' : ''}"></div>
+                    </div>
+                  `
+                : ''}
               <div class="content">
-                <div class="label ${isActive ? 'active' : ''} ${isComplete ? 'complete' : ''}">${step.label || ''}</div>
+                <div class="label ${isActive ? 'active' : ''} ${isComplete ? 'complete' : ''}">
+                  ${step.label || ''}
+                </div>
                 ${step.description ? html`<div class="description">${step.description}</div>` : ''}
               </div>
             </div>

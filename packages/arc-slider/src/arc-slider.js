@@ -221,7 +221,10 @@ export class ArcSlider extends LitElement {
   }
 
   static rgbToHex({ r, g, b }) {
-    return `#${[r, g, b].map(v => v.toString(16).padStart(2, '0')).join('').toUpperCase()}`;
+    return `#${[r, g, b]
+      .map((v) => v.toString(16).padStart(2, '0'))
+      .join('')
+      .toUpperCase()}`;
   }
 
   static calculateGradientColors(color1, color2, numSteps = 4) {
@@ -243,6 +246,7 @@ export class ArcSlider extends LitElement {
       const rgb2 = ArcSlider.hexToRgb(this.color2);
       this._colorStops = ArcSlider.calculateGradientColors(rgb1, rgb2);
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.warn('ArcSlider: Invalid color format, using defaults', e);
       const rgb1 = ArcSlider.hexToRgb('#FF1122');
       const rgb2 = ArcSlider.hexToRgb('#1122FF');
@@ -257,7 +261,10 @@ export class ArcSlider extends LitElement {
   _getThumbColor() {
     if (!this._colorStops || this._colorStops.length === 0) return '#ffffff';
 
-    const progress = Math.max(0, Math.min(1, (this.arcValue - this.minRange) / (this.maxRange - this.minRange)));
+    const progress = Math.max(
+      0,
+      Math.min(1, (this.arcValue - this.minRange) / (this.maxRange - this.minRange))
+    );
     const index = (this._colorStops.length - 1) * progress;
     const startIndex = Math.floor(index);
     const endIndex = Math.min(Math.ceil(index), this._colorStops.length - 1);
@@ -365,11 +372,14 @@ export class ArcSlider extends LitElement {
           @pointerdown=${this._handlePointerDown}
         >
           <defs>
-            <linearGradient id="arc-gradient-${this._uniqueId}" gradientUnits="userSpaceOnUse"
+            <linearGradient
+              id="arc-gradient-${this._uniqueId}"
+              gradientUnits="userSpaceOnUse"
               x1="${this._getPointOnArc(this.startAngle).x}"
               y1="${this._getPointOnArc(this.startAngle).y}"
               x2="${this._getPointOnArc(this.endAngle).x}"
-              y2="${this._getPointOnArc(this.endAngle).y}">
+              y2="${this._getPointOnArc(this.endAngle).y}"
+            >
               ${this._renderGradientStops()}
             </linearGradient>
           </defs>

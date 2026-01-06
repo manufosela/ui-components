@@ -3,26 +3,34 @@ import { LitElement, html, css } from 'lit';
 // Minimal QR Code Generator (based on qrcode-generator by Kazuhiko Arase)
 // Simplified for basic text encoding
 const QRCode = (() => {
-  const PAD0 = 0xEC, PAD1 = 0x11;
+  const PAD0 = 0xec,
+    PAD1 = 0x11;
 
   const QRMath = {
     _EXP_TABLE: new Array(256),
     _LOG_TABLE: new Array(256),
-    glog(n) { return this._LOG_TABLE[n]; },
+    glog(n) {
+      return this._LOG_TABLE[n];
+    },
     gexp(n) {
       let e = n;
       while (e < 0) e += 255;
       while (e >= 256) e -= 255;
       return this._EXP_TABLE[e];
-    }
+    },
   };
 
   // Initialize math tables
   for (let i = 0; i < 8; i++) QRMath._EXP_TABLE[i] = 1 << i;
-  for (let i = 8; i < 256; i++) QRMath._EXP_TABLE[i] = QRMath._EXP_TABLE[i - 4] ^ QRMath._EXP_TABLE[i - 5] ^ QRMath._EXP_TABLE[i - 6] ^ QRMath._EXP_TABLE[i - 8];
+  for (let i = 8; i < 256; i++)
+    QRMath._EXP_TABLE[i] =
+      QRMath._EXP_TABLE[i - 4] ^
+      QRMath._EXP_TABLE[i - 5] ^
+      QRMath._EXP_TABLE[i - 6] ^
+      QRMath._EXP_TABLE[i - 8];
   for (let i = 0; i < 255; i++) QRMath._LOG_TABLE[QRMath._EXP_TABLE[i]] = i;
 
-  const QRPolynomial = function(num, shift) {
+  const QRPolynomial = function (num, shift) {
     let offset = 0;
     while (offset < num.length && num[offset] === 0) offset++;
     this.num = new Array(num.length - offset + shift);
@@ -30,8 +38,12 @@ const QRCode = (() => {
   };
 
   QRPolynomial.prototype = {
-    get(index) { return this.num[index]; },
-    getLength() { return this.num.length; },
+    get(index) {
+      return this.num[index];
+    },
+    getLength() {
+      return this.num.length;
+    },
     multiply(e) {
       const num = new Array(this.getLength() + e.getLength() - 1);
       for (let i = 0; i < this.getLength(); i++)
@@ -46,37 +58,75 @@ const QRCode = (() => {
       for (let i = 0; i < this.getLength(); i++) num[i] = this.get(i);
       for (let i = 0; i < e.getLength(); i++) num[i] ^= QRMath.gexp(QRMath.glog(e.get(i)) + ratio);
       return new QRPolynomial(num, 0).mod(e);
-    }
+    },
   };
 
   const QRUtil = {
     PATTERN_POSITION_TABLE: [
-      [], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34],
-      [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50], [6, 30, 54],
-      [6, 32, 58], [6, 34, 62], [6, 26, 46, 66], [6, 26, 48, 70],
-      [6, 26, 50, 74], [6, 30, 54, 78], [6, 30, 56, 82], [6, 30, 58, 86],
-      [6, 34, 62, 90], [6, 28, 50, 72, 94], [6, 26, 50, 74, 98],
-      [6, 30, 54, 78, 102], [6, 28, 54, 80, 106], [6, 32, 58, 84, 110],
-      [6, 30, 58, 86, 114], [6, 34, 62, 90, 118], [6, 26, 50, 74, 98, 122],
-      [6, 30, 54, 78, 102, 126], [6, 26, 52, 78, 104, 130],
-      [6, 30, 56, 82, 108, 134], [6, 34, 60, 86, 112, 138],
-      [6, 30, 58, 86, 114, 142], [6, 34, 62, 90, 118, 146],
-      [6, 30, 54, 78, 102, 126, 150], [6, 24, 50, 76, 102, 128, 154],
-      [6, 28, 54, 80, 106, 132, 158], [6, 32, 58, 84, 110, 136, 162],
-      [6, 26, 54, 82, 110, 138, 166], [6, 30, 58, 86, 114, 142, 170]
+      [],
+      [6, 18],
+      [6, 22],
+      [6, 26],
+      [6, 30],
+      [6, 34],
+      [6, 22, 38],
+      [6, 24, 42],
+      [6, 26, 46],
+      [6, 28, 50],
+      [6, 30, 54],
+      [6, 32, 58],
+      [6, 34, 62],
+      [6, 26, 46, 66],
+      [6, 26, 48, 70],
+      [6, 26, 50, 74],
+      [6, 30, 54, 78],
+      [6, 30, 56, 82],
+      [6, 30, 58, 86],
+      [6, 34, 62, 90],
+      [6, 28, 50, 72, 94],
+      [6, 26, 50, 74, 98],
+      [6, 30, 54, 78, 102],
+      [6, 28, 54, 80, 106],
+      [6, 32, 58, 84, 110],
+      [6, 30, 58, 86, 114],
+      [6, 34, 62, 90, 118],
+      [6, 26, 50, 74, 98, 122],
+      [6, 30, 54, 78, 102, 126],
+      [6, 26, 52, 78, 104, 130],
+      [6, 30, 56, 82, 108, 134],
+      [6, 34, 60, 86, 112, 138],
+      [6, 30, 58, 86, 114, 142],
+      [6, 34, 62, 90, 118, 146],
+      [6, 30, 54, 78, 102, 126, 150],
+      [6, 24, 50, 76, 102, 128, 154],
+      [6, 28, 54, 80, 106, 132, 158],
+      [6, 32, 58, 84, 110, 136, 162],
+      [6, 26, 54, 82, 110, 138, 166],
+      [6, 30, 58, 86, 114, 142, 170],
     ],
-    getPatternPosition(typeNumber) { return this.PATTERN_POSITION_TABLE[typeNumber - 1]; },
+    getPatternPosition(typeNumber) {
+      return this.PATTERN_POSITION_TABLE[typeNumber - 1];
+    },
     getMask(maskPattern, i, j) {
       switch (maskPattern) {
-        case 0: return (i + j) % 2 === 0;
-        case 1: return i % 2 === 0;
-        case 2: return j % 3 === 0;
-        case 3: return (i + j) % 3 === 0;
-        case 4: return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 === 0;
-        case 5: return (i * j) % 2 + (i * j) % 3 === 0;
-        case 6: return ((i * j) % 2 + (i * j) % 3) % 2 === 0;
-        case 7: return ((i * j) % 3 + (i + j) % 2) % 2 === 0;
-        default: throw new Error('bad maskPattern:' + maskPattern);
+        case 0:
+          return (i + j) % 2 === 0;
+        case 1:
+          return i % 2 === 0;
+        case 2:
+          return j % 3 === 0;
+        case 3:
+          return (i + j) % 3 === 0;
+        case 4:
+          return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 === 0;
+        case 5:
+          return ((i * j) % 2) + ((i * j) % 3) === 0;
+        case 6:
+          return (((i * j) % 2) + ((i * j) % 3)) % 2 === 0;
+        case 7:
+          return (((i * j) % 3) + ((i + j) % 2)) % 2 === 0;
+        default:
+          throw new Error('bad maskPattern:' + maskPattern);
       }
     },
     getErrorCorrectPolynomial(errorCorrectLength) {
@@ -88,33 +138,66 @@ const QRCode = (() => {
     getBCHTypeInfo(data) {
       let d = data << 10;
       while (this.getBCHDigit(d) - this.getBCHDigit(1335) >= 0)
-        d ^= (1335 << (this.getBCHDigit(d) - this.getBCHDigit(1335)));
+        d ^= 1335 << (this.getBCHDigit(d) - this.getBCHDigit(1335));
       return ((data << 10) | d) ^ 21522;
     },
     getBCHTypeNumber(data) {
       let d = data << 12;
       while (this.getBCHDigit(d) - this.getBCHDigit(7973) >= 0)
-        d ^= (7973 << (this.getBCHDigit(d) - this.getBCHDigit(7973)));
+        d ^= 7973 << (this.getBCHDigit(d) - this.getBCHDigit(7973));
       return (data << 12) | d;
     },
     getBCHDigit(data) {
       let digit = 0;
-      while (data !== 0) { digit++; data >>>= 1; }
+      while (data !== 0) {
+        digit++;
+        data >>>= 1;
+      }
       return digit;
-    }
+    },
   };
 
   const RS_BLOCK_TABLE = [
-    [1, 26, 19], [1, 26, 16], [1, 26, 13], [1, 26, 9],
-    [1, 44, 34], [1, 44, 28], [1, 44, 22], [1, 44, 16],
-    [1, 70, 55], [1, 70, 44], [2, 35, 17], [2, 35, 13],
-    [1, 100, 80], [2, 50, 32], [2, 50, 24], [4, 25, 9],
-    [1, 134, 108], [2, 67, 43], [2, 33, 15, 2, 34, 16], [2, 33, 11, 2, 34, 12],
-    [2, 86, 68], [4, 43, 27], [4, 43, 19], [4, 43, 15],
-    [2, 98, 78], [4, 49, 31], [2, 32, 14, 4, 33, 15], [4, 39, 13, 1, 40, 14],
-    [2, 121, 97], [2, 60, 38, 2, 61, 39], [4, 40, 18, 2, 41, 19], [4, 40, 14, 2, 41, 15],
-    [2, 146, 116], [3, 58, 36, 2, 59, 37], [4, 36, 16, 4, 37, 17], [4, 36, 12, 4, 37, 13],
-    [2, 86, 68, 2, 87, 69], [4, 69, 43, 1, 70, 44], [6, 43, 19, 2, 44, 20], [6, 43, 15, 2, 44, 16]
+    [1, 26, 19],
+    [1, 26, 16],
+    [1, 26, 13],
+    [1, 26, 9],
+    [1, 44, 34],
+    [1, 44, 28],
+    [1, 44, 22],
+    [1, 44, 16],
+    [1, 70, 55],
+    [1, 70, 44],
+    [2, 35, 17],
+    [2, 35, 13],
+    [1, 100, 80],
+    [2, 50, 32],
+    [2, 50, 24],
+    [4, 25, 9],
+    [1, 134, 108],
+    [2, 67, 43],
+    [2, 33, 15, 2, 34, 16],
+    [2, 33, 11, 2, 34, 12],
+    [2, 86, 68],
+    [4, 43, 27],
+    [4, 43, 19],
+    [4, 43, 15],
+    [2, 98, 78],
+    [4, 49, 31],
+    [2, 32, 14, 4, 33, 15],
+    [4, 39, 13, 1, 40, 14],
+    [2, 121, 97],
+    [2, 60, 38, 2, 61, 39],
+    [4, 40, 18, 2, 41, 19],
+    [4, 40, 14, 2, 41, 15],
+    [2, 146, 116],
+    [3, 58, 36, 2, 59, 37],
+    [4, 36, 16, 4, 37, 17],
+    [4, 36, 12, 4, 37, 13],
+    [2, 86, 68, 2, 87, 69],
+    [4, 69, 43, 1, 70, 44],
+    [6, 43, 19, 2, 44, 20],
+    [6, 43, 15, 2, 44, 16],
   ];
 
   function QRCode(typeNumber, errorCorrectLevel) {
@@ -127,7 +210,9 @@ const QRCode = (() => {
   }
 
   QRCode.prototype = {
-    addData(data) { this.dataList.push({ mode: 4, data }); },
+    addData(data) {
+      this.dataList.push({ mode: 4, data });
+    },
     make() {
       if (this.typeNumber < 1) {
         let typeNumber = 1;
@@ -150,8 +235,7 @@ const QRCode = (() => {
       this.makeImpl(false, this.getBestMaskPattern());
     },
     putData(buffer, data, length) {
-      for (let i = length - 1; i >= 0; i--)
-        buffer.buffer.push((data >>> i) & 1);
+      for (let i = length - 1; i >= 0; i--) buffer.buffer.push((data >>> i) & 1);
       buffer.length += length;
     },
     getLengthInBits(mode, type) {
@@ -193,9 +277,11 @@ const QRCode = (() => {
         if (row + r <= -1 || this.moduleCount <= row + r) continue;
         for (let c = -1; c <= 7; c++) {
           if (col + c <= -1 || this.moduleCount <= col + c) continue;
-          if ((0 <= r && r <= 6 && (c === 0 || c === 6)) ||
-              (0 <= c && c <= 6 && (r === 0 || r === 6)) ||
-              (2 <= r && r <= 4 && 2 <= c && c <= 4)) {
+          if (
+            (0 <= r && r <= 6 && (c === 0 || c === 6)) ||
+            (0 <= c && c <= 6 && (r === 0 || r === 6)) ||
+            (2 <= r && r <= 4 && 2 <= c && c <= 4)
+          ) {
             this.modules[row + r][col + c] = true;
           } else {
             this.modules[row + r][col + c] = false;
@@ -207,7 +293,8 @@ const QRCode = (() => {
       const pos = QRUtil.getPatternPosition(this.typeNumber);
       for (let i = 0; i < pos.length; i++) {
         for (let j = 0; j < pos.length; j++) {
-          const row = pos[i], col = pos[j];
+          const row = pos[i],
+            col = pos[j];
           if (this.modules[row][col] !== null) continue;
           for (let r = -2; r <= 2; r++) {
             for (let c = -2; c <= 2; c++) {
@@ -224,39 +311,39 @@ const QRCode = (() => {
     setupTimingPattern() {
       for (let r = 8; r < this.moduleCount - 8; r++) {
         if (this.modules[r][6] !== null) continue;
-        this.modules[r][6] = (r % 2 === 0);
+        this.modules[r][6] = r % 2 === 0;
       }
       for (let c = 8; c < this.moduleCount - 8; c++) {
         if (this.modules[6][c] !== null) continue;
-        this.modules[6][c] = (c % 2 === 0);
+        this.modules[6][c] = c % 2 === 0;
       }
     },
     setupTypeInfo(test, maskPattern) {
       const data = (this.errorCorrectLevel << 3) | maskPattern;
       const bits = QRUtil.getBCHTypeInfo(data);
       for (let i = 0; i < 15; i++) {
-        const mod = (!test && ((bits >> i) & 1) === 1);
+        const mod = !test && ((bits >> i) & 1) === 1;
         if (i < 6) this.modules[i][8] = mod;
         else if (i < 8) this.modules[i + 1][8] = mod;
         else this.modules[this.moduleCount - 15 + i][8] = mod;
       }
       for (let i = 0; i < 15; i++) {
-        const mod = (!test && ((bits >> i) & 1) === 1);
+        const mod = !test && ((bits >> i) & 1) === 1;
         if (i < 8) this.modules[8][this.moduleCount - i - 1] = mod;
         else if (i < 9) this.modules[8][15 - i - 1 + 1] = mod;
         else this.modules[8][15 - i - 1] = mod;
       }
-      this.modules[this.moduleCount - 8][8] = (!test);
+      this.modules[this.moduleCount - 8][8] = !test;
     },
     setupTypeNumber(test) {
       const bits = QRUtil.getBCHTypeNumber(this.typeNumber);
       for (let i = 0; i < 18; i++) {
-        const mod = (!test && ((bits >> i) & 1) === 1);
-        this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
+        const mod = !test && ((bits >> i) & 1) === 1;
+        this.modules[Math.floor(i / 3)][(i % 3) + this.moduleCount - 8 - 3] = mod;
       }
       for (let i = 0; i < 18; i++) {
-        const mod = (!test && ((bits >> i) & 1) === 1);
-        this.modules[i % 3 + this.moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
+        const mod = !test && ((bits >> i) & 1) === 1;
+        this.modules[(i % 3) + this.moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
       }
     },
     createData(typeNumber, errorCorrectLevel, dataList) {
@@ -266,8 +353,7 @@ const QRCode = (() => {
         const data = dataList[i];
         this.putData(buffer, 4, 4);
         this.putData(buffer, data.data.length, this.getLengthInBits(4, typeNumber));
-        for (let j = 0; j < data.data.length; j++)
-          this.putData(buffer, data.data.charCodeAt(j), 8);
+        for (let j = 0; j < data.data.length; j++) this.putData(buffer, data.data.charCodeAt(j), 8);
       }
       let totalDataCount = 0;
       for (let i = 0; i < rsBlocks.length; i++) totalDataCount += rsBlocks[i].dataCount;
@@ -275,6 +361,7 @@ const QRCode = (() => {
         throw new Error('code length overflow. (' + buffer.length + '>' + totalDataCount * 8 + ')');
       if (buffer.length + 4 <= totalDataCount * 8) this.putData(buffer, 0, 4);
       while (buffer.length % 8 !== 0) this.putData(buffer, 0, 1);
+      // eslint-disable-next-line no-constant-condition
       while (true) {
         if (buffer.length >= totalDataCount * 8) break;
         this.putData(buffer, PAD0, 8);
@@ -285,7 +372,8 @@ const QRCode = (() => {
     },
     createBytes(buffer, rsBlocks) {
       let offset = 0;
-      let maxDcCount = 0, maxEcCount = 0;
+      let maxDcCount = 0,
+        maxEcCount = 0;
       const dcdata = new Array(rsBlocks.length);
       const ecdata = new Array(rsBlocks.length);
       for (let r = 0; r < rsBlocks.length; r++) {
@@ -303,7 +391,7 @@ const QRCode = (() => {
         ecdata[r] = new Array(rsPoly.getLength() - 1);
         for (let i = 0; i < ecdata[r].length; i++) {
           const modIndex = i + modPoly.getLength() - ecdata[r].length;
-          ecdata[r][i] = (modIndex >= 0) ? modPoly.get(modIndex) : 0;
+          ecdata[r][i] = modIndex >= 0 ? modPoly.get(modIndex) : 0;
         }
       }
       let totalCodeCount = 0;
@@ -324,31 +412,46 @@ const QRCode = (() => {
       return value;
     },
     mapData(data, maskPattern) {
-      let inc = -1, row = this.moduleCount - 1, bitIndex = 7, byteIndex = 0;
+      let inc = -1,
+        row = this.moduleCount - 1,
+        bitIndex = 7,
+        byteIndex = 0;
       for (let col = this.moduleCount - 1; col > 0; col -= 2) {
         if (col === 6) col--;
+        // eslint-disable-next-line no-constant-condition
         while (true) {
           for (let c = 0; c < 2; c++) {
             if (this.modules[row][col - c] === null) {
               let dark = false;
-              if (byteIndex < data.length) dark = (((data[byteIndex] >>> bitIndex) & 1) === 1);
+              if (byteIndex < data.length) dark = ((data[byteIndex] >>> bitIndex) & 1) === 1;
               if (QRUtil.getMask(maskPattern, row, col - c)) dark = !dark;
               this.modules[row][col - c] = dark;
               bitIndex--;
-              if (bitIndex === -1) { byteIndex++; bitIndex = 7; }
+              if (bitIndex === -1) {
+                byteIndex++;
+                bitIndex = 7;
+              }
             }
           }
           row += inc;
-          if (row < 0 || this.moduleCount <= row) { row -= inc; inc = -inc; break; }
+          if (row < 0 || this.moduleCount <= row) {
+            row -= inc;
+            inc = -inc;
+            break;
+          }
         }
       }
     },
     getBestMaskPattern() {
-      let minLostPoint = 0, pattern = 0;
+      let minLostPoint = 0,
+        pattern = 0;
       for (let i = 0; i < 8; i++) {
         this.makeImpl(true, i);
         const lostPoint = this.getLostPoint();
-        if (i === 0 || minLostPoint > lostPoint) { minLostPoint = lostPoint; pattern = i; }
+        if (i === 0 || minLostPoint > lostPoint) {
+          minLostPoint = lostPoint;
+          pattern = i;
+        }
       }
       return pattern;
     },
@@ -366,13 +469,17 @@ const QRCode = (() => {
               if (dark === this.modules[row + r][col + c]) sameCount++;
             }
           }
-          if (sameCount > 5) lostPoint += (3 + sameCount - 5);
+          if (sameCount > 5) lostPoint += 3 + sameCount - 5;
         }
       }
       return lostPoint;
     },
-    isDark(row, col) { return this.modules[row][col]; },
-    getModuleCount() { return this.moduleCount; }
+    isDark(row, col) {
+      return this.modules[row][col];
+    },
+    getModuleCount() {
+      return this.moduleCount;
+    },
   };
 
   return QRCode;
@@ -397,7 +504,7 @@ export class QrCode extends LitElement {
     /** Foreground color */
     color: { type: String },
     /** Background color */
-    background: { type: String }
+    background: { type: String },
   };
 
   static styles = css`
@@ -433,11 +540,13 @@ export class QrCode extends LitElement {
   }
 
   updated(changedProperties) {
-    if (changedProperties.has('data') ||
-        changedProperties.has('size') ||
-        changedProperties.has('errorCorrection') ||
-        changedProperties.has('color') ||
-        changedProperties.has('background')) {
+    if (
+      changedProperties.has('data') ||
+      changedProperties.has('size') ||
+      changedProperties.has('errorCorrection') ||
+      changedProperties.has('color') ||
+      changedProperties.has('background')
+    ) {
       this._generateQR();
     }
   }
@@ -472,16 +581,12 @@ export class QrCode extends LitElement {
       for (let row = 0; row < moduleCount; row++) {
         for (let col = 0; col < moduleCount; col++) {
           if (qr.isDark(row, col)) {
-            ctx.fillRect(
-              col * cellSize,
-              row * cellSize,
-              cellSize,
-              cellSize
-            );
+            ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
           }
         }
       }
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error('QR generation error:', e);
     }
   }
@@ -506,10 +611,7 @@ export class QrCode extends LitElement {
   render() {
     return html`
       <div class="qr-container" style="--qr-size: ${this.size}px">
-        ${this.data
-          ? html`<canvas></canvas>`
-          : html`<div class="error">No data to encode</div>`
-        }
+        ${this.data ? html`<canvas></canvas>` : html`<div class="error">No data to encode</div>`}
       </div>
     `;
   }

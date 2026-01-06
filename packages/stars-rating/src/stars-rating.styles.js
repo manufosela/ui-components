@@ -21,7 +21,9 @@ export const starsRatingStyles = css`
     cursor: default;
     font-size: var(--stars-rating-size, 24px);
     color: var(--stars-rating-empty-color, #e5e7eb);
-    transition: color 0.15s ease, transform 0.15s ease;
+    transition:
+      color 0.15s ease,
+      transform 0.15s ease;
   }
 
   :host([manual]) .star {

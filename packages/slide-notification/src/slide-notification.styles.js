@@ -21,7 +21,9 @@ export const slideNotificationStyles = css`
     font-size: 1rem;
     font-weight: 500;
     opacity: 0;
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition:
+      transform 0.5s ease-in-out,
+      opacity 0.5s ease-in-out;
     transform: translateX(0);
     z-index: var(--slide-notification-z-index, 10000);
     display: flex;

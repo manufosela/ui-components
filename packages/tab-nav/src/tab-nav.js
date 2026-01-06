@@ -15,7 +15,7 @@ export class TabPanel extends LitElement {
     /** Icon (optional, displayed before label) */
     icon: { type: String },
     /** Internal: whether panel is active */
-    _active: { state: true }
+    _active: { state: true },
   };
 
   static styles = css`
@@ -29,8 +29,12 @@ export class TabPanel extends LitElement {
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
   `;
 
@@ -79,7 +83,7 @@ export class TabNav extends LitElement {
     /** Tab position: top, bottom, left, right */
     position: { type: String },
     /** Fill available width equally */
-    fill: { type: Boolean }
+    fill: { type: Boolean },
   };
 
   static styles = css`
@@ -160,7 +164,9 @@ export class TabNav extends LitElement {
       cursor: pointer;
       white-space: nowrap;
       position: relative;
-      transition: color 0.2s, background-color 0.2s;
+      transition:
+        color 0.2s,
+        background-color 0.2s;
     }
 
     :host([fill]) .tab {
@@ -270,22 +276,24 @@ export class TabNav extends LitElement {
     this.selected = index;
     this._updatePanels();
 
-    this.dispatchEvent(new CustomEvent('tab-change', {
-      detail: {
-        index,
-        label: panels[index]?.label || ''
-      },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('tab-change', {
+        detail: {
+          index,
+          label: panels[index]?.label || '',
+        },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
-  _handleKeydown(e, index) {
+  _handleKeydown(e, _index) {
     const panels = this._getPanels();
     const enabledIndices = panels
       .map((p, i) => ({ disabled: p.disabled, index: i }))
-      .filter(p => !p.disabled)
-      .map(p => p.index);
+      .filter((p) => !p.disabled)
+      .map((p) => p.index);
 
     if (enabledIndices.length === 0) return;
 
@@ -342,20 +350,24 @@ export class TabNav extends LitElement {
     return html`
       <div class="container position-${this.position}">
         <div class="tabs" role="tablist">
-          ${panels.map((panel, index) => html`
-            <button
-              class="tab ${index === this.selected ? 'active' : ''} ${panel.disabled ? 'disabled' : ''}"
-              role="tab"
-              tabindex="${index === this.selected ? 0 : -1}"
-              aria-selected="${index === this.selected}"
-              aria-disabled="${panel.disabled}"
-              @click="${() => this._selectTab(index)}"
-              @keydown="${(e) => this._handleKeydown(e, index)}"
-            >
-              ${panel.icon ? html`<span class="tab-icon">${panel.icon}</span>` : ''}
-              ${panel.label}
-            </button>
-          `)}
+          ${panels.map(
+            (panel, index) => html`
+              <button
+                class="tab ${index === this.selected ? 'active' : ''} ${panel.disabled
+                  ? 'disabled'
+                  : ''}"
+                role="tab"
+                tabindex="${index === this.selected ? 0 : -1}"
+                aria-selected="${index === this.selected}"
+                aria-disabled="${panel.disabled}"
+                @click="${() => this._selectTab(index)}"
+                @keydown="${(e) => this._handleKeydown(e, index)}"
+              >
+                ${panel.icon ? html`<span class="tab-icon">${panel.icon}</span>` : ''}
+                ${panel.label}
+              </button>
+            `
+          )}
         </div>
         <div class="panels" role="tabpanel">
           <slot></slot>

@@ -15,7 +15,7 @@ export class AccordionItem extends LitElement {
     /** Whether the item is disabled */
     disabled: { type: Boolean, reflect: true },
     /** Header text (alternative to slot) */
-    header: { type: String }
+    header: { type: String },
   };
 
   static styles = css`
@@ -106,11 +106,13 @@ export class AccordionItem extends LitElement {
   _toggle() {
     if (this.disabled) return;
 
-    this.dispatchEvent(new CustomEvent('toggle', {
-      detail: { expanded: !this.expanded },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('toggle', {
+        detail: { expanded: !this.expanded },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _handleKeydown(e) {
@@ -135,7 +137,7 @@ export class AccordionItem extends LitElement {
           <slot name="header">${this.header}</slot>
         </div>
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 9l6 6 6-6"/>
+          <path d="M6 9l6 6 6-6" />
         </svg>
       </div>
       <div class="panel">
@@ -168,10 +170,14 @@ export class BehaviourAccordion extends LitElement {
     /** Allow multiple items to be expanded simultaneously */
     multiple: { type: Boolean },
     /** Index of initially expanded item(s) */
-    expanded: { type: Array, converter: {
-      fromAttribute: (value) => value ? value.split(',').map(v => parseInt(v.trim(), 10)) : [],
-      toAttribute: (value) => Array.isArray(value) ? value.join(',') : ''
-    }}
+    expanded: {
+      type: Array,
+      converter: {
+        fromAttribute: (value) =>
+          value ? value.split(',').map((v) => parseInt(v.trim(), 10)) : [],
+        toAttribute: (value) => (Array.isArray(value) ? value.join(',') : ''),
+      },
+    },
   };
 
   static styles = css`
@@ -228,7 +234,7 @@ export class BehaviourAccordion extends LitElement {
 
     if (this.multiple) {
       if (this.expanded.includes(index)) {
-        newExpanded = this.expanded.filter(i => i !== index);
+        newExpanded = this.expanded.filter((i) => i !== index);
       } else {
         newExpanded = [...this.expanded, index];
       }
@@ -243,15 +249,17 @@ export class BehaviourAccordion extends LitElement {
     this.expanded = newExpanded;
     this._updateItems();
 
-    this.dispatchEvent(new CustomEvent('item-toggle', {
-      detail: {
-        index,
-        expanded: newExpanded.includes(index),
-        expandedItems: newExpanded
-      },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('item-toggle', {
+        detail: {
+          index,
+          expanded: newExpanded.includes(index),
+          expandedItems: newExpanded,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   /** Expand a specific item by index */
@@ -269,7 +277,7 @@ export class BehaviourAccordion extends LitElement {
   /** Collapse a specific item by index */
   collapse(index) {
     if (this.expanded.includes(index)) {
-      this.expanded = this.expanded.filter(i => i !== index);
+      this.expanded = this.expanded.filter((i) => i !== index);
       this._updateItems();
     }
   }

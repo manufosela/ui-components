@@ -2,9 +2,18 @@
   "name": "@manufosela/slide-notification",
   "version": "2.0.1",
   "description": "Slide-in notification web component from the right edge",
-  "main": "src/slide-notification.js",
-  "module": "src/slide-notification.js",
+  "license": "MIT",
+  "author": "manufosela",
   "type": "module",
+  "main": "./src/slide-notification.js",
+  "module": "./src/slide-notification.js",
+  "types": "./src/slide-notification.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/slide-notification.d.ts",
+      "import": "./src/slide-notification.js"
+    }
+  },
   "files": [
     "src"
   ],
@@ -12,7 +21,13 @@
     "start": "web-dev-server --node-resolve --open demo/ --watch",
     "test": "web-test-runner",
     "test:watch": "web-test-runner --watch",
-    "test:coverage": "web-test-runner --coverage"
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/slide-notification.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/slide-notification"
   },
   "keywords": [
     "web-components",
@@ -22,23 +37,11 @@
     "toast",
     "alert"
   ],
-  "author": "manufosela",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/manufosela/ui-components",
-    "directory": "packages/slide-notification"
-  },
   "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/slide-notification#readme",
   "bugs": {
     "url": "https://github.com/manufosela/ui-components/issues"
   },
   "dependencies": {
     "lit": "^3.2.1"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.19.0"
   }
 }

@@ -3,7 +3,13 @@ import { css } from 'lit';
 export const NavListStyles = css`
   :host {
     display: block;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
   }
 
   .navlist {
@@ -81,7 +87,11 @@ export const NavListStyles = css`
   }
 
   @keyframes fadeInOpacity {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 `;

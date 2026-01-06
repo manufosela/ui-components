@@ -41,7 +41,7 @@ export class MultiCarousel extends LitElement {
     /** Internal: number of slides */
     _slideCount: { type: Number, state: true },
     /** Internal: wrap-around transition in progress */
-    _isWrapping: { type: Boolean, state: true }
+    _isWrapping: { type: Boolean, state: true },
   };
 
   static styles = [MultiCarouselStyles];
@@ -141,23 +141,27 @@ export class MultiCarousel extends LitElement {
 
   _broadcastChange() {
     if (this.master) {
-      document.dispatchEvent(new CustomEvent('multi-carousel-sync', {
-        detail: {
-          masterId: this.id,
-          sourceId: this.id,
-          index: this.current
-        }
-      }));
+      document.dispatchEvent(
+        new CustomEvent('multi-carousel-sync', {
+          detail: {
+            masterId: this.id,
+            sourceId: this.id,
+            index: this.current,
+          },
+        })
+      );
     }
 
-    this.dispatchEvent(new CustomEvent('slide-change', {
-      detail: {
-        index: this.current,
-        total: this._slideCount
-      },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('slide-change', {
+        detail: {
+          index: this.current,
+          total: this._slideCount,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   /** Go to specific slide */
@@ -221,15 +225,18 @@ export class MultiCarousel extends LitElement {
 
     return html`
       <div class="navigation" role="tablist">
-        ${Array.from({ length: this._slideCount }, (_, i) => html`
-          <button
-            class="nav-dot ${i === this.current ? 'active' : ''}"
-            role="tab"
-            aria-selected="${i === this.current}"
-            aria-label="Go to slide ${i + 1}"
-            @click="${() => this._handleNavClick(i)}"
-          ></button>
-        `)}
+        ${Array.from(
+          { length: this._slideCount },
+          (_, i) => html`
+            <button
+              class="nav-dot ${i === this.current ? 'active' : ''}"
+              role="tab"
+              aria-selected="${i === this.current}"
+              aria-label="Go to slide ${i + 1}"
+              @click="${() => this._handleNavClick(i)}"
+            ></button>
+          `
+        )}
       </div>
     `;
   }
@@ -248,7 +255,7 @@ export class MultiCarousel extends LitElement {
           @click="${this.prev}"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M15 18l-6-6 6-6"/>
+            <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
         <button
@@ -257,7 +264,7 @@ export class MultiCarousel extends LitElement {
           @click="${this.next}"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18l6-6-6-6"/>
+            <path d="M9 18l6-6-6-6" />
           </svg>
         </button>
       </div>
@@ -286,8 +293,7 @@ export class MultiCarousel extends LitElement {
             <slot></slot>
           </div>
         </div>
-        ${this._renderArrows()}
-        ${this._renderNavigation()}
+        ${this._renderArrows()} ${this._renderNavigation()}
       </div>
     `;
   }

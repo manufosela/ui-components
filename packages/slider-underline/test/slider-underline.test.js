@@ -65,12 +65,16 @@ describe('SliderUnderline', () => {
     });
 
     it('calculates percentage correctly', async () => {
-      const el = await fixture(html`<slider-underline value="50" min="0" max="100"></slider-underline>`);
+      const el = await fixture(
+        html`<slider-underline value="50" min="0" max="100"></slider-underline>`
+      );
       expect(el._percentage).to.equal(50);
     });
 
     it('calculates percentage for custom range', async () => {
-      const el = await fixture(html`<slider-underline value="150" min="100" max="200"></slider-underline>`);
+      const el = await fixture(
+        html`<slider-underline value="150" min="100" max="200"></slider-underline>`
+      );
       expect(el._percentage).to.equal(50);
     });
 
@@ -123,7 +127,9 @@ describe('SliderUnderline', () => {
     });
 
     it('shows tooltip when labelPosition is tooltip', async () => {
-      const el = await fixture(html`<slider-underline label-position="tooltip"></slider-underline>`);
+      const el = await fixture(
+        html`<slider-underline label-position="tooltip"></slider-underline>`
+      );
       const tooltip = el.shadowRoot.querySelector('.tooltip');
       expect(tooltip).to.exist;
     });
@@ -174,7 +180,9 @@ describe('SliderUnderline', () => {
       const el = await fixture(html`<slider-underline value="50"></slider-underline>`);
 
       let eventFired = false;
-      el.addEventListener('change', () => { eventFired = true; });
+      el.addEventListener('change', () => {
+        eventFired = true;
+      });
       el.setValue(50);
 
       await aTimeout(50);
@@ -248,12 +256,16 @@ describe('SliderUnderline', () => {
 
   describe('edge cases', () => {
     it('handles min equal to max', async () => {
-      const el = await fixture(html`<slider-underline min="50" max="50" value="50"></slider-underline>`);
+      const el = await fixture(
+        html`<slider-underline min="50" max="50" value="50"></slider-underline>`
+      );
       expect(el._percentage).to.be.NaN; // Division by zero
     });
 
     it('handles negative values', async () => {
-      const el = await fixture(html`<slider-underline min="-50" max="50" value="0"></slider-underline>`);
+      const el = await fixture(
+        html`<slider-underline min="-50" max="50" value="0"></slider-underline>`
+      );
       expect(el._percentage).to.equal(50);
     });
 

@@ -32,7 +32,7 @@ export class RadarChart extends LitElement {
     /** Chart size in pixels */
     size: { type: Number },
     /** Internal: hovered point */
-    _hoveredPoint: { state: true }
+    _hoveredPoint: { state: true },
   };
 
   static styles = css`
@@ -81,7 +81,9 @@ export class RadarChart extends LitElement {
 
     .data-point {
       cursor: pointer;
-      transition: r 0.2s, fill 0.2s;
+      transition:
+        r 0.2s,
+        fill 0.2s;
     }
 
     .data-point:hover {
@@ -165,34 +167,39 @@ export class RadarChart extends LitElement {
 
     if (seriesElements.length > 0) {
       // New declarative format: <chart-series><chart-value label="X">value</chart-value></chart-series>
-      const parsedSeries = Array.from(seriesElements).map(el => {
-        const valueElements = el.querySelectorAll('chart-value');
+      const parsedSeries = Array.from(seriesElements)
+        .map((el) => {
+          const valueElements = el.querySelectorAll('chart-value');
 
-        if (valueElements.length > 0) {
-          // Fully declarative: each value is its own element
-          const items = Array.from(valueElements).map(ve => ({
-            label: ve.getAttribute('label') || '',
-            value: parseFloat(ve.textContent.trim()) || 0
-          }));
+          if (valueElements.length > 0) {
+            // Fully declarative: each value is its own element
+            const items = Array.from(valueElements).map((ve) => ({
+              label: ve.getAttribute('label') || '',
+              value: parseFloat(ve.textContent.trim()) || 0,
+            }));
 
-          return {
-            name: el.getAttribute('name') || '',
-            color: el.getAttribute('color') || '',
-            values: items.map(item => item.value),
-            labels: items.map(item => item.label)
-          };
-        } else {
-          // Legacy format: values attribute with comma-separated values
-          return {
-            name: el.getAttribute('name') || '',
-            color: el.getAttribute('color') || '',
-            values: el.getAttribute('values')
-              ? el.getAttribute('values').split(',').map(v => parseFloat(v.trim()))
-              : [],
-            labels: []
-          };
-        }
-      }).filter(s => s.values.length > 0);
+            return {
+              name: el.getAttribute('name') || '',
+              color: el.getAttribute('color') || '',
+              values: items.map((item) => item.value),
+              labels: items.map((item) => item.label),
+            };
+          } else {
+            // Legacy format: values attribute with comma-separated values
+            return {
+              name: el.getAttribute('name') || '',
+              color: el.getAttribute('color') || '',
+              values: el.getAttribute('values')
+                ? el
+                    .getAttribute('values')
+                    .split(',')
+                    .map((v) => parseFloat(v.trim()))
+                : [],
+              labels: [],
+            };
+          }
+        })
+        .filter((s) => s.values.length > 0);
 
       this.series = parsedSeries;
 
@@ -207,7 +214,7 @@ export class RadarChart extends LitElement {
       const labelElements = this.querySelectorAll(':scope > chart-label');
       if (labelElements.length > 0) {
         this.labels = Array.from(labelElements)
-          .map(el => el.textContent.trim())
+          .map((el) => el.textContent.trim())
           .filter(Boolean);
       }
     }
@@ -228,7 +235,7 @@ export class RadarChart extends LitElement {
     const angleRad = (angle - 90) * (Math.PI / 180);
     return {
       x: cx + radius * Math.cos(angleRad),
-      y: cy + radius * Math.sin(angleRad)
+      y: cy + radius * Math.sin(angleRad),
     };
   }
 
@@ -244,28 +251,29 @@ export class RadarChart extends LitElement {
   }
 
   _handlePointClick(seriesIndex, pointIndex, value) {
-    this.dispatchEvent(new CustomEvent('data-point-click', {
-      detail: {
-        series: this.series[seriesIndex]?.name || `Series ${seriesIndex + 1}`,
-        seriesIndex,
-        label: this.labels[pointIndex] || `Point ${pointIndex + 1}`,
-        pointIndex,
-        value
-      },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('data-point-click', {
+        detail: {
+          series: this.series[seriesIndex]?.name || `Series ${seriesIndex + 1}`,
+          seriesIndex,
+          label: this.labels[pointIndex] || `Point ${pointIndex + 1}`,
+          pointIndex,
+          value,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _handlePointHover(event, seriesIndex, pointIndex, value) {
     const rect = this.shadowRoot.querySelector('.container').getBoundingClientRect();
-    const svgRect = this.shadowRoot.querySelector('svg').getBoundingClientRect();
     this._hoveredPoint = {
       x: event.clientX - rect.left,
       y: event.clientY - rect.top,
       series: this.series[seriesIndex]?.name || `Series ${seriesIndex + 1}`,
       label: this.labels[pointIndex] || `Point ${pointIndex + 1}`,
-      value
+      value,
     };
   }
 
@@ -350,11 +358,12 @@ export class RadarChart extends LitElement {
       const values = s.values || [];
       const polygonPoints = this._getPolygonPoints(values, cx, cy, radius, max);
 
-      const dots = this.showDots ? values.map((value, pointIndex) => {
-        const angle = pointIndex * angleStep;
-        const r = (value / max) * radius;
-        const point = this._polarToCartesian(angle, r, cx, cy);
-        return svg`
+      const dots = this.showDots
+        ? values.map((value, pointIndex) => {
+            const angle = pointIndex * angleStep;
+            const r = (value / max) * radius;
+            const point = this._polarToCartesian(angle, r, cx, cy);
+            return svg`
           <circle
             class="data-point"
             cx="${point.x}"
@@ -368,7 +377,8 @@ export class RadarChart extends LitElement {
             @mouseleave="${() => this._handlePointLeave()}"
           />
         `;
-      }) : [];
+          })
+        : [];
 
       return svg`
         <g class="data-series">
@@ -395,7 +405,7 @@ export class RadarChart extends LitElement {
       '#8b5cf6', // purple
       '#ec4899', // pink
       '#14b8a6', // teal
-      '#f97316'  // orange
+      '#f97316', // orange
     ];
     return colors[index % colors.length];
   }
@@ -424,8 +434,7 @@ export class RadarChart extends LitElement {
     const { x, y, series, label, value } = this._hoveredPoint;
     return html`
       <div class="tooltip" style="left: ${x}px; top: ${y}px">
-        <strong>${label}</strong>: ${value}
-        <br><small>${series}</small>
+        <strong>${label}</strong>: ${value} <br /><small>${series}</small>
       </div>
     `;
   }
@@ -436,7 +445,7 @@ export class RadarChart extends LitElement {
     const size = this.size;
     const cx = size / 2;
     const cy = size / 2;
-    const radius = (size / 2) - padding;
+    const radius = size / 2 - padding;
 
     return html`
       <div class="container" style="--radar-size: ${size}px">

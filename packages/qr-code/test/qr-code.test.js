@@ -190,7 +190,9 @@ describe('QrCode', () => {
       document.createElement = (tag) => {
         const element = originalCreateElement(tag);
         if (tag === 'a') {
-          element.click = () => { clickCalled = true; };
+          element.click = () => {
+            clickCalled = true;
+          };
         }
         return element;
       };
@@ -211,8 +213,12 @@ describe('QrCode', () => {
         const element = originalCreateElement(tag);
         if (tag === 'a') {
           Object.defineProperty(element, 'download', {
-            set(value) { downloadFilename = value; },
-            get() { return downloadFilename; }
+            set(value) {
+              downloadFilename = value;
+            },
+            get() {
+              return downloadFilename;
+            },
           });
           element.click = () => {};
         }

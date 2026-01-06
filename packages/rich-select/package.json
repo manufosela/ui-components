@@ -5,13 +5,12 @@
   "license": "Apache-2.0",
   "author": "manufosela",
   "type": "module",
-  "main": "src/rich-select.js",
-  "module": "src/rich-select.js",
+  "main": "./src/rich-select.js",
+  "module": "./src/rich-select.js",
+  "types": "./src/rich-select.d.ts",
   "exports": {
     ".": {
-      "import": "./src/rich-select.js"
-    },
-    "./rich-select.js": {
+      "types": "./src/rich-select.d.ts",
       "import": "./src/rich-select.js"
     }
   },
@@ -19,12 +18,11 @@
     "src"
   ],
   "scripts": {
-    "start": "web-dev-server --node-resolve --open demo/",
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
     "test": "web-test-runner",
     "test:watch": "web-test-runner --watch",
     "test:coverage": "web-test-runner --coverage",
-    "lint": "eslint src test --ext .js",
-    "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\""
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/rich-select.js"
   },
   "repository": {
     "type": "git",
@@ -41,18 +39,11 @@
     "keyboard-navigation",
     "ui"
   ],
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/rich-select#readme",
   "bugs": {
     "url": "https://github.com/manufosela/ui-components/issues"
   },
-  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/rich-select#readme",
   "dependencies": {
     "lit": "^3.2.1"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.19.0",
-    "eslint": "^8.57.0",
-    "prettier": "^3.4.2"
   }
 }

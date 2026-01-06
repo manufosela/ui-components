@@ -5,13 +5,12 @@
   "license": "MIT",
   "author": "manufosela",
   "type": "module",
-  "main": "src/arc-slider.js",
-  "module": "src/arc-slider.js",
+  "main": "./src/arc-slider.js",
+  "module": "./src/arc-slider.js",
+  "types": "./src/arc-slider.d.ts",
   "exports": {
     ".": {
-      "import": "./src/arc-slider.js"
-    },
-    "./arc-slider.js": {
+      "types": "./src/arc-slider.d.ts",
       "import": "./src/arc-slider.js"
     }
   },
@@ -19,12 +18,11 @@
     "src"
   ],
   "scripts": {
-    "start": "web-dev-server --node-resolve --open demo/",
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
     "test": "web-test-runner",
     "test:watch": "web-test-runner --watch",
     "test:coverage": "web-test-runner --coverage",
-    "lint": "eslint src test --ext .js",
-    "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\""
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/arc-slider.js"
   },
   "repository": {
     "type": "git",
@@ -41,18 +39,11 @@
     "input",
     "ui"
   ],
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/arc-slider#readme",
   "bugs": {
     "url": "https://github.com/manufosela/ui-components/issues"
   },
-  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/arc-slider#readme",
   "dependencies": {
     "lit": "^3.2.1"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.19.0",
-    "eslint": "^8.57.0",
-    "prettier": "^3.4.2"
   }
 }

@@ -1,4 +1,4 @@
-import { html, fixture, expect, oneEvent, aTimeout } from '@open-wc/testing';
+import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import '../src/radar-chart.js';
 
 describe('RadarChart', () => {
@@ -80,7 +80,7 @@ describe('RadarChart', () => {
       el.labels = ['A', 'B', 'C'];
       el.series = [
         { name: 'Series 1', values: [80, 60, 90], color: '#3b82f6' },
-        { name: 'Series 2', values: [70, 80, 60], color: '#22c55e' }
+        { name: 'Series 2', values: [70, 80, 60], color: '#22c55e' },
       ];
       await el.updateComplete;
       const areas = el.shadowRoot.querySelectorAll('.data-area');
@@ -160,7 +160,7 @@ describe('RadarChart', () => {
       el.labels = ['A', 'B', 'C'];
       el.series = [
         { name: 'Series A', values: [80, 60, 90] },
-        { name: 'Series B', values: [70, 80, 60] }
+        { name: 'Series B', values: [70, 80, 60] },
       ];
       await el.updateComplete;
       const legendItems = el.shadowRoot.querySelectorAll('.legend-item');
@@ -245,7 +245,9 @@ describe('RadarChart', () => {
       await el.updateComplete;
 
       const dot = el.shadowRoot.querySelector('.data-point');
-      dot.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true, clientX: 100, clientY: 100 }));
+      dot.dispatchEvent(
+        new MouseEvent('mouseenter', { bubbles: true, clientX: 100, clientY: 100 })
+      );
       await el.updateComplete;
 
       expect(el._hoveredPoint).to.exist;
@@ -259,7 +261,9 @@ describe('RadarChart', () => {
       await el.updateComplete;
 
       const dot = el.shadowRoot.querySelector('.data-point');
-      dot.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true, clientX: 100, clientY: 100 }));
+      dot.dispatchEvent(
+        new MouseEvent('mouseenter', { bubbles: true, clientX: 100, clientY: 100 })
+      );
       await el.updateComplete;
       expect(el._hoveredPoint).to.exist;
 
@@ -341,10 +345,7 @@ describe('RadarChart', () => {
       let areas = el.shadowRoot.querySelectorAll('.data-area');
       expect(areas.length).to.equal(1);
 
-      el.series = [
-        { values: [80, 60, 90] },
-        { values: [70, 80, 60] }
-      ];
+      el.series = [{ values: [80, 60, 90] }, { values: [70, 80, 60] }];
       await el.updateComplete;
 
       areas = el.shadowRoot.querySelectorAll('.data-area');

@@ -48,7 +48,9 @@ describe('NavList', () => {
 
   describe('Selection', () => {
     it('marks selected item', async () => {
-      const el = await fixture(html`<nav-list .listValues="${['A', 'B', 'C']}" selected="B"></nav-list>`);
+      const el = await fixture(
+        html`<nav-list .listValues="${['A', 'B', 'C']}" selected="B"></nav-list>`
+      );
       await el.updateComplete;
       const selectedItem = el.shadowRoot.querySelector('.navlist__item--selected');
       expect(selectedItem).to.exist;
@@ -72,7 +74,9 @@ describe('NavList', () => {
     });
 
     it('dispatches navlist-changed event on selection', async () => {
-      const el = await fixture(html`<nav-list id="test" .listValues="${['A', 'B', 'C']}"></nav-list>`);
+      const el = await fixture(
+        html`<nav-list id="test" .listValues="${['A', 'B', 'C']}"></nav-list>`
+      );
       const items = el.shadowRoot.querySelectorAll('.navlist__item');
 
       setTimeout(() => items[1].click());
@@ -93,7 +97,7 @@ describe('NavList', () => {
     it('disables radio buttons when fixed', async () => {
       const el = await fixture(html`<nav-list .listValues="${['A', 'B']}" fixed></nav-list>`);
       const radios = el.shadowRoot.querySelectorAll('.navlist__radio');
-      radios.forEach(radio => {
+      radios.forEach((radio) => {
         expect(radio.disabled).to.be.true;
       });
     });
@@ -107,7 +111,14 @@ describe('NavList', () => {
 
   describe('Event listening', () => {
     it('responds to navlist-next event', async () => {
-      const el = await fixture(html`<nav-list id="test" .listValues="${['A', 'B', 'C']}" selected="A" listen-events></nav-list>`);
+      const el = await fixture(
+        html`<nav-list
+          id="test"
+          .listValues="${['A', 'B', 'C']}"
+          selected="A"
+          listen-events
+        ></nav-list>`
+      );
       await el.updateComplete;
 
       document.dispatchEvent(new CustomEvent('navlist-next', { detail: { id: 'test' } }));
@@ -117,7 +128,14 @@ describe('NavList', () => {
     });
 
     it('responds to navlist-last event', async () => {
-      const el = await fixture(html`<nav-list id="test" .listValues="${['A', 'B', 'C']}" selected="C" listen-events></nav-list>`);
+      const el = await fixture(
+        html`<nav-list
+          id="test"
+          .listValues="${['A', 'B', 'C']}"
+          selected="C"
+          listen-events
+        ></nav-list>`
+      );
       await el.updateComplete;
 
       document.dispatchEvent(new CustomEvent('navlist-last', { detail: { id: 'test' } }));
@@ -127,7 +145,14 @@ describe('NavList', () => {
     });
 
     it('ignores events with different id', async () => {
-      const el = await fixture(html`<nav-list id="test" .listValues="${['A', 'B', 'C']}" selected="A" listen-events></nav-list>`);
+      const el = await fixture(
+        html`<nav-list
+          id="test"
+          .listValues="${['A', 'B', 'C']}"
+          selected="A"
+          listen-events
+        ></nav-list>`
+      );
       await el.updateComplete;
 
       document.dispatchEvent(new CustomEvent('navlist-next', { detail: { id: 'other' } }));
@@ -137,7 +162,14 @@ describe('NavList', () => {
     });
 
     it('does not go past last item on navlist-next', async () => {
-      const el = await fixture(html`<nav-list id="test" .listValues="${['A', 'B', 'C']}" selected="C" listen-events></nav-list>`);
+      const el = await fixture(
+        html`<nav-list
+          id="test"
+          .listValues="${['A', 'B', 'C']}"
+          selected="C"
+          listen-events
+        ></nav-list>`
+      );
       await el.updateComplete;
 
       document.dispatchEvent(new CustomEvent('navlist-next', { detail: { id: 'test' } }));
@@ -147,7 +179,14 @@ describe('NavList', () => {
     });
 
     it('does not go past first item on navlist-last', async () => {
-      const el = await fixture(html`<nav-list id="test" .listValues="${['A', 'B', 'C']}" selected="A" listen-events></nav-list>`);
+      const el = await fixture(
+        html`<nav-list
+          id="test"
+          .listValues="${['A', 'B', 'C']}"
+          selected="A"
+          listen-events
+        ></nav-list>`
+      );
       await el.updateComplete;
 
       document.dispatchEvent(new CustomEvent('navlist-last', { detail: { id: 'test' } }));
@@ -171,7 +210,9 @@ describe('NavList', () => {
     });
 
     it('selected item has aria-checked true', async () => {
-      const el = await fixture(html`<nav-list .listValues="${['A', 'B']}" selected="A"></nav-list>`);
+      const el = await fixture(
+        html`<nav-list .listValues="${['A', 'B']}" selected="A"></nav-list>`
+      );
       await el.updateComplete;
       const selected = el.shadowRoot.querySelector('[aria-checked="true"]');
       expect(selected).to.exist;

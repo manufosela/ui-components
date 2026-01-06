@@ -138,11 +138,16 @@ export class AppModal extends LitElement {
 
   _handleButton1() {
     const result = this.button1Action();
-    this.dispatchEvent(new CustomEvent('modal-action1', {
-      bubbles: true,
-      composed: true,
-      detail: { contentElementId: this.contentElementId, contentElementType: this.contentElementType }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('modal-action1', {
+        bubbles: true,
+        composed: true,
+        detail: {
+          contentElementId: this.contentElementId,
+          contentElementType: this.contentElementType,
+        },
+      })
+    );
     if (result !== false) {
       this.close();
     }
@@ -150,11 +155,16 @@ export class AppModal extends LitElement {
 
   _handleButton2() {
     const result = this.button2Action();
-    this.dispatchEvent(new CustomEvent('modal-action2', {
-      bubbles: true,
-      composed: true,
-      detail: { contentElementId: this.contentElementId, contentElementType: this.contentElementType }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('modal-action2', {
+        bubbles: true,
+        composed: true,
+        detail: {
+          contentElementId: this.contentElementId,
+          contentElementType: this.contentElementType,
+        },
+      })
+    );
     if (result !== false) {
       this.close();
     }
@@ -162,11 +172,16 @@ export class AppModal extends LitElement {
 
   _handleButton3() {
     const result = this.button3Action();
-    this.dispatchEvent(new CustomEvent('modal-action3', {
-      bubbles: true,
-      composed: true,
-      detail: { contentElementId: this.contentElementId, contentElementType: this.contentElementType }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('modal-action3', {
+        bubbles: true,
+        composed: true,
+        detail: {
+          contentElementId: this.contentElementId,
+          contentElementType: this.contentElementType,
+        },
+      })
+    );
     if (result !== false) {
       this.close();
     }
@@ -179,15 +194,17 @@ export class AppModal extends LitElement {
   }
 
   _requestClose() {
-    this.dispatchEvent(new CustomEvent('modal-closed-requested', {
-      bubbles: true,
-      composed: true,
-      detail: {
-        contentElementId: this.contentElementId,
-        contentElementType: this.contentElementType,
-        modalId: this.modalId
-      }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('modal-closed-requested', {
+        bubbles: true,
+        composed: true,
+        detail: {
+          contentElementId: this.contentElementId,
+          contentElementType: this.contentElementType,
+          modalId: this.modalId,
+        },
+      })
+    );
 
     if (this._closeTimeout) {
       clearTimeout(this._closeTimeout);
@@ -243,31 +260,57 @@ export class AppModal extends LitElement {
   render() {
     return html`
       <div class="modal" @click="${(e) => e.stopPropagation()}">
-        ${this.showHeader ? html`
-          <div class="modal-header">
-            ${this.title}
-            <button class="close-btn" @click="${this._requestClose}">&times;</button>
-          </div>
-        ` : html`
-          <button class="close-btn standalone" @click="${this._requestClose}">&times;</button>
-        `}
+        ${this.showHeader
+          ? html`
+              <div class="modal-header">
+                ${this.title}
+                <button class="close-btn" @click="${this._requestClose}">&times;</button>
+              </div>
+            `
+          : html`
+              <button class="close-btn standalone" @click="${this._requestClose}">&times;</button>
+            `}
         <div class="modal-body">
-          ${this.message ? html`<div class="modal-message">${unsafeHTML(this.message)}</div>` : nothing}
+          ${this.message
+            ? html`<div class="modal-message">${unsafeHTML(this.message)}</div>`
+            : nothing}
           <slot></slot>
         </div>
-        ${this.showFooter ? html`
-          <div class="modal-footer">
-            ${this.button1Text ? html`
-              <button class="confirm" style="${this.button1Css}" @click="${this._handleButton1}">${this.button1Text}</button>
-            ` : nothing}
-            ${this.button2Text ? html`
-              <button class="cancel" style="${this.button2Css}" @click="${this._handleButton2}">${this.button2Text}</button>
-            ` : nothing}
-            ${this.button3Text ? html`
-              <button style="${this.button3Css}" @click="${this._handleButton3}">${this.button3Text}</button>
-            ` : nothing}
-          </div>
-        ` : nothing}
+        ${this.showFooter
+          ? html`
+              <div class="modal-footer">
+                ${this.button1Text
+                  ? html`
+                      <button
+                        class="confirm"
+                        style="${this.button1Css}"
+                        @click="${this._handleButton1}"
+                      >
+                        ${this.button1Text}
+                      </button>
+                    `
+                  : nothing}
+                ${this.button2Text
+                  ? html`
+                      <button
+                        class="cancel"
+                        style="${this.button2Css}"
+                        @click="${this._handleButton2}"
+                      >
+                        ${this.button2Text}
+                      </button>
+                    `
+                  : nothing}
+                ${this.button3Text
+                  ? html`
+                      <button style="${this.button3Css}" @click="${this._handleButton3}">
+                        ${this.button3Text}
+                      </button>
+                    `
+                  : nothing}
+              </div>
+            `
+          : nothing}
       </div>
     `;
   }

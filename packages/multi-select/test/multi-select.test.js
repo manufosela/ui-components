@@ -58,10 +58,7 @@ describe('MultiSelect', () => {
   describe('Selection', () => {
     it('displays selected labels', async () => {
       const el = await fixture(html`
-        <multi-select
-          .options="${sampleOptions}"
-          .selectedValues="${['a', 'b']}"
-        ></multi-select>
+        <multi-select .options="${sampleOptions}" .selectedValues="${['a', 'b']}"></multi-select>
       `);
 
       const display = el.shadowRoot.querySelector('.selected-values');
@@ -82,10 +79,7 @@ describe('MultiSelect', () => {
 
     it('removes from selection when clicked again', async () => {
       const el = await fixture(html`
-        <multi-select
-          .options="${sampleOptions}"
-          .selectedValues="${['a']}"
-        ></multi-select>
+        <multi-select .options="${sampleOptions}" .selectedValues="${['a']}"></multi-select>
       `);
       el.isOpen = true;
       await el.updateComplete;
@@ -98,10 +92,7 @@ describe('MultiSelect', () => {
 
     it('marks selected options with class', async () => {
       const el = await fixture(html`
-        <multi-select
-          .options="${sampleOptions}"
-          .selectedValues="${['a']}"
-        ></multi-select>
+        <multi-select .options="${sampleOptions}" .selectedValues="${['a']}"></multi-select>
       `);
       el.isOpen = true;
       await el.updateComplete;
@@ -113,10 +104,7 @@ describe('MultiSelect', () => {
 
     it('checks checkbox for selected options', async () => {
       const el = await fixture(html`
-        <multi-select
-          .options="${sampleOptions}"
-          .selectedValues="${['b']}"
-        ></multi-select>
+        <multi-select .options="${sampleOptions}" .selectedValues="${['b']}"></multi-select>
       `);
       el.isOpen = true;
       await el.updateComplete;
@@ -157,7 +145,9 @@ describe('MultiSelect', () => {
     });
 
     it('does not open when disabled', async () => {
-      const el = await fixture(html`<multi-select disabled .options="${sampleOptions}"></multi-select>`);
+      const el = await fixture(
+        html`<multi-select disabled .options="${sampleOptions}"></multi-select>`
+      );
       const header = el.shadowRoot.querySelector('.select-header');
       header.click();
 
@@ -180,10 +170,7 @@ describe('MultiSelect', () => {
 
     it('includes all selected values in event', async () => {
       const el = await fixture(html`
-        <multi-select
-          .options="${sampleOptions}"
-          .selectedValues="${['a']}"
-        ></multi-select>
+        <multi-select .options="${sampleOptions}" .selectedValues="${['a']}"></multi-select>
       `);
       el.isOpen = true;
       await el.updateComplete;
@@ -206,10 +193,7 @@ describe('MultiSelect', () => {
 
     it('clearAll() clears all selections', async () => {
       const el = await fixture(html`
-        <multi-select
-          .options="${sampleOptions}"
-          .selectedValues="${['a', 'b']}"
-        ></multi-select>
+        <multi-select .options="${sampleOptions}" .selectedValues="${['a', 'b']}"></multi-select>
       `);
       el.clearAll();
 
@@ -217,7 +201,9 @@ describe('MultiSelect', () => {
     });
 
     it('selectAll() does nothing when disabled', async () => {
-      const el = await fixture(html`<multi-select disabled .options="${sampleOptions}"></multi-select>`);
+      const el = await fixture(
+        html`<multi-select disabled .options="${sampleOptions}"></multi-select>`
+      );
       el.selectAll();
 
       expect(el.selectedValues).to.deep.equal([]);
@@ -231,7 +217,9 @@ describe('MultiSelect', () => {
     });
 
     it('does not toggle option when disabled', async () => {
-      const el = await fixture(html`<multi-select disabled .options="${sampleOptions}"></multi-select>`);
+      const el = await fixture(
+        html`<multi-select disabled .options="${sampleOptions}"></multi-select>`
+      );
       el.isOpen = true;
       await el.updateComplete;
 
@@ -259,10 +247,7 @@ describe('MultiSelect', () => {
   describe('Label handling', () => {
     it('displays value if label not found', async () => {
       const el = await fixture(html`
-        <multi-select
-          .options="${sampleOptions}"
-          .selectedValues="${['unknown']}"
-        ></multi-select>
+        <multi-select .options="${sampleOptions}" .selectedValues="${['unknown']}"></multi-select>
       `);
 
       const display = el.shadowRoot.querySelector('.selected-values');

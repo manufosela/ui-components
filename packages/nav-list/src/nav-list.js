@@ -33,7 +33,7 @@ export class NavList extends LitElement {
     /** If true, listens for external navlist-next/navlist-last events */
     listenEvents: { type: Boolean, attribute: 'listen-events' },
     /** Internal: shows pointer cursor */
-    _cursorPointer: { type: Boolean, state: true }
+    _cursorPointer: { type: Boolean, state: true },
   };
 
   static styles = [NavListStyles];
@@ -89,7 +89,7 @@ export class NavList extends LitElement {
   _initFromLightDom() {
     const liElements = [...this.querySelectorAll('ul > li')];
     if (liElements.length > 0) {
-      this.listValues = liElements.map(li => li.textContent.trim());
+      this.listValues = liElements.map((li) => li.textContent.trim());
     }
   }
 
@@ -116,15 +116,17 @@ export class NavList extends LitElement {
   _setValue(val) {
     this.selected = val;
     const id = this.id || 'no-id';
-    this.dispatchEvent(new CustomEvent('navlist-changed', {
-      detail: {
-        value: this.selected,
-        pos: this.listValues.indexOf(this.selected),
-        id
-      },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('navlist-changed', {
+        detail: {
+          value: this.selected,
+          pos: this.listValues.indexOf(this.selected),
+          id,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _handleClick(val) {
@@ -145,30 +147,32 @@ export class NavList extends LitElement {
       <div id="main" class="navlist off">
         ${this.title ? html`<div class="navlist__title">${this.title}</div>` : ''}
         <div class="navlist__group" role="radiogroup" aria-label="${this.title || 'Navigation'}">
-          ${this.listValues.map(val => html`
-            <label
-              class=${classMap({
-                'navlist__item': true,
-                'navlist__item--selected': this.selected === val,
-                'navlist__item--clickable': this._cursorPointer
-              })}
-              tabindex="${this.fixed ? -1 : 0}"
-              role="radio"
-              aria-checked="${this.selected === val}"
-              @click="${() => this._handleClick(val)}"
-              @keydown="${(e) => this._handleKeydown(e, val)}"
-            >
-              <input
-                type="radio"
-                class="navlist__radio"
-                name="navlist-${this.id || 'default'}"
-                id="navlist-item__${val}"
-                .checked="${this.selected === val}"
-                ?disabled="${this.fixed}"
+          ${this.listValues.map(
+            (val) => html`
+              <label
+                class=${classMap({
+                  navlist__item: true,
+                  'navlist__item--selected': this.selected === val,
+                  'navlist__item--clickable': this._cursorPointer,
+                })}
+                tabindex="${this.fixed ? -1 : 0}"
+                role="radio"
+                aria-checked="${this.selected === val}"
+                @click="${() => this._handleClick(val)}"
+                @keydown="${(e) => this._handleKeydown(e, val)}"
               >
-              <span class="navlist__text">${val}</span>
-            </label>
-          `)}
+                <input
+                  type="radio"
+                  class="navlist__radio"
+                  name="navlist-${this.id || 'default'}"
+                  id="navlist-item__${val}"
+                  .checked="${this.selected === val}"
+                  ?disabled="${this.fixed}"
+                />
+                <span class="navlist__text">${val}</span>
+              </label>
+            `
+          )}
         </div>
       </div>
     `;

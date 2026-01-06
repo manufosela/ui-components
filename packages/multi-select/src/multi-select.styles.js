@@ -73,7 +73,7 @@ export const multiSelectStyles = css`
     overflow-y: auto;
     z-index: var(--multi-select-z-index, 1000);
     display: none;
-    box-shadow: var(--multi-select-shadow, 0 2px 4px rgba(0,0,0,0.1));
+    box-shadow: var(--multi-select-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
   }
 
   .multi-select.open .options-container {
@@ -96,7 +96,7 @@ export const multiSelectStyles = css`
     background-color: var(--multi-select-option-selected-bg, #e9ecef);
   }
 
-  .option input[type="checkbox"] {
+  .option input[type='checkbox'] {
     margin-right: 8px;
     accent-color: var(--multi-select-checkbox-color, #3b82f6);
   }

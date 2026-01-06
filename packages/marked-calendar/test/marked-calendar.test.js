@@ -77,7 +77,9 @@ describe('MarkedCalendar', () => {
     });
 
     it('shows correct month name in navigation', async () => {
-      const el = await fixture(html`<marked-calendar view="month" .month="${0}"></marked-calendar>`);
+      const el = await fixture(
+        html`<marked-calendar view="month" .month="${0}"></marked-calendar>`
+      );
       const navTitle = el.shadowRoot.querySelector('.nav-title');
       expect(navTitle.textContent).to.include('January');
     });
@@ -93,7 +95,9 @@ describe('MarkedCalendar', () => {
     });
 
     it('changes month on navigation click in month view', async () => {
-      const el = await fixture(html`<marked-calendar view="month" .month="${5}"></marked-calendar>`);
+      const el = await fixture(
+        html`<marked-calendar view="month" .month="${5}"></marked-calendar>`
+      );
       const prevBtn = el.shadowRoot.querySelectorAll('.nav-btn')[0];
       prevBtn.click();
       await el.updateComplete;
@@ -101,7 +105,9 @@ describe('MarkedCalendar', () => {
     });
 
     it('wraps month to previous year', async () => {
-      const el = await fixture(html`<marked-calendar view="month" .month="${0}" .year="${2024}"></marked-calendar>`);
+      const el = await fixture(
+        html`<marked-calendar view="month" .month="${0}" .year="${2024}"></marked-calendar>`
+      );
       const prevBtn = el.shadowRoot.querySelectorAll('.nav-btn')[0];
       prevBtn.click();
       await el.updateComplete;
@@ -110,7 +116,9 @@ describe('MarkedCalendar', () => {
     });
 
     it('wraps month to next year', async () => {
-      const el = await fixture(html`<marked-calendar view="month" .month="${11}" .year="${2024}"></marked-calendar>`);
+      const el = await fixture(
+        html`<marked-calendar view="month" .month="${11}" .year="${2024}"></marked-calendar>`
+      );
       const nextBtn = el.shadowRoot.querySelectorAll('.nav-btn')[1];
       nextBtn.click();
       await el.updateComplete;
@@ -210,13 +218,17 @@ describe('MarkedCalendar', () => {
 
   describe('Language', () => {
     it('uses English month names by default', async () => {
-      const el = await fixture(html`<marked-calendar view="month" .month="${0}"></marked-calendar>`);
+      const el = await fixture(
+        html`<marked-calendar view="month" .month="${0}"></marked-calendar>`
+      );
       const navTitle = el.shadowRoot.querySelector('.nav-title');
       expect(navTitle.textContent).to.include('January');
     });
 
     it('uses Spanish month names when lang is es', async () => {
-      const el = await fixture(html`<marked-calendar view="month" .month="${0}" lang="es"></marked-calendar>`);
+      const el = await fixture(
+        html`<marked-calendar view="month" .month="${0}" lang="es"></marked-calendar>`
+      );
       const navTitle = el.shadowRoot.querySelector('.nav-title');
       expect(navTitle.textContent).to.include('Enero');
     });
@@ -230,7 +242,14 @@ describe('MarkedCalendar', () => {
 
   describe('Weekends', () => {
     it('highlights weekends when enabled', async () => {
-      const el = await fixture(html`<marked-calendar weekends view="month" .month="${0}" .year="${2024}"></marked-calendar>`);
+      const el = await fixture(
+        html`<marked-calendar
+          weekends
+          view="month"
+          .month="${0}"
+          .year="${2024}"
+        ></marked-calendar>`
+      );
       await el.updateComplete;
       // January 2024 starts on Monday, so day 6 and 7 are weekend
       const blockedCells = el.shadowRoot.querySelectorAll('.day-cell.blocked');
@@ -259,7 +278,7 @@ describe('MarkedCalendar', () => {
       const el = await fixture(html`<marked-calendar save-data></marked-calendar>`);
       el.setMarkedDays([
         { day: '1/1', value: 1 },
-        { day: '2/1', value: 2 }
+        { day: '2/1', value: 2 },
       ]);
       await el.updateComplete;
       expect(Object.keys(el._data).length).to.equal(2);

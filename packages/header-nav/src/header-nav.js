@@ -29,7 +29,7 @@ export class HeaderNav extends LitElement {
     /** Internal: menu open state */
     _menuOpen: { state: true },
     /** Internal: cloned links for mobile menu */
-    _mobileLinks: { state: true }
+    _mobileLinks: { state: true },
   };
 
   static styles = css`
@@ -48,7 +48,7 @@ export class HeaderNav extends LitElement {
       height: var(--header-height, 60px);
       padding: 0 1.5rem;
       background: var(--header-bg, #fff);
-      box-shadow: var(--header-shadow, 0 2px 4px rgba(0,0,0,0.1));
+      box-shadow: var(--header-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
@@ -119,7 +119,9 @@ export class HeaderNav extends LitElement {
       height: 3px;
       background: var(--header-link-color, #374151);
       border-radius: 2px;
-      transition: transform 0.3s, opacity 0.3s;
+      transition:
+        transform 0.3s,
+        opacity 0.3s;
     }
 
     .hamburger.open span:nth-child(1) {
@@ -141,7 +143,7 @@ export class HeaderNav extends LitElement {
       left: 0;
       right: 0;
       background: var(--header-bg, #fff);
-      box-shadow: var(--header-shadow, 0 2px 4px rgba(0,0,0,0.1));
+      box-shadow: var(--header-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
       flex-direction: column;
       padding: 1rem;
       z-index: 60;
@@ -158,7 +160,9 @@ export class HeaderNav extends LitElement {
       font-weight: 500;
       padding: 0.75rem 1rem;
       border-radius: 6px;
-      transition: color 0.2s, background 0.2s;
+      transition:
+        color 0.2s,
+        background 0.2s;
     }
 
     .mobile-menu a:hover {
@@ -202,21 +206,25 @@ export class HeaderNav extends LitElement {
 
   _toggleMenu() {
     this._menuOpen = !this._menuOpen;
-    this.dispatchEvent(new CustomEvent('menu-toggle', {
-      detail: { open: this._menuOpen },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('menu-toggle', {
+        detail: { open: this._menuOpen },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _closeMenu() {
     if (this._menuOpen) {
       this._menuOpen = false;
-      this.dispatchEvent(new CustomEvent('menu-toggle', {
-        detail: { open: false },
-        bubbles: true,
-        composed: true
-      }));
+      this.dispatchEvent(
+        new CustomEvent('menu-toggle', {
+          detail: { open: false },
+          bubbles: true,
+          composed: true,
+        })
+      );
     }
   }
 
@@ -283,10 +291,10 @@ export class HeaderNav extends LitElement {
   _updateMobileLinks() {
     const slot = this.shadowRoot.querySelector('slot:not([name])');
     if (slot) {
-      const links = slot.assignedElements().filter(el => el.tagName === 'A');
-      this._mobileLinks = links.map(link => ({
+      const links = slot.assignedElements().filter((el) => el.tagName === 'A');
+      this._mobileLinks = links.map((link) => ({
         href: link.getAttribute('href') || '#',
-        text: link.textContent.trim()
+        text: link.textContent.trim(),
       }));
     }
   }
@@ -297,17 +305,19 @@ export class HeaderNav extends LitElement {
       <div class="overlay ${this._menuOpen ? 'open' : ''}" @click="${this._closeMenu}"></div>
       <header>
         <div class="logo">
-          ${this.logo ? html`
-            <a href="${this.logoHref}">
-              <img src="${this.logo}" alt="${this.logoAlt}" />
-            </a>
-          ` : html`
-            <slot name="logo">
-              <a href="${this.logoHref}" class="logo-text">
-                <slot name="logo-text">Logo</slot>
-              </a>
-            </slot>
-          `}
+          ${this.logo
+            ? html`
+                <a href="${this.logoHref}">
+                  <img src="${this.logo}" alt="${this.logoAlt}" />
+                </a>
+              `
+            : html`
+                <slot name="logo">
+                  <a href="${this.logoHref}" class="logo-text">
+                    <slot name="logo-text">Logo</slot>
+                  </a>
+                </slot>
+              `}
         </div>
 
         <nav>
@@ -328,9 +338,9 @@ export class HeaderNav extends LitElement {
 
       <div class="mobile-menu ${this._menuOpen ? 'open' : ''}">
         <slot name="mobile"></slot>
-        ${this._mobileLinks.map(link => html`
-          <a href="${link.href}" @click="${this._closeMenu}">${link.text}</a>
-        `)}
+        ${this._mobileLinks.map(
+          (link) => html` <a href="${link.href}" @click="${this._closeMenu}">${link.text}</a> `
+        )}
       </div>
     `;
   }

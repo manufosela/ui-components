@@ -3,8 +3,13 @@ node_modules/
 
 # Build outputs
 dist/
+types/
 coverage/
 *.tgz
+
+# Generated type declarations (generated before publish)
+*.d.ts
+*.d.ts.map
 
 # Logs
 *.log

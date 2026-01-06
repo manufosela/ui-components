@@ -195,7 +195,9 @@ describe('CalendarInline', () => {
     it('marks holidays with special class', async () => {
       const el = await fixture(html`<calendar-inline></calendar-inline>`);
       const today = new Date();
-      el.holidays = [{ date: formatDate(today.getFullYear(), today.getMonth(), 15), title: 'Test Holiday' }];
+      el.holidays = [
+        { date: formatDate(today.getFullYear(), today.getMonth(), 15), title: 'Test Holiday' },
+      ];
       await el.updateComplete;
       const holidayDay = el.shadowRoot.querySelector('.day.holiday');
       expect(holidayDay).to.exist;
@@ -222,7 +224,9 @@ describe('CalendarInline', () => {
     it('includes holiday title in date-select event', async () => {
       const el = await fixture(html`<calendar-inline></calendar-inline>`);
       const today = new Date();
-      el.holidays = [{ date: formatDate(today.getFullYear(), today.getMonth(), 20), title: 'Test Holiday' }];
+      el.holidays = [
+        { date: formatDate(today.getFullYear(), today.getMonth(), 20), title: 'Test Holiday' },
+      ];
       el._currentMonth = today.getMonth();
       el._currentYear = today.getFullYear();
       await el.updateComplete;
@@ -272,13 +276,17 @@ describe('CalendarInline', () => {
     });
 
     it('generates correct weekday names for Monday start', async () => {
-      const el = await fixture(html`<calendar-inline first-day-of-week="1" locale="en"></calendar-inline>`);
+      const el = await fixture(
+        html`<calendar-inline first-day-of-week="1" locale="en"></calendar-inline>`
+      );
       const weekdays = el._getWeekdayNames();
       expect(weekdays[0]).to.include('Mon');
     });
 
     it('generates correct weekday names for Sunday start', async () => {
-      const el = await fixture(html`<calendar-inline first-day-of-week="0" locale="en"></calendar-inline>`);
+      const el = await fixture(
+        html`<calendar-inline first-day-of-week="0" locale="en"></calendar-inline>`
+      );
       const weekdays = el._getWeekdayNames();
       expect(weekdays[0]).to.include('Sun');
     });

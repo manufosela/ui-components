@@ -5,13 +5,12 @@
   "license": "MIT",
   "author": "manufosela",
   "type": "module",
-  "main": "src/theme-toggle.js",
-  "module": "src/theme-toggle.js",
+  "main": "./src/theme-toggle.js",
+  "module": "./src/theme-toggle.js",
+  "types": "./src/theme-toggle.d.ts",
   "exports": {
     ".": {
-      "import": "./src/theme-toggle.js"
-    },
-    "./theme-toggle.js": {
+      "types": "./src/theme-toggle.d.ts",
       "import": "./src/theme-toggle.js"
     }
   },
@@ -19,10 +18,11 @@
     "src"
   ],
   "scripts": {
-    "start": "web-dev-server --node-resolve --open demo/",
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
     "test": "web-test-runner",
     "test:watch": "web-test-runner --watch",
-    "test:coverage": "web-test-runner --coverage"
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/theme-toggle.js"
   },
   "repository": {
     "type": "git",
@@ -38,16 +38,11 @@
     "light-mode",
     "ui"
   ],
-  "dependencies": {
-    "lit": "^3.2.1"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.19.0"
-  },
   "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/theme-toggle#readme",
   "bugs": {
     "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
   }
 }

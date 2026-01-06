@@ -3,7 +3,14 @@ import { css } from 'lit';
 export const circlePercentStyles = css`
   :host {
     display: inline-block;
-    font-family: var(--circle-percent-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-family: var(
+      --circle-percent-font-family,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif
+    );
   }
 
   .circle-container {
@@ -54,12 +61,12 @@ export const circlePercentStyles = css`
     text-transform: uppercase;
   }
 
-  :host([size="small"]) {
+  :host([size='small']) {
     --circle-percent-text-size: 1rem;
     --circle-percent-title-size: 0.75rem;
   }
 
-  :host([size="large"]) {
+  :host([size='large']) {
     --circle-percent-text-size: 2rem;
     --circle-percent-title-size: 1rem;
   }

@@ -4,7 +4,7 @@ import '../src/app-modal.js';
 
 describe('AppModal', () => {
   afterEach(() => {
-    document.querySelectorAll('app-modal').forEach(el => el.remove());
+    document.querySelectorAll('app-modal').forEach((el) => el.remove());
   });
 
   describe('Rendering', () => {
@@ -116,7 +116,9 @@ describe('AppModal', () => {
     });
 
     it('applies custom CSS to buttons', async () => {
-      const el = await fixture(html`<app-modal button1-text="OK" button1-css="background: blue;"></app-modal>`);
+      const el = await fixture(
+        html`<app-modal button1-text="OK" button1-css="background: blue;"></app-modal>`
+      );
       const btn = el.shadowRoot.querySelector('.confirm');
       expect(btn.getAttribute('style')).to.equal('background: blue;');
     });
@@ -166,7 +168,7 @@ describe('AppModal', () => {
       const el = await fixture(html`<app-modal></app-modal>`);
       el.close();
 
-      await new Promise(resolve => setTimeout(resolve, 350));
+      await new Promise((resolve) => setTimeout(resolve, 350));
       expect(document.querySelector('app-modal')).to.be.null;
     });
 
@@ -190,7 +192,9 @@ describe('AppModal', () => {
     it('calls button1Action when button1 clicked', async () => {
       const el = await fixture(html`<app-modal button1-text="OK"></app-modal>`);
       let called = false;
-      el.button1Action = () => { called = true; };
+      el.button1Action = () => {
+        called = true;
+      };
 
       const btn = el.shadowRoot.querySelector('.confirm');
       btn.click();
@@ -205,42 +209,48 @@ describe('AppModal', () => {
       const btn = el.shadowRoot.querySelector('.confirm');
       btn.click();
 
-      await new Promise(resolve => setTimeout(resolve, 350));
+      await new Promise((resolve) => setTimeout(resolve, 350));
       expect(el.isConnected).to.be.true;
     });
   });
 
   describe('Global close event', () => {
     it('closes on close-modal event with matching modalId', async () => {
-      const el = await fixture(html`<app-modal modal-id="test-modal"></app-modal>`);
+      await fixture(html`<app-modal modal-id="test-modal"></app-modal>`);
 
-      document.dispatchEvent(new CustomEvent('close-modal', {
-        detail: { modalId: 'test-modal' }
-      }));
+      document.dispatchEvent(
+        new CustomEvent('close-modal', {
+          detail: { modalId: 'test-modal' },
+        })
+      );
 
-      await new Promise(resolve => setTimeout(resolve, 350));
+      await new Promise((resolve) => setTimeout(resolve, 350));
       expect(document.querySelector('app-modal')).to.be.null;
     });
 
     it('closes on close-modal event with target=all', async () => {
-      const el = await fixture(html`<app-modal></app-modal>`);
+      await fixture(html`<app-modal></app-modal>`);
 
-      document.dispatchEvent(new CustomEvent('close-modal', {
-        detail: { target: 'all' }
-      }));
+      document.dispatchEvent(
+        new CustomEvent('close-modal', {
+          detail: { target: 'all' },
+        })
+      );
 
-      await new Promise(resolve => setTimeout(resolve, 350));
+      await new Promise((resolve) => setTimeout(resolve, 350));
       expect(document.querySelector('app-modal')).to.be.null;
     });
 
     it('does not close on close-modal event with different modalId', async () => {
       const el = await fixture(html`<app-modal modal-id="test-modal"></app-modal>`);
 
-      document.dispatchEvent(new CustomEvent('close-modal', {
-        detail: { modalId: 'other-modal' }
-      }));
+      document.dispatchEvent(
+        new CustomEvent('close-modal', {
+          detail: { modalId: 'other-modal' },
+        })
+      );
 
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
       expect(el.isConnected).to.be.true;
     });
   });

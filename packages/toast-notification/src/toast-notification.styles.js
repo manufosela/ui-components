@@ -7,12 +7,32 @@ export const toastNotificationStyles = css`
     pointer-events: none;
   }
 
-  :host([position="top-right"]) { top: 1rem; right: 1rem; }
-  :host([position="top-left"]) { top: 1rem; left: 1rem; }
-  :host([position="top-center"]) { top: 1rem; left: 50%; transform: translateX(-50%); }
-  :host([position="bottom-right"]) { bottom: 1rem; right: 1rem; }
-  :host([position="bottom-left"]) { bottom: 1rem; left: 1rem; }
-  :host([position="bottom-center"]) { bottom: 1rem; left: 50%; transform: translateX(-50%); }
+  :host([position='top-right']) {
+    top: 1rem;
+    right: 1rem;
+  }
+  :host([position='top-left']) {
+    top: 1rem;
+    left: 1rem;
+  }
+  :host([position='top-center']) {
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  :host([position='bottom-right']) {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  :host([position='bottom-left']) {
+    bottom: 1rem;
+    left: 1rem;
+  }
+  :host([position='bottom-center']) {
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
   :host([hidden]) {
     display: none;
@@ -26,13 +46,22 @@ export const toastNotificationStyles = css`
     border-radius: var(--toast-radius, 8px);
     background: var(--toast-bg, #1f2937);
     color: var(--toast-color, #f9fafb);
-    font-family: var(--toast-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-family: var(
+      --toast-font-family,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif
+    );
     font-size: var(--toast-font-size, 14px);
     box-shadow: var(--toast-shadow, 0 4px 12px rgba(0, 0, 0, 0.15));
     pointer-events: auto;
     opacity: 0;
     transform: translateY(-20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
     max-width: var(--toast-max-width, 400px);
   }
 
@@ -41,11 +70,11 @@ export const toastNotificationStyles = css`
     transform: translateY(0);
   }
 
-  :host([position^="bottom"]) .toast {
+  :host([position^='bottom']) .toast {
     transform: translateY(20px);
   }
 
-  :host([position^="bottom"][visible]) .toast {
+  :host([position^='bottom'][visible]) .toast {
     transform: translateY(0);
   }
 
@@ -113,7 +142,11 @@ export const toastNotificationStyles = css`
   }
 
   @keyframes progress {
-    from { transform: scaleX(1); }
-    to { transform: scaleX(0); }
+    from {
+      transform: scaleX(1);
+    }
+    to {
+      transform: scaleX(0);
+    }
   }
 `;

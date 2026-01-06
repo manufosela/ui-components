@@ -16,12 +16,15 @@ Monorepo de **26 web components** construidos con **Lit 3**, publicados en npm b
 |------------|---------|-----------|
 | Lit | 3.x | Framework de web components |
 | pnpm | 8.x | Package manager (workspaces) |
+| TypeScript | 5.x | Generacion de .d.ts desde JSDoc (DX) |
 | Changesets | 2.x | Versionado y changelogs |
 | web-test-runner | 0.19.x | Testing |
 | @open-wc/testing | 4.x | Testing utilities |
 | ESLint | 8.x | Linting |
 | Prettier | 3.x | Formatting |
 | Husky | 9.x | Git hooks |
+
+**Nota**: El codigo es vanilla JavaScript. TypeScript se usa SOLO para generar declaraciones de tipos (.d.ts) desde JSDoc para mejorar la DX de los consumidores.
 
 ## Estructura de un Componente
 
@@ -126,6 +129,39 @@ static properties = {
 };
 ```
 
+### JSDoc para Tipos (DX)
+
+Usar JSDoc para generar declaraciones de tipos automaticamente:
+
+```javascript
+/**
+ * Descripcion del componente.
+ *
+ * @element my-component
+ *
+ * @attr {String} name - Nombre del elemento
+ * @attr {Number} count - Contador (default: 0)
+ * @attr {Boolean} disabled - Si esta deshabilitado
+ *
+ * @cssprop [--my-color=#000] - Color principal
+ * @cssprop [--my-size=16px] - Tamano base
+ *
+ * @fires my-change - Se dispara cuando cambia el valor
+ * @fires my-submit - Se dispara al enviar
+ *
+ * @slot - Contenido principal
+ * @slot header - Contenido del header
+ */
+export class MyComponent extends LitElement {
+  // ...
+}
+```
+
+Para generar los .d.ts antes de publicar:
+```bash
+pnpm --filter @manufosela/{name} build:types
+```
+
 ### CSS Custom Properties
 
 Documentar todas las variables CSS:
@@ -184,12 +220,23 @@ Soportar dark mode via clase `.dark` en ancestro:
      "license": "MIT",
      "author": "manufosela",
      "type": "module",
-     "main": "src/{name}.js",
-     "module": "src/{name}.js",
+     "main": "./src/{name}.js",
+     "module": "./src/{name}.js",
+     "types": "./src/{name}.d.ts",
      "exports": {
-       ".": { "import": "./src/{name}.js" }
+       ".": {
+         "types": "./src/{name}.d.ts",
+         "import": "./src/{name}.js"
+       }
      },
      "files": ["src"],
+     "scripts": {
+       "start": "web-dev-server --node-resolve --open demo/ --watch",
+       "test": "web-test-runner",
+       "test:watch": "web-test-runner --watch",
+       "test:coverage": "web-test-runner --coverage",
+       "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/{name}.js"
+     },
      "repository": {
        "type": "git",
        "url": "https://github.com/manufosela/ui-components",
@@ -197,14 +244,11 @@ Soportar dark mode via clase `.dark` en ancestro:
      },
      "dependencies": {
        "lit": "^3.2.1"
-     },
-     "devDependencies": {
-       "@open-wc/testing": "^4.0.0",
-       "@web/dev-server": "^0.4.6",
-       "@web/test-runner": "^0.19.0"
      }
    }
    ```
+
+   **Nota**: Las devDependencies estan en el root del monorepo.
 
 4. **Actualizar**:
    - `README.md` raiz (tabla de paquetes y estructura)
@@ -312,9 +356,12 @@ git add -A && git commit -m "feat: descripcion"
 # 4. Cuando listo para release:
 pnpm changeset version  # Actualiza versions y CHANGELOGs
 git add -A && git commit -m "chore: version packages"
+pnpm build:types        # Generar declaraciones de tipos
 pnpm publish -r --access public  # Requiere OTP de npm
 git push
 ```
+
+Ver `.changeset/VERSIONING.md` para guias de versionado semantico.
 
 ## Comandos Utiles
 

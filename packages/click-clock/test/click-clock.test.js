@@ -44,7 +44,7 @@ describe('ClickClock', () => {
     it('shows correct time', async () => {
       const el = await fixture(html`<click-clock time="65"></click-clock>`);
       const values = el.shadowRoot.querySelectorAll('.value');
-      const texts = Array.from(values).map(v => v.textContent);
+      const texts = Array.from(values).map((v) => v.textContent);
       // Should show 01:05 (1 min 5 sec)
       expect(texts).to.include('01');
       expect(texts).to.include('05');
@@ -80,7 +80,9 @@ describe('ClickClock', () => {
     });
 
     it('counts up when started', async () => {
-      const el = await fixture(html`<click-clock mode="stopwatch" show-milliseconds></click-clock>`);
+      const el = await fixture(
+        html`<click-clock mode="stopwatch" show-milliseconds></click-clock>`
+      );
       el.start();
       await aTimeout(250);
       expect(el._remaining).to.be.above(0);
@@ -92,7 +94,7 @@ describe('ClickClock', () => {
     it('shows current time', async () => {
       const el = await fixture(html`<click-clock mode="clock" autostart></click-clock>`);
       await aTimeout(50);
-      const { hours, minutes, seconds } = el._getTimeUnits();
+      const { hours } = el._getTimeUnits();
       const now = new Date();
       expect(hours).to.equal(now.getHours());
     });
@@ -187,7 +189,7 @@ describe('ClickClock', () => {
       el.showDays = false;
       await el.updateComplete;
       const labels = el.shadowRoot.querySelectorAll('.label');
-      const texts = Array.from(labels).map(l => l.textContent.toLowerCase());
+      const texts = Array.from(labels).map((l) => l.textContent.toLowerCase());
       expect(texts).to.not.include('days');
     });
 
@@ -246,7 +248,9 @@ describe('ClickClock', () => {
     it('fires tick event with time details', async () => {
       const el = await fixture(html`<click-clock time="5"></click-clock>`);
       let tickDetail = null;
-      el.addEventListener('tick', (e) => { tickDetail = e.detail; });
+      el.addEventListener('tick', (e) => {
+        tickDetail = e.detail;
+      });
       el.start();
       await aTimeout(1100);
       el.pause();

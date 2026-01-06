@@ -21,9 +21,10 @@ export class RichInputfile extends LitElement {
       type: Array,
       attribute: 'allowed-extensions',
       converter: {
-        fromAttribute: (value) => value ? value.split(',').map(ext => ext.trim().toLowerCase().replace(/^\./, '')) : [],
-        toAttribute: (value) => Array.isArray(value) ? value.join(',') : ''
-      }
+        fromAttribute: (value) =>
+          value ? value.split(',').map((ext) => ext.trim().toLowerCase().replace(/^\./, '')) : [],
+        toAttribute: (value) => (Array.isArray(value) ? value.join(',') : ''),
+      },
     },
     /** Comma-separated list of allowed MIME types */
     accept: { type: String },
@@ -48,7 +49,7 @@ export class RichInputfile extends LitElement {
     /** Error message */
     _error: { state: true },
     /** Drag over state */
-    _dragOver: { state: true }
+    _dragOver: { state: true },
   };
 
   static styles = css`
@@ -79,7 +80,9 @@ export class RichInputfile extends LitElement {
       background: var(--input-bg, #fff);
       padding: 1.5rem;
       text-align: center;
-      transition: border-color 0.2s, background-color 0.2s;
+      transition:
+        border-color 0.2s,
+        background-color 0.2s;
       cursor: pointer;
     }
 
@@ -105,7 +108,7 @@ export class RichInputfile extends LitElement {
       background: #f0fdf4;
     }
 
-    input[type="file"] {
+    input[type='file'] {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -114,7 +117,7 @@ export class RichInputfile extends LitElement {
       cursor: pointer;
     }
 
-    input[type="file"]:disabled {
+    input[type='file']:disabled {
       cursor: not-allowed;
     }
 
@@ -275,19 +278,23 @@ export class RichInputfile extends LitElement {
       this._fileUrl = '';
     }
 
-    this.dispatchEvent(new CustomEvent('file-change', {
-      detail: { file, name: file.name, size: file.size, type: file.type },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('file-change', {
+        detail: { file, name: file.name, size: file.size, type: file.type },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _dispatchError(message, file) {
-    this.dispatchEvent(new CustomEvent('file-error', {
-      detail: { message, file },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('file-error', {
+        detail: { message, file },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _clearFile() {
@@ -303,10 +310,12 @@ export class RichInputfile extends LitElement {
     const input = this.shadowRoot?.querySelector('input');
     if (input) input.value = '';
 
-    this.dispatchEvent(new CustomEvent('file-clear', {
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('file-clear', {
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _formatSize(bytes) {
@@ -368,16 +377,20 @@ export class RichInputfile extends LitElement {
   }
 
   render() {
-    const acceptValue = this.accept || (this.allowedExtensions.length > 0
-      ? this.allowedExtensions.map(ext => `.${ext}`).join(',')
-      : '');
+    const acceptValue =
+      this.accept ||
+      (this.allowedExtensions.length > 0
+        ? this.allowedExtensions.map((ext) => `.${ext}`).join(',')
+        : '');
 
     const dropzoneClasses = [
       'dropzone',
       this._dragOver ? 'drag-over' : '',
       this.disabled ? 'disabled' : '',
-      this._fileName ? 'has-file' : ''
-    ].filter(Boolean).join(' ');
+      this._fileName ? 'has-file' : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return html`
       <div class="container">
@@ -397,35 +410,46 @@ export class RichInputfile extends LitElement {
             @change="${this._handleFileChange}"
           />
 
-          ${this._fileName ? html`
-            <div class="file-info" @click="${(e) => e.preventDefault()}">
-              ${this._fileUrl ? html`
-                <img
-                  class="file-preview"
-                  src="${this._fileUrl}"
-                  alt="Preview"
-                  width="${this.previewSize}"
-                  height="${this.previewSize}"
-                />
-              ` : ''}
-              <div class="file-details">
-                <div class="file-name">${this._fileName}</div>
-                ${this._file ? html`<div class="file-size">${this._formatSize(this._file.size)}</div>` : ''}
-              </div>
-              <button
-                class="clear-btn"
-                type="button"
-                @click="${(e) => { e.stopPropagation(); this._clearFile(); }}"
-              >Clear</button>
-            </div>
-          ` : html`
-            <div class="upload-icon">📁</div>
-            <div class="upload-text">
-              ${this.dropzone
-                ? html`<strong>Drop</strong> a file here or <strong>click</strong> to browse`
-                : html`<strong>Click</strong> to browse`}
-            </div>
-          `}
+          ${this._fileName
+            ? html`
+                <div class="file-info" @click="${(e) => e.preventDefault()}">
+                  ${this._fileUrl
+                    ? html`
+                        <img
+                          class="file-preview"
+                          src="${this._fileUrl}"
+                          alt="Preview"
+                          width="${this.previewSize}"
+                          height="${this.previewSize}"
+                        />
+                      `
+                    : ''}
+                  <div class="file-details">
+                    <div class="file-name">${this._fileName}</div>
+                    ${this._file
+                      ? html`<div class="file-size">${this._formatSize(this._file.size)}</div>`
+                      : ''}
+                  </div>
+                  <button
+                    class="clear-btn"
+                    type="button"
+                    @click="${(e) => {
+                      e.stopPropagation();
+                      this._clearFile();
+                    }}"
+                  >
+                    Clear
+                  </button>
+                </div>
+              `
+            : html`
+                <div class="upload-icon">📁</div>
+                <div class="upload-text">
+                  ${this.dropzone
+                    ? html`<strong>Drop</strong> a file here or <strong>click</strong> to browse`
+                    : html`<strong>Click</strong> to browse`}
+                </div>
+              `}
         </div>
 
         ${this._error ? html`<div class="error">${this._error}</div>` : ''}

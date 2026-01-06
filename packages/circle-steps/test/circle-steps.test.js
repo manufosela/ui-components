@@ -212,7 +212,9 @@ describe('CircleSteps', () => {
       await el.updateComplete;
 
       let eventFired = false;
-      el.addEventListener('step-click', () => { eventFired = true; });
+      el.addEventListener('step-click', () => {
+        eventFired = true;
+      });
 
       const circles = el.shadowRoot.querySelectorAll('.circle');
       circles[1].click();
@@ -347,7 +349,7 @@ describe('CircleSteps', () => {
 
     it('handles JSON steps attribute', async () => {
       const stepsJson = JSON.stringify([{ label: 'X' }, { label: 'Y' }]);
-      const el = await fixture(html`<circle-steps steps='${stepsJson}'></circle-steps>`);
+      const el = await fixture(html`<circle-steps steps="${stepsJson}"></circle-steps>`);
       expect(el.steps.length).to.equal(2);
     });
 

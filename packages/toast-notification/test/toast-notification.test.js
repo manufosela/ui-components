@@ -53,7 +53,9 @@ describe('ToastNotification', () => {
     });
 
     it('accepts position attribute', async () => {
-      const el = await fixture(html`<toast-notification position="bottom-left"></toast-notification>`);
+      const el = await fixture(
+        html`<toast-notification position="bottom-left"></toast-notification>`
+      );
       expect(el.position).to.equal('bottom-left');
     });
 
@@ -213,9 +215,11 @@ describe('ToastNotification', () => {
   describe('Global events', () => {
     it('responds to toast-notification-show event', async () => {
       const el = await fixture(html`<toast-notification></toast-notification>`);
-      document.dispatchEvent(new CustomEvent('toast-notification-show', {
-        detail: { message: 'Global message', type: 'success' }
-      }));
+      document.dispatchEvent(
+        new CustomEvent('toast-notification-show', {
+          detail: { message: 'Global message', type: 'success' },
+        })
+      );
       expect(el.visible).to.be.true;
       expect(el.message).to.equal('Global message');
       expect(el.type).to.equal('success');
@@ -230,7 +234,9 @@ describe('ToastNotification', () => {
 
   describe('Progress bar', () => {
     it('renders progress bar when progress and visible', async () => {
-      const el = await fixture(html`<toast-notification progress visible duration="3000"></toast-notification>`);
+      const el = await fixture(
+        html`<toast-notification progress visible duration="3000"></toast-notification>`
+      );
       const progress = el.shadowRoot.querySelector('.progress');
       expect(progress).to.exist;
     });
@@ -242,7 +248,9 @@ describe('ToastNotification', () => {
     });
 
     it('does not render progress bar when duration is 0', async () => {
-      const el = await fixture(html`<toast-notification progress visible duration="0"></toast-notification>`);
+      const el = await fixture(
+        html`<toast-notification progress visible duration="0"></toast-notification>`
+      );
       const progress = el.shadowRoot.querySelector('.progress');
       expect(progress).to.be.null;
     });
@@ -286,9 +294,11 @@ describe('ToastNotification', () => {
       const el = await fixture(html`<toast-notification></toast-notification>`);
       el.remove();
       // Should not respond to global events after removal
-      document.dispatchEvent(new CustomEvent('toast-notification-show', {
-        detail: { message: 'Test' }
-      }));
+      document.dispatchEvent(
+        new CustomEvent('toast-notification-show', {
+          detail: { message: 'Test' },
+        })
+      );
       // No error, element is disconnected
     });
   });

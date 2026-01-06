@@ -89,12 +89,18 @@ export const richSelectStyles = css`
     max-height: var(--selectOptions-max-height, 300px);
     overflow-y: auto;
     position: fixed;
-    box-shadow: var(--selectOptions-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06));
+    box-shadow: var(
+      --selectOptions-shadow,
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06)
+    );
     background: var(--selectOptions-background, #fff);
     border: var(--selectOptions-border, 1px solid #e5e7eb);
     border-radius: var(--selectOptions-border-radius, 6px);
     z-index: var(--selectOptions-zIndex, 50);
-    transition: visibility 0s linear var(--animated-time, 0.15s), opacity var(--animated-time, 0.15s) ease;
+    transition:
+      visibility 0s linear var(--animated-time, 0.15s),
+      opacity var(--animated-time, 0.15s) ease;
   }
 
   :host([animated]):host(:not([expanded])) #selectOptions {
@@ -156,7 +162,9 @@ export const richSelectStyles = css`
     border: var(--option-border, none);
     color: var(--option-color, inherit);
     line-height: normal;
-    transition: background-color 0.1s ease, color 0.1s ease;
+    transition:
+      background-color 0.1s ease,
+      color 0.1s ease;
   }
 
   ::slotted(rich-option:last-child),

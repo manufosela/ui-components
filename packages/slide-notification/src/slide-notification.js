@@ -6,14 +6,14 @@ const DEFAULT_COLORS = {
   error: '#dc3545',
   success: '#22c55e',
   warning: '#ffc107',
-  info: '#17a2b8'
+  info: '#17a2b8',
 };
 
 const ICONS = {
   error: '❌',
   success: '✅',
   warning: '⚠️',
-  info: 'ℹ️'
+  info: 'ℹ️',
 };
 
 /**
@@ -83,10 +83,12 @@ export class SlideNotification extends LitElement {
         this.classList.remove('hiding');
         this.classList.add('visible');
 
-        this.dispatchEvent(new CustomEvent('slide-notification-shown', {
-          bubbles: true,
-          composed: true
-        }));
+        this.dispatchEvent(
+          new CustomEvent('slide-notification-shown', {
+            bubbles: true,
+            composed: true,
+          })
+        );
       });
 
       // Auto-hide after timeout (unless persistent)
@@ -103,7 +105,7 @@ export class SlideNotification extends LitElement {
     if (this.persistent || this.timetohide === 0) {
       this.hide();
     }
-  }
+  };
 
   disconnectedCallback() {
     super.disconnectedCallback();
@@ -126,10 +128,12 @@ export class SlideNotification extends LitElement {
     this.classList.remove('visible');
     this.classList.add('hiding');
 
-    this.dispatchEvent(new CustomEvent('slide-notification-hidden', {
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('slide-notification-hidden', {
+        bubbles: true,
+        composed: true,
+      })
+    );
 
     // Remove from DOM if created programmatically
     if (this._removeOnHide) {

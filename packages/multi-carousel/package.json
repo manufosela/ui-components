@@ -2,9 +2,18 @@
   "name": "@manufosela/multi-carousel",
   "version": "2.0.0",
   "description": "Responsive multi-slide carousel web component with navigation and arrows",
-  "main": "src/multi-carousel.js",
-  "module": "src/multi-carousel.js",
+  "license": "MIT",
+  "author": "manufosela",
   "type": "module",
+  "main": "./src/multi-carousel.js",
+  "module": "./src/multi-carousel.js",
+  "types": "./src/multi-carousel.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/multi-carousel.d.ts",
+      "import": "./src/multi-carousel.js"
+    }
+  },
   "files": [
     "src"
   ],
@@ -12,7 +21,13 @@
     "start": "web-dev-server --node-resolve --open demo/ --watch",
     "test": "web-test-runner",
     "test:watch": "web-test-runner --watch",
-    "test:coverage": "web-test-runner --coverage"
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/multi-carousel.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/multi-carousel"
   },
   "keywords": [
     "web-components",
@@ -21,23 +36,11 @@
     "slider",
     "slideshow"
   ],
-  "author": "manufosela",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/manufosela/ui-components",
-    "directory": "packages/multi-carousel"
-  },
   "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/multi-carousel#readme",
   "bugs": {
     "url": "https://github.com/manufosela/ui-components/issues"
   },
   "dependencies": {
     "lit": "^3.2.1"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.19.0"
   }
 }

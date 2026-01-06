@@ -14,7 +14,9 @@ export const appModalStyles = css`
     justify-content: center;
     z-index: var(--app-modal-z-index, 1000);
     opacity: 0;
-    transition: opacity 0.3s ease-out, background 0.3s ease-out;
+    transition:
+      opacity 0.3s ease-out,
+      background 0.3s ease-out;
   }
 
   .modal {
@@ -71,7 +73,7 @@ export const appModalStyles = css`
     right: 0.2rem;
     background: rgba(150, 50, 50, 0.5);
     color: #000;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 10;
   }
 

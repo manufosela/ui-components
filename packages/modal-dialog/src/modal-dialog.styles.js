@@ -20,7 +20,9 @@ export const modalDialogStyles = css`
     padding: 1rem;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition:
+      opacity 0.2s ease,
+      visibility 0.2s ease;
   }
 
   :host([open]) .overlay {
@@ -31,7 +33,11 @@ export const modalDialogStyles = css`
   .modal {
     background: var(--modal-bg, #fff);
     border-radius: var(--modal-radius, 12px);
-    box-shadow: var(--modal-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04));
+    box-shadow: var(
+      --modal-shadow,
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04)
+    );
     max-width: var(--modal-max-width, 500px);
     width: 100%;
     max-height: calc(100vh - 2rem);
@@ -45,19 +51,19 @@ export const modalDialogStyles = css`
     transform: scale(1) translateY(0);
   }
 
-  :host([size="small"]) .modal {
+  :host([size='small']) .modal {
     max-width: 360px;
   }
 
-  :host([size="large"]) .modal {
+  :host([size='large']) .modal {
     max-width: 720px;
   }
 
-  :host([size="full"]) .modal {
+  :host([size='full']) .modal {
     max-width: calc(100vw - 2rem);
   }
 
-  :host([size="fullscreen"]) .modal {
+  :host([size='fullscreen']) .modal {
     max-width: calc(100vw - 2rem);
     height: calc(100vh - 2rem);
     border-radius: var(--modal-radius-fullscreen, 8px);
@@ -109,7 +115,7 @@ export const modalDialogStyles = css`
     border-top: 1px solid var(--modal-border-color, #e5e7eb);
   }
 
-  ::slotted([slot="footer"]) {
+  ::slotted([slot='footer']) {
     margin: 0;
   }
 

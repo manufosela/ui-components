@@ -124,7 +124,9 @@ describe('StarsRating', () => {
     it('does not fire event when clicking same rating', async () => {
       const el = await fixture(html`<stars-rating manual rating="3"></stars-rating>`);
       let eventFired = false;
-      el.addEventListener('rating-changed', () => { eventFired = true; });
+      el.addEventListener('rating-changed', () => {
+        eventFired = true;
+      });
       const stars = el.shadowRoot.querySelectorAll('.star');
       stars[2].click();
       expect(eventFired).to.be.false;
@@ -165,7 +167,9 @@ describe('StarsRating', () => {
     it('resetRating() does not fire event when already 0', async () => {
       const el = await fixture(html`<stars-rating></stars-rating>`);
       let eventFired = false;
-      el.addEventListener('rating-changed', () => { eventFired = true; });
+      el.addEventListener('rating-changed', () => {
+        eventFired = true;
+      });
       el.resetRating();
       expect(eventFired).to.be.false;
     });

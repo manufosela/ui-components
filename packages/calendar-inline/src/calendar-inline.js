@@ -33,7 +33,7 @@ export class CalendarInline extends LitElement {
     /** Internal: current month being displayed */
     _currentMonth: { state: true },
     /** Internal: current year being displayed */
-    _currentYear: { state: true }
+    _currentYear: { state: true },
   };
 
   static styles = css`
@@ -122,7 +122,9 @@ export class CalendarInline extends LitElement {
       border-radius: 50%;
       font-size: 0.875rem;
       cursor: pointer;
-      transition: background-color 0.2s, color 0.2s;
+      transition:
+        background-color 0.2s,
+        color 0.2s;
       position: relative;
     }
 
@@ -195,17 +197,19 @@ export class CalendarInline extends LitElement {
     // Parse holiday elements
     const holidayElements = this.querySelectorAll('calendar-holiday');
     if (holidayElements.length > 0) {
-      this.holidays = Array.from(holidayElements).map(el => ({
-        date: el.getAttribute('date'),
-        title: el.getAttribute('title') || ''
-      })).filter(h => h.date);
+      this.holidays = Array.from(holidayElements)
+        .map((el) => ({
+          date: el.getAttribute('date'),
+          title: el.getAttribute('title') || '',
+        }))
+        .filter((h) => h.date);
     }
 
     // Parse disabled date elements
     const disabledElements = this.querySelectorAll('disabled-date');
     if (disabledElements.length > 0) {
       this.disabledDates = Array.from(disabledElements)
-        .map(el => el.getAttribute('date'))
+        .map((el) => el.getAttribute('date'))
         .filter(Boolean);
     }
   }
@@ -240,22 +244,20 @@ export class CalendarInline extends LitElement {
     const dayNum = d.getUTCDay() || 7;
     d.setUTCDate(d.getUTCDate() + 4 - dayNum);
     const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
   }
 
   _isToday(year, month, day) {
     const today = new Date();
-    return today.getFullYear() === year &&
-           today.getMonth() === month &&
-           today.getDate() === day;
+    return today.getFullYear() === year && today.getMonth() === month && today.getDate() === day;
   }
 
   _isSelected(year, month, day) {
     if (!this.value) return false;
     const selected = new Date(this.value);
-    return selected.getFullYear() === year &&
-           selected.getMonth() === month &&
-           selected.getDate() === day;
+    return (
+      selected.getFullYear() === year && selected.getMonth() === month && selected.getDate() === day
+    );
   }
 
   _formatDateString(year, month, day) {
@@ -279,12 +281,12 @@ export class CalendarInline extends LitElement {
 
   _isHoliday(year, month, day) {
     const dateStr = this._formatDateString(year, month, day);
-    return this.holidays.some(h => h.date === dateStr);
+    return this.holidays.some((h) => h.date === dateStr);
   }
 
   _getHolidayTitle(year, month, day) {
     const dateStr = this._formatDateString(year, month, day);
-    const holiday = this.holidays.find(h => h.date === dateStr);
+    const holiday = this.holidays.find((h) => h.date === dateStr);
     return holiday?.title || '';
   }
 
@@ -309,11 +311,13 @@ export class CalendarInline extends LitElement {
   }
 
   _dispatchMonthChange() {
-    this.dispatchEvent(new CustomEvent('month-change', {
-      detail: { month: this._currentMonth, year: this._currentYear },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('month-change', {
+        detail: { month: this._currentMonth, year: this._currentYear },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _selectDate(year, month, day) {
@@ -322,15 +326,19 @@ export class CalendarInline extends LitElement {
     const date = new Date(year, month, day);
     this.value = this._formatDateString(year, month, day);
 
-    this.dispatchEvent(new CustomEvent('date-select', {
-      detail: {
-        date: this.value,
-        dateObj: date,
-        holiday: this._isHoliday(year, month, day) ? this._getHolidayTitle(year, month, day) : null
-      },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('date-select', {
+        detail: {
+          date: this.value,
+          dateObj: date,
+          holiday: this._isHoliday(year, month, day)
+            ? this._getHolidayTitle(year, month, day)
+            : null,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   /** Navigate to a specific month/year */
@@ -370,10 +378,9 @@ export class CalendarInline extends LitElement {
       const prevMonth = this._currentMonth === 0 ? 11 : this._currentMonth - 1;
       const prevYear = this._currentMonth === 0 ? this._currentYear - 1 : this._currentYear;
       currentWeek.push(html`
-        <span
-          class="day other-month"
-          @click="${() => this._selectDate(prevYear, prevMonth, day)}"
-        >${day}</span>
+        <span class="day other-month" @click="${() => this._selectDate(prevYear, prevMonth, day)}"
+          >${day}</span
+        >
       `);
     }
 
@@ -383,22 +390,27 @@ export class CalendarInline extends LitElement {
       const isSelected = this._isSelected(this._currentYear, this._currentMonth, day);
       const isDisabled = this._isDisabled(this._currentYear, this._currentMonth, day);
       const isHoliday = this._isHoliday(this._currentYear, this._currentMonth, day);
-      const holidayTitle = isHoliday ? this._getHolidayTitle(this._currentYear, this._currentMonth, day) : '';
+      const holidayTitle = isHoliday
+        ? this._getHolidayTitle(this._currentYear, this._currentMonth, day)
+        : '';
 
       const classes = [
         'day',
         isToday ? 'today' : '',
         isSelected ? 'selected' : '',
         isDisabled ? 'disabled' : '',
-        isHoliday ? 'holiday' : ''
-      ].filter(Boolean).join(' ');
+        isHoliday ? 'holiday' : '',
+      ]
+        .filter(Boolean)
+        .join(' ');
 
       currentWeek.push(html`
         <span
           class="${classes}"
           title="${holidayTitle}"
           @click="${() => this._selectDate(this._currentYear, this._currentMonth, day)}"
-        >${day}</span>
+          >${day}</span
+        >
       `);
 
       if (currentWeek.length === (this.showWeekNumbers ? 8 : 7)) {
@@ -420,7 +432,8 @@ export class CalendarInline extends LitElement {
         <span
           class="day other-month"
           @click="${() => this._selectDate(nextYear, nextMonth, nextDay)}"
-        >${nextDay}</span>
+          >${nextDay}</span
+        >
       `);
       nextDay++;
     }
@@ -436,23 +449,17 @@ export class CalendarInline extends LitElement {
     return html`
       <div class="calendar">
         <div class="header">
-          <button class="nav-btn" @click="${this._prevMonth}" aria-label="Previous month">
-            ◀
-          </button>
+          <button class="nav-btn" @click="${this._prevMonth}" aria-label="Previous month">◀</button>
           <span class="month-year">${this._getMonthName()}</span>
-          <button class="nav-btn" @click="${this._nextMonth}" aria-label="Next month">
-            ▶
-          </button>
+          <button class="nav-btn" @click="${this._nextMonth}" aria-label="Next month">▶</button>
         </div>
 
         <div class="weekdays ${gridClass}">
           ${this.showWeekNumbers ? html`<span class="weekday"></span>` : ''}
-          ${weekdays.map(day => html`<span class="weekday">${day}</span>`)}
+          ${weekdays.map((day) => html`<span class="weekday">${day}</span>`)}
         </div>
 
-        <div class="days ${gridClass}">
-          ${this._renderCalendarDays()}
-        </div>
+        <div class="days ${gridClass}">${this._renderCalendarDays()}</div>
       </div>
     `;
   }

@@ -1,5 +1,4 @@
-import { html, fixture, expect, oneEvent, aTimeout } from '@open-wc/testing';
-import { RichInputfile } from '../src/rich-inputfile.js';
+import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 
 // Helper to create a mock File
 function createMockFile(name, size, type) {
@@ -56,7 +55,9 @@ describe('RichInputfile', () => {
     });
 
     it('accepts allowed-extensions attribute', async () => {
-      const el = await fixture(html`<rich-inputfile allowed-extensions="jpg,png,gif"></rich-inputfile>`);
+      const el = await fixture(
+        html`<rich-inputfile allowed-extensions="jpg,png,gif"></rich-inputfile>`
+      );
       expect(el.allowedExtensions).to.deep.equal(['jpg', 'png', 'gif']);
     });
 
@@ -106,7 +107,9 @@ describe('RichInputfile', () => {
     });
 
     it('validates file extension', async () => {
-      const el = await fixture(html`<rich-inputfile allowed-extensions="jpg,png"></rich-inputfile>`);
+      const el = await fixture(
+        html`<rich-inputfile allowed-extensions="jpg,png"></rich-inputfile>`
+      );
       const file = createMockFile('test.txt', 100, 'text/plain');
 
       setTimeout(() => {
@@ -118,7 +121,9 @@ describe('RichInputfile', () => {
     });
 
     it('allows valid file extension', async () => {
-      const el = await fixture(html`<rich-inputfile allowed-extensions="jpg,png"></rich-inputfile>`);
+      const el = await fixture(
+        html`<rich-inputfile allowed-extensions="jpg,png"></rich-inputfile>`
+      );
       const file = createMockFile('test.png', 100, 'image/png');
 
       setTimeout(() => {
@@ -331,7 +336,9 @@ describe('RichInputfile', () => {
     });
 
     it('shows hints for restrictions', async () => {
-      const el = await fixture(html`<rich-inputfile allowed-extensions="jpg,png" max-size="1048576"></rich-inputfile>`);
+      const el = await fixture(
+        html`<rich-inputfile allowed-extensions="jpg,png" max-size="1048576"></rich-inputfile>`
+      );
       await el.updateComplete;
 
       const hint = el.shadowRoot.querySelector('.hint');
@@ -392,7 +399,9 @@ describe('RichInputfile', () => {
 
   describe('accept attribute', () => {
     it('sets accept from allowed extensions', async () => {
-      const el = await fixture(html`<rich-inputfile allowed-extensions="jpg,png"></rich-inputfile>`);
+      const el = await fixture(
+        html`<rich-inputfile allowed-extensions="jpg,png"></rich-inputfile>`
+      );
       await el.updateComplete;
 
       const input = el.shadowRoot.querySelector('input');
@@ -410,12 +419,16 @@ describe('RichInputfile', () => {
 
   describe('extension conversion via attribute', () => {
     it('converts string attribute to array', async () => {
-      const el = await fixture(html`<rich-inputfile allowed-extensions="jpg,png,gif"></rich-inputfile>`);
+      const el = await fixture(
+        html`<rich-inputfile allowed-extensions="jpg,png,gif"></rich-inputfile>`
+      );
       expect(el.allowedExtensions).to.deep.equal(['jpg', 'png', 'gif']);
     });
 
     it('removes leading dots', async () => {
-      const el = await fixture(html`<rich-inputfile allowed-extensions=".jpg,.png"></rich-inputfile>`);
+      const el = await fixture(
+        html`<rich-inputfile allowed-extensions=".jpg,.png"></rich-inputfile>`
+      );
       expect(el.allowedExtensions).to.deep.equal(['jpg', 'png']);
     });
 
@@ -425,7 +438,9 @@ describe('RichInputfile', () => {
     });
 
     it('handles whitespace', async () => {
-      const el = await fixture(html`<rich-inputfile allowed-extensions=" jpg , png "></rich-inputfile>`);
+      const el = await fixture(
+        html`<rich-inputfile allowed-extensions=" jpg , png "></rich-inputfile>`
+      );
       expect(el.allowedExtensions).to.deep.equal(['jpg', 'png']);
     });
   });

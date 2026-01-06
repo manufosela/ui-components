@@ -45,13 +45,31 @@ export const lcdDigitStyles = css`
   }
 
   /* Segment positions */
-  .segment-a { top: 0; }
-  .segment-b { right: 0; top: calc(var(--_seg-w) / 2 + var(--_gap)); }
-  .segment-c { right: 0; top: calc(var(--_seg-len) + var(--_seg-w) / 2 + var(--_gap)); }
-  .segment-d { bottom: 0; }
-  .segment-e { left: 0; top: calc(var(--_seg-len) + var(--_seg-w) / 2 + var(--_gap)); }
-  .segment-f { left: 0; top: calc(var(--_seg-w) / 2 + var(--_gap)); }
-  .segment-g { top: calc(var(--_seg-len) - var(--_seg-w) / 2); }
+  .segment-a {
+    top: 0;
+  }
+  .segment-b {
+    right: 0;
+    top: calc(var(--_seg-w) / 2 + var(--_gap));
+  }
+  .segment-c {
+    right: 0;
+    top: calc(var(--_seg-len) + var(--_seg-w) / 2 + var(--_gap));
+  }
+  .segment-d {
+    bottom: 0;
+  }
+  .segment-e {
+    left: 0;
+    top: calc(var(--_seg-len) + var(--_seg-w) / 2 + var(--_gap));
+  }
+  .segment-f {
+    left: 0;
+    top: calc(var(--_seg-w) / 2 + var(--_gap));
+  }
+  .segment-g {
+    top: calc(var(--_seg-len) - var(--_seg-w) / 2);
+  }
 
   /* Colon for clock display */
   :host([colon]) {

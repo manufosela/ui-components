@@ -35,7 +35,7 @@ export class SliderUnderline extends LitElement {
     /** Optional label text */
     label: { type: String },
     /** Unit suffix for value display */
-    unit: { type: String }
+    unit: { type: String },
   };
 
   static styles = css`
@@ -100,7 +100,7 @@ export class SliderUnderline extends LitElement {
       transition: width 0.1s ease;
     }
 
-    input[type="range"] {
+    input[type='range'] {
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
@@ -112,15 +112,15 @@ export class SliderUnderline extends LitElement {
       z-index: 2;
     }
 
-    input[type="range"]:focus {
+    input[type='range']:focus {
       outline: none;
     }
 
-    input[type="range"]:focus-visible {
+    input[type='range']:focus-visible {
       outline: none;
     }
 
-    input[type="range"]::-webkit-slider-thumb {
+    input[type='range']::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
       width: var(--thumb-size);
@@ -130,10 +130,12 @@ export class SliderUnderline extends LitElement {
       border: var(--slider-thumb-border, none);
       cursor: grab;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
     }
 
-    input[type="range"]::-moz-range-thumb {
+    input[type='range']::-moz-range-thumb {
       width: var(--thumb-size);
       height: var(--thumb-size);
       border-radius: 50%;
@@ -141,35 +143,37 @@ export class SliderUnderline extends LitElement {
       border: var(--slider-thumb-border, none);
       cursor: grab;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
     }
 
-    input[type="range"]::-webkit-slider-thumb:hover {
+    input[type='range']::-webkit-slider-thumb:hover {
       transform: scale(1.1);
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
     }
 
-    input[type="range"]::-moz-range-thumb:hover {
+    input[type='range']::-moz-range-thumb:hover {
       transform: scale(1.1);
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
     }
 
-    input[type="range"]:active::-webkit-slider-thumb {
+    input[type='range']:active::-webkit-slider-thumb {
       cursor: grabbing;
       transform: scale(1.15);
     }
 
-    input[type="range"]:active::-moz-range-thumb {
+    input[type='range']:active::-moz-range-thumb {
       cursor: grabbing;
       transform: scale(1.15);
     }
 
-    input[type="range"]:focus-visible::-webkit-slider-thumb {
+    input[type='range']:focus-visible::-webkit-slider-thumb {
       outline: 2px solid var(--slider-fill, #3b82f6);
       outline-offset: 2px;
     }
 
-    input[type="range"]:focus-visible::-moz-range-thumb {
+    input[type='range']:focus-visible::-moz-range-thumb {
       outline: 2px solid var(--slider-fill, #3b82f6);
       outline-offset: 2px;
     }
@@ -201,7 +205,7 @@ export class SliderUnderline extends LitElement {
     }
 
     .slider-wrapper:hover .tooltip,
-    input[type="range"]:focus ~ .tooltip {
+    input[type='range']:focus ~ .tooltip {
       opacity: 1;
     }
 
@@ -250,21 +254,25 @@ export class SliderUnderline extends LitElement {
   _handleInput(e) {
     this.value = Number(e.target.value);
 
-    this.dispatchEvent(new CustomEvent('input', {
-      detail: { value: this.value },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('input', {
+        detail: { value: this.value },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _handleChange(e) {
     this.value = Number(e.target.value);
 
-    this.dispatchEvent(new CustomEvent('change', {
-      detail: { value: this.value },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        detail: { value: this.value },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   /** Set value programmatically */
@@ -272,11 +280,13 @@ export class SliderUnderline extends LitElement {
     const newValue = Math.min(this.max, Math.max(this.min, Number(val)));
     if (newValue !== this.value) {
       this.value = newValue;
-      this.dispatchEvent(new CustomEvent('change', {
-        detail: { value: this.value },
-        bubbles: true,
-        composed: true
-      }));
+      this.dispatchEvent(
+        new CustomEvent('change', {
+          detail: { value: this.value },
+          bubbles: true,
+          composed: true,
+        })
+      );
     }
   }
 
@@ -302,14 +312,16 @@ export class SliderUnderline extends LitElement {
 
     return html`
       <div class="container">
-        ${this.label || (this.showValue && this.labelPosition === 'above') ? html`
-          <div class="label-row">
-            ${this.label ? html`<span class="label">${this.label}</span>` : html`<span></span>`}
-            ${this.showValue && this.labelPosition === 'above' ? html`
-              <span class="value-display">${formattedValue}</span>
-            ` : ''}
-          </div>
-        ` : ''}
+        ${this.label || (this.showValue && this.labelPosition === 'above')
+          ? html`
+              <div class="label-row">
+                ${this.label ? html`<span class="label">${this.label}</span>` : html`<span></span>`}
+                ${this.showValue && this.labelPosition === 'above'
+                  ? html` <span class="value-display">${formattedValue}</span> `
+                  : ''}
+              </div>
+            `
+          : ''}
 
         <div class="slider-wrapper">
           <div class="track">
@@ -330,14 +342,14 @@ export class SliderUnderline extends LitElement {
             aria-valuenow="${this.value}"
             aria-valuetext="${formattedValue}"
           />
-          ${this.showValue && this.labelPosition === 'tooltip' ? html`
-            <div class="tooltip" style="left: ${tooltipLeft}">${formattedValue}</div>
-          ` : ''}
+          ${this.showValue && this.labelPosition === 'tooltip'
+            ? html` <div class="tooltip" style="left: ${tooltipLeft}">${formattedValue}</div> `
+            : ''}
         </div>
 
-        ${this.showValue && this.labelPosition === 'below' ? html`
-          <div class="value-below">${formattedValue}</div>
-        ` : ''}
+        ${this.showValue && this.labelPosition === 'below'
+          ? html` <div class="value-below">${formattedValue}</div> `
+          : ''}
       </div>
     `;
   }

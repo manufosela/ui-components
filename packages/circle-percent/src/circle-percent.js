@@ -1,4 +1,4 @@
-import { LitElement, html, svg } from 'lit';
+import { LitElement, html } from 'lit';
 import { circlePercentStyles } from './circle-percent.styles.js';
 
 /**
@@ -73,11 +73,7 @@ export class CirclePercent extends LitElement {
     return html`
       <div class="circle-container">
         <div class="circle-wrapper">
-          <svg
-            width="${viewBox}"
-            height="${viewBox}"
-            viewBox="0 0 ${viewBox} ${viewBox}"
-          >
+          <svg width="${viewBox}" height="${viewBox}" viewBox="0 0 ${viewBox} ${viewBox}">
             <!-- Background circle -->
             <circle
               class="background-circle"

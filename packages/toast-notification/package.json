@@ -2,9 +2,18 @@
   "name": "@manufosela/toast-notification",
   "version": "2.0.1",
   "description": "Toast notification web component with Lit",
-  "main": "src/toast-notification.js",
-  "module": "src/toast-notification.js",
+  "license": "MIT",
+  "author": "manufosela",
   "type": "module",
+  "main": "./src/toast-notification.js",
+  "module": "./src/toast-notification.js",
+  "types": "./src/toast-notification.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/toast-notification.d.ts",
+      "import": "./src/toast-notification.js"
+    }
+  },
   "files": [
     "src"
   ],
@@ -12,7 +21,13 @@
     "start": "web-dev-server --node-resolve --open demo/ --watch",
     "test": "web-test-runner",
     "test:watch": "web-test-runner --watch",
-    "test:coverage": "web-test-runner --coverage"
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/toast-notification.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/toast-notification"
   },
   "keywords": [
     "web-components",
@@ -21,24 +36,11 @@
     "notification",
     "snackbar"
   ],
-  "author": "manufosela",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/manufosela/ui-components",
-    "directory": "packages/toast-notification"
-  },
-  "dependencies": {
-    "lit": "^3.2.1"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.19.0"
-  },
-  "customElements": "custom-elements.json",
   "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/toast-notification#readme",
   "bugs": {
     "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
   }
 }

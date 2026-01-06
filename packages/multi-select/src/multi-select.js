@@ -1,4 +1,4 @@
-import { LitElement, html, nothing } from 'lit';
+import { LitElement, html } from 'lit';
 import { multiSelectStyles } from './multi-select.styles.js';
 
 /**
@@ -67,10 +67,10 @@ export class MultiSelect extends LitElement {
       const options = [];
       const selectedValues = [];
 
-      slotOptions.forEach(option => {
+      slotOptions.forEach((option) => {
         options.push({
           value: option.value || option.textContent.trim(),
-          label: option.textContent.trim()
+          label: option.textContent.trim(),
         });
         if (option.hasAttribute('selected')) {
           selectedValues.push(option.value || option.textContent.trim());
@@ -122,21 +122,23 @@ export class MultiSelect extends LitElement {
     if (this.disabled) return;
 
     const newSelectedValues = this.selectedValues.includes(value)
-      ? this.selectedValues.filter(v => v !== value)
+      ? this.selectedValues.filter((v) => v !== value)
       : [...this.selectedValues, value];
 
     this.selectedValues = newSelectedValues;
 
-    this.dispatchEvent(new CustomEvent('change', {
-      detail: { selectedValues: newSelectedValues },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        detail: { selectedValues: newSelectedValues },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   selectAll() {
     if (this.disabled) return;
-    this.selectedValues = this.options.map(opt => opt.value);
+    this.selectedValues = this.options.map((opt) => opt.value);
     this._dispatchChange();
   }
 
@@ -147,16 +149,18 @@ export class MultiSelect extends LitElement {
   }
 
   _dispatchChange() {
-    this.dispatchEvent(new CustomEvent('change', {
-      detail: { selectedValues: this.selectedValues },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        detail: { selectedValues: this.selectedValues },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   _getSelectedLabels() {
-    return this.selectedValues.map(value => {
-      const option = this.options.find(opt => opt.value === value);
+    return this.selectedValues.map((value) => {
+      const option = this.options.find((opt) => opt.value === value);
       return option ? option.label : value;
     });
   }
@@ -175,21 +179,26 @@ export class MultiSelect extends LitElement {
         </div>
 
         <div class="options-container">
-          ${this.options.length === 0 ? html`
-            <div class="no-options">No options available</div>
-          ` : this.options.map(option => html`
-            <div
-              class="option ${this.selectedValues.includes(option.value) ? 'selected' : ''}"
-              @click="${() => this.toggleOption(option.value)}"
-            >
-              <input
-                type="checkbox"
-                .checked="${this.selectedValues.includes(option.value)}"
-                @click="${(e) => { e.stopPropagation(); this.toggleOption(option.value); }}"
-              >
-              <span>${option.label}</span>
-            </div>
-          `)}
+          ${this.options.length === 0
+            ? html` <div class="no-options">No options available</div> `
+            : this.options.map(
+                (option) => html`
+                  <div
+                    class="option ${this.selectedValues.includes(option.value) ? 'selected' : ''}"
+                    @click="${() => this.toggleOption(option.value)}"
+                  >
+                    <input
+                      type="checkbox"
+                      .checked="${this.selectedValues.includes(option.value)}"
+                      @click="${(e) => {
+                        e.stopPropagation();
+                        this.toggleOption(option.value);
+                      }}"
+                    />
+                    <span>${option.label}</span>
+                  </div>
+                `
+              )}
         </div>
       </div>
     `;

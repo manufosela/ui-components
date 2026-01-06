@@ -2,9 +2,18 @@
   "name": "@manufosela/rich-inputfile",
   "version": "2.0.0",
   "description": "Enhanced file input web component with preview and validation",
-  "main": "src/rich-inputfile.js",
-  "module": "src/rich-inputfile.js",
+  "license": "Apache-2.0",
+  "author": "manufosela",
   "type": "module",
+  "main": "./src/rich-inputfile.js",
+  "module": "./src/rich-inputfile.js",
+  "types": "./src/rich-inputfile.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/rich-inputfile.d.ts",
+      "import": "./src/rich-inputfile.js"
+    }
+  },
   "files": [
     "src"
   ],
@@ -12,7 +21,13 @@
     "start": "web-dev-server --node-resolve --open demo/ --watch",
     "test": "web-test-runner",
     "test:watch": "web-test-runner --watch",
-    "test:coverage": "web-test-runner --coverage"
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/rich-inputfile.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/rich-inputfile"
   },
   "keywords": [
     "web-components",
@@ -22,23 +37,11 @@
     "image-preview",
     "drag-drop"
   ],
-  "author": "manufosela",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/manufosela/ui-components",
-    "directory": "packages/rich-inputfile"
-  },
   "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/rich-inputfile#readme",
   "bugs": {
     "url": "https://github.com/manufosela/ui-components/issues"
   },
   "dependencies": {
     "lit": "^3.2.1"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.19.0"
   }
 }

@@ -81,7 +81,10 @@ describe('LcdDigit', () => {
         const segmentEls = el.shadowRoot.querySelectorAll('.segment');
         segments.forEach((shouldBeOn, i) => {
           const isOn = segmentEls[i].classList.contains('on');
-          expect(isOn).to.equal(shouldBeOn, `Segment ${i} should be ${shouldBeOn ? 'on' : 'off'} for digit ${digit}`);
+          expect(isOn).to.equal(
+            shouldBeOn,
+            `Segment ${i} should be ${shouldBeOn ? 'on' : 'off'} for digit ${digit}`
+          );
         });
       });
     });
@@ -98,7 +101,6 @@ describe('LcdDigit', () => {
 
     it('displays blank for space', async () => {
       const el = await fixture(html`<lcd-digit digit=" "></lcd-digit>`);
-      const segments = el.shadowRoot.querySelectorAll('.segment');
       const onSegments = el.shadowRoot.querySelectorAll('.segment.on');
       expect(onSegments.length).to.equal(0);
     });
@@ -126,7 +128,9 @@ describe('LcdDigit', () => {
     it('setDigit() does not fire event for same value', async () => {
       const el = await fixture(html`<lcd-digit digit="5"></lcd-digit>`);
       let eventFired = false;
-      el.addEventListener('digit-changed', () => { eventFired = true; });
+      el.addEventListener('digit-changed', () => {
+        eventFired = true;
+      });
       el.setDigit('5');
       expect(eventFired).to.be.false;
     });

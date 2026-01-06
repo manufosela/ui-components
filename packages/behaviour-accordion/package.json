@@ -2,9 +2,18 @@
   "name": "@manufosela/behaviour-accordion",
   "version": "2.0.0",
   "description": "Accessible accordion web component with smooth animations",
-  "main": "src/behaviour-accordion.js",
-  "module": "src/behaviour-accordion.js",
+  "license": "Apache-2.0",
+  "author": "manufosela",
   "type": "module",
+  "main": "./src/behaviour-accordion.js",
+  "module": "./src/behaviour-accordion.js",
+  "types": "./src/behaviour-accordion.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/behaviour-accordion.d.ts",
+      "import": "./src/behaviour-accordion.js"
+    }
+  },
   "files": [
     "src"
   ],
@@ -12,7 +21,13 @@
     "start": "web-dev-server --node-resolve --open demo/ --watch",
     "test": "web-test-runner",
     "test:watch": "web-test-runner --watch",
-    "test:coverage": "web-test-runner --coverage"
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/behaviour-accordion.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/behaviour-accordion"
   },
   "keywords": [
     "web-components",
@@ -21,19 +36,11 @@
     "collapsible",
     "expandable"
   ],
-  "author": "manufosela",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/manufosela/ui-components",
-    "directory": "packages/behaviour-accordion"
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/behaviour-accordion#readme",
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
   },
   "dependencies": {
     "lit": "^3.2.1"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.19.0"
   }
 }

@@ -57,7 +57,9 @@ describe('ModalDialog', () => {
     });
 
     it('renders footer slot', async () => {
-      const el = await fixture(html`<modal-dialog><button slot="footer">OK</button></modal-dialog>`);
+      const el = await fixture(
+        html`<modal-dialog><button slot="footer">OK</button></modal-dialog>`
+      );
       const footerSlot = el.shadowRoot.querySelector('.footer slot[name="footer"]');
       expect(footerSlot).to.exist;
     });

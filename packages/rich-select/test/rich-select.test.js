@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { fixture, expect, oneEvent, aTimeout } from '@open-wc/testing';
+import { fixture, expect, oneEvent } from '@open-wc/testing';
 import '../src/rich-select.js';
 
 describe('RichOption', () => {
@@ -74,7 +74,9 @@ describe('RichOption', () => {
     });
 
     it('returns title as content when title is set', async () => {
-      const el = await fixture(html`<rich-option title="Title Content">Option Content</rich-option>`);
+      const el = await fixture(
+        html`<rich-option title="Title Content">Option Content</rich-option>`
+      );
 
       expect(el.content).to.equal('Title Content');
     });

@@ -295,7 +295,9 @@ describe('HeaderNav', () => {
     it('_closeMenu does nothing if already closed', async () => {
       const el = await fixture(html`<header-nav></header-nav>`);
       let eventFired = false;
-      el.addEventListener('menu-toggle', () => { eventFired = true; });
+      el.addEventListener('menu-toggle', () => {
+        eventFired = true;
+      });
 
       el._closeMenu();
       expect(eventFired).to.be.false;

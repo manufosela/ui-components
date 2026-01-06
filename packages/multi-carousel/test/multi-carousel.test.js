@@ -291,7 +291,7 @@ describe('MultiCarousel', () => {
       await el.updateComplete;
 
       const dots = el.shadowRoot.querySelectorAll('.nav-dot');
-      dots.forEach(dot => {
+      dots.forEach((dot) => {
         expect(dot.getAttribute('role')).to.equal('tab');
       });
     });

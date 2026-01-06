@@ -39,10 +39,18 @@ export const MultiCarouselStyles = css`
   }
 
   @keyframes carousel-fade {
-    0% { opacity: 1; }
-    40% { opacity: 0; }
-    60% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 0;
+    }
+    60% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 
   ::slotted(*) {

@@ -130,7 +130,9 @@ describe('LoadingLayer', () => {
 
     it('accepts message in global show event', async () => {
       const el = await fixture(html`<loading-layer></loading-layer>`);
-      document.dispatchEvent(new CustomEvent('loading-layer-show', { detail: { message: 'Custom message' } }));
+      document.dispatchEvent(
+        new CustomEvent('loading-layer-show', { detail: { message: 'Custom message' } })
+      );
       expect(el.message).to.equal('Custom message');
     });
   });

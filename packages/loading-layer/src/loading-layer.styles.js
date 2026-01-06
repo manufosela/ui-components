@@ -18,8 +18,9 @@ export const loadingLayerStyles = css`
     z-index: var(--loading-layer-z-index, 9999);
     opacity: 0;
     visibility: hidden;
-    transition: opacity var(--loading-layer-transition, 0.3s) ease,
-                visibility var(--loading-layer-transition, 0.3s) ease;
+    transition:
+      opacity var(--loading-layer-transition, 0.3s) ease,
+      visibility var(--loading-layer-transition, 0.3s) ease;
   }
 
   :host([visible]) .loading-overlay {
@@ -46,7 +47,11 @@ export const loadingLayerStyles = css`
   }
 
   @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;

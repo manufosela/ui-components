@@ -98,7 +98,9 @@ describe('ThemeToggle', () => {
     it('ignores same theme value', async () => {
       const el = await fixture(html`<theme-toggle theme="light"></theme-toggle>`);
       let eventFired = false;
-      el.addEventListener('theme-changed', () => { eventFired = true; });
+      el.addEventListener('theme-changed', () => {
+        eventFired = true;
+      });
       el.setTheme('light');
       expect(eventFired).to.be.false;
     });
@@ -145,7 +147,9 @@ describe('ThemeToggle', () => {
     });
 
     it('uses custom storage key', async () => {
-      const el = await fixture(html`<theme-toggle theme="light" storage-key="my-theme"></theme-toggle>`);
+      const el = await fixture(
+        html`<theme-toggle theme="light" storage-key="my-theme"></theme-toggle>`
+      );
       el.setTheme('dark');
       expect(localStorage.getItem('my-theme')).to.equal('dark');
       localStorage.removeItem('my-theme');

@@ -3,7 +3,13 @@ import { css } from 'lit';
 export const MarkedCalendarStyles = css`
   :host {
     display: block;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
     --calendar-bg: #f8fafc;
     --calendar-border: #e2e8f0;
     --cell-size: 1.25rem;

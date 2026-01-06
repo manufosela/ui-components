@@ -129,7 +129,11 @@ export class HistoricalLine extends LitElement {
   }
 
   willUpdate(changedProperties) {
-    if (changedProperties.has('startYear') || changedProperties.has('endYear') || changedProperties.has('data')) {
+    if (
+      changedProperties.has('startYear') ||
+      changedProperties.has('endYear') ||
+      changedProperties.has('data')
+    ) {
       this._calculateTimeline();
     }
   }
@@ -240,7 +244,9 @@ export class HistoricalLine extends LitElement {
         <tr id="space"></tr>
         <tr>
           ${this._arrDesc.map(
-            (item) => html` <td class="desc" colspan="${item.colspan}">${this._renderDesc(item.text)}</td> `
+            (item) => html`
+              <td class="desc" colspan="${item.colspan}">${this._renderDesc(item.text)}</td>
+            `
           )}
         </tr>
       </table>

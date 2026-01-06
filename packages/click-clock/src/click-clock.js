@@ -49,7 +49,7 @@ export class ClickClock extends LitElement {
     /** Internal: current remaining time in ms */
     _remaining: { state: true },
     /** Internal: is running */
-    _running: { state: true }
+    _running: { state: true },
   };
 
   static styles = css`
@@ -232,11 +232,13 @@ export class ClickClock extends LitElement {
       this._remaining = elapsed;
     }
 
-    this.dispatchEvent(new CustomEvent('tick', {
-      detail: this._getTimeUnits(),
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('tick', {
+        detail: this._getTimeUnits(),
+        bubbles: true,
+        composed: true,
+      })
+    );
 
     this.requestUpdate();
   }
@@ -286,7 +288,7 @@ export class ClickClock extends LitElement {
         minutes: now.getMinutes(),
         seconds: now.getSeconds(),
         days: 0,
-        milliseconds: 0
+        milliseconds: 0,
       };
     }
 
@@ -352,9 +354,7 @@ export class ClickClock extends LitElement {
     });
 
     return html`
-      <div class="clock ${this.format} ${expired ? 'expired' : ''}">
-        ${withSeparators}
-      </div>
+      <div class="clock ${this.format} ${expired ? 'expired' : ''}">${withSeparators}</div>
     `;
   }
 }

@@ -2,9 +2,18 @@
   "name": "@manufosela/slider-underline",
   "version": "2.0.0",
   "description": "Range slider web component with underline track style",
-  "main": "src/slider-underline.js",
-  "module": "src/slider-underline.js",
+  "license": "Apache-2.0",
+  "author": "manufosela",
   "type": "module",
+  "main": "./src/slider-underline.js",
+  "module": "./src/slider-underline.js",
+  "types": "./src/slider-underline.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/slider-underline.d.ts",
+      "import": "./src/slider-underline.js"
+    }
+  },
   "files": [
     "src"
   ],
@@ -12,7 +21,13 @@
     "start": "web-dev-server --node-resolve --open demo/ --watch",
     "test": "web-test-runner",
     "test:watch": "web-test-runner --watch",
-    "test:coverage": "web-test-runner --coverage"
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/slider-underline.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/slider-underline"
   },
   "keywords": [
     "web-components",
@@ -21,19 +36,11 @@
     "range",
     "input"
   ],
-  "author": "manufosela",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/manufosela/ui-components",
-    "directory": "packages/slider-underline"
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/slider-underline#readme",
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
   },
   "dependencies": {
     "lit": "^3.2.1"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.19.0"
   }
 }

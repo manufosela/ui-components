@@ -194,11 +194,9 @@ describe('ArcSlider', () => {
     });
 
     it('calculates gradient colors', () => {
-      const colors = customElements.get('arc-slider').calculateGradientColors(
-        { r: 0, g: 0, b: 0 },
-        { r: 255, g: 255, b: 255 },
-        2
-      );
+      const colors = customElements
+        .get('arc-slider')
+        .calculateGradientColors({ r: 0, g: 0, b: 0 }, { r: 255, g: 255, b: 255 }, 2);
 
       expect(colors.length).to.equal(4);
       expect(colors[0]).to.deep.equal({ r: 0, g: 0, b: 0 });
@@ -278,7 +276,7 @@ describe('ArcSlider', () => {
       const el = await fixture(html`<arc-slider min-range="0" max-range="100"></arc-slider>`);
 
       // Default: min on right (0°), max on left (180°), arc through top (270°)
-      expect(el._valueToAngle(0)).to.equal(0);   // Min at right
+      expect(el._valueToAngle(0)).to.equal(0); // Min at right
       expect(el._valueToAngle(50)).to.equal(270); // Middle at top
       expect(el._valueToAngle(100)).to.equal(180); // Max at left
     });
@@ -287,7 +285,7 @@ describe('ArcSlider', () => {
       const el = await fixture(html`<arc-slider min-range="0" max-range="100"></arc-slider>`);
 
       // Default: min on right, max on left
-      expect(el._angleToValue(0)).to.equal(0);    // Right = min
+      expect(el._angleToValue(0)).to.equal(0); // Right = min
       expect(el._angleToValue(270)).to.equal(50); // Top = middle
       expect(el._angleToValue(180)).to.equal(100); // Left = max
     });

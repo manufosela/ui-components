@@ -82,7 +82,9 @@ export class RichOption extends LitElement {
   }
 
   get record() {
-    return this.hasAttribute('record') ? this.getAttribute('record') : this.title || this.textContent.trim();
+    return this.hasAttribute('record')
+      ? this.getAttribute('record')
+      : this.title || this.textContent.trim();
   }
 
   set record(val) {
@@ -448,7 +450,10 @@ export class RichSelect extends LitElement {
     }
 
     // Consider first visible option if current considered/selected is hidden
-    if (!this._isVisibleAndEnabled(this._consideredOption) && !this._isVisibleAndEnabled(this._selectedOption)) {
+    if (
+      !this._isVisibleAndEnabled(this._consideredOption) &&
+      !this._isVisibleAndEnabled(this._selectedOption)
+    ) {
       const firstOption = this._firstOption();
       if (firstOption) {
         firstOption.considered = true;
@@ -481,7 +486,7 @@ export class RichSelect extends LitElement {
 
   // Option navigation
   _allOptions() {
-    return Array.from(this.children).filter(el => el.tagName === 'RICH-OPTION');
+    return Array.from(this.children).filter((el) => el.tagName === 'RICH-OPTION');
   }
 
   _allValidOptions() {
@@ -489,7 +494,7 @@ export class RichSelect extends LitElement {
   }
 
   _getSelected(allOptions) {
-    return allOptions.find(opt => opt.hasAttribute('selected')) || null;
+    return allOptions.find((opt) => opt.hasAttribute('selected')) || null;
   }
 
   _firstOption() {

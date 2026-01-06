@@ -204,7 +204,9 @@ describe('TabNav', () => {
       await el.updateComplete;
 
       let eventFired = false;
-      el.addEventListener('tab-change', () => { eventFired = true; });
+      el.addEventListener('tab-change', () => {
+        eventFired = true;
+      });
 
       const tab = el.shadowRoot.querySelector('.tab');
       tab.click();

@@ -44,7 +44,9 @@ describe('CirclePercent', () => {
     });
 
     it('does not render percent text when showPercent is false', async () => {
-      const el = await fixture(html`<circle-percent percent="50" show-percent="false"></circle-percent>`);
+      const el = await fixture(
+        html`<circle-percent percent="50" show-percent="false"></circle-percent>`
+      );
       el.showPercent = false;
       await el.updateComplete;
 
@@ -109,13 +111,17 @@ describe('CirclePercent', () => {
 
   describe('Calculations', () => {
     it('calculates normalized radius correctly', async () => {
-      const el = await fixture(html`<circle-percent radius="50" stroke-width="6"></circle-percent>`);
+      const el = await fixture(
+        html`<circle-percent radius="50" stroke-width="6"></circle-percent>`
+      );
 
       expect(el._normalizedRadius).to.equal(47); // 50 - 6/2
     });
 
     it('calculates circumference correctly', async () => {
-      const el = await fixture(html`<circle-percent radius="50" stroke-width="6"></circle-percent>`);
+      const el = await fixture(
+        html`<circle-percent radius="50" stroke-width="6"></circle-percent>`
+      );
 
       const expectedCircumference = 2 * Math.PI * 47;
       expect(el._circumference).to.be.closeTo(expectedCircumference, 0.01);

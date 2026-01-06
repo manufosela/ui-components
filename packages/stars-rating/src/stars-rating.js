@@ -170,7 +170,8 @@ export class StarsRating extends LitElement {
           @mousemove="${(e) => this._handleMouseMove(e, i)}"
           @mouseleave="${this._handleMouseLeave}"
           @keydown="${(e) => this._handleKeydown(e, i)}"
-        >${this.star}</span>
+          >${this.star}</span
+        >
       `);
     }
     return stars;
@@ -184,18 +185,13 @@ export class StarsRating extends LitElement {
         aria-label="Star rating: ${this.rating} of ${this.numstars} stars"
       >
         ${this._renderStars()}
-        <input
-          type="hidden"
-          .value="${this.rating}"
-        />
+        <input type="hidden" .value="${this.rating}" />
       </div>
       ${this.reset && this.manual && !this.disabled
         ? html`
-            <button
-              class="reset-btn"
-              @click="${this.resetRating}"
-              aria-label="Reset rating"
-            >✕</button>
+            <button class="reset-btn" @click="${this.resetRating}" aria-label="Reset rating">
+              ✕
+            </button>
           `
         : ''}
     `;

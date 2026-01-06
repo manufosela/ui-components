@@ -2,9 +2,18 @@
   "name": "@manufosela/stars-rating",
   "version": "2.0.1",
   "description": "An interactive star rating web component with Lit",
-  "main": "src/stars-rating.js",
-  "module": "src/stars-rating.js",
+  "license": "MIT",
+  "author": "manufosela",
   "type": "module",
+  "main": "./src/stars-rating.js",
+  "module": "./src/stars-rating.js",
+  "types": "./src/stars-rating.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/stars-rating.d.ts",
+      "import": "./src/stars-rating.js"
+    }
+  },
   "files": [
     "src"
   ],
@@ -12,7 +21,13 @@
     "start": "web-dev-server --node-resolve --open demo/ --watch",
     "test": "web-test-runner",
     "test:watch": "web-test-runner --watch",
-    "test:coverage": "web-test-runner --coverage"
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/stars-rating.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/stars-rating"
   },
   "keywords": [
     "web-components",
@@ -21,24 +36,11 @@
     "rating",
     "stars"
   ],
-  "author": "manufosela",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/manufosela/ui-components",
-    "directory": "packages/stars-rating"
-  },
-  "dependencies": {
-    "lit": "^3.2.1"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.19.0"
-  },
-  "customElements": "custom-elements.json",
   "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/stars-rating#readme",
   "bugs": {
     "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
   }
 }

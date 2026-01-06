@@ -93,7 +93,9 @@ describe('AccordionItem', () => {
       const el = await fixture(html`<accordion-item></accordion-item>`);
       const header = el.shadowRoot.querySelector('.header');
       let eventFired = false;
-      el.addEventListener('toggle', () => { eventFired = true; });
+      el.addEventListener('toggle', () => {
+        eventFired = true;
+      });
       header.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }));
       await aTimeout(50);
       expect(eventFired).to.be.false;
@@ -111,7 +113,9 @@ describe('AccordionItem', () => {
       const el = await fixture(html`<accordion-item disabled></accordion-item>`);
       const header = el.shadowRoot.querySelector('.header');
       let eventFired = false;
-      el.addEventListener('toggle', () => { eventFired = true; });
+      el.addEventListener('toggle', () => {
+        eventFired = true;
+      });
       header.click();
       await aTimeout(50);
       expect(eventFired).to.be.false;
@@ -263,9 +267,7 @@ describe('BehaviourAccordion', () => {
     });
 
     it('converts expanded attribute to array', async () => {
-      const el = await fixture(html`
-        <behaviour-accordion expanded="1"></behaviour-accordion>
-      `);
+      const el = await fixture(html` <behaviour-accordion expanded="1"></behaviour-accordion> `);
       expect(el.expanded).to.deep.equal([1]);
     });
   });
@@ -343,7 +345,7 @@ describe('BehaviourAccordion', () => {
       await el.updateComplete;
 
       el.toggle(0);
-      let item = el.querySelector('accordion-item');
+      const item = el.querySelector('accordion-item');
       expect(item.expanded).to.be.true;
 
       el.toggle(0);
