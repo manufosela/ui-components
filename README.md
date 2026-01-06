@@ -139,6 +139,21 @@ ui-components/
 └── pnpm-workspace.yaml
 ```
 
+## Releasing
+
+This monorepo uses [Changesets](https://github.com/changesets/changesets) for versioning.
+
+```bash
+# 1. Create a changeset (describe your changes)
+pnpm changeset
+
+# 2. Version packages (updates package.json and CHANGELOG)
+pnpm changeset version
+
+# 3. Publish to npm (requires OTP)
+pnpm publish -r --access public
+```
+
 ## Contributing
 
 Contributions are welcome! Please read our [contributing guidelines](./CONTRIBUTING.md) before submitting a PR.
