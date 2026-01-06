@@ -36,17 +36,19 @@ import '@manufosela/multi-select';
 - Multiple selection with checkboxes
 - Click outside to close
 - Programmatic select/clear all
+- Optional alphabetical sorting (asc/desc)
 - Custom placeholder
 - Disabled state
 - CSS custom properties for theming
 
 ## Attributes
 
-| Attribute         | Type    | Default     | Description                    |
-| ----------------- | ------- | ----------- | ------------------------------ |
-| `placeholder`     | String  | `Select...` | Placeholder text               |
-| `disabled`        | Boolean | `false`     | Disable the select             |
-| `selected-values` | Array   | `[]`        | Currently selected values      |
+| Attribute         | Type    | Default     | Description                              |
+| ----------------- | ------- | ----------- | ---------------------------------------- |
+| `placeholder`     | String  | `Select...` | Placeholder text                         |
+| `disabled`        | Boolean | `false`     | Disable the select                       |
+| `selected-values` | Array   | `[]`        | Currently selected values                |
+| `sort`            | String  | `""`        | Sort options: `""` (none), `"asc"`, `"desc"` |
 
 ## Properties
 
@@ -100,6 +102,31 @@ select.addEventListener('change', (e) => {
   const { selectedValues } = e.detail;
   console.log('Selected:', selectedValues);
 });
+```
+
+### Sorted Options
+
+```html
+<!-- No sorting (default) - options appear in insertion order -->
+<multi-select>
+  <option value="cherry">Cherry</option>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+</multi-select>
+
+<!-- Sort alphabetically A-Z -->
+<multi-select sort="asc">
+  <option value="cherry">Cherry</option>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+</multi-select>
+
+<!-- Sort alphabetically Z-A -->
+<multi-select sort="desc">
+  <option value="cherry">Cherry</option>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+</multi-select>
 ```
 
 ## CSS Custom Properties

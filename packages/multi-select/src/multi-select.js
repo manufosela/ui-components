@@ -10,6 +10,7 @@ import { multiSelectStyles } from './multi-select.styles.js';
  * @attr {String} label - Label for the select
  * @attr {String} placeholder - Placeholder text when nothing selected
  * @attr {Boolean} disabled - Disable the select
+ * @attr {String} sort - Sort options: '' (none), 'asc' (A-Z), 'desc' (Z-A)
  *
  * @slot - Default slot for declarative option elements
  *
@@ -35,6 +36,7 @@ export class MultiSelect extends LitElement {
     selectedValues: { type: Array, attribute: 'selected-values' },
     placeholder: { type: String },
     disabled: { type: Boolean, reflect: true },
+    sort: { type: String },
     isOpen: { type: Boolean, state: true },
   };
 
@@ -45,10 +47,22 @@ export class MultiSelect extends LitElement {
     this.selectedValues = [];
     this.placeholder = 'Select...';
     this.disabled = false;
+    this.sort = '';
     this.isOpen = false;
     this._slotOptionsProcessed = false;
 
     this._handleClickOutside = this._handleClickOutside.bind(this);
+  }
+
+  /** Get options sorted according to sort property */
+  get _sortedOptions() {
+    if (!this.sort) {
+      return this.options;
+    }
+    const sorted = [...this.options].sort((a, b) =>
+      a.label.localeCompare(b.label, undefined, { sensitivity: 'base' })
+    );
+    return this.sort === 'desc' ? sorted.reverse() : sorted;
   }
 
   connectedCallback() {
@@ -179,9 +193,9 @@ export class MultiSelect extends LitElement {
         </div>
 
         <div class="options-container">
-          ${this.options.length === 0
+          ${this._sortedOptions.length === 0
             ? html` <div class="no-options">No options available</div> `
-            : this.options.map(
+            : this._sortedOptions.map(
                 (option) => html`
                   <div
                     class="option ${this.selectedValues.includes(option.value) ? 'selected' : ''}"

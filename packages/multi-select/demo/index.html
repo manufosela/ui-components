@@ -96,6 +96,37 @@
   </div>
 
   <div class="demo-section">
+    <h2>Sorting Options</h2>
+    <div class="demo-row">
+      <label>No sorting (insertion order):</label>
+      <multi-select id="nosort" placeholder="Original order...">
+        <option value="cherry">Cherry</option>
+        <option value="apple">Apple</option>
+        <option value="banana">Banana</option>
+        <option value="date">Date</option>
+      </multi-select>
+    </div>
+    <div class="demo-row">
+      <label>Sorted ascending (A-Z):</label>
+      <multi-select id="sortasc" sort="asc" placeholder="Sorted A-Z...">
+        <option value="cherry">Cherry</option>
+        <option value="apple">Apple</option>
+        <option value="banana">Banana</option>
+        <option value="date">Date</option>
+      </multi-select>
+    </div>
+    <div class="demo-row">
+      <label>Sorted descending (Z-A):</label>
+      <multi-select id="sortdesc" sort="desc" placeholder="Sorted Z-A...">
+        <option value="cherry">Cherry</option>
+        <option value="apple">Apple</option>
+        <option value="banana">Banana</option>
+        <option value="date">Date</option>
+      </multi-select>
+    </div>
+  </div>
+
+  <div class="demo-section">
     <h2>Disabled State</h2>
     <div class="demo-row">
       <label>Cannot select (disabled):</label>

@@ -306,4 +306,59 @@ describe('MultiSelect', () => {
       expect(el.options[0].value).to.equal('prog');
     });
   });
+
+  describe('Sorting', () => {
+    const unsortedOptions = [
+      { value: 'c', label: 'Cherry' },
+      { value: 'a', label: 'Apple' },
+      { value: 'b', label: 'Banana' },
+    ];
+
+    it('does not sort by default', async () => {
+      const el = await fixture(html`<multi-select .options="${unsortedOptions}"></multi-select>`);
+      el.isOpen = true;
+      await el.updateComplete;
+
+      const options = el.shadowRoot.querySelectorAll('.option span');
+      expect(options[0].textContent).to.equal('Cherry');
+      expect(options[1].textContent).to.equal('Apple');
+      expect(options[2].textContent).to.equal('Banana');
+    });
+
+    it('sorts ascending with sort="asc"', async () => {
+      const el = await fixture(
+        html`<multi-select sort="asc" .options="${unsortedOptions}"></multi-select>`
+      );
+      el.isOpen = true;
+      await el.updateComplete;
+
+      const options = el.shadowRoot.querySelectorAll('.option span');
+      expect(options[0].textContent).to.equal('Apple');
+      expect(options[1].textContent).to.equal('Banana');
+      expect(options[2].textContent).to.equal('Cherry');
+    });
+
+    it('sorts descending with sort="desc"', async () => {
+      const el = await fixture(
+        html`<multi-select sort="desc" .options="${unsortedOptions}"></multi-select>`
+      );
+      el.isOpen = true;
+      await el.updateComplete;
+
+      const options = el.shadowRoot.querySelectorAll('.option span');
+      expect(options[0].textContent).to.equal('Cherry');
+      expect(options[1].textContent).to.equal('Banana');
+      expect(options[2].textContent).to.equal('Apple');
+    });
+
+    it('sort property defaults to empty string', async () => {
+      const el = await fixture(html`<multi-select></multi-select>`);
+      expect(el.sort).to.equal('');
+    });
+
+    it('accepts sort attribute', async () => {
+      const el = await fixture(html`<multi-select sort="asc"></multi-select>`);
+      expect(el.sort).to.equal('asc');
+    });
+  });
 });
