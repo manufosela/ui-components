@@ -1,6 +1,29 @@
+# Dependencies
 node_modules/
-coverage/
+
+# Build outputs
 dist/
-*.log
-.DS_Store
+coverage/
 *.tgz
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Lock files (using pnpm only)
+package-lock.json
+yarn.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test artifacts
+.nyc_output/
