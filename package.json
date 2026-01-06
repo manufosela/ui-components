@@ -19,7 +19,7 @@
     "start:demo": "web-dev-server --node-resolve --open index.html --root-dir .",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "pnpm build && changeset publish",
+    "release": "pnpm build && pnpm publish -r --access public",
     "prepare": "husky"
   },
   "keywords": [
