@@ -361,7 +361,7 @@ pnpm publish -r --access public  # Requiere OTP de npm
 git push
 ```
 
-Ver `.changeset/VERSIONING.md` para guias de versionado semantico.
+Ver `.changeset/.VERSIONING.md` para guias de versionado semantico.
 
 ## Comandos Utiles
 
