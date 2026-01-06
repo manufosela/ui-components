@@ -91,21 +91,21 @@ describe('AppModal', () => {
       const el = await fixture(html`<app-modal button1-text="OK"></app-modal>`);
       const btn = el.shadowRoot.querySelector('.confirm');
       expect(btn).to.exist;
-      expect(btn.textContent).to.equal('OK');
+      expect(btn.textContent.trim()).to.equal('OK');
     });
 
     it('renders button2 when text provided', async () => {
       const el = await fixture(html`<app-modal button2-text="Cancel"></app-modal>`);
       const btn = el.shadowRoot.querySelector('.cancel');
       expect(btn).to.exist;
-      expect(btn.textContent).to.equal('Cancel');
+      expect(btn.textContent.trim()).to.equal('Cancel');
     });
 
     it('renders button3 when text provided', async () => {
       const el = await fixture(html`<app-modal button3-text="Maybe"></app-modal>`);
       const buttons = el.shadowRoot.querySelectorAll('.modal-footer button');
       expect(buttons.length).to.equal(1);
-      expect(buttons[0].textContent).to.equal('Maybe');
+      expect(buttons[0].textContent.trim()).to.equal('Maybe');
     });
 
     it('does not render footer when showFooter is false', async () => {
