@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Card - Demo</title>
+    <style>
+      :root {
+        --bg-color: #f5f5f7;
+        --card-bg: #ffffff;
+        --text-color: #1d1d1f;
+        --text-muted: #86868b;
+        --border-color: #d2d2d7;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 2rem;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+      }
+
+      .demo-section {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .demo-section h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .demo-section > p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin: 0 0 1.5rem 0;
+      }
+
+      .demo-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .code-block {
+        background: #1d1d1f;
+        color: #f5f5f7;
+        padding: 1rem;
+        border-radius: 8px;
+        font-family: 'SF Mono', Monaco, monospace;
+        font-size: 0.75rem;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-color);
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      footer a {
+        color: var(--text-color);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      .wide-section {
+        grid-column: 1 / -1;
+      }
+
+      .cards-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: center;
+      }
+
+      /* Sample more-info content file */
+      .info-sample {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Data Card</h1>
+        <p class="subtitle">A versatile card component for displaying data with cover images, icons, and modals</p>
+        <p><a href="../../../">&larr; Back to components</a> | <a href="https://github.com/manufosela/ui-components/tree/main/packages/data-card" target="_blank">GitHub Repo</a></p>
+      </header>
+
+      <div class="demo-grid">
+        <!-- Basic Usage -->
+        <div class="demo-section">
+          <h2>Basic Usage</h2>
+          <p>Simple card with title and description</p>
+          <div class="demo-content">
+            <data-card
+              card-title="Welcome"
+              description="A simple data card with basic content."
+            ></data-card>
+          </div>
+          <div class="code-block">&lt;data-card
+  card-title="Welcome"
+  description="A simple data card with basic content."
+&gt;&lt;/data-card&gt;</div>
+        </div>
+
+        <!-- With Icon -->
+        <div class="demo-section">
+          <h2>With Icon</h2>
+          <p>Card with an emoji or character as icon</p>
+          <div class="demo-content">
+            <data-card
+              card-title="Settings"
+              description="Configure your preferences and options."
+              icon="⚙️"
+            ></data-card>
+          </div>
+          <div class="code-block">&lt;data-card
+  card-title="Settings"
+  description="Configure your preferences."
+  icon="⚙️"
+&gt;&lt;/data-card&gt;</div>
+        </div>
+
+        <!-- With Cover Image -->
+        <div class="demo-section">
+          <h2>With Cover Image</h2>
+          <p>Card with a cover image header</p>
+          <div class="demo-content">
+            <data-card
+              card-title="Mountain View"
+              description="Beautiful landscape photography from the Alps."
+              img-cover="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop"
+            ></data-card>
+          </div>
+          <div class="code-block">&lt;data-card
+  card-title="Mountain View"
+  description="Beautiful landscape photography."
+  img-cover="https://example.com/image.jpg"
+&gt;&lt;/data-card&gt;</div>
+        </div>
+
+        <!-- With Group Badge -->
+        <div class="demo-section">
+          <h2>With Group Badge</h2>
+          <p>Card categorized with a group label</p>
+          <div class="demo-content">
+            <data-card
+              card-title="React Tutorial"
+              description="Learn React from scratch with this comprehensive guide."
+              icon="📚"
+              group="Tutorial"
+            ></data-card>
+          </div>
+          <div class="code-block">&lt;data-card
+  card-title="React Tutorial"
+  description="Learn React from scratch."
+  icon="📚"
+  group="Tutorial"
+&gt;&lt;/data-card&gt;</div>
+        </div>
+
+        <!-- With Link -->
+        <div class="demo-section">
+          <h2>Clickable Card</h2>
+          <p>Card that links to a URL</p>
+          <div class="demo-content">
+            <data-card
+              card-title="Visit GitHub"
+              description="Check out the source code repository."
+              icon="🔗"
+              url="https://github.com/manufosela/ui-components"
+              newtab
+            ></data-card>
+          </div>
+          <div class="code-block">&lt;data-card
+  card-title="Visit GitHub"
+  description="Check out the source code."
+  icon="🔗"
+  url="https://github.com/..."
+  newtab
+&gt;&lt;/data-card&gt;</div>
+        </div>
+
+        <!-- With Slotted Content -->
+        <div class="demo-section">
+          <h2>With Slotted Content</h2>
+          <p>Card with custom HTML content via slots</p>
+          <div class="demo-content">
+            <data-card
+              card-title="Custom Content"
+              description="This card has additional slotted content."
+              icon="✨"
+            >
+              <div style="display: flex; gap: 8px; margin-top: 8px;">
+                <span style="background: #dbeafe; color: #1e40af; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Tag 1</span>
+                <span style="background: #dcfce7; color: #166534; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Tag 2</span>
+              </div>
+            </data-card>
+          </div>
+          <div class="code-block">&lt;data-card card-title="Custom Content" icon="✨"&gt;
+  &lt;div&gt;
+    &lt;span class="tag"&gt;Tag 1&lt;/span&gt;
+    &lt;span class="tag"&gt;Tag 2&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/data-card&gt;</div>
+        </div>
+
+        <!-- Multiple Cards -->
+        <div class="demo-section wide-section">
+          <h2>Card Gallery</h2>
+          <p>Multiple cards with different styles</p>
+          <div class="demo-content cards-row">
+            <data-card
+              card-title="Documents"
+              description="Access your files and documents."
+              icon="📄"
+              group="Files"
+              style="--data-card-icon-color: #f59e0b;"
+            ></data-card>
+
+            <data-card
+              card-title="Analytics"
+              description="View your performance metrics."
+              img-cover="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop"
+              group="Data"
+              style="--data-card-group-bg: #8b5cf6;"
+            ></data-card>
+
+            <data-card
+              card-title="Messages"
+              description="Check your inbox and notifications."
+              icon="💬"
+              style="--data-card-icon-color: #10b981;"
+            ></data-card>
+          </div>
+          <div class="code-block">&lt;data-card card-title="Documents" icon="📄" group="Files"&gt;&lt;/data-card&gt;
+&lt;data-card card-title="Analytics" img-cover="..." group="Data"&gt;&lt;/data-card&gt;
+&lt;data-card card-title="Messages" icon="💬"&gt;&lt;/data-card&gt;</div>
+        </div>
+
+        <!-- Custom Styling -->
+        <div class="demo-section">
+          <h2>Custom Styling</h2>
+          <p>Customize with CSS variables</p>
+          <div class="demo-content">
+            <data-card
+              card-title="Styled Card"
+              description="This card uses custom CSS variables."
+              icon="🎨"
+              style="
+                --data-card-bg: #1e293b;
+                --data-card-title-color: #f8fafc;
+                --data-card-desc-color: #94a3b8;
+                --data-card-border-color: #334155;
+                --data-card-icon-color: #f472b6;
+              "
+            ></data-card>
+          </div>
+          <div class="code-block">&lt;data-card
+  card-title="Styled Card"
+  icon="🎨"
+  style="
+    --data-card-bg: #1e293b;
+    --data-card-title-color: #f8fafc;
+    --data-card-desc-color: #94a3b8;
+    --data-card-icon-color: #f472b6;
+  "
+&gt;&lt;/data-card&gt;</div>
+        </div>
+
+        <!-- Cover Background Color -->
+        <div class="demo-section">
+          <h2>Cover Background</h2>
+          <p>Card with colored background in cover area</p>
+          <div class="demo-content">
+            <data-card
+              card-title="Gradient Card"
+              description="Card with a custom cover background."
+              icon="🌈"
+              cover-bg-color="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+              style="--data-card-icon-color: #ffffff;"
+            ></data-card>
+          </div>
+          <div class="code-block">&lt;data-card
+  card-title="Gradient Card"
+  icon="🌈"
+  cover-bg-color="linear-gradient(135deg, #667eea, #764ba2)"
+&gt;&lt;/data-card&gt;</div>
+        </div>
+      </div>
+
+      <footer>
+        <p>
+          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+          <a href="https://www.npmjs.com/package/@manufosela/data-card">npm</a>
+        </p>
+      </footer>
+    </div>
+
+    <script type="module">
+      import '../src/data-card.js';
+
+      // Listen for card click events
+      document.querySelectorAll('data-card').forEach(card => {
+        card.addEventListener('data-card-click', (e) => {
+          console.log('Card clicked:', e.detail);
+        });
+      });
+    </script>
+  </body>
+</html>

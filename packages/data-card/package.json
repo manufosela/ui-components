@@ -1,0 +1,48 @@
+{
+  "name": "@manufosela/data-card",
+  "version": "1.0.0",
+  "description": "A versatile card web component for displaying data with optional cover image, icon, links, and modal info, built with Lit",
+  "license": "MIT",
+  "author": "manufosela",
+  "type": "module",
+  "main": "./src/data-card.js",
+  "module": "./src/data-card.js",
+  "types": "./src/data-card.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/data-card.d.ts",
+      "import": "./src/data-card.js"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/data-card.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/data-card"
+  },
+  "keywords": [
+    "web-component",
+    "lit",
+    "card",
+    "data-card",
+    "cover",
+    "modal",
+    "ui"
+  ],
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/data-card#readme",
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  }
+}

@@ -19,6 +19,7 @@ Visit the [live demo](https://manufosela.github.io/ui-components/) to see all co
 | [@manufosela/circle-percent](./packages/circle-percent) | ![npm](https://img.shields.io/npm/v/@manufosela/circle-percent) | Circular progress indicator |
 | [@manufosela/circle-steps](./packages/circle-steps) | ![npm](https://img.shields.io/npm/v/@manufosela/circle-steps) | Step indicator with circular progress |
 | [@manufosela/click-clock](./packages/click-clock) | ![npm](https://img.shields.io/npm/v/@manufosela/click-clock) | Countdown, stopwatch, and clock |
+| [@manufosela/data-card](./packages/data-card) | ![npm](https://img.shields.io/npm/v/@manufosela/data-card) | Versatile card with cover, icon, and modal |
 | [@manufosela/header-nav](./packages/header-nav) | ![npm](https://img.shields.io/npm/v/@manufosela/header-nav) | Responsive header with hamburger menu |
 | [@manufosela/historical-line](./packages/historical-line) | ![npm](https://img.shields.io/npm/v/@manufosela/historical-line) | Horizontal timeline visualization |
 | [@manufosela/lcd-digit](./packages/lcd-digit) | ![npm](https://img.shields.io/npm/v/@manufosela/lcd-digit) | 7-segment LCD digit display |
@@ -116,6 +117,7 @@ ui-components/
 │   ├── circle-percent/
 │   ├── circle-steps/
 │   ├── click-clock/
+│   ├── data-card/
 │   ├── header-nav/
 │   ├── historical-line/
 │   ├── lcd-digit/
