@@ -1,4 +1,5 @@
 import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import '../src/rich-inputfile.js';
 
 // Helper to create a mock File
 function createMockFile(name, size, type) {

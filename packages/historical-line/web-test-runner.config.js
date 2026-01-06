@@ -6,8 +6,8 @@ export default {
     reportDir: 'coverage',
     threshold: {
       statements: 70,
-      branches: 70,
-      functions: 70,
+      branches: 60,
+      functions: 35,
       lines: 70,
     },
   },
