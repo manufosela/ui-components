@@ -1,6 +1,6 @@
 {
   "name": "@manufosela/theme-toggle",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A light/dark theme toggle web component with smooth transitions, built with Lit",
   "license": "MIT",
   "author": "manufosela",

@@ -1,6 +1,6 @@
 {
   "name": "@manufosela/circle-percent",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A circular progress indicator web component with animated SVG arc and customizable styling, built with Lit",
   "license": "MIT",
   "author": "manufosela",

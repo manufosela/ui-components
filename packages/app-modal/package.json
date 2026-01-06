@@ -1,6 +1,6 @@
 {
   "name": "@manufosela/app-modal",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Feature-rich modal web component with configurable buttons and content",
   "main": "src/app-modal.js",
   "module": "src/app-modal.js",

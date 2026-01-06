@@ -1,6 +1,6 @@
 {
   "name": "@manufosela/lcd-digit",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "LCD-style digit display web component with Lit",
   "main": "src/lcd-digit.js",
   "module": "src/lcd-digit.js",

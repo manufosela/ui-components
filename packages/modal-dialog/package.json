@@ -1,6 +1,6 @@
 {
   "name": "@manufosela/modal-dialog",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Modal dialog web component with Lit",
   "main": "src/modal-dialog.js",
   "module": "src/modal-dialog.js",

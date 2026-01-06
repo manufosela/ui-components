@@ -1,6 +1,6 @@
 {
   "name": "@manufosela/loading-layer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A customizable loading overlay web component with animated spinner, built with Lit",
   "license": "MIT",
   "author": "manufosela",

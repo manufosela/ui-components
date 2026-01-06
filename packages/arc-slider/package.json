@@ -1,6 +1,6 @@
 {
   "name": "@manufosela/arc-slider",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A customizable arc slider web component with gradient colors, built with Lit",
   "license": "MIT",
   "author": "manufosela",

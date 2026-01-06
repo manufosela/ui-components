@@ -1,6 +1,6 @@
 {
   "name": "@manufosela/slide-notification",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Slide-in notification web component from the right edge",
   "main": "src/slide-notification.js",
   "module": "src/slide-notification.js",
