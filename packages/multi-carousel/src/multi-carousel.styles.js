@@ -32,6 +32,19 @@ export const MultiCarouselStyles = css`
     transition: transform var(--carousel-transition, 0.4s) ease-out;
   }
 
+  /* Wrap-around transition: use fade instead of slide to avoid "rewind" effect */
+  .slides.wrapping {
+    transition: none;
+    animation: carousel-fade 0.4s ease-out;
+  }
+
+  @keyframes carousel-fade {
+    0% { opacity: 1; }
+    40% { opacity: 0; }
+    60% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
   ::slotted(*) {
     flex: 0 0 100%;
     width: 100%;

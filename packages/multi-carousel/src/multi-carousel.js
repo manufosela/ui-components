@@ -24,16 +24,24 @@ export class MultiCarousel extends LitElement {
     autoplay: { type: Number },
     /** Show navigation dots */
     showNav: { type: Boolean, attribute: 'show-nav' },
+    /** Hide navigation dots (declarative alternative) */
+    hideNav: { type: Boolean, attribute: 'hide-nav' },
     /** Show arrow buttons */
     showArrows: { type: Boolean, attribute: 'show-arrows' },
+    /** Hide arrow buttons (declarative alternative) */
+    hideArrows: { type: Boolean, attribute: 'hide-arrows' },
     /** Loop slides infinitely */
     loop: { type: Boolean },
+    /** Disable looping (declarative alternative) */
+    noLoop: { type: Boolean, attribute: 'no-loop' },
     /** Master ID for syncing multiple carousels */
     masterId: { type: String, attribute: 'master-id' },
     /** Act as master (broadcast changes) */
     master: { type: Boolean },
     /** Internal: number of slides */
-    _slideCount: { type: Number, state: true }
+    _slideCount: { type: Number, state: true },
+    /** Internal: wrap-around transition in progress */
+    _isWrapping: { type: Boolean, state: true }
   };
 
   static styles = [MultiCarouselStyles];
@@ -43,13 +51,29 @@ export class MultiCarousel extends LitElement {
     this.current = 0;
     this.autoplay = 0;
     this.showNav = true;
+    this.hideNav = false;
     this.showArrows = true;
+    this.hideArrows = false;
     this.loop = true;
+    this.noLoop = false;
     this.masterId = '';
     this.master = false;
     this._slideCount = 0;
     this._autoplayTimer = null;
+    this._isWrapping = false;
     this._boundSyncHandler = this._handleSync.bind(this);
+  }
+
+  get _showNav() {
+    return this.showNav && !this.hideNav;
+  }
+
+  get _showArrows() {
+    return this.showArrows && !this.hideArrows;
+  }
+
+  get _loop() {
+    return this.loop && !this.noLoop;
   }
 
   connectedCallback() {
@@ -141,15 +165,30 @@ export class MultiCarousel extends LitElement {
     if (this._slideCount === 0) return;
 
     let newIndex = index;
+    let isWrapAround = false;
 
-    if (this.loop) {
-      if (newIndex < 0) newIndex = this._slideCount - 1;
-      if (newIndex >= this._slideCount) newIndex = 0;
+    if (this._loop) {
+      // Detect wrap-around: last→first or first→last
+      if (newIndex < 0) {
+        newIndex = this._slideCount - 1;
+        isWrapAround = true;
+      } else if (newIndex >= this._slideCount) {
+        newIndex = 0;
+        isWrapAround = true;
+      }
     } else {
       newIndex = Math.max(0, Math.min(newIndex, this._slideCount - 1));
     }
 
     if (newIndex !== this.current) {
+      // Use fade transition for wrap-around to avoid "rewind" effect
+      if (isWrapAround) {
+        this._isWrapping = true;
+        // Reset after animation completes
+        setTimeout(() => {
+          this._isWrapping = false;
+        }, 400);
+      }
       this.current = newIndex;
       this._broadcastChange();
     }
@@ -178,7 +217,7 @@ export class MultiCarousel extends LitElement {
   }
 
   _renderNavigation() {
-    if (!this.showNav || this._slideCount <= 1) return '';
+    if (!this._showNav || this._slideCount <= 1) return '';
 
     return html`
       <div class="navigation" role="tablist">
@@ -196,10 +235,10 @@ export class MultiCarousel extends LitElement {
   }
 
   _renderArrows() {
-    if (!this.showArrows || this._slideCount <= 1) return '';
+    if (!this._showArrows || this._slideCount <= 1) return '';
 
-    const showPrev = this.loop || this.current > 0;
-    const showNext = this.loop || this.current < this._slideCount - 1;
+    const showPrev = this._loop || this.current > 0;
+    const showNext = this._loop || this.current < this._slideCount - 1;
 
     return html`
       <div class="arrows">
@@ -239,7 +278,7 @@ export class MultiCarousel extends LitElement {
       >
         <div class="slides-container">
           <div
-            class="slides"
+            class="slides ${this._isWrapping ? 'wrapping' : ''}"
             style="transform: translateX(${offset}%)"
             role="group"
             aria-live="polite"

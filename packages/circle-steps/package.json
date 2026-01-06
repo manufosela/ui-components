@@ -1,0 +1,40 @@
+{
+  "name": "@manufosela/circle-steps",
+  "version": "2.0.0",
+  "description": "Step indicator web component with circular progress visualization",
+  "main": "src/circle-steps.js",
+  "module": "src/circle-steps.js",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage"
+  },
+  "keywords": [
+    "web-components",
+    "lit",
+    "stepper",
+    "progress",
+    "wizard",
+    "steps"
+  ],
+  "author": "manufosela",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/circle-steps"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^4.0.0",
+    "@web/dev-server": "^0.4.6",
+    "@web/test-runner": "^0.19.0"
+  }
+}

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow: auto;
+      max-height: 300px;
+      white-space: pre;
+    }
+    .demo-row {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    .controls {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    input[type="text"], input[type="number"] {
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+    input[type="color"] {
+      width: 50px;
+      height: 36px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #374151;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>QR Code</h1>
+  <p><a href="../../../">&larr; Back to components</a> | <a href="https://github.com/manufosela/ui-components/tree/main/packages/qr-code" target="_blank">GitHub Repo</a></p>
+
+  <div class="demo-section">
+    <h2>Basic Usage</h2>
+    <p>Generate QR codes from text or URLs.</p>
+    <div class="demo-row">
+      <qr-code data="https://lit.dev"></qr-code>
+      <qr-code data="Hello World!" size="150"></qr-code>
+    </div>
+    <div class="code-block">&lt;qr-code data="https://lit.dev"&gt;&lt;/qr-code&gt;
+&lt;qr-code data="Hello World!" size="150"&gt;&lt;/qr-code&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Interactive Generator</h2>
+    <p>Enter text to generate a QR code in real-time.</p>
+    <div class="controls">
+      <label>
+        Text:
+        <input type="text" id="qrInput" value="https://github.com/manufosela" placeholder="Enter text or URL">
+      </label>
+      <label>
+        Size:
+        <input type="number" id="sizeInput" value="200" min="50" max="500" step="10">
+      </label>
+    </div>
+    <div class="demo-row">
+      <qr-code id="interactive" data="https://github.com/manufosela"></qr-code>
+    </div>
+    <div class="code-block">&lt;qr-code data="https://github.com/manufosela"&gt;&lt;/qr-code&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Colors</h2>
+    <p>Customize foreground and background colors.</p>
+    <div class="demo-row">
+      <qr-code data="Blue QR" color="#3b82f6" background="#eff6ff" size="150"></qr-code>
+      <qr-code data="Green QR" color="#22c55e" background="#f0fdf4" size="150"></qr-code>
+      <qr-code data="Purple QR" color="#8b5cf6" background="#faf5ff" size="150"></qr-code>
+      <qr-code data="Dark Mode" color="#f8fafc" background="#1e293b" size="150"></qr-code>
+    </div>
+    <div class="code-block">&lt;qr-code data="Blue QR" color="#3b82f6" background="#eff6ff" size="150"&gt;&lt;/qr-code&gt;
+&lt;qr-code data="Green QR" color="#22c55e" background="#f0fdf4" size="150"&gt;&lt;/qr-code&gt;
+&lt;qr-code data="Purple QR" color="#8b5cf6" background="#faf5ff" size="150"&gt;&lt;/qr-code&gt;
+&lt;qr-code data="Dark Mode" color="#f8fafc" background="#1e293b" size="150"&gt;&lt;/qr-code&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Color Picker</h2>
+    <p>Choose custom colors interactively.</p>
+    <div class="controls">
+      <label>
+        Foreground:
+        <input type="color" id="fgColor" value="#000000">
+      </label>
+      <label>
+        Background:
+        <input type="color" id="bgColor" value="#ffffff">
+      </label>
+    </div>
+    <div class="demo-row">
+      <qr-code id="colorPicker" data="Custom Colors" size="200"></qr-code>
+    </div>
+    <div class="code-block">&lt;qr-code data="Custom Colors" color="#000000" background="#ffffff"&gt;&lt;/qr-code&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Error Correction Levels</h2>
+    <p>Higher levels allow more damage tolerance but increase QR size.</p>
+    <div class="demo-row">
+      <div style="text-align: center;">
+        <qr-code data="Level L" error-correction="L" size="120"></qr-code>
+        <p style="margin: 0.5rem 0 0; font-size: 0.8rem;">L - 7%</p>
+      </div>
+      <div style="text-align: center;">
+        <qr-code data="Level M" error-correction="M" size="120"></qr-code>
+        <p style="margin: 0.5rem 0 0; font-size: 0.8rem;">M - 15%</p>
+      </div>
+      <div style="text-align: center;">
+        <qr-code data="Level Q" error-correction="Q" size="120"></qr-code>
+        <p style="margin: 0.5rem 0 0; font-size: 0.8rem;">Q - 25%</p>
+      </div>
+      <div style="text-align: center;">
+        <qr-code data="Level H" error-correction="H" size="120"></qr-code>
+        <p style="margin: 0.5rem 0 0; font-size: 0.8rem;">H - 30%</p>
+      </div>
+    </div>
+    <div class="code-block">&lt;qr-code data="Level L" error-correction="L"&gt;&lt;/qr-code&gt;
+&lt;qr-code data="Level M" error-correction="M"&gt;&lt;/qr-code&gt;
+&lt;qr-code data="Level Q" error-correction="Q"&gt;&lt;/qr-code&gt;
+&lt;qr-code data="Level H" error-correction="H"&gt;&lt;/qr-code&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Different Sizes</h2>
+    <p>QR codes can be generated at various sizes.</p>
+    <div class="demo-row">
+      <qr-code data="Small" size="80"></qr-code>
+      <qr-code data="Medium" size="150"></qr-code>
+      <qr-code data="Large" size="250"></qr-code>
+    </div>
+    <div class="code-block">&lt;qr-code data="Small" size="80"&gt;&lt;/qr-code&gt;
+&lt;qr-code data="Medium" size="150"&gt;&lt;/qr-code&gt;
+&lt;qr-code data="Large" size="250"&gt;&lt;/qr-code&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Download QR Code</h2>
+    <p>Download the generated QR code as a PNG image.</p>
+    <div class="demo-row">
+      <qr-code id="downloadQr" data="Download me!" size="200"></qr-code>
+      <button id="downloadBtn">Download PNG</button>
+    </div>
+    <div class="code-block">// JavaScript
+const qr = document.querySelector('qr-code');
+qr.download('my-qrcode.png');
+
+// Or get as data URL
+const dataUrl = qr.toDataURL();</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Use Cases</h2>
+    <p>Common QR code applications.</p>
+    <div class="demo-row">
+      <div style="text-align: center;">
+        <qr-code data="https://example.com" size="120"></qr-code>
+        <p style="margin: 0.5rem 0 0; font-size: 0.8rem;">Website URL</p>
+      </div>
+      <div style="text-align: center;">
+        <qr-code data="mailto:hello@example.com" size="120"></qr-code>
+        <p style="margin: 0.5rem 0 0; font-size: 0.8rem;">Email</p>
+      </div>
+      <div style="text-align: center;">
+        <qr-code data="tel:+1234567890" size="120"></qr-code>
+        <p style="margin: 0.5rem 0 0; font-size: 0.8rem;">Phone</p>
+      </div>
+      <div style="text-align: center;">
+        <qr-code data="WIFI:T:WPA;S:MyNetwork;P:password123;;" size="120"></qr-code>
+        <p style="margin: 0.5rem 0 0; font-size: 0.8rem;">WiFi</p>
+      </div>
+    </div>
+    <div class="code-block">&lt;!-- WiFi QR code format --&gt;
+&lt;qr-code data="WIFI:T:WPA;S:NetworkName;P:password;;"&gt;&lt;/qr-code&gt;
+
+&lt;!-- vCard format --&gt;
+&lt;qr-code data="BEGIN:VCARD
+VERSION:3.0
+N:Doe;John
+TEL:+1234567890
+END:VCARD"&gt;&lt;/qr-code&gt;</div>
+  </div>
+
+  <script type="module">
+    import '../src/qr-code.js';
+
+    // Interactive generator
+    const qrInput = document.getElementById('qrInput');
+    const sizeInput = document.getElementById('sizeInput');
+    const interactive = document.getElementById('interactive');
+
+    qrInput.addEventListener('input', (e) => {
+      interactive.data = e.target.value;
+    });
+
+    sizeInput.addEventListener('input', (e) => {
+      interactive.size = parseInt(e.target.value) || 200;
+    });
+
+    // Color picker
+    const fgColor = document.getElementById('fgColor');
+    const bgColor = document.getElementById('bgColor');
+    const colorPicker = document.getElementById('colorPicker');
+
+    fgColor.addEventListener('input', (e) => {
+      colorPicker.color = e.target.value;
+    });
+
+    bgColor.addEventListener('input', (e) => {
+      colorPicker.background = e.target.value;
+    });
+
+    // Download
+    const downloadBtn = document.getElementById('downloadBtn');
+    const downloadQr = document.getElementById('downloadQr');
+
+    downloadBtn.addEventListener('click', () => {
+      downloadQr.download('qrcode.png');
+    });
+  </script>
+</body>
+</html>

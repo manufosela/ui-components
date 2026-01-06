@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click Clock Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .demo-row {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+    button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    button:hover { background: #2563eb; }
+    .output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f7;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    click-clock {
+      display: block;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Click Clock</h1>
+  <p><a href="../../../">&larr; Back to components</a> | <a href="https://github.com/manufosela/ui-components/tree/main/packages/click-clock" target="_blank">GitHub Repo</a></p>
+
+  <div class="demo-section">
+    <h2>Countdown Timer</h2>
+    <p>Countdown from a specified number of seconds.</p>
+    <click-clock id="countdown" time="90"></click-clock>
+    <div class="demo-row">
+      <button onclick="document.getElementById('countdown').start()">Start</button>
+      <button onclick="document.getElementById('countdown').pause()">Pause</button>
+      <button onclick="document.getElementById('countdown').reset()">Reset</button>
+    </div>
+    <div class="code-block">&lt;click-clock time="90"&gt;&lt;/click-clock&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Stopwatch</h2>
+    <p>Count up from zero.</p>
+    <click-clock id="stopwatch" mode="stopwatch" show-milliseconds></click-clock>
+    <div class="demo-row">
+      <button onclick="document.getElementById('stopwatch').toggle()">Start/Stop</button>
+      <button onclick="document.getElementById('stopwatch').reset()">Reset</button>
+    </div>
+    <div class="code-block">&lt;click-clock mode="stopwatch" show-milliseconds&gt;&lt;/click-clock&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Live Clock</h2>
+    <p>Display current time.</p>
+    <click-clock mode="clock" autostart hide-days></click-clock>
+    <div class="code-block">&lt;click-clock mode="clock" autostart hide-days&gt;&lt;/click-clock&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Target Date Countdown</h2>
+    <p>Countdown to a specific date and time.</p>
+    <click-clock id="target" autostart></click-clock>
+    <div class="code-block">&lt;click-clock target="2025-12-31T00:00:00" autostart&gt;&lt;/click-clock&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Full Format</h2>
+    <p>Show unit labels below values.</p>
+    <click-clock time="3665" format="full" autostart></click-clock>
+    <div class="code-block">&lt;click-clock time="3665" format="full" autostart&gt;&lt;/click-clock&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Compact Format</h2>
+    <p>No labels, just values.</p>
+    <click-clock time="3665" format="compact" separator=" : " autostart></click-clock>
+    <div class="code-block">&lt;click-clock time="3665" format="compact" separator=" : "&gt;&lt;/click-clock&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Styling</h2>
+    <p>Use CSS custom properties for theming.</p>
+    <click-clock
+      time="120"
+      autostart
+      style="--clock-font-size: 3rem; --clock-color: #8b5cf6; --clock-bg: #faf5ff; border-radius: 12px;"
+    ></click-clock>
+    <div class="code-block">&lt;click-clock
+  time="120"
+  style="--clock-font-size: 3rem; --clock-color: #8b5cf6;"
+&gt;&lt;/click-clock&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Events</h2>
+    <p>Listen for timer events.</p>
+    <click-clock id="events" time="5"></click-clock>
+    <div class="demo-row">
+      <button onclick="document.getElementById('events').start()">Start 5s Timer</button>
+      <button onclick="document.getElementById('events').reset()">Reset</button>
+    </div>
+    <div class="output" id="eventOutput">Events will appear here...</div>
+    <div class="code-block">clock.addEventListener('complete', () => {
+  console.log('Timer finished!');
+});</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Minutes Only</h2>
+    <p>Show only minutes for short timers.</p>
+    <click-clock time="180" hide-days hide-hours hide-seconds autostart></click-clock>
+    <div class="code-block">&lt;click-clock time="180" hide-days hide-hours hide-seconds autostart&gt;&lt;/click-clock&gt;</div>
+  </div>
+
+  <script type="module">
+    import '../src/click-clock.js';
+
+    // Set target date to tomorrow
+    const target = document.getElementById('target');
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    target.target = tomorrow.toISOString();
+
+    // Events demo
+    const events = document.getElementById('events');
+    const output = document.getElementById('eventOutput');
+
+    events.addEventListener('start', () => {
+      output.textContent = 'Timer started!';
+    });
+
+    events.addEventListener('tick', (e) => {
+      output.textContent = `Tick: ${e.detail.seconds}s remaining`;
+    });
+
+    events.addEventListener('complete', () => {
+      output.textContent = 'COMPLETE! Timer finished!';
+      output.style.color = '#22c55e';
+    });
+
+    events.addEventListener('reset', () => {
+      output.textContent = 'Timer reset';
+      output.style.color = '';
+    });
+  </script>
+</body>
+</html>

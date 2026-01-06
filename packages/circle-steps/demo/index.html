@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circle Steps Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    h3 { color: #6b7280; margin-bottom: 0.5rem; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow: auto;
+      max-height: 300px;
+      white-space: pre;
+    }
+    .output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f7;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .controls button {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+    }
+    .controls button:hover {
+      background: #f3f4f6;
+    }
+    step-item {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Circle Steps</h1>
+  <p><a href="../../../">&larr; Back to components</a> | <a href="https://github.com/manufosela/ui-components/tree/main/packages/circle-steps" target="_blank">GitHub Repo</a></p>
+
+  <div class="demo-section">
+    <h2>Basic Usage</h2>
+    <p>Starts in "not started" state (current=-1). Use next() to activate first step. On last step, next() marks all as complete.</p>
+    <circle-steps id="basic">
+      <step-item label="Step 1"></step-item>
+      <step-item label="Step 2"></step-item>
+      <step-item label="Step 3"></step-item>
+      <step-item label="Step 4"></step-item>
+    </circle-steps>
+    <div class="controls">
+      <button onclick="document.getElementById('basic').prev()">Previous</button>
+      <button onclick="document.getElementById('basic').next()">Next</button>
+      <button onclick="document.getElementById('basic').reset()">Reset</button>
+      <button onclick="document.getElementById('basic').complete()">Complete All</button>
+    </div>
+    <div class="output" id="basicOutput">Not started (current: -1)</div>
+    <div class="code-block">&lt;circle-steps id="steps"&gt;
+  &lt;step-item label="Step 1"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Step 2"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Step 3"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Step 4"&gt;&lt;/step-item&gt;
+&lt;/circle-steps&gt;
+
+&lt;button onclick="steps.prev()"&gt;Previous&lt;/button&gt;
+&lt;button onclick="steps.next()"&gt;Next&lt;/button&gt;
+&lt;button onclick="steps.reset()"&gt;Reset&lt;/button&gt;
+&lt;button onclick="steps.complete()"&gt;Complete All&lt;/button&gt;
+
+&lt;script&gt;
+  const steps = document.getElementById('steps');
+
+  // Listen for step changes
+  steps.addEventListener('step-change', (e) =&gt; {
+    console.log('New step:', e.detail.newStep);
+    console.log('Step data:', e.detail.step);
+    console.log('All complete?', e.detail.isComplete);
+    console.log('Not started?', e.detail.isNotStarted);
+  });
+
+  // Programmatic control
+  steps.next();     // Advance (starts if current=-1)
+  steps.prev();     // Go back
+  steps.reset();    // Back to not started (current=-1)
+  steps.start();    // Go to first step (current=0)
+  steps.complete(); // Mark all complete (current=4)
+  steps.goToStep(2); // Go to specific step
+&lt;/script&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>All Complete State</h2>
+    <p>When current equals the number of steps, all steps show as complete with checkmarks.</p>
+    <circle-steps current="4">
+      <step-item label="Done"></step-item>
+      <step-item label="Done"></step-item>
+      <step-item label="Done"></step-item>
+      <step-item label="Done"></step-item>
+    </circle-steps>
+    <div class="code-block">&lt;!-- current="4" with 4 steps = all complete --&gt;
+&lt;circle-steps current="4"&gt;
+  &lt;step-item label="Done"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Done"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Done"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Done"&gt;&lt;/step-item&gt;
+&lt;/circle-steps&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>With Labels & Descriptions</h2>
+    <p>Steps with custom labels and descriptions.</p>
+    <circle-steps current="1">
+      <step-item label="Account" description="Create your account"></step-item>
+      <step-item label="Profile" description="Setup your profile"></step-item>
+      <step-item label="Preferences" description="Set preferences"></step-item>
+      <step-item label="Confirm" description="Review & submit"></step-item>
+    </circle-steps>
+    <div class="code-block">&lt;circle-steps current="1"&gt;
+  &lt;step-item label="Account" description="Create your account"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Profile" description="Setup your profile"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Preferences" description="Set preferences"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Confirm" description="Review &amp; submit"&gt;&lt;/step-item&gt;
+&lt;/circle-steps&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Vertical Orientation</h2>
+    <p>Steps displayed vertically.</p>
+    <circle-steps orientation="vertical" current="1">
+      <step-item label="Order Placed" description="Your order has been confirmed"></step-item>
+      <step-item label="Processing" description="We are preparing your order"></step-item>
+      <step-item label="Shipped" description="Your order is on its way"></step-item>
+      <step-item label="Delivered" description="Package delivered"></step-item>
+    </circle-steps>
+    <div class="code-block">&lt;circle-steps orientation="vertical" current="1"&gt;
+  &lt;step-item label="Order Placed" description="Your order has been confirmed"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Processing" description="We are preparing your order"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Shipped" description="Your order is on its way"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Delivered" description="Package delivered"&gt;&lt;/step-item&gt;
+&lt;/circle-steps&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Clickable Steps</h2>
+    <p>Click on steps to navigate. Click on the last step when active to mark all as complete. Click any step to go back.</p>
+    <circle-steps id="clickable" clickable current="2">
+      <step-item label="Start"></step-item>
+      <step-item label="Middle"></step-item>
+      <step-item label="Active"></step-item>
+      <step-item label="End"></step-item>
+    </circle-steps>
+    <div class="controls">
+      <button onclick="document.getElementById('clickable').reset()">Reset</button>
+      <button onclick="document.getElementById('clickable').start()">Start</button>
+    </div>
+    <div class="output" id="clickableOutput">Active: Active (index 2)</div>
+    <div class="code-block">&lt;!-- Add "clickable" attribute to enable click navigation --&gt;
+&lt;circle-steps id="wizard" clickable current="0"&gt;
+  &lt;step-item label="Start"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Middle"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Almost"&gt;&lt;/step-item&gt;
+  &lt;step-item label="End"&gt;&lt;/step-item&gt;
+&lt;/circle-steps&gt;
+
+&lt;script&gt;
+  const wizard = document.getElementById('wizard');
+
+  // Listen for clicks on steps
+  wizard.addEventListener('step-click', (e) =&gt; {
+    console.log('Clicked step:', e.detail.index);
+    console.log('Step label:', e.detail.step.label);
+  });
+
+  // Listen for navigation changes
+  wizard.addEventListener('step-change', (e) =&gt; {
+    if (e.detail.isComplete) {
+      alert('All steps completed!');
+    }
+  });
+&lt;/script&gt;
+
+&lt;!-- Behavior:
+  - Click any step to navigate to it
+  - Click last step (when active) to complete all
+  - Click completed step to go back --&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Size Variants</h2>
+    <p>Different sizes for different contexts.</p>
+    <h3>Small</h3>
+    <circle-steps size="small" current="1">
+      <step-item label="One"></step-item>
+      <step-item label="Two"></step-item>
+      <step-item label="Three"></step-item>
+      <step-item label="Four"></step-item>
+    </circle-steps>
+    <h3>Medium (default)</h3>
+    <circle-steps current="1">
+      <step-item label="One"></step-item>
+      <step-item label="Two"></step-item>
+      <step-item label="Three"></step-item>
+      <step-item label="Four"></step-item>
+    </circle-steps>
+    <h3>Large</h3>
+    <circle-steps size="large" current="1">
+      <step-item label="One"></step-item>
+      <step-item label="Two"></step-item>
+      <step-item label="Three"></step-item>
+      <step-item label="Four"></step-item>
+    </circle-steps>
+    <div class="code-block">&lt;circle-steps size="small"&gt;...&lt;/circle-steps&gt;
+&lt;circle-steps size="large"&gt;...&lt;/circle-steps&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Without Numbers</h2>
+    <p>Show only checkmarks, no numbers.</p>
+    <circle-steps current="2" hide-numbers>
+      <step-item label="First"></step-item>
+      <step-item label="Second"></step-item>
+      <step-item label="Third"></step-item>
+      <step-item label="Fourth"></step-item>
+    </circle-steps>
+    <div class="code-block">&lt;circle-steps current="2" hide-numbers&gt;
+  &lt;step-item label="First"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Second"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Third"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Fourth"&gt;&lt;/step-item&gt;
+&lt;/circle-steps&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Without Checkmarks</h2>
+    <p>Numbers only, no checkmarks for completed steps.</p>
+    <circle-steps current="2" hide-check>
+      <step-item label="First"></step-item>
+      <step-item label="Second"></step-item>
+      <step-item label="Third"></step-item>
+      <step-item label="Fourth"></step-item>
+    </circle-steps>
+    <div class="code-block">&lt;circle-steps current="2" hide-check&gt;
+  &lt;step-item label="First"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Second"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Third"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Fourth"&gt;&lt;/step-item&gt;
+&lt;/circle-steps&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Styling</h2>
+    <p>Theme with CSS custom properties.</p>
+    <circle-steps
+      current="2"
+      style="
+        --steps-active: #8b5cf6;
+        --steps-complete: #ec4899;
+        --steps-line-complete: #ec4899;
+        --steps-pending: #fce7f3;
+      "
+    >
+      <step-item label="First"></step-item>
+      <step-item label="Second"></step-item>
+      <step-item label="Third"></step-item>
+      <step-item label="Fourth"></step-item>
+    </circle-steps>
+    <div class="code-block">&lt;circle-steps
+  current="2"
+  style="
+    --steps-active: #8b5cf6;
+    --steps-complete: #ec4899;
+    --steps-line-complete: #ec4899;
+    --steps-pending: #fce7f3;
+  "
+&gt;
+  &lt;step-item label="First"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Second"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Third"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Fourth"&gt;&lt;/step-item&gt;
+&lt;/circle-steps&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Checkout Flow Example</h2>
+    <p>Real-world checkout process with navigation buttons.</p>
+    <circle-steps id="checkout" current="1">
+      <step-item label="Cart" description="Review items"></step-item>
+      <step-item label="Shipping" description="Delivery address"></step-item>
+      <step-item label="Payment" description="Payment method"></step-item>
+      <step-item label="Review" description="Confirm order"></step-item>
+    </circle-steps>
+    <div class="controls">
+      <button onclick="document.getElementById('checkout').prev()">Back</button>
+      <button onclick="document.getElementById('checkout').next()">Continue</button>
+    </div>
+    <div class="code-block">&lt;circle-steps id="checkout" current="0"&gt;
+  &lt;step-item label="Cart" description="Review items"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Shipping" description="Delivery address"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Payment" description="Payment method"&gt;&lt;/step-item&gt;
+  &lt;step-item label="Review" description="Confirm order"&gt;&lt;/step-item&gt;
+&lt;/circle-steps&gt;
+
+&lt;button id="backBtn" onclick="checkout.prev()"&gt;Back&lt;/button&gt;
+&lt;button id="nextBtn" onclick="checkout.next()"&gt;Continue&lt;/button&gt;
+
+&lt;script&gt;
+  const checkout = document.getElementById('checkout');
+  const backBtn = document.getElementById('backBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  checkout.addEventListener('step-change', (e) =&gt; {
+    // Update button states
+    backBtn.disabled = e.detail.newStep &lt;= 0;
+
+    if (e.detail.isComplete) {
+      nextBtn.textContent = 'Order Placed!';
+      nextBtn.disabled = true;
+      // Submit order...
+    } else if (e.detail.newStep === 3) {
+      nextBtn.textContent = 'Place Order';
+    } else {
+      nextBtn.textContent = 'Continue';
+      nextBtn.disabled = false;
+    }
+  });
+&lt;/script&gt;</div>
+  </div>
+
+  <script type="module">
+    import '../src/circle-steps.js';
+
+    // Basic event listener
+    const basic = document.getElementById('basic');
+    const basicOutput = document.getElementById('basicOutput');
+    basic.addEventListener('step-change', (e) => {
+      if (e.detail.isNotStarted) {
+        basicOutput.textContent = `Not started (current: -1)`;
+      } else if (e.detail.isComplete) {
+        basicOutput.textContent = `All complete! (current: ${e.detail.newStep})`;
+      } else {
+        basicOutput.textContent = `Active: ${e.detail.step.label} (current: ${e.detail.newStep})`;
+      }
+    });
+
+    // Clickable event listener
+    const clickable = document.getElementById('clickable');
+    const clickableOutput = document.getElementById('clickableOutput');
+    clickable.addEventListener('step-change', (e) => {
+      if (e.detail.isNotStarted) {
+        clickableOutput.textContent = `Not started`;
+      } else if (e.detail.isComplete) {
+        clickableOutput.textContent = `All steps completed!`;
+      } else {
+        clickableOutput.textContent = `Active: ${e.detail.step.label} (index ${e.detail.newStep})`;
+      }
+    });
+  </script>
+</body>
+</html>

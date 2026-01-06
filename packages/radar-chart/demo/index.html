@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radar Chart Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow: auto;
+      max-height: 300px;
+      white-space: pre;
+    }
+    .output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f7;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    .chart-row {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    chart-label, chart-series, chart-value {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Radar Chart</h1>
+  <p><a href="../../../">&larr; Back to components</a> | <a href="https://github.com/manufosela/ui-components/tree/main/packages/radar-chart" target="_blank">GitHub Repo</a></p>
+
+  <div class="demo-section">
+    <h2>Basic Usage</h2>
+    <p>Fully declarative format: each value is its own element with label attribute.</p>
+    <div class="chart-row">
+      <radar-chart>
+        <chart-series name="Player" color="#3b82f6">
+          <chart-value label="Speed">80</chart-value>
+          <chart-value label="Power">65</chart-value>
+          <chart-value label="Defense">90</chart-value>
+          <chart-value label="Magic">45</chart-value>
+          <chart-value label="Luck">70</chart-value>
+        </chart-series>
+      </radar-chart>
+    </div>
+    <div class="code-block">&lt;radar-chart&gt;
+  &lt;chart-series name="Player" color="#3b82f6"&gt;
+    &lt;chart-value label="Speed"&gt;80&lt;/chart-value&gt;
+    &lt;chart-value label="Power"&gt;65&lt;/chart-value&gt;
+    &lt;chart-value label="Defense"&gt;90&lt;/chart-value&gt;
+    &lt;chart-value label="Magic"&gt;45&lt;/chart-value&gt;
+    &lt;chart-value label="Luck"&gt;70&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+&lt;/radar-chart&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Multiple Series</h2>
+    <p>Compare multiple data sets on the same chart. Labels are shared across series.</p>
+    <div class="chart-row">
+      <radar-chart id="multi">
+        <chart-series name="Alice" color="#3b82f6">
+          <chart-value label="HTML">90</chart-value>
+          <chart-value label="CSS">85</chart-value>
+          <chart-value label="JavaScript">80</chart-value>
+          <chart-value label="React">75</chart-value>
+          <chart-value label="Node.js">70</chart-value>
+          <chart-value label="SQL">65</chart-value>
+        </chart-series>
+        <chart-series name="Bob" color="#22c55e">
+          <chart-value label="HTML">70</chart-value>
+          <chart-value label="CSS">90</chart-value>
+          <chart-value label="JavaScript">85</chart-value>
+          <chart-value label="React">80</chart-value>
+          <chart-value label="Node.js">60</chart-value>
+          <chart-value label="SQL">75</chart-value>
+        </chart-series>
+      </radar-chart>
+    </div>
+    <div class="output" id="multiOutput">Click a data point to see details</div>
+    <div class="code-block">&lt;radar-chart&gt;
+  &lt;chart-series name="Alice" color="#3b82f6"&gt;
+    &lt;chart-value label="HTML"&gt;90&lt;/chart-value&gt;
+    &lt;chart-value label="CSS"&gt;85&lt;/chart-value&gt;
+    &lt;chart-value label="JavaScript"&gt;80&lt;/chart-value&gt;
+    &lt;chart-value label="React"&gt;75&lt;/chart-value&gt;
+    &lt;chart-value label="Node.js"&gt;70&lt;/chart-value&gt;
+    &lt;chart-value label="SQL"&gt;65&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+  &lt;chart-series name="Bob" color="#22c55e"&gt;
+    &lt;chart-value label="HTML"&gt;70&lt;/chart-value&gt;
+    &lt;chart-value label="CSS"&gt;90&lt;/chart-value&gt;
+    &lt;chart-value label="JavaScript"&gt;85&lt;/chart-value&gt;
+    &lt;chart-value label="React"&gt;80&lt;/chart-value&gt;
+    &lt;chart-value label="Node.js"&gt;60&lt;/chart-value&gt;
+    &lt;chart-value label="SQL"&gt;75&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+&lt;/radar-chart&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Styling</h2>
+    <p>Customize colors, opacity, and visibility options.</p>
+    <div class="chart-row">
+      <radar-chart fill-opacity="0.4">
+        <chart-series name="Team A" color="#8b5cf6">
+          <chart-value label="Strategy">85</chart-value>
+          <chart-value label="Teamwork">70</chart-value>
+          <chart-value label="Execution">95</chart-value>
+          <chart-value label="Creativity">60</chart-value>
+          <chart-value label="Communication">80</chart-value>
+        </chart-series>
+        <chart-series name="Team B" color="#ec4899">
+          <chart-value label="Strategy">60</chart-value>
+          <chart-value label="Teamwork">90</chart-value>
+          <chart-value label="Execution">75</chart-value>
+          <chart-value label="Creativity">85</chart-value>
+          <chart-value label="Communication">70</chart-value>
+        </chart-series>
+      </radar-chart>
+    </div>
+    <div class="code-block">&lt;radar-chart fill-opacity="0.4"&gt;
+  &lt;chart-series name="Team A" color="#8b5cf6"&gt;
+    &lt;chart-value label="Strategy"&gt;85&lt;/chart-value&gt;
+    &lt;chart-value label="Teamwork"&gt;70&lt;/chart-value&gt;
+    &lt;chart-value label="Execution"&gt;95&lt;/chart-value&gt;
+    &lt;chart-value label="Creativity"&gt;60&lt;/chart-value&gt;
+    &lt;chart-value label="Communication"&gt;80&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+  &lt;chart-series name="Team B" color="#ec4899"&gt;
+    &lt;chart-value label="Strategy"&gt;60&lt;/chart-value&gt;
+    &lt;chart-value label="Teamwork"&gt;90&lt;/chart-value&gt;
+    &lt;chart-value label="Execution"&gt;75&lt;/chart-value&gt;
+    &lt;chart-value label="Creativity"&gt;85&lt;/chart-value&gt;
+    &lt;chart-value label="Communication"&gt;70&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+&lt;/radar-chart&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>No Dots / No Legend</h2>
+    <p>Minimal chart without dots and legend.</p>
+    <div class="chart-row">
+      <radar-chart id="minimal">
+        <chart-series color="#64748b">
+          <chart-value label="A">75</chart-value>
+          <chart-value label="B">80</chart-value>
+          <chart-value label="C">65</chart-value>
+          <chart-value label="D">90</chart-value>
+          <chart-value label="E">70</chart-value>
+        </chart-series>
+      </radar-chart>
+    </div>
+    <div class="code-block">&lt;radar-chart id="minimal"&gt;
+  &lt;chart-series color="#64748b"&gt;
+    &lt;chart-value label="A"&gt;75&lt;/chart-value&gt;
+    &lt;chart-value label="B"&gt;80&lt;/chart-value&gt;
+    &lt;chart-value label="C"&gt;65&lt;/chart-value&gt;
+    &lt;chart-value label="D"&gt;90&lt;/chart-value&gt;
+    &lt;chart-value label="E"&gt;70&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+&lt;/radar-chart&gt;
+
+&lt;script&gt;
+  minimal.showDots = false;
+  minimal.showLegend = false;
+&lt;/script&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Different Sizes</h2>
+    <p>Charts can be rendered at various sizes.</p>
+    <div class="chart-row">
+      <radar-chart size="200">
+        <chart-series color="#14b8a6">
+          <chart-value label="A">70</chart-value>
+          <chart-value label="B">85</chart-value>
+          <chart-value label="C">60</chart-value>
+          <chart-value label="D">90</chart-value>
+        </chart-series>
+      </radar-chart>
+      <radar-chart size="300">
+        <chart-series color="#f97316">
+          <chart-value label="A">80</chart-value>
+          <chart-value label="B">65</chart-value>
+          <chart-value label="C">90</chart-value>
+          <chart-value label="D">75</chart-value>
+          <chart-value label="E">85</chart-value>
+        </chart-series>
+      </radar-chart>
+    </div>
+    <div class="code-block">&lt;radar-chart size="200"&gt;
+  &lt;chart-series color="#14b8a6"&gt;
+    &lt;chart-value label="A"&gt;70&lt;/chart-value&gt;
+    &lt;chart-value label="B"&gt;85&lt;/chart-value&gt;
+    &lt;chart-value label="C"&gt;60&lt;/chart-value&gt;
+    &lt;chart-value label="D"&gt;90&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+&lt;/radar-chart&gt;
+
+&lt;radar-chart size="300"&gt;
+  &lt;chart-series color="#f97316"&gt;
+    &lt;chart-value label="A"&gt;80&lt;/chart-value&gt;
+    &lt;chart-value label="B"&gt;65&lt;/chart-value&gt;
+    &lt;chart-value label="C"&gt;90&lt;/chart-value&gt;
+    &lt;chart-value label="D"&gt;75&lt;/chart-value&gt;
+    &lt;chart-value label="E"&gt;85&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+&lt;/radar-chart&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Grid Levels</h2>
+    <p>Control the number of grid rings.</p>
+    <div class="chart-row">
+      <radar-chart levels="3">
+        <chart-series color="#3b82f6">
+          <chart-value label="X">60</chart-value>
+          <chart-value label="Y">80</chart-value>
+          <chart-value label="Z">70</chart-value>
+          <chart-value label="W">90</chart-value>
+        </chart-series>
+      </radar-chart>
+      <radar-chart levels="10">
+        <chart-series color="#22c55e">
+          <chart-value label="X">65</chart-value>
+          <chart-value label="Y">85</chart-value>
+          <chart-value label="Z">75</chart-value>
+          <chart-value label="W">95</chart-value>
+        </chart-series>
+      </radar-chart>
+    </div>
+    <div class="code-block">&lt;radar-chart levels="3"&gt;
+  &lt;chart-series color="#3b82f6"&gt;
+    &lt;chart-value label="X"&gt;60&lt;/chart-value&gt;
+    &lt;chart-value label="Y"&gt;80&lt;/chart-value&gt;
+    &lt;chart-value label="Z"&gt;70&lt;/chart-value&gt;
+    &lt;chart-value label="W"&gt;90&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+&lt;/radar-chart&gt;
+
+&lt;radar-chart levels="10"&gt;
+  &lt;chart-series color="#22c55e"&gt;
+    &lt;chart-value label="X"&gt;65&lt;/chart-value&gt;
+    &lt;chart-value label="Y"&gt;85&lt;/chart-value&gt;
+    &lt;chart-value label="Z"&gt;75&lt;/chart-value&gt;
+    &lt;chart-value label="W"&gt;95&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+&lt;/radar-chart&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Three-Axis Chart</h2>
+    <p>Works with any number of axes (minimum 3). Great for RPG character stats.</p>
+    <div class="chart-row">
+      <radar-chart>
+        <chart-series name="Warrior" color="#ef4444">
+          <chart-value label="Attack">90</chart-value>
+          <chart-value label="Defense">80</chart-value>
+          <chart-value label="Speed">50</chart-value>
+        </chart-series>
+        <chart-series name="Mage" color="#8b5cf6">
+          <chart-value label="Attack">70</chart-value>
+          <chart-value label="Defense">40</chart-value>
+          <chart-value label="Speed">70</chart-value>
+        </chart-series>
+        <chart-series name="Rogue" color="#22c55e">
+          <chart-value label="Attack">60</chart-value>
+          <chart-value label="Defense">30</chart-value>
+          <chart-value label="Speed">95</chart-value>
+        </chart-series>
+      </radar-chart>
+    </div>
+    <div class="code-block">&lt;radar-chart&gt;
+  &lt;chart-series name="Warrior" color="#ef4444"&gt;
+    &lt;chart-value label="Attack"&gt;90&lt;/chart-value&gt;
+    &lt;chart-value label="Defense"&gt;80&lt;/chart-value&gt;
+    &lt;chart-value label="Speed"&gt;50&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+  &lt;chart-series name="Mage" color="#8b5cf6"&gt;
+    &lt;chart-value label="Attack"&gt;70&lt;/chart-value&gt;
+    &lt;chart-value label="Defense"&gt;40&lt;/chart-value&gt;
+    &lt;chart-value label="Speed"&gt;70&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+  &lt;chart-series name="Rogue" color="#22c55e"&gt;
+    &lt;chart-value label="Attack"&gt;60&lt;/chart-value&gt;
+    &lt;chart-value label="Defense"&gt;30&lt;/chart-value&gt;
+    &lt;chart-value label="Speed"&gt;95&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+&lt;/radar-chart&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Product Comparison</h2>
+    <p>Compare products across multiple dimensions.</p>
+    <div class="chart-row">
+      <radar-chart size="350">
+        <chart-series name="Product A" color="#3b82f6">
+          <chart-value label="Price">85</chart-value>
+          <chart-value label="Quality">90</chart-value>
+          <chart-value label="Design">75</chart-value>
+          <chart-value label="Features">80</chart-value>
+          <chart-value label="Support">95</chart-value>
+          <chart-value label="Performance">88</chart-value>
+        </chart-series>
+        <chart-series name="Product B" color="#f59e0b">
+          <chart-value label="Price">70</chart-value>
+          <chart-value label="Quality">75</chart-value>
+          <chart-value label="Design">95</chart-value>
+          <chart-value label="Features">90</chart-value>
+          <chart-value label="Support">60</chart-value>
+          <chart-value label="Performance">70</chart-value>
+        </chart-series>
+        <chart-series name="Product C" color="#22c55e">
+          <chart-value label="Price">95</chart-value>
+          <chart-value label="Quality">65</chart-value>
+          <chart-value label="Design">80</chart-value>
+          <chart-value label="Features">70</chart-value>
+          <chart-value label="Support">80</chart-value>
+          <chart-value label="Performance">75</chart-value>
+        </chart-series>
+      </radar-chart>
+    </div>
+    <div class="code-block">&lt;radar-chart size="350"&gt;
+  &lt;chart-series name="Product A" color="#3b82f6"&gt;
+    &lt;chart-value label="Price"&gt;85&lt;/chart-value&gt;
+    &lt;chart-value label="Quality"&gt;90&lt;/chart-value&gt;
+    &lt;chart-value label="Design"&gt;75&lt;/chart-value&gt;
+    &lt;chart-value label="Features"&gt;80&lt;/chart-value&gt;
+    &lt;chart-value label="Support"&gt;95&lt;/chart-value&gt;
+    &lt;chart-value label="Performance"&gt;88&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+  &lt;chart-series name="Product B" color="#f59e0b"&gt;
+    &lt;chart-value label="Price"&gt;70&lt;/chart-value&gt;
+    &lt;chart-value label="Quality"&gt;75&lt;/chart-value&gt;
+    &lt;chart-value label="Design"&gt;95&lt;/chart-value&gt;
+    &lt;chart-value label="Features"&gt;90&lt;/chart-value&gt;
+    &lt;chart-value label="Support"&gt;60&lt;/chart-value&gt;
+    &lt;chart-value label="Performance"&gt;70&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+  &lt;chart-series name="Product C" color="#22c55e"&gt;
+    &lt;chart-value label="Price"&gt;95&lt;/chart-value&gt;
+    &lt;chart-value label="Quality"&gt;65&lt;/chart-value&gt;
+    &lt;chart-value label="Design"&gt;80&lt;/chart-value&gt;
+    &lt;chart-value label="Features"&gt;70&lt;/chart-value&gt;
+    &lt;chart-value label="Support"&gt;80&lt;/chart-value&gt;
+    &lt;chart-value label="Performance"&gt;75&lt;/chart-value&gt;
+  &lt;/chart-series&gt;
+&lt;/radar-chart&gt;</div>
+  </div>
+
+  <script type="module">
+    import '../src/radar-chart.js';
+
+    // Multiple series event listener
+    const multi = document.getElementById('multi');
+    const multiOutput = document.getElementById('multiOutput');
+    multi.addEventListener('data-point-click', (e) => {
+      multiOutput.textContent = `Clicked: ${e.detail.series} - ${e.detail.label}: ${e.detail.value}`;
+    });
+
+    // Minimal - hide dots and legend
+    const minimal = document.getElementById('minimal');
+    minimal.showDots = false;
+    minimal.showLegend = false;
+  </script>
+</body>
+</html>

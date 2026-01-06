@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Behaviour Accordion Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow: auto;
+      max-height: 300px;
+      white-space: pre;
+    }
+    .output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f7;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .controls button {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .controls button:hover {
+      background: #f3f4f6;
+    }
+  </style>
+</head>
+<body>
+  <h1>Behaviour Accordion</h1>
+  <p><a href="../../../">&larr; Back to components</a> | <a href="https://github.com/manufosela/ui-components/tree/main/packages/behaviour-accordion" target="_blank">GitHub Repo</a></p>
+
+  <div class="demo-section">
+    <h2>Basic Usage</h2>
+    <p>Click headers to expand/collapse sections. Only one open at a time.</p>
+    <behaviour-accordion id="basic">
+      <accordion-item header="Section 1">
+        <p>Content for the first section. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+      </accordion-item>
+      <accordion-item header="Section 2">
+        <p>Content for the second section. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+      </accordion-item>
+      <accordion-item header="Section 3">
+        <p>Content for the third section. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+      </accordion-item>
+    </behaviour-accordion>
+    <div class="output" id="basicOutput">Click an item...</div>
+    <div class="code-block">&lt;behaviour-accordion&gt;
+  &lt;accordion-item header="Section 1"&gt;
+    &lt;p&gt;Content for the first section. Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+  &lt;accordion-item header="Section 2"&gt;
+    &lt;p&gt;Content for the second section. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+  &lt;accordion-item header="Section 3"&gt;
+    &lt;p&gt;Content for the third section. Duis aute irure dolor in
+    reprehenderit in voluptate velit esse cillum dolore.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+&lt;/behaviour-accordion&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Multiple Open</h2>
+    <p>Allow multiple sections to be open simultaneously.</p>
+    <behaviour-accordion multiple>
+      <accordion-item header="FAQ: What is Lit?">
+        <p>Lit is a simple library for building fast, lightweight web components.</p>
+      </accordion-item>
+      <accordion-item header="FAQ: Why Web Components?">
+        <p>Web components are native browser features that allow you to create reusable custom elements.</p>
+      </accordion-item>
+      <accordion-item header="FAQ: Is it accessible?">
+        <p>Yes! This accordion supports keyboard navigation and ARIA attributes.</p>
+      </accordion-item>
+    </behaviour-accordion>
+    <div class="code-block">&lt;behaviour-accordion multiple&gt;
+  &lt;accordion-item header="FAQ: What is Lit?"&gt;
+    &lt;p&gt;Lit is a simple library for building fast, lightweight web components.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+  &lt;accordion-item header="FAQ: Why Web Components?"&gt;
+    &lt;p&gt;Web components are native browser features that allow you to create
+    reusable custom elements.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+  &lt;accordion-item header="FAQ: Is it accessible?"&gt;
+    &lt;p&gt;Yes! This accordion supports keyboard navigation and ARIA attributes.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+&lt;/behaviour-accordion&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Initially Expanded</h2>
+    <p>Pre-expand specific items on load.</p>
+    <behaviour-accordion expanded="0,2">
+      <accordion-item header="Expanded by default">
+        <p>This section starts expanded.</p>
+      </accordion-item>
+      <accordion-item header="Collapsed by default">
+        <p>This section starts collapsed.</p>
+      </accordion-item>
+      <accordion-item header="Also expanded">
+        <p>This section also starts expanded.</p>
+      </accordion-item>
+    </behaviour-accordion>
+    <div class="code-block">&lt;behaviour-accordion expanded="0,2"&gt;
+  &lt;accordion-item header="Expanded by default"&gt;
+    &lt;p&gt;This section starts expanded.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+  &lt;accordion-item header="Collapsed by default"&gt;
+    &lt;p&gt;This section starts collapsed.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+  &lt;accordion-item header="Also expanded"&gt;
+    &lt;p&gt;This section also starts expanded.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+&lt;/behaviour-accordion&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Header Slot</h2>
+    <p>Use the header slot for rich content.</p>
+    <behaviour-accordion>
+      <accordion-item>
+        <span slot="header" style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.5rem;">🎨</span>
+          <strong>Design System</strong>
+        </span>
+        <p>Custom header with icon and styled text.</p>
+      </accordion-item>
+      <accordion-item>
+        <span slot="header" style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.5rem;">⚙️</span>
+          <strong>Configuration</strong>
+        </span>
+        <p>Another custom header example.</p>
+      </accordion-item>
+    </behaviour-accordion>
+    <div class="code-block">&lt;behaviour-accordion&gt;
+  &lt;accordion-item&gt;
+    &lt;span slot="header" style="display: flex; align-items: center; gap: 0.5rem;"&gt;
+      &lt;span style="font-size: 1.5rem;"&gt;🎨&lt;/span&gt;
+      &lt;strong&gt;Design System&lt;/strong&gt;
+    &lt;/span&gt;
+    &lt;p&gt;Custom header with icon and styled text.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+  &lt;accordion-item&gt;
+    &lt;span slot="header" style="display: flex; align-items: center; gap: 0.5rem;"&gt;
+      &lt;span style="font-size: 1.5rem;"&gt;⚙️&lt;/span&gt;
+      &lt;strong&gt;Configuration&lt;/strong&gt;
+    &lt;/span&gt;
+    &lt;p&gt;Another custom header example.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+&lt;/behaviour-accordion&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Disabled Item</h2>
+    <p>Disable specific accordion items.</p>
+    <behaviour-accordion>
+      <accordion-item header="Enabled Item">
+        <p>This item can be expanded.</p>
+      </accordion-item>
+      <accordion-item header="Disabled Item" disabled>
+        <p>This content cannot be accessed.</p>
+      </accordion-item>
+      <accordion-item header="Another Enabled">
+        <p>This item works normally.</p>
+      </accordion-item>
+    </behaviour-accordion>
+    <div class="code-block">&lt;behaviour-accordion&gt;
+  &lt;accordion-item header="Enabled Item"&gt;
+    &lt;p&gt;This item can be expanded.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+  &lt;accordion-item header="Disabled Item" disabled&gt;
+    &lt;p&gt;This content cannot be accessed.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+  &lt;accordion-item header="Another Enabled"&gt;
+    &lt;p&gt;This item works normally.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+&lt;/behaviour-accordion&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Programmatic Control</h2>
+    <p>Control the accordion with JavaScript methods.</p>
+    <behaviour-accordion id="programmatic" multiple>
+      <accordion-item header="Item 0">Content 0</accordion-item>
+      <accordion-item header="Item 1">Content 1</accordion-item>
+      <accordion-item header="Item 2">Content 2</accordion-item>
+    </behaviour-accordion>
+    <div class="controls">
+      <button onclick="document.getElementById('programmatic').expand(1)">Expand Item 1</button>
+      <button onclick="document.getElementById('programmatic').collapse(1)">Collapse Item 1</button>
+      <button onclick="document.getElementById('programmatic').expandAll()">Expand All</button>
+      <button onclick="document.getElementById('programmatic').collapseAll()">Collapse All</button>
+    </div>
+    <div class="code-block">&lt;behaviour-accordion id="programmatic" multiple&gt;
+  &lt;accordion-item header="Item 0"&gt;Content 0&lt;/accordion-item&gt;
+  &lt;accordion-item header="Item 1"&gt;Content 1&lt;/accordion-item&gt;
+  &lt;accordion-item header="Item 2"&gt;Content 2&lt;/accordion-item&gt;
+&lt;/behaviour-accordion&gt;
+
+&lt;script&gt;
+  const accordion = document.getElementById('programmatic');
+  accordion.expand(1);     // Expand Item 1
+  accordion.collapse(1);   // Collapse Item 1
+  accordion.expandAll();   // Expand all items
+  accordion.collapseAll(); // Collapse all items
+&lt;/script&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Styling</h2>
+    <p>Theme with CSS custom properties.</p>
+    <behaviour-accordion style="
+      --accordion-border: #8b5cf6;
+      --accordion-header-bg: #f3e8ff;
+      --accordion-header-hover: #ede9fe;
+      --accordion-header-text: #5b21b6;
+      --accordion-icon: #8b5cf6;
+      --accordion-focus: #8b5cf6;
+      --accordion-radius: 12px;
+    ">
+      <accordion-item header="Purple Theme">
+        <p>Custom styled accordion with purple theme.</p>
+      </accordion-item>
+      <accordion-item header="CSS Variables">
+        <p>Using CSS custom properties for theming.</p>
+      </accordion-item>
+    </behaviour-accordion>
+    <div class="code-block">&lt;behaviour-accordion style="
+  --accordion-border: #8b5cf6;
+  --accordion-header-bg: #f3e8ff;
+  --accordion-header-hover: #ede9fe;
+  --accordion-header-text: #5b21b6;
+  --accordion-icon: #8b5cf6;
+  --accordion-focus: #8b5cf6;
+  --accordion-radius: 12px;
+"&gt;
+  &lt;accordion-item header="Purple Theme"&gt;
+    &lt;p&gt;Custom styled accordion with purple theme.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+  &lt;accordion-item header="CSS Variables"&gt;
+    &lt;p&gt;Using CSS custom properties for theming.&lt;/p&gt;
+  &lt;/accordion-item&gt;
+&lt;/behaviour-accordion&gt;</div>
+  </div>
+
+  <script type="module">
+    import '../src/behaviour-accordion.js';
+
+    // Basic event listener
+    const basic = document.getElementById('basic');
+    const basicOutput = document.getElementById('basicOutput');
+    basic.addEventListener('item-toggle', (e) => {
+      basicOutput.textContent = `Item ${e.detail.index} ${e.detail.expanded ? 'expanded' : 'collapsed'}. Open: [${e.detail.expandedItems.join(', ')}]`;
+    });
+  </script>
+</body>
+</html>

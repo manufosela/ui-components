@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rich Inputfile Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f7;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.85rem;
+    }
+    rich-inputfile {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rich Inputfile</h1>
+  <p><a href="../../../">&larr; Back to components</a> | <a href="https://github.com/manufosela/ui-components/tree/main/packages/rich-inputfile" target="_blank">GitHub Repo</a></p>
+
+  <div class="demo-section">
+    <h2>Basic Usage</h2>
+    <p>Drag and drop or click to select a file.</p>
+    <rich-inputfile id="basic" label="Upload File"></rich-inputfile>
+    <div class="output" id="basicOutput">Select a file...</div>
+    <div class="code-block">&lt;rich-inputfile label="Upload File"&gt;&lt;/rich-inputfile&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Image Upload with Preview</h2>
+    <p>Images automatically show a thumbnail preview.</p>
+    <rich-inputfile
+      id="image"
+      label="Upload Image"
+      allowed-extensions="jpg,jpeg,png,gif,webp"
+    ></rich-inputfile>
+    <div class="code-block">&lt;rich-inputfile
+  label="Upload Image"
+  allowed-extensions="jpg,jpeg,png,gif,webp"
+&gt;&lt;/rich-inputfile&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>File Type Restriction</h2>
+    <p>Only allow specific file types.</p>
+    <rich-inputfile
+      id="docs"
+      label="Upload Document"
+      allowed-extensions="pdf,doc,docx"
+    ></rich-inputfile>
+    <div class="output" id="docsOutput">Only PDF and Word documents allowed</div>
+    <div class="code-block">&lt;rich-inputfile
+  label="Upload Document"
+  allowed-extensions="pdf,doc,docx"
+&gt;&lt;/rich-inputfile&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Size Limit</h2>
+    <p>Restrict maximum file size.</p>
+    <rich-inputfile
+      id="sized"
+      label="Upload (max 1MB)"
+      max-size="1048576"
+    ></rich-inputfile>
+    <div class="output" id="sizedOutput">Maximum 1MB file size</div>
+    <div class="code-block">&lt;rich-inputfile
+  label="Upload (max 1MB)"
+  max-size="1048576"
+&gt;&lt;/rich-inputfile&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>No Preview</h2>
+    <p>Disable thumbnail preview for images.</p>
+    <rich-inputfile
+      id="nopreview"
+      label="Upload File (no preview)"
+      .showPreview="${false}"
+    ></rich-inputfile>
+    <div class="code-block">&lt;rich-inputfile
+  label="Upload File (no preview)"
+  show-preview="false"
+&gt;&lt;/rich-inputfile&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Disabled State</h2>
+    <p>Disable the file input.</p>
+    <rich-inputfile
+      id="disabled"
+      label="Upload (disabled)"
+      disabled
+    ></rich-inputfile>
+    <div class="code-block">&lt;rich-inputfile label="Upload (disabled)" disabled&gt;&lt;/rich-inputfile&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>No Dropzone</h2>
+    <p>Click-only mode without drag and drop.</p>
+    <rich-inputfile
+      id="nodrop"
+      label="Click to Upload"
+      .dropzone="${false}"
+    ></rich-inputfile>
+    <div class="code-block">&lt;rich-inputfile
+  label="Click to Upload"
+  dropzone="false"
+&gt;&lt;/rich-inputfile&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Preview Size</h2>
+    <p>Adjust the thumbnail preview size.</p>
+    <rich-inputfile
+      id="bigpreview"
+      label="Large Preview"
+      allowed-extensions="jpg,jpeg,png,gif"
+      preview-size="100"
+    ></rich-inputfile>
+    <div class="code-block">&lt;rich-inputfile
+  label="Large Preview"
+  preview-size="100"
+&gt;&lt;/rich-inputfile&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Programmatic Control</h2>
+    <p>Control the component via JavaScript.</p>
+    <rich-inputfile id="programmatic" label="Controlled Input"></rich-inputfile>
+    <div style="margin-top: 1rem;">
+      <button onclick="clearFile()">Clear File</button>
+      <button onclick="getFileInfo()">Get File Info</button>
+    </div>
+    <div class="output" id="programmaticOutput">Use buttons to interact</div>
+    <div class="code-block">// Get file
+const file = inputfile.getFile();
+
+// Get as ArrayBuffer
+const buffer = await inputfile.getFileArrayBuffer();
+
+// Get as Data URL
+const dataUrl = await inputfile.getFileDataURL();
+
+// Clear file
+inputfile.clear();</div>
+  </div>
+
+  <script type="module">
+    import '../src/rich-inputfile.js';
+
+    // Basic
+    const basic = document.getElementById('basic');
+    const basicOutput = document.getElementById('basicOutput');
+    basic.addEventListener('file-change', (e) => {
+      basicOutput.textContent = `Selected: ${e.detail.name} (${(e.detail.size / 1024).toFixed(1)} KB)`;
+    });
+    basic.addEventListener('file-clear', () => {
+      basicOutput.textContent = 'File cleared';
+    });
+
+    // Docs
+    const docs = document.getElementById('docs');
+    const docsOutput = document.getElementById('docsOutput');
+    docs.addEventListener('file-change', (e) => {
+      docsOutput.textContent = `Document: ${e.detail.name}`;
+    });
+    docs.addEventListener('file-error', (e) => {
+      docsOutput.textContent = `Error: ${e.detail.message}`;
+    });
+
+    // Sized
+    const sized = document.getElementById('sized');
+    const sizedOutput = document.getElementById('sizedOutput');
+    sized.addEventListener('file-change', (e) => {
+      sizedOutput.textContent = `File: ${e.detail.name} (${(e.detail.size / 1024).toFixed(1)} KB)`;
+    });
+    sized.addEventListener('file-error', (e) => {
+      sizedOutput.textContent = `Error: ${e.detail.message}`;
+    });
+
+    // No preview
+    const nopreview = document.getElementById('nopreview');
+    nopreview.showPreview = false;
+
+    // No dropzone
+    const nodrop = document.getElementById('nodrop');
+    nodrop.dropzone = false;
+
+    // Programmatic
+    const programmatic = document.getElementById('programmatic');
+    const programmaticOutput = document.getElementById('programmaticOutput');
+
+    programmatic.addEventListener('file-change', (e) => {
+      programmaticOutput.textContent = `Selected: ${e.detail.name}`;
+    });
+
+    window.clearFile = () => {
+      programmatic.clear();
+      programmaticOutput.textContent = 'File cleared programmatically';
+    };
+
+    window.getFileInfo = async () => {
+      const file = programmatic.getFile();
+      if (file) {
+        programmaticOutput.textContent = `Name: ${file.name}, Type: ${file.type}, Size: ${file.size} bytes`;
+      } else {
+        programmaticOutput.textContent = 'No file selected';
+      }
+    };
+  </script>
+</body>
+</html>

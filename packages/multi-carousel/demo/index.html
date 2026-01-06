@@ -31,7 +31,8 @@
       font-family: monospace;
       font-size: 0.8rem;
       margin-top: 1rem;
-      overflow-x: auto;
+      overflow: auto;
+      max-height: 300px;
       white-space: pre;
     }
     .output {
@@ -41,8 +42,6 @@
       border-radius: 8px;
       font-family: monospace;
     }
-
-    /* Slide content styles */
     .slide {
       display: flex;
       align-items: center;
@@ -56,22 +55,6 @@
     .slide-2 { background: linear-gradient(135deg, #22c55e, #14b8a6); }
     .slide-3 { background: linear-gradient(135deg, #f59e0b, #ef4444); }
     .slide-4 { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
-
-    .image-slide {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      text-align: center;
-    }
-    .image-slide img {
-      max-width: 80%;
-      max-height: 200px;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-    }
-
     multi-carousel {
       --carousel-height: 250px;
     }
@@ -79,7 +62,7 @@
 </head>
 <body>
   <h1>Multi Carousel</h1>
-  <p><a href="../../../">&larr; Back to components</a></p>
+  <p><a href="../../../">&larr; Back to components</a> | <a href="https://github.com/manufosela/ui-components/tree/main/packages/multi-carousel" target="_blank">GitHub Repo</a></p>
 
   <div class="demo-section">
     <h2>Basic Usage</h2>
@@ -92,21 +75,35 @@
     </multi-carousel>
     <div class="output" id="basicOutput">Current: Slide 1</div>
     <div class="code-block">&lt;multi-carousel&gt;
-  &lt;div&gt;Slide 1&lt;/div&gt;
-  &lt;div&gt;Slide 2&lt;/div&gt;
-  &lt;div&gt;Slide 3&lt;/div&gt;
-&lt;/multi-carousel&gt;</div>
+  &lt;div class="slide slide-1"&gt;Slide 1&lt;/div&gt;
+  &lt;div class="slide slide-2"&gt;Slide 2&lt;/div&gt;
+  &lt;div class="slide slide-3"&gt;Slide 3&lt;/div&gt;
+  &lt;div class="slide slide-4"&gt;Slide 4&lt;/div&gt;
+&lt;/multi-carousel&gt;
+
+&lt;script type="module"&gt;
+  import '@manufosela/multi-carousel';
+
+  const carousel = document.querySelector('multi-carousel');
+  carousel.addEventListener('slide-change', (e) =&gt; {
+    console.log(`Slide ${e.detail.index + 1} of ${e.detail.total}`);
+  });
+&lt;/script&gt;</div>
   </div>
 
   <div class="demo-section">
     <h2>No Loop</h2>
     <p>Stops at first/last slide instead of looping.</p>
-    <multi-carousel .loop="${false}">
+    <multi-carousel no-loop>
       <div class="slide slide-1">First</div>
       <div class="slide slide-2">Middle</div>
       <div class="slide slide-3">Last</div>
     </multi-carousel>
-    <div class="code-block">&lt;multi-carousel loop="false"&gt;...&lt;/multi-carousel&gt;</div>
+    <div class="code-block">&lt;multi-carousel no-loop&gt;
+  &lt;div class="slide slide-1"&gt;First&lt;/div&gt;
+  &lt;div class="slide slide-2"&gt;Middle&lt;/div&gt;
+  &lt;div class="slide slide-3"&gt;Last&lt;/div&gt;
+&lt;/multi-carousel&gt;</div>
   </div>
 
   <div class="demo-section">
@@ -117,44 +114,68 @@
       <div class="slide slide-2">Auto 2</div>
       <div class="slide slide-3">Auto 3</div>
     </multi-carousel>
-    <div class="code-block">&lt;multi-carousel autoplay="3000"&gt;...&lt;/multi-carousel&gt;</div>
+    <div class="code-block">&lt;multi-carousel autoplay="3000"&gt;
+  &lt;div class="slide slide-1"&gt;Auto 1&lt;/div&gt;
+  &lt;div class="slide slide-2"&gt;Auto 2&lt;/div&gt;
+  &lt;div class="slide slide-3"&gt;Auto 3&lt;/div&gt;
+&lt;/multi-carousel&gt;</div>
   </div>
 
   <div class="demo-section">
     <h2>Arrows Only</h2>
     <p>Hide navigation dots.</p>
-    <multi-carousel .showNav="${false}">
+    <multi-carousel hide-nav>
       <div class="slide slide-1">Arrows</div>
       <div class="slide slide-2">Only</div>
       <div class="slide slide-3">Mode</div>
     </multi-carousel>
-    <div class="code-block">&lt;multi-carousel show-nav="false"&gt;...&lt;/multi-carousel&gt;</div>
+    <div class="code-block">&lt;multi-carousel hide-nav&gt;
+  &lt;div class="slide slide-1"&gt;Arrows&lt;/div&gt;
+  &lt;div class="slide slide-2"&gt;Only&lt;/div&gt;
+  &lt;div class="slide slide-3"&gt;Mode&lt;/div&gt;
+&lt;/multi-carousel&gt;</div>
   </div>
 
   <div class="demo-section">
     <h2>Dots Only</h2>
     <p>Hide arrow buttons.</p>
-    <multi-carousel .showArrows="${false}">
+    <multi-carousel hide-arrows>
       <div class="slide slide-1">Dots</div>
       <div class="slide slide-2">Only</div>
       <div class="slide slide-3">Mode</div>
     </multi-carousel>
-    <div class="code-block">&lt;multi-carousel show-arrows="false"&gt;...&lt;/multi-carousel&gt;</div>
+    <div class="code-block">&lt;multi-carousel hide-arrows&gt;
+  &lt;div class="slide slide-1"&gt;Dots&lt;/div&gt;
+  &lt;div class="slide slide-2"&gt;Only&lt;/div&gt;
+  &lt;div class="slide slide-3"&gt;Mode&lt;/div&gt;
+&lt;/multi-carousel&gt;</div>
   </div>
 
   <div class="demo-section">
     <h2>Custom Styling</h2>
     <p>Use CSS variables for theming.</p>
-    <multi-carousel style="--carousel-height: 200px; --carousel-bg: #1e293b; --carousel-nav-active: #ec4899; --carousel-arrow-bg: rgba(30,41,59,0.8); --carousel-arrow-color: white;">
+    <multi-carousel style="
+      --carousel-height: 200px;
+      --carousel-bg: #1e293b;
+      --carousel-nav-active: #ec4899;
+      --carousel-arrow-bg: rgba(30,41,59,0.8);
+      --carousel-arrow-color: white;
+    ">
       <div class="slide slide-4">Styled 1</div>
       <div class="slide slide-1">Styled 2</div>
       <div class="slide slide-2">Styled 3</div>
     </multi-carousel>
-    <div class="code-block">multi-carousel {
+    <div class="code-block">&lt;multi-carousel style="
   --carousel-height: 200px;
   --carousel-bg: #1e293b;
   --carousel-nav-active: #ec4899;
-}</div>
+  --carousel-arrow-bg: rgba(30,41,59,0.8);
+  --carousel-arrow-color: white;
+"&gt;
+  &lt;div class="slide slide-4"&gt;Styled 1&lt;/div&gt;
+  &lt;div class="slide slide-1"&gt;Styled 2&lt;/div&gt;
+  &lt;div class="slide slide-2"&gt;Styled 3&lt;/div&gt;
+&lt;/multi-carousel&gt;</div>
   </div>
 
   <div class="demo-section">
@@ -170,8 +191,17 @@
       <div class="slide slide-1">Synced 2</div>
       <div class="slide slide-2">Synced 3</div>
     </multi-carousel>
-    <div class="code-block">&lt;multi-carousel id="syncMaster" master&gt;...&lt;/multi-carousel&gt;
-&lt;multi-carousel master-id="syncMaster"&gt;...&lt;/multi-carousel&gt;</div>
+    <div class="code-block">&lt;multi-carousel id="syncMaster" master style="--carousel-height: 200px;"&gt;
+  &lt;div class="slide slide-1"&gt;Master 1&lt;/div&gt;
+  &lt;div class="slide slide-2"&gt;Master 2&lt;/div&gt;
+  &lt;div class="slide slide-3"&gt;Master 3&lt;/div&gt;
+&lt;/multi-carousel&gt;
+
+&lt;multi-carousel master-id="syncMaster" style="--carousel-height: 150px;"&gt;
+  &lt;div class="slide slide-3"&gt;Synced 1&lt;/div&gt;
+  &lt;div class="slide slide-1"&gt;Synced 2&lt;/div&gt;
+  &lt;div class="slide slide-2"&gt;Synced 3&lt;/div&gt;
+&lt;/multi-carousel&gt;</div>
   </div>
 
   <script type="module">

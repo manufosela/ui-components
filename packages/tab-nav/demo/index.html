@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Nav Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow: auto;
+      max-height: 300px;
+      white-space: pre;
+    }
+    .output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f7;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .controls button {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+    }
+    .controls button:hover {
+      background: #f3f4f6;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tab Nav</h1>
+  <p><a href="../../../">&larr; Back to components</a> | <a href="https://github.com/manufosela/ui-components/tree/main/packages/tab-nav" target="_blank">GitHub Repo</a></p>
+
+  <div class="demo-section">
+    <h2>Basic Usage</h2>
+    <p>Click tabs to switch content. Keyboard: Arrow keys, Home, End.</p>
+    <tab-nav id="basic">
+      <tab-panel label="Overview">
+        <h3>Overview</h3>
+        <p>Welcome to the overview panel. This is the default tab content.</p>
+      </tab-panel>
+      <tab-panel label="Features">
+        <h3>Features</h3>
+        <p>Here you can see all the amazing features of this component.</p>
+        <ul>
+          <li>Keyboard navigation</li>
+          <li>ARIA accessibility</li>
+          <li>Smooth transitions</li>
+        </ul>
+      </tab-panel>
+      <tab-panel label="Documentation">
+        <h3>Documentation</h3>
+        <p>Read the full documentation for usage examples and API reference.</p>
+      </tab-panel>
+    </tab-nav>
+    <div class="output" id="basicOutput">Click a tab...</div>
+    <div class="code-block">&lt;tab-nav&gt;
+  &lt;tab-panel label="Overview"&gt;
+    &lt;h3&gt;Overview&lt;/h3&gt;
+    &lt;p&gt;Welcome to the overview panel. This is the default tab content.&lt;/p&gt;
+  &lt;/tab-panel&gt;
+  &lt;tab-panel label="Features"&gt;
+    &lt;h3&gt;Features&lt;/h3&gt;
+    &lt;p&gt;Here you can see all the amazing features of this component.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Keyboard navigation&lt;/li&gt;
+      &lt;li&gt;ARIA accessibility&lt;/li&gt;
+      &lt;li&gt;Smooth transitions&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/tab-panel&gt;
+  &lt;tab-panel label="Documentation"&gt;
+    &lt;h3&gt;Documentation&lt;/h3&gt;
+    &lt;p&gt;Read the full documentation for usage examples and API reference.&lt;/p&gt;
+  &lt;/tab-panel&gt;
+&lt;/tab-nav&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Pre-selected Tab</h2>
+    <p>Start with a specific tab selected.</p>
+    <tab-nav selected="1">
+      <tab-panel label="First">First tab content</tab-panel>
+      <tab-panel label="Second (Selected)">This tab starts selected!</tab-panel>
+      <tab-panel label="Third">Third tab content</tab-panel>
+    </tab-nav>
+    <div class="code-block">&lt;tab-nav selected="1"&gt;
+  &lt;tab-panel label="First"&gt;First tab content&lt;/tab-panel&gt;
+  &lt;tab-panel label="Second (Selected)"&gt;This tab starts selected!&lt;/tab-panel&gt;
+  &lt;tab-panel label="Third"&gt;Third tab content&lt;/tab-panel&gt;
+&lt;/tab-nav&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>With Icons</h2>
+    <p>Add icons to tabs using the icon attribute.</p>
+    <tab-nav>
+      <tab-panel label="Home" icon="🏠">
+        <p>Home panel with house icon.</p>
+      </tab-panel>
+      <tab-panel label="Settings" icon="⚙️">
+        <p>Settings panel with gear icon.</p>
+      </tab-panel>
+      <tab-panel label="Profile" icon="👤">
+        <p>Profile panel with person icon.</p>
+      </tab-panel>
+    </tab-nav>
+    <div class="code-block">&lt;tab-nav&gt;
+  &lt;tab-panel label="Home" icon="🏠"&gt;
+    &lt;p&gt;Home panel with house icon.&lt;/p&gt;
+  &lt;/tab-panel&gt;
+  &lt;tab-panel label="Settings" icon="⚙️"&gt;
+    &lt;p&gt;Settings panel with gear icon.&lt;/p&gt;
+  &lt;/tab-panel&gt;
+  &lt;tab-panel label="Profile" icon="👤"&gt;
+    &lt;p&gt;Profile panel with person icon.&lt;/p&gt;
+  &lt;/tab-panel&gt;
+&lt;/tab-nav&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Disabled Tab</h2>
+    <p>Disable specific tabs.</p>
+    <tab-nav>
+      <tab-panel label="Active Tab">This tab works normally.</tab-panel>
+      <tab-panel label="Disabled" disabled>You can't access this content.</tab-panel>
+      <tab-panel label="Another Active">This tab also works.</tab-panel>
+    </tab-nav>
+    <div class="code-block">&lt;tab-nav&gt;
+  &lt;tab-panel label="Active Tab"&gt;This tab works normally.&lt;/tab-panel&gt;
+  &lt;tab-panel label="Disabled" disabled&gt;You can't access this content.&lt;/tab-panel&gt;
+  &lt;tab-panel label="Another Active"&gt;This tab also works.&lt;/tab-panel&gt;
+&lt;/tab-nav&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Fill Width</h2>
+    <p>Tabs fill available width equally.</p>
+    <tab-nav fill>
+      <tab-panel label="Tab 1">Content for tab 1</tab-panel>
+      <tab-panel label="Tab 2">Content for tab 2</tab-panel>
+      <tab-panel label="Tab 3">Content for tab 3</tab-panel>
+    </tab-nav>
+    <div class="code-block">&lt;tab-nav fill&gt;
+  &lt;tab-panel label="Tab 1"&gt;Content for tab 1&lt;/tab-panel&gt;
+  &lt;tab-panel label="Tab 2"&gt;Content for tab 2&lt;/tab-panel&gt;
+  &lt;tab-panel label="Tab 3"&gt;Content for tab 3&lt;/tab-panel&gt;
+&lt;/tab-nav&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Bottom Position</h2>
+    <p>Tabs at the bottom of the content.</p>
+    <tab-nav position="bottom">
+      <tab-panel label="Panel A">Content A with tabs below.</tab-panel>
+      <tab-panel label="Panel B">Content B with tabs below.</tab-panel>
+    </tab-nav>
+    <div class="code-block">&lt;tab-nav position="bottom"&gt;
+  &lt;tab-panel label="Panel A"&gt;Content A with tabs below.&lt;/tab-panel&gt;
+  &lt;tab-panel label="Panel B"&gt;Content B with tabs below.&lt;/tab-panel&gt;
+&lt;/tab-nav&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Left Position</h2>
+    <p>Vertical tabs on the left.</p>
+    <tab-nav position="left" style="height: 200px;">
+      <tab-panel label="General">General settings panel.</tab-panel>
+      <tab-panel label="Security">Security settings panel.</tab-panel>
+      <tab-panel label="Privacy">Privacy settings panel.</tab-panel>
+    </tab-nav>
+    <div class="code-block">&lt;tab-nav position="left" style="height: 200px;"&gt;
+  &lt;tab-panel label="General"&gt;General settings panel.&lt;/tab-panel&gt;
+  &lt;tab-panel label="Security"&gt;Security settings panel.&lt;/tab-panel&gt;
+  &lt;tab-panel label="Privacy"&gt;Privacy settings panel.&lt;/tab-panel&gt;
+&lt;/tab-nav&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Programmatic Control</h2>
+    <p>Control tabs with JavaScript.</p>
+    <tab-nav id="programmatic">
+      <tab-panel label="Tab 0">Content 0</tab-panel>
+      <tab-panel label="Tab 1">Content 1</tab-panel>
+      <tab-panel label="Tab 2">Content 2</tab-panel>
+    </tab-nav>
+    <div class="controls">
+      <button onclick="document.getElementById('programmatic').select(0)">Select Tab 0</button>
+      <button onclick="document.getElementById('programmatic').select(1)">Select Tab 1</button>
+      <button onclick="document.getElementById('programmatic').select(2)">Select Tab 2</button>
+    </div>
+    <div class="code-block">&lt;tab-nav id="programmatic"&gt;
+  &lt;tab-panel label="Tab 0"&gt;Content 0&lt;/tab-panel&gt;
+  &lt;tab-panel label="Tab 1"&gt;Content 1&lt;/tab-panel&gt;
+  &lt;tab-panel label="Tab 2"&gt;Content 2&lt;/tab-panel&gt;
+&lt;/tab-nav&gt;
+
+&lt;script&gt;
+  const tabNav = document.getElementById('programmatic');
+  tabNav.select(1); // Select Tab 1
+&lt;/script&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Styling</h2>
+    <p>Theme with CSS custom properties.</p>
+    <tab-nav style="
+      --tab-bg: #fef3c7;
+      --tab-border: #f59e0b;
+      --tab-text: #92400e;
+      --tab-active-text: #78350f;
+      --tab-active-border: #d97706;
+      --tab-hover-bg: #fde68a;
+    ">
+      <tab-panel label="Amber">Amber themed tab content.</tab-panel>
+      <tab-panel label="Theme">Custom styled tabs.</tab-panel>
+    </tab-nav>
+    <div class="code-block">&lt;tab-nav style="
+  --tab-bg: #fef3c7;
+  --tab-border: #f59e0b;
+  --tab-text: #92400e;
+  --tab-active-text: #78350f;
+  --tab-active-border: #d97706;
+  --tab-hover-bg: #fde68a;
+"&gt;
+  &lt;tab-panel label="Amber"&gt;Amber themed tab content.&lt;/tab-panel&gt;
+  &lt;tab-panel label="Theme"&gt;Custom styled tabs.&lt;/tab-panel&gt;
+&lt;/tab-nav&gt;</div>
+  </div>
+
+  <script type="module">
+    import '../src/tab-nav.js';
+
+    // Basic event listener
+    const basic = document.getElementById('basic');
+    const basicOutput = document.getElementById('basicOutput');
+    basic.addEventListener('tab-change', (e) => {
+      basicOutput.textContent = `Selected tab ${e.detail.index}: "${e.detail.label}"`;
+    });
+  </script>
+</body>
+</html>

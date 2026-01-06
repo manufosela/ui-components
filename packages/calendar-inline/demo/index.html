@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar Inline Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow: auto;
+      max-height: 300px;
+      white-space: pre;
+    }
+    .output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f7;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    .demo-row {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    calendar-holiday, disabled-date {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calendar Inline</h1>
+  <p><a href="../../../">&larr; Back to components</a> | <a href="https://github.com/manufosela/ui-components/tree/main/packages/calendar-inline" target="_blank">GitHub Repo</a></p>
+
+  <div class="demo-section">
+    <h2>Basic Usage</h2>
+    <p>Interactive inline calendar.</p>
+    <calendar-inline id="basic"></calendar-inline>
+    <div class="output" id="basicOutput">Select a date...</div>
+    <div class="code-block">&lt;calendar-inline&gt;&lt;/calendar-inline&gt;
+
+&lt;script&gt;
+  calendar.addEventListener('date-select', (e) =&gt; {
+    console.log('Selected:', e.detail.date);
+  });
+&lt;/script&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Pre-selected Date</h2>
+    <p>Calendar with a pre-selected date.</p>
+    <calendar-inline value="2025-01-15"></calendar-inline>
+    <div class="code-block">&lt;calendar-inline value="2025-01-15"&gt;&lt;/calendar-inline&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Date Range</h2>
+    <p>Limit selectable dates with min/max.</p>
+    <calendar-inline min="2025-01-10" max="2025-01-25" value="2025-01-15"></calendar-inline>
+    <div class="code-block">&lt;calendar-inline min="2025-01-10" max="2025-01-25"&gt;&lt;/calendar-inline&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>With Holidays</h2>
+    <p>Mark special dates as holidays using declarative elements.</p>
+    <calendar-inline id="holidays" value="2025-01-01">
+      <calendar-holiday date="2025-01-01" title="New Year's Day"></calendar-holiday>
+      <calendar-holiday date="2025-01-06" title="Epiphany"></calendar-holiday>
+      <calendar-holiday date="2025-12-25" title="Christmas Day"></calendar-holiday>
+      <calendar-holiday date="2025-12-26" title="Boxing Day"></calendar-holiday>
+    </calendar-inline>
+    <div class="output" id="holidaysOutput">Select a date to see holiday info...</div>
+    <div class="code-block">&lt;calendar-inline&gt;
+  &lt;calendar-holiday date="2025-01-01" title="New Year's Day"&gt;&lt;/calendar-holiday&gt;
+  &lt;calendar-holiday date="2025-01-06" title="Epiphany"&gt;&lt;/calendar-holiday&gt;
+  &lt;calendar-holiday date="2025-12-25" title="Christmas Day"&gt;&lt;/calendar-holiday&gt;
+  &lt;calendar-holiday date="2025-12-26" title="Boxing Day"&gt;&lt;/calendar-holiday&gt;
+&lt;/calendar-inline&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Week Numbers</h2>
+    <p>Show ISO week numbers.</p>
+    <calendar-inline show-week-numbers></calendar-inline>
+    <div class="code-block">&lt;calendar-inline show-week-numbers&gt;&lt;/calendar-inline&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Sunday Start</h2>
+    <p>Start week on Sunday.</p>
+    <calendar-inline first-day-of-week="0"></calendar-inline>
+    <div class="code-block">&lt;calendar-inline first-day-of-week="0"&gt;&lt;/calendar-inline&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Styling</h2>
+    <p>Theme with CSS custom properties.</p>
+    <calendar-inline style="--calendar-accent: #8b5cf6; --calendar-selected: #8b5cf6; --calendar-today: #f3e8ff;"></calendar-inline>
+    <div class="code-block">&lt;calendar-inline style="
+  --calendar-accent: #8b5cf6;
+  --calendar-selected: #8b5cf6;
+  --calendar-today: #f3e8ff;
+"&gt;&lt;/calendar-inline&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Disabled Dates</h2>
+    <p>Disable specific dates using declarative elements.</p>
+    <calendar-inline value="2025-01-01">
+      <disabled-date date="2025-01-05"></disabled-date>
+      <disabled-date date="2025-01-12"></disabled-date>
+      <disabled-date date="2025-01-19"></disabled-date>
+      <disabled-date date="2025-01-26"></disabled-date>
+    </calendar-inline>
+    <div class="code-block">&lt;calendar-inline&gt;
+  &lt;disabled-date date="2025-01-05"&gt;&lt;/disabled-date&gt;
+  &lt;disabled-date date="2025-01-12"&gt;&lt;/disabled-date&gt;
+  &lt;disabled-date date="2025-01-19"&gt;&lt;/disabled-date&gt;
+  &lt;disabled-date date="2025-01-26"&gt;&lt;/disabled-date&gt;
+&lt;/calendar-inline&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Combined Example</h2>
+    <p>Holidays, disabled dates, and custom styling together.</p>
+    <calendar-inline
+      value="2025-01-15"
+      show-week-numbers
+      style="--calendar-selected: #22c55e; --calendar-today: #dcfce7;"
+    >
+      <calendar-holiday date="2025-01-01" title="New Year"></calendar-holiday>
+      <calendar-holiday date="2025-01-06" title="Epiphany"></calendar-holiday>
+      <disabled-date date="2025-01-04"></disabled-date>
+      <disabled-date date="2025-01-05"></disabled-date>
+      <disabled-date date="2025-01-11"></disabled-date>
+      <disabled-date date="2025-01-12"></disabled-date>
+    </calendar-inline>
+    <div class="code-block">&lt;calendar-inline
+  value="2025-01-15"
+  show-week-numbers
+  style="--calendar-selected: #22c55e; --calendar-today: #dcfce7;"
+&gt;
+  &lt;calendar-holiday date="2025-01-01" title="New Year"&gt;&lt;/calendar-holiday&gt;
+  &lt;calendar-holiday date="2025-01-06" title="Epiphany"&gt;&lt;/calendar-holiday&gt;
+  &lt;disabled-date date="2025-01-04"&gt;&lt;/disabled-date&gt;
+  &lt;disabled-date date="2025-01-05"&gt;&lt;/disabled-date&gt;
+  &lt;disabled-date date="2025-01-11"&gt;&lt;/disabled-date&gt;
+  &lt;disabled-date date="2025-01-12"&gt;&lt;/disabled-date&gt;
+&lt;/calendar-inline&gt;</div>
+  </div>
+
+  <script type="module">
+    import '../src/calendar-inline.js';
+
+    // Basic
+    const basic = document.getElementById('basic');
+    const basicOutput = document.getElementById('basicOutput');
+    basic.addEventListener('date-select', (e) => {
+      basicOutput.textContent = `Selected: ${e.detail.date}`;
+    });
+
+    // Holidays
+    const holidays = document.getElementById('holidays');
+    const holidaysOutput = document.getElementById('holidaysOutput');
+    holidays.addEventListener('date-select', (e) => {
+      if (e.detail.holiday) {
+        holidaysOutput.textContent = `Holiday: ${e.detail.holiday}`;
+      } else {
+        holidaysOutput.textContent = `Selected: ${e.detail.date}`;
+      }
+    });
+  </script>
+</body>
+</html>

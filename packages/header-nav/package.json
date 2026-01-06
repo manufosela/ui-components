@@ -1,0 +1,45 @@
+{
+  "name": "@manufosela/header-nav",
+  "version": "2.0.0",
+  "description": "Responsive header navigation web component with hamburger menu",
+  "main": "src/header-nav.js",
+  "module": "src/header-nav.js",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage"
+  },
+  "keywords": [
+    "web-components",
+    "lit",
+    "header",
+    "navigation",
+    "navbar",
+    "responsive",
+    "hamburger-menu"
+  ],
+  "author": "manufosela",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/header-nav"
+  },
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/header-nav#readme",
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^4.0.0",
+    "@web/dev-server": "^0.4.6",
+    "@web/test-runner": "^0.19.0"
+  }
+}
