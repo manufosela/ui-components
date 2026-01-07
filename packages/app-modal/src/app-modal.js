@@ -5,6 +5,8 @@ import { appModalStyles } from './app-modal.styles.js';
 /**
  * A feature-rich modal component with configurable buttons and content.
  *
+ * Supports both programmatic usage via showModal() and declarative usage with the open attribute.
+ *
  * @element app-modal
  * @fires modal-action1 - Fired when button 1 is clicked
  * @fires modal-action2 - Fired when button 2 is clicked
@@ -17,6 +19,13 @@ import { appModalStyles } from './app-modal.styles.js';
  * @attr {String} max-height - Maximum height (default: 90vh)
  * @attr {Boolean} show-header - Show header section (default: true)
  * @attr {Boolean} show-footer - Show footer section (default: true)
+ * @attr {Boolean} open - Controls modal visibility in declarative mode. When present, modal won't auto-destroy on close.
+ * @attr {String} button1-text - Text for button 1
+ * @attr {String} button2-text - Text for button 2
+ * @attr {String} button3-text - Text for button 3
+ * @attr {String} button1-css - Custom CSS for button 1
+ * @attr {String} button2-css - Custom CSS for button 2
+ * @attr {String} button3-css - Custom CSS for button 3
  *
  * @slot - Default slot for modal body content
  *
@@ -50,6 +59,7 @@ export class AppModal extends LitElement {
     button1Css: { type: String, attribute: 'button1-css' },
     button2Css: { type: String, attribute: 'button2-css' },
     button3Css: { type: String, attribute: 'button3-css' },
+    open: { type: Boolean, reflect: true },
   };
 
   constructor() {
@@ -69,11 +79,13 @@ export class AppModal extends LitElement {
     this.contentElementId = '';
     this.contentElementType = '';
     this.modalId = '';
+    // open is intentionally not initialized to detect declarative usage
 
     this.button1Action = () => {};
     this.button2Action = () => {};
     this.button3Action = () => {};
     this._pendingContent = null;
+    this._declarativeMode = false;
 
     this._handleKeydown = this._handleKeydown.bind(this);
   }
@@ -85,8 +97,34 @@ export class AppModal extends LitElement {
       this.modalId = generateDefaultId('modal');
     }
 
+    // Detect declarative mode: if 'open' attribute exists or was set programmatically
+    this._declarativeMode = this.hasAttribute('open') || this.open !== undefined;
+
+    // In declarative mode, respect the open property; otherwise show immediately (legacy behavior)
+    const shouldShow = this._declarativeMode ? this.open : true;
+
+    if (shouldShow) {
+      this._showModal();
+    } else {
+      // Hide initially in declarative mode when open is false
+      this.style.display = 'none';
+    }
+
+    window.addEventListener('keydown', this._handleKeydown);
+
+    this._globalCloseHandler = (e) => {
+      const { modalId, target } = e.detail || {};
+      if (target === 'all' || modalId === this.modalId) {
+        this.close();
+      }
+    };
+    document.addEventListener('close-modal', this._globalCloseHandler);
+  }
+
+  _showModal() {
+    this.style.display = '';
     requestAnimationFrame(() => {
-      const modal = this.shadowRoot.querySelector('.modal');
+      const modal = this.shadowRoot?.querySelector('.modal');
       if (modal) {
         modal.style.opacity = '1';
       }
@@ -98,16 +136,19 @@ export class AppModal extends LitElement {
         this._pendingContent = null;
       }
     });
+  }
 
-    window.addEventListener('keydown', this._handleKeydown);
+  _hideModal() {
+    const modal = this.shadowRoot?.querySelector('.modal');
+    if (modal) {
+      modal.style.opacity = '0';
+    }
+    this.style.opacity = '0';
+    this.style.background = 'rgba(0, 0, 0, 0)';
 
-    this._globalCloseHandler = (e) => {
-      const { modalId, target } = e.detail || {};
-      if (target === 'all' || modalId === this.modalId) {
-        this.close();
-      }
-    };
-    document.addEventListener('close-modal', this._globalCloseHandler);
+    setTimeout(() => {
+      this.style.display = 'none';
+    }, 300);
   }
 
   disconnectedCallback() {
@@ -127,6 +168,14 @@ export class AppModal extends LitElement {
     if (changedProperties.has('maxWidth') || changedProperties.has('maxHeight')) {
       this.style.setProperty('--max-width', this.maxWidth);
       this.style.setProperty('--max-height', this.maxHeight);
+    }
+
+    if (changedProperties.has('open') && this._declarativeMode) {
+      if (this.open) {
+        this._showModal();
+      } else {
+        this._hideModal();
+      }
     }
   }
 
@@ -215,20 +264,30 @@ export class AppModal extends LitElement {
   }
 
   show() {
-    document.body.appendChild(this);
+    if (this._declarativeMode) {
+      this.open = true;
+    } else {
+      document.body.appendChild(this);
+    }
   }
 
   close() {
-    const modal = this.shadowRoot?.querySelector('.modal');
-    if (modal) {
-      modal.style.opacity = '0';
-    }
-    this.style.opacity = '0';
-    this.style.background = 'rgba(0, 0, 0, 0)';
+    if (this._declarativeMode) {
+      // In declarative mode, just hide the modal (don't destroy)
+      this.open = false;
+    } else {
+      // Legacy behavior: destroy the modal
+      const modal = this.shadowRoot?.querySelector('.modal');
+      if (modal) {
+        modal.style.opacity = '0';
+      }
+      this.style.opacity = '0';
+      this.style.background = 'rgba(0, 0, 0, 0)';
 
-    setTimeout(() => {
-      this.remove();
-    }, 300);
+      setTimeout(() => {
+        this.remove();
+      }, 300);
+    }
   }
 
   setContent(element) {

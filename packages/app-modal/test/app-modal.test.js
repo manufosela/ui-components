@@ -268,4 +268,99 @@ describe('AppModal', () => {
       expect(el.style.getPropertyValue('--max-height')).to.equal('80vh');
     });
   });
+
+  describe('Declarative mode (open property)', () => {
+    it('is hidden when open attribute is false', async () => {
+      const el = await fixture(html`<app-modal .open="${false}"></app-modal>`);
+      await el.updateComplete;
+      expect(el.style.display).to.equal('none');
+    });
+
+    it('is visible when open attribute is true', async () => {
+      const el = await fixture(html`<app-modal open></app-modal>`);
+      await el.updateComplete;
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      expect(el.style.display).to.not.equal('none');
+    });
+
+    it('shows modal when open changes from false to true', async () => {
+      const el = await fixture(html`<app-modal .open="${false}"></app-modal>`);
+      await el.updateComplete;
+      expect(el.style.display).to.equal('none');
+
+      el.open = true;
+      await el.updateComplete;
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      expect(el.style.display).to.not.equal('none');
+    });
+
+    it('hides modal when open changes from true to false', async () => {
+      const el = await fixture(html`<app-modal open></app-modal>`);
+      await el.updateComplete;
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
+      el.open = false;
+      await el.updateComplete;
+      await new Promise((resolve) => setTimeout(resolve, 350));
+      expect(el.style.display).to.equal('none');
+    });
+
+    it('does not destroy modal on close() in declarative mode', async () => {
+      const el = await fixture(html`<app-modal open></app-modal>`);
+      await el.updateComplete;
+
+      el.close();
+      await new Promise((resolve) => setTimeout(resolve, 350));
+
+      expect(el.isConnected).to.be.true;
+      expect(el.open).to.be.false;
+    });
+
+    it('show() sets open to true in declarative mode', async () => {
+      const el = await fixture(html`<app-modal .open="${false}"></app-modal>`);
+      await el.updateComplete;
+
+      el.show();
+      await el.updateComplete;
+      expect(el.open).to.be.true;
+    });
+
+    it('reflects open attribute', async () => {
+      const el = await fixture(html`<app-modal .open="${false}"></app-modal>`);
+      await el.updateComplete;
+      expect(el.hasAttribute('open')).to.be.false;
+
+      el.open = true;
+      await el.updateComplete;
+      expect(el.hasAttribute('open')).to.be.true;
+    });
+
+    it('dispatches events in declarative mode', async () => {
+      const el = await fixture(html`<app-modal open button1-text="OK"></app-modal>`);
+      await el.updateComplete;
+
+      const btn = el.shadowRoot.querySelector('.confirm');
+      setTimeout(() => btn.click());
+      const event = await oneEvent(el, 'modal-action1');
+      expect(event).to.exist;
+    });
+  });
+
+  describe('Retrocompatibility (programmatic mode)', () => {
+    it('shows automatically when open is not set', async () => {
+      const el = await fixture(html`<app-modal></app-modal>`);
+      await el.updateComplete;
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      expect(el.style.display).to.not.equal('none');
+    });
+
+    it('destroys modal on close() in programmatic mode', async () => {
+      const el = await fixture(html`<app-modal></app-modal>`);
+      await el.updateComplete;
+
+      el.close();
+      await new Promise((resolve) => setTimeout(resolve, 350));
+      expect(document.querySelector('app-modal')).to.be.null;
+    });
+  });
 });

@@ -10,6 +10,55 @@ npm install @manufosela/app-modal
 
 ## Usage
 
+### Declarative (Recommended)
+
+Use the `open` attribute to control visibility. The modal persists in the DOM and can be reused.
+
+```html
+<app-modal
+  id="confirmModal"
+  title="Delete Item?"
+  message="Are you sure you want to delete this item?"
+  button1-text="Delete"
+  button2-text="Cancel"
+  button1-css="background: #ef4444;"
+></app-modal>
+
+<button onclick="document.getElementById('confirmModal').open = true">
+  Delete
+</button>
+
+<script type="module">
+  import '@manufosela/app-modal';
+
+  const modal = document.getElementById('confirmModal');
+  modal.open = false; // Initialize as closed
+
+  modal.addEventListener('modal-action1', () => {
+    console.log('Deleted!');
+  });
+
+  modal.addEventListener('modal-action2', () => {
+    console.log('Cancelled');
+  });
+</script>
+```
+
+### With Slotted Content
+
+```html
+<app-modal id="customModal" title="Custom Content" button1-text="Got it">
+  <p>This content is <strong>slotted</strong> into the modal.</p>
+  <form>
+    <input type="text" placeholder="Enter something..." />
+  </form>
+</app-modal>
+```
+
+### Programmatic
+
+Use the `showModal()` helper for quick modals that auto-destroy on close.
+
 ```javascript
 import { showModal } from '@manufosela/app-modal';
 
@@ -34,8 +83,11 @@ showModal({
 
 ## Features
 
+- **Declarative mode** with `open` attribute (modal persists, reusable)
+- **Programmatic mode** via `showModal()` (modal auto-destroys)
 - Up to 3 configurable buttons
 - Custom button actions and styles
+- Slotted content support
 - Dynamic content injection via `setContent()`
 - HTML message support
 - Escape key to close
@@ -45,29 +97,32 @@ showModal({
 
 ## Attributes
 
-| Attribute       | Type    | Default  | Description                    |
-| --------------- | ------- | -------- | ------------------------------ |
-| `title`         | String  | `''`     | Modal title                    |
-| `message`       | String  | `''`     | Modal message (supports HTML)  |
-| `max-width`     | String  | `400px`  | Maximum width                  |
-| `max-height`    | String  | `90vh`   | Maximum height                 |
-| `show-header`   | Boolean | `true`   | Show header section            |
-| `show-footer`   | Boolean | `true`   | Show footer section            |
-| `button1-text`  | String  | `''`     | First button text              |
-| `button2-text`  | String  | `''`     | Second button text             |
-| `button3-text`  | String  | `''`     | Third button text              |
-| `button1-css`   | String  | `''`     | First button inline CSS        |
-| `button2-css`   | String  | `''`     | Second button inline CSS       |
-| `button3-css`   | String  | `''`     | Third button inline CSS        |
-| `modal-id`      | String  | auto     | Unique modal identifier        |
+| Attribute       | Type    | Default  | Description                                      |
+| --------------- | ------- | -------- | ------------------------------------------------ |
+| `open`          | Boolean | -        | Controls visibility in declarative mode          |
+| `title`         | String  | `''`     | Modal title                                      |
+| `message`       | String  | `''`     | Modal message (supports HTML)                    |
+| `max-width`     | String  | `400px`  | Maximum width                                    |
+| `max-height`    | String  | `90vh`   | Maximum height                                   |
+| `show-header`   | Boolean | `true`   | Show header section                              |
+| `show-footer`   | Boolean | `true`   | Show footer section                              |
+| `button1-text`  | String  | `''`     | First button text                                |
+| `button2-text`  | String  | `''`     | Second button text                               |
+| `button3-text`  | String  | `''`     | Third button text                                |
+| `button1-css`   | String  | `''`     | First button inline CSS                          |
+| `button2-css`   | String  | `''`     | Second button inline CSS                         |
+| `button3-css`   | String  | `''`     | Third button inline CSS                          |
+| `modal-id`      | String  | auto     | Unique modal identifier                          |
+
+> **Note:** When the `open` property is set (even to `false`), the modal enters declarative mode. In this mode, `close()` hides the modal instead of destroying it, allowing reuse.
 
 ## Methods
 
-| Method                      | Description                          |
-| --------------------------- | ------------------------------------ |
-| `show()`                    | Append modal to body and show        |
-| `close()`                   | Close and remove modal               |
-| `setContent(element)`       | Set custom element as modal content  |
+| Method                      | Description                                                      |
+| --------------------------- | ---------------------------------------------------------------- |
+| `show()`                    | Show modal (sets `open=true` in declarative mode)                |
+| `close()`                   | Close modal (hides in declarative mode, destroys in programmatic)|
+| `setContent(element)`       | Set custom element as modal content                              |
 
 ## Events
 
@@ -137,22 +192,22 @@ This library includes two modal components. Choose based on your needs:
 
 | Feature | app-modal | modal-dialog |
 |---------|-----------|--------------|
-| **Use case** | Confirmations, alerts, programmatic modals | Custom content, forms, declarative modals |
+| **Use case** | Confirmations, alerts, action dialogs | Custom content, forms, complex layouts |
 | **Buttons** | 3 configurable buttons with callbacks | Slot-based (any content) |
-| **Content** | `message` attribute + `setContent()` | Default slot (full control) |
-| **API** | Programmatic (`showModal()` helper) | Declarative (HTML-first) |
+| **Content** | `message` attribute + slots + `setContent()` | Default slot (full control) |
+| **API** | Declarative (`open`) + Programmatic (`showModal()`) | Declarative (HTML-first) |
 | **Close events** | Global `close-modal` event | `modal-close` event |
-| **Best for** | "Are you sure?" dialogs | Complex forms, custom UI |
+| **Best for** | "Are you sure?" dialogs, confirmations | Complex forms, custom UI |
 
 **Use `app-modal` when:**
 - You need quick confirmation dialogs
 - You want predefined button layouts (OK/Cancel/Other)
-- You're creating modals programmatically
+- You need both declarative and programmatic control
 
 **Use `modal-dialog` when:**
 - You need full control over modal content
-- You're using slots for custom layouts
-- You prefer declarative HTML patterns
+- You're building complex forms inside modals
+- You need multiple custom footer actions
 
 ## License
 

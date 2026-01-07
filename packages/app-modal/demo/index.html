@@ -74,6 +74,55 @@
   <p><a href="../../../">&larr; Back to components</a> | <a href="https://github.com/manufosela/ui-components/tree/main/packages/app-modal" target="_blank">GitHub Repo</a></p>
 
   <div class="demo-section">
+    <h2>Declarative Usage (Recommended)</h2>
+    <p style="color: #1d1d1f;">Use the <code>open</code> attribute to control visibility. Modal persists in DOM and can be reused.</p>
+    <div class="button-grid">
+      <button id="showDeclarative">Show Declarative Modal</button>
+    </div>
+    <div class="output" id="declarativeOutput">Waiting for action...</div>
+    <div class="code-block">&lt;app-modal
+  id="myModal"
+  title="Confirm Delete"
+  message="Are you sure you want to delete this item?"
+  button1-text="Delete"
+  button2-text="Cancel"
+  button1-css="background: #ef4444;"
+&gt;&lt;/app-modal&gt;
+
+&lt;script&gt;
+  const modal = document.getElementById('myModal');
+
+  // Show modal
+  modal.open = true;
+
+  // Listen for button events
+  modal.addEventListener('modal-action1', () => {
+    console.log('Deleted!');
+  });
+  modal.addEventListener('modal-action2', () => {
+    console.log('Cancelled');
+  });
+&lt;/script&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Declarative with Slotted Content</h2>
+    <p style="color: #1d1d1f;">Use slots for custom content instead of the message attribute.</p>
+    <div class="button-grid">
+      <button id="showSlotted">Show Slotted Modal</button>
+    </div>
+    <div class="code-block">&lt;app-modal id="slottedModal" title="Custom Content" button1-text="Got it"&gt;
+  &lt;p&gt;This content is &lt;strong&gt;slotted&lt;/strong&gt; into the modal.&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Custom HTML&lt;/li&gt;
+    &lt;li&gt;Full flexibility&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/app-modal&gt;</div>
+  </div>
+
+  <h2 style="margin-top: 2rem; color: #86868b;">Programmatic Usage</h2>
+
+  <div class="demo-section">
     <h2>Basic Modal</h2>
     <div class="button-grid">
       <button id="showBasic">Show Basic Modal</button>
@@ -186,9 +235,60 @@ showModal({
 });</div>
   </div>
 
+  <!-- Declarative modals (hidden initially with CSS, controlled by open property) -->
+  <app-modal
+    id="declarativeModal"
+    title="Confirm Delete"
+    message="Are you sure you want to delete this item?"
+    button1-text="Delete"
+    button2-text="Cancel"
+    button1-css="background: #ef4444;"
+    style="display: none;"
+  ></app-modal>
+
+  <app-modal
+    id="slottedModal"
+    title="Custom Content"
+    button1-text="Got it"
+    style="display: none;"
+  >
+    <p>This content is <strong>slotted</strong> into the modal.</p>
+    <ul>
+      <li>Custom HTML</li>
+      <li>Full flexibility</li>
+    </ul>
+  </app-modal>
+
   <script type="module">
+    import '../src/app-modal.js';
     import { showModal } from '../src/app-modal.js';
 
+    // Initialize declarative modals
+    const declarativeModal = document.getElementById('declarativeModal');
+    const slottedModal = document.getElementById('slottedModal');
+
+    // Enable declarative mode by setting open property
+    declarativeModal.open = false;
+    slottedModal.open = false;
+
+    // Declarative modal event handlers
+    document.getElementById('showDeclarative').addEventListener('click', () => {
+      declarativeModal.open = true;
+    });
+
+    declarativeModal.addEventListener('modal-action1', () => {
+      document.getElementById('declarativeOutput').textContent = 'Deleted!';
+    });
+    declarativeModal.addEventListener('modal-action2', () => {
+      document.getElementById('declarativeOutput').textContent = 'Cancelled.';
+    });
+
+    // Slotted modal
+    document.getElementById('showSlotted').addEventListener('click', () => {
+      slottedModal.open = true;
+    });
+
+    // Programmatic examples
     document.getElementById('showBasic').addEventListener('click', () => {
       showModal({ title: 'Hello!', message: 'Basic modal dialog.', button1Text: 'OK' });
     });
