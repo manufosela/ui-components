@@ -56,6 +56,17 @@
       border-radius: 8px;
       font-family: monospace;
     }
+    .code-block {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      overflow-x: auto;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.85rem;
+      white-space: pre;
+    }
   </style>
 </head>
 <body>
@@ -67,6 +78,13 @@
     <div class="button-grid">
       <button id="showBasic">Show Basic Modal</button>
     </div>
+    <div class="code-block">import { showModal } from '@manufosela/app-modal';
+
+showModal({
+  title: 'Hello!',
+  message: 'Basic modal dialog.',
+  button1Text: 'OK'
+});</div>
   </div>
 
   <div class="demo-section">
@@ -75,6 +93,15 @@
       <button id="showConfirm">Show Confirmation</button>
     </div>
     <div class="output" id="confirmOutput">Waiting for action...</div>
+    <div class="code-block">showModal({
+  title: 'Confirm Action',
+  message: 'Delete this item?',
+  button1Text: 'Delete',
+  button2Text: 'Cancel',
+  button1Css: 'background: #ef4444;',
+  button1Action: () => console.log('Deleted!'),
+  button2Action: () => console.log('Cancelled.')
+});</div>
   </div>
 
   <div class="demo-section">
@@ -83,6 +110,18 @@
       <button id="showThree">Show 3-Button Modal</button>
     </div>
     <div class="output" id="threeOutput">Waiting for action...</div>
+    <div class="code-block">showModal({
+  title: 'Save Changes?',
+  message: 'You have unsaved changes.',
+  button1Text: 'Save',
+  button2Text: 'Discard',
+  button3Text: 'Cancel',
+  button1Css: 'background: #22c55e;',
+  button2Css: 'background: #ef4444;',
+  button1Action: () => console.log('Saved!'),
+  button2Action: () => console.log('Discarded.'),
+  button3Action: () => console.log('Cancelled.')
+});</div>
   </div>
 
   <div class="demo-section">
@@ -91,6 +130,21 @@
       <button id="showSmall">Small (300px)</button>
       <button id="showLarge">Large (600px)</button>
     </div>
+    <div class="code-block">// Small modal
+showModal({
+  title: 'Small',
+  message: 'Max-width 300px.',
+  maxWidth: '300px',
+  button1Text: 'OK'
+});
+
+// Large modal
+showModal({
+  title: 'Large',
+  message: 'Max-width 600px.',
+  maxWidth: '600px',
+  button1Text: 'OK'
+});</div>
   </div>
 
   <div class="demo-section">
@@ -99,6 +153,19 @@
       <button id="showNoHeader">No Header</button>
       <button id="showNoFooter">No Footer</button>
     </div>
+    <div class="code-block">// No header
+showModal({
+  message: 'No header.',
+  showHeader: false,
+  button1Text: 'Got it'
+});
+
+// No footer
+showModal({
+  title: 'No Footer',
+  message: 'Close with X or Escape.',
+  showFooter: false
+});</div>
   </div>
 
   <div class="demo-section">
@@ -106,6 +173,17 @@
     <div class="button-grid">
       <button id="showHtml">Show HTML Modal</button>
     </div>
+    <div class="code-block">showModal({
+  title: 'Rich Content',
+  message: `
+    &lt;h3 style="margin:0"&gt;Features&lt;/h3&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Bold&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;Italic&lt;/em&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  `,
+  button1Text: 'Nice!'
+});</div>
   </div>
 
   <script type="module">
