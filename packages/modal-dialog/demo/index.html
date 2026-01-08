@@ -34,6 +34,17 @@
     modal-dialog .btn-cancel { background: #e5e7eb; color: #374151; }
     modal-dialog .btn-confirm { background: #3b82f6; color: #fff; }
     modal-dialog .btn-danger { background: #dc2626; color: #fff; }
+  
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #d2d2d7;
+      color: #86868b;
+      font-size: 0.9rem;
+    }
+    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -119,6 +130,18 @@
   &lt;button slot="footer" onclick="form.cancel()"&gt;Cancel&lt;/button&gt;
   &lt;button slot="footer" onclick="form.confirm()"&gt;Submit&lt;/button&gt;
 &lt;/modal-dialog&gt;</div>
+      <footer>
+        <p>
+          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+          <a href="https://www.npmjs.com/package/@manufosela/modal-dialog">npm</a>
+        </p>
+        <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+        <p style="margin-top: 0.5rem;">
+          <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
+            <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
+          </a>
+        </p>
+      </footer>
     </div>
   </div>
 
@@ -165,6 +188,10 @@
     <button slot="footer" class="btn-confirm" onclick="document.getElementById('form').confirm()">Submit</button>
   </modal-dialog>
 
+  
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
   <script type="module">
     import '../src/modal-dialog.js';
 

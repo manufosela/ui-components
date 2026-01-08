@@ -67,6 +67,17 @@
     .slider-row {
       margin-bottom: 1.5rem;
     }
+  
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #d2d2d7;
+      color: #86868b;
+      font-size: 0.9rem;
+    }
+    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -80,6 +91,18 @@
     <slider-underline id="basic" label="Volume"></slider-underline>
     <div class="output" id="basicOutput">Value: 50</div>
     <div class="code-block">&lt;slider-underline label="Volume"&gt;&lt;/slider-underline&gt;</div>
+      <footer>
+        <p>
+          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+          <a href="https://www.npmjs.com/package/@manufosela/slider-underline">npm</a>
+        </p>
+        <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+        <p style="margin-top: 0.5rem;">
+          <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
+            <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
+          </a>
+        </p>
+      </footer>
   </div>
 
   <div class="demo-section">
@@ -220,6 +243,10 @@ slider.reset();</div>
     ></slider-underline>
   </div>
 
+  
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
   <script type="module">
     import '../src/slider-underline.js';
 

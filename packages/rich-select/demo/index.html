@@ -371,9 +371,18 @@ select.addEventListener('change', (e) => {
           <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
           <a href="https://www.npmjs.com/package/@manufosela/rich-select">npm</a>
         </p>
+        <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+        <p style="margin-top: 0.5rem;">
+          <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
+            <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
+          </a>
+        </p>
       </footer>
     </div>
 
+    <script>
+      document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+    </script>
     <script type="module">
       import '../src/rich-select.js';
 

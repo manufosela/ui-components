@@ -57,6 +57,17 @@
     a { color: #3b82f6; }
     p { color: #86868b; line-height: 1.6; }
     .code-block { background: #1d1d1f; color: #f5f5f7; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; overflow-x: auto; white-space: pre; }
+  
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #d2d2d7;
+      color: #86868b;
+      font-size: 0.9rem;
+    }
+    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -74,6 +85,18 @@
       <button class="btn-error" id="showError">Error</button>
     </div>
     <div class="code-block">showSlideNotification({ type: 'success', title: 'Success!', message: 'Done.' });</div>
+      <footer>
+        <p>
+          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+          <a href="https://www.npmjs.com/package/@manufosela/slide-notification">npm</a>
+        </p>
+        <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+        <p style="margin-top: 0.5rem;">
+          <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
+            <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
+          </a>
+        </p>
+      </footer>
   </div>
 
   <div class="demo-section">
@@ -121,6 +144,10 @@
 
   <slide-notification id="manualNotification" title="Manual" message="Controlled manually." persistent></slide-notification>
 
+  
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
   <script type="module">
     import { showSlideNotification } from '../src/slide-notification.js';
 

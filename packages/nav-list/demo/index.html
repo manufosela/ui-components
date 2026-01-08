@@ -67,6 +67,17 @@
       --nav-list-padding: 8px 20px;
       --nav-list-gap: 8px;
     }
+  
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #d2d2d7;
+      color: #86868b;
+      font-size: 0.9rem;
+    }
+    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -80,6 +91,18 @@
     <nav-list id="basic" title="Select Option"></nav-list>
     <div class="output" id="basicOutput">Selected: none</div>
     <div class="code-block">&lt;nav-list title="Select Option" .listValues="${['Option 1', 'Option 2', 'Option 3']}"&gt;&lt;/nav-list&gt;</div>
+      <footer>
+        <p>
+          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+          <a href="https://www.npmjs.com/package/@manufosela/nav-list">npm</a>
+        </p>
+        <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+        <p style="margin-top: 0.5rem;">
+          <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
+            <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
+          </a>
+        </p>
+      </footer>
   </div>
 
   <div class="demo-section">
@@ -151,6 +174,10 @@ document.dispatchEvent(new CustomEvent('navlist-next', { detail: { id: 'events' 
 }</div>
   </div>
 
+  
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
   <script type="module">
     import '../src/nav-list.js';
 

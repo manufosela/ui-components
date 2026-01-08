@@ -30,6 +30,17 @@
     lcd-digit { --lcd-segment-length: 30px; --lcd-segment-width: 6px; }
     .clock-display { display: flex; gap: 8px; align-items: center; }
     .clock-display lcd-digit { --lcd-digit-on-color: #ef4444; }
+  
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #d2d2d7;
+      color: #86868b;
+      font-size: 0.9rem;
+    }
+    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -120,7 +131,23 @@ digit.decrement();</div>
       </div>
       <div class="code-block">&lt;lcd-digit digit="-"&gt;&lt;/lcd-digit&gt;</div>
     </div>
+      <footer>
+        <p>
+          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+          <a href="https://www.npmjs.com/package/@manufosela/lcd-digit">npm</a>
+        </p>
+        <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+        <p style="margin-top: 0.5rem;">
+          <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
+            <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
+          </a>
+        </p>
+      </footer>
   </div>
+  
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
   <script type="module">
     import '../src/lcd-digit.js';
 

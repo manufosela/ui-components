@@ -70,6 +70,17 @@
       display: block;
       margin: 1rem 0;
     }
+  
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #d2d2d7;
+      color: #86868b;
+      font-size: 0.9rem;
+    }
+    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -87,6 +98,18 @@
       <button onclick="document.getElementById('countdown').reset()">Reset</button>
     </div>
     <div class="code-block">&lt;click-clock time="90"&gt;&lt;/click-clock&gt;</div>
+      <footer>
+        <p>
+          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+          <a href="https://www.npmjs.com/package/@manufosela/click-clock">npm</a>
+        </p>
+        <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+        <p style="margin-top: 0.5rem;">
+          <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
+            <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
+          </a>
+        </p>
+      </footer>
   </div>
 
   <div class="demo-section">
@@ -163,6 +186,10 @@
     <div class="code-block">&lt;click-clock time="180" hide-days hide-hours hide-seconds autostart&gt;&lt;/click-clock&gt;</div>
   </div>
 
+  
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
   <script type="module">
     import '../src/click-clock.js';
 
