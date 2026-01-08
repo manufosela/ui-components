@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/qr-code.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "QR Code generator web component.",
+          "name": "QrCode",
+          "cssProperties": [
+            {
+              "description": "QR code size (default: 200px)",
+              "name": "--qr-size"
+            },
+            {
+              "description": "Foreground color (default: #000)",
+              "name": "--qr-fg"
+            },
+            {
+              "description": "Background color (default: #fff)",
+              "name": "--qr-bg"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_getErrorCorrectionLevel"
+            },
+            {
+              "kind": "method",
+              "name": "_generateQR"
+            },
+            {
+              "kind": "method",
+              "name": "toDataURL",
+              "parameters": [
+                {
+                  "name": "type",
+                  "default": "'image/png'"
+                }
+              ],
+              "description": "Get QR code as data URL"
+            },
+            {
+              "kind": "method",
+              "name": "download",
+              "parameters": [
+                {
+                  "name": "filename",
+                  "default": "'qrcode.png'"
+                }
+              ],
+              "description": "Download QR code as image"
+            },
+            {
+              "kind": "field",
+              "name": "data",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Text/URL to encode",
+              "default": "''",
+              "attribute": "data"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "QR code size in pixels",
+              "default": "200",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "errorCorrection",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Error correction level: L, M, Q, H",
+              "default": "'M'",
+              "attribute": "error-correction"
+            },
+            {
+              "kind": "field",
+              "name": "color",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Foreground color",
+              "default": "'#000000'",
+              "attribute": "color"
+            },
+            {
+              "kind": "field",
+              "name": "background",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Background color",
+              "default": "'#ffffff'",
+              "attribute": "background"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "data",
+              "type": {
+                "text": "string"
+              },
+              "description": "Text/URL to encode",
+              "default": "''",
+              "fieldName": "data"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "description": "QR code size in pixels",
+              "default": "200",
+              "fieldName": "size"
+            },
+            {
+              "name": "error-correction",
+              "type": {
+                "text": "string"
+              },
+              "description": "Error correction level: L, M, Q, H",
+              "default": "'M'",
+              "fieldName": "errorCorrection"
+            },
+            {
+              "name": "color",
+              "type": {
+                "text": "string"
+              },
+              "description": "Foreground color",
+              "default": "'#000000'",
+              "fieldName": "color"
+            },
+            {
+              "name": "background",
+              "type": {
+                "text": "string"
+              },
+              "description": "Background color",
+              "default": "'#ffffff'",
+              "fieldName": "background"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "qr-code",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "QrCode",
+          "declaration": {
+            "name": "QrCode",
+            "module": "src/qr-code.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "qr-code",
+          "declaration": {
+            "name": "QrCode",
+            "module": "src/qr-code.js"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,452 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/calendar-inline.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Inline calendar web component with horizontal scrolling.",
+          "name": "CalendarInline",
+          "cssProperties": [
+            {
+              "description": "Background color (default: #fff)",
+              "name": "--calendar-bg"
+            },
+            {
+              "description": "Text color (default: #1f2937)",
+              "name": "--calendar-text"
+            },
+            {
+              "description": "Accent color (default: #3b82f6)",
+              "name": "--calendar-accent"
+            },
+            {
+              "description": "Today highlight (default: #dbeafe)",
+              "name": "--calendar-today"
+            },
+            {
+              "description": "Selected color (default: #3b82f6)",
+              "name": "--calendar-selected"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_parseSlottedContent",
+              "description": "Parse slotted elements for holidays and disabled dates"
+            },
+            {
+              "kind": "method",
+              "name": "_getMonthName"
+            },
+            {
+              "kind": "method",
+              "name": "_getWeekdayNames"
+            },
+            {
+              "kind": "method",
+              "name": "_getDaysInMonth",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getFirstDayOfMonth",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getWeekNumber",
+              "parameters": [
+                {
+                  "name": "date"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_isToday",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_isSelected",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_formatDateString",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_isDisabled",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_isHoliday",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getHolidayTitle",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_prevMonth"
+            },
+            {
+              "kind": "method",
+              "name": "_nextMonth"
+            },
+            {
+              "kind": "method",
+              "name": "_dispatchMonthChange"
+            },
+            {
+              "kind": "method",
+              "name": "_selectDate",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "goToMonth",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                }
+              ],
+              "description": "Navigate to a specific month/year"
+            },
+            {
+              "kind": "method",
+              "name": "goToToday",
+              "description": "Navigate to today"
+            },
+            {
+              "kind": "method",
+              "name": "_renderCalendarDays"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Selected date (Date object or ISO string)",
+              "default": "''",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Minimum selectable date",
+              "default": "''",
+              "attribute": "min"
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Maximum selectable date",
+              "default": "''",
+              "attribute": "max"
+            },
+            {
+              "kind": "field",
+              "name": "disabledDates",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "description": "Disabled dates array",
+              "default": "[]",
+              "attribute": "disabled-dates"
+            },
+            {
+              "kind": "field",
+              "name": "holidays",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "description": "Holidays array [{date, title}]",
+              "default": "[]",
+              "attribute": "holidays"
+            },
+            {
+              "kind": "field",
+              "name": "firstDayOfWeek",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "First day of week (0=Sunday, 1=Monday)",
+              "default": "1",
+              "attribute": "first-day-of-week"
+            },
+            {
+              "kind": "field",
+              "name": "showWeekNumbers",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show week numbers",
+              "default": "false",
+              "attribute": "show-week-numbers"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Locale for formatting",
+              "default": "'en'",
+              "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "_currentMonth",
+              "privacy": "public",
+              "description": "Internal: current month being displayed",
+              "attribute": "_currentMonth"
+            },
+            {
+              "kind": "field",
+              "name": "_currentYear",
+              "privacy": "public",
+              "description": "Internal: current year being displayed",
+              "attribute": "_currentYear"
+            }
+          ],
+          "events": [
+            {
+              "name": "month-change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when month changes"
+            },
+            {
+              "name": "date-select",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when a date is selected"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "description": "Selected date (Date object or ISO string)",
+              "default": "''",
+              "fieldName": "value"
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "string"
+              },
+              "description": "Minimum selectable date",
+              "default": "''",
+              "fieldName": "min"
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "string"
+              },
+              "description": "Maximum selectable date",
+              "default": "''",
+              "fieldName": "max"
+            },
+            {
+              "name": "disabled-dates",
+              "type": {
+                "text": "array"
+              },
+              "description": "Disabled dates array",
+              "default": "[]",
+              "fieldName": "disabledDates"
+            },
+            {
+              "name": "holidays",
+              "type": {
+                "text": "array"
+              },
+              "description": "Holidays array [{date, title}]",
+              "default": "[]",
+              "fieldName": "holidays"
+            },
+            {
+              "name": "first-day-of-week",
+              "type": {
+                "text": "number"
+              },
+              "description": "First day of week (0=Sunday, 1=Monday)",
+              "default": "1",
+              "fieldName": "firstDayOfWeek"
+            },
+            {
+              "name": "show-week-numbers",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show week numbers",
+              "default": "false",
+              "fieldName": "showWeekNumbers"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string"
+              },
+              "description": "Locale for formatting",
+              "default": "'en'",
+              "fieldName": "locale"
+            },
+            {
+              "name": "_currentMonth",
+              "description": "Internal: current month being displayed",
+              "fieldName": "_currentMonth"
+            },
+            {
+              "name": "_currentYear",
+              "description": "Internal: current year being displayed",
+              "fieldName": "_currentYear"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "calendar-inline",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CalendarInline",
+          "declaration": {
+            "name": "CalendarInline",
+            "module": "src/calendar-inline.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "calendar-inline",
+          "declaration": {
+            "name": "CalendarInline",
+            "module": "src/calendar-inline.js"
+          }
+        }
+      ]
+    }
+  ]
+}

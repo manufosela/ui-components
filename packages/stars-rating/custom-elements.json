@@ -1,0 +1,305 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/stars-rating.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An interactive star rating component.",
+          "name": "StarsRating",
+          "cssProperties": [
+            {
+              "description": "Star size (default: 24px)",
+              "name": "--stars-rating-size"
+            },
+            {
+              "description": "Gap between stars (default: 4px)",
+              "name": "--stars-rating-gap"
+            },
+            {
+              "description": "Filled star color (default: #fbbf24)",
+              "name": "--stars-rating-color"
+            },
+            {
+              "description": "Empty star color (default: #e5e7eb)",
+              "name": "--stars-rating-empty-color"
+            },
+            {
+              "description": "Reset button color (default: #6b7280)",
+              "name": "--stars-rating-reset-color"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "_displayRating",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_getStarClass",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleClick",
+              "parameters": [
+                {
+                  "name": "e"
+                },
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleMouseMove",
+              "parameters": [
+                {
+                  "name": "e"
+                },
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleMouseLeave"
+            },
+            {
+              "kind": "method",
+              "name": "_handleKeydown",
+              "parameters": [
+                {
+                  "name": "e"
+                },
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "resetRating"
+            },
+            {
+              "kind": "method",
+              "name": "setRating",
+              "parameters": [
+                {
+                  "name": "value"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_dispatchChange"
+            },
+            {
+              "kind": "method",
+              "name": "_renderStars"
+            },
+            {
+              "kind": "field",
+              "name": "rating",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "rating",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "numstars",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "5",
+              "attribute": "numstars"
+            },
+            {
+              "kind": "field",
+              "name": "manual",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "manual",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "half",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "half"
+            },
+            {
+              "kind": "field",
+              "name": "reset",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "reset"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "star",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'★'",
+              "attribute": "star"
+            },
+            {
+              "kind": "field",
+              "name": "_hoverRating",
+              "privacy": "public",
+              "type": {
+                "text": "null"
+              },
+              "default": "null",
+              "attribute": "_hoverRating"
+            }
+          ],
+          "events": [
+            {
+              "name": "rating-changed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the rating changes. Detail: { rating: number }"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Current rating value (default: 0)",
+              "name": "rating",
+              "default": "0",
+              "fieldName": "rating"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Number of stars to display (default: 5)",
+              "name": "numstars",
+              "default": "5",
+              "fieldName": "numstars"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Enable interactive mode (default: false)",
+              "name": "manual",
+              "default": "false",
+              "fieldName": "manual"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Allow half-star ratings (default: false)",
+              "name": "half",
+              "default": "false",
+              "fieldName": "half"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show reset button (default: false)",
+              "name": "reset",
+              "default": "false",
+              "fieldName": "reset"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disable interaction (default: false)",
+              "name": "disabled",
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Star character to use (default: ★)",
+              "name": "star",
+              "default": "'★'",
+              "fieldName": "star"
+            },
+            {
+              "name": "_hoverRating",
+              "type": {
+                "text": "null"
+              },
+              "default": "null",
+              "fieldName": "_hoverRating"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "stars-rating",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "StarsRating",
+          "declaration": {
+            "name": "StarsRating",
+            "module": "src/stars-rating.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "stars-rating",
+          "declaration": {
+            "name": "StarsRating",
+            "module": "src/stars-rating.js"
+          }
+        }
+      ]
+    }
+  ]
+}

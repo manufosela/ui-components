@@ -1,0 +1,477 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/app-modal.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "AppModal",
+          "members": [
+            {
+              "kind": "method",
+              "name": "_showModal"
+            },
+            {
+              "kind": "method",
+              "name": "_hideModal"
+            },
+            {
+              "kind": "method",
+              "name": "_handleKeydown",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleButton1"
+            },
+            {
+              "kind": "method",
+              "name": "_handleButton2"
+            },
+            {
+              "kind": "method",
+              "name": "_handleButton3"
+            },
+            {
+              "kind": "method",
+              "name": "_handleOverlayClick",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_requestClose"
+            },
+            {
+              "kind": "method",
+              "name": "show"
+            },
+            {
+              "kind": "method",
+              "name": "close"
+            },
+            {
+              "kind": "method",
+              "name": "setContent",
+              "parameters": [
+                {
+                  "name": "element"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "title",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "title"
+            },
+            {
+              "kind": "field",
+              "name": "message",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "message"
+            },
+            {
+              "kind": "field",
+              "name": "maxWidth",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'400px'",
+              "attribute": "max-width",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "maxHeight",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'90vh'",
+              "attribute": "max-height",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "button1Text",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "button1-text"
+            },
+            {
+              "kind": "field",
+              "name": "button2Text",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "button2-text"
+            },
+            {
+              "kind": "field",
+              "name": "button3Text",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "button3-text"
+            },
+            {
+              "kind": "field",
+              "name": "button1Css",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "button1-css"
+            },
+            {
+              "kind": "field",
+              "name": "button2Css",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "button2-css"
+            },
+            {
+              "kind": "field",
+              "name": "button3Css",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "button3-css"
+            },
+            {
+              "kind": "field",
+              "name": "showHeader",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "show-header",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showFooter",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "show-footer",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "contentElementId",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "contentElementId"
+            },
+            {
+              "kind": "field",
+              "name": "contentElementType",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "contentElementType"
+            },
+            {
+              "kind": "field",
+              "name": "modalId",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "modal-id"
+            },
+            {
+              "kind": "field",
+              "name": "button1Action"
+            },
+            {
+              "kind": "field",
+              "name": "button2Action"
+            },
+            {
+              "kind": "field",
+              "name": "button3Action"
+            },
+            {
+              "kind": "field",
+              "name": "_pendingContent",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_declarativeMode",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "attribute": "open",
+              "reflects": true
+            }
+          ],
+          "events": [
+            {
+              "name": "modal-action1",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "modal-action2",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "modal-action3",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "modal-closed-requested",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "title"
+            },
+            {
+              "name": "message",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "message"
+            },
+            {
+              "name": "max-width",
+              "type": {
+                "text": "string"
+              },
+              "default": "'400px'",
+              "fieldName": "maxWidth"
+            },
+            {
+              "name": "max-height",
+              "type": {
+                "text": "string"
+              },
+              "default": "'90vh'",
+              "fieldName": "maxHeight"
+            },
+            {
+              "name": "show-header",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "fieldName": "showHeader"
+            },
+            {
+              "name": "show-footer",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "fieldName": "showFooter"
+            },
+            {
+              "name": "contentElementId",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "contentElementId"
+            },
+            {
+              "name": "contentElementType",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "contentElementType"
+            },
+            {
+              "name": "modal-id",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "modalId"
+            },
+            {
+              "name": "button1-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "button1Text"
+            },
+            {
+              "name": "button2-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "button2Text"
+            },
+            {
+              "name": "button3-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "button3Text"
+            },
+            {
+              "name": "button1-css",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "button1Css"
+            },
+            {
+              "name": "button2-css",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "button2Css"
+            },
+            {
+              "name": "button3-css",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "button3Css"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "fieldName": "open"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "app-modal",
+          "customElement": true
+        },
+        {
+          "kind": "function",
+          "name": "showModal",
+          "parameters": [
+            {
+              "name": "options",
+              "default": "{}",
+              "description": "Modal options",
+              "type": {
+                "text": "Object"
+              }
+            }
+          ],
+          "description": "Helper function to show a modal",
+          "return": {
+            "type": {
+              "text": "AppModal"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AppModal",
+          "declaration": {
+            "name": "AppModal",
+            "module": "src/app-modal.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "app-modal",
+          "declaration": {
+            "name": "AppModal",
+            "module": "src/app-modal.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "showModal",
+          "declaration": {
+            "name": "showModal",
+            "module": "src/app-modal.js"
+          }
+        }
+      ]
+    }
+  ]
+}

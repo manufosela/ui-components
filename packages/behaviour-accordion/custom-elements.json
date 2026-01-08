@@ -1,0 +1,320 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/behaviour-accordion.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Accordion item web component - used inside behaviour-accordion.",
+          "name": "AccordionItem",
+          "slots": [
+            {
+              "description": "Header content for the item",
+              "name": "header"
+            },
+            {
+              "description": "Default slot for panel content",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_toggle"
+            },
+            {
+              "kind": "method",
+              "name": "_handleKeydown",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "expanded",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the item is expanded",
+              "default": "false",
+              "attribute": "expanded",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the item is disabled",
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "header",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Header text (alternative to slot)",
+              "default": "''",
+              "attribute": "header"
+            }
+          ],
+          "events": [
+            {
+              "name": "toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when item is toggled"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "expanded",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the item is expanded",
+              "default": "false",
+              "fieldName": "expanded"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the item is disabled",
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "header",
+              "type": {
+                "text": "string"
+              },
+              "description": "Header text (alternative to slot)",
+              "default": "''",
+              "fieldName": "header"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "accordion-item",
+          "customElement": true
+        },
+        {
+          "kind": "class",
+          "description": "Accordion container web component.",
+          "name": "BehaviourAccordion",
+          "cssProperties": [
+            {
+              "description": "Border color (default: #e5e7eb)",
+              "name": "--accordion-border"
+            },
+            {
+              "description": "Border radius (default: 8px)",
+              "name": "--accordion-radius"
+            },
+            {
+              "description": "Header background (default: #f9fafb)",
+              "name": "--accordion-header-bg"
+            },
+            {
+              "description": "Header hover background (default: #f3f4f6)",
+              "name": "--accordion-header-hover"
+            },
+            {
+              "description": "Header text color (default: #1f2937)",
+              "name": "--accordion-header-text"
+            },
+            {
+              "description": "Content background (default: #fff)",
+              "name": "--accordion-content-bg"
+            },
+            {
+              "description": "Content text color (default: #4b5563)",
+              "name": "--accordion-content-text"
+            },
+            {
+              "description": "Icon color (default: #6b7280)",
+              "name": "--accordion-icon"
+            },
+            {
+              "description": "Focus outline color (default: #3b82f6)",
+              "name": "--accordion-focus"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Default slot for accordion-item elements",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_getItems"
+            },
+            {
+              "kind": "method",
+              "name": "_updateItems"
+            },
+            {
+              "kind": "method",
+              "name": "_handleItemToggle",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "expand",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ],
+              "description": "Expand a specific item by index"
+            },
+            {
+              "kind": "method",
+              "name": "collapse",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ],
+              "description": "Collapse a specific item by index"
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ],
+              "description": "Toggle a specific item by index"
+            },
+            {
+              "kind": "method",
+              "name": "expandAll",
+              "description": "Expand all items (only works in multiple mode)"
+            },
+            {
+              "kind": "method",
+              "name": "collapseAll",
+              "description": "Collapse all items"
+            },
+            {
+              "kind": "field",
+              "name": "multiple",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Allow multiple items to be expanded simultaneously",
+              "default": "false",
+              "attribute": "multiple"
+            },
+            {
+              "kind": "field",
+              "name": "expanded",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "description": "Index of initially expanded item(s)",
+              "default": "[]",
+              "attribute": "expanded"
+            }
+          ],
+          "events": [
+            {
+              "name": "item-toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when any item is toggled"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "multiple",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Allow multiple items to be expanded simultaneously",
+              "default": "false",
+              "fieldName": "multiple"
+            },
+            {
+              "name": "expanded",
+              "type": {
+                "text": "array"
+              },
+              "description": "Index of initially expanded item(s)",
+              "default": "[]",
+              "fieldName": "expanded"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "behaviour-accordion",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AccordionItem",
+          "declaration": {
+            "name": "AccordionItem",
+            "module": "src/behaviour-accordion.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BehaviourAccordion",
+          "declaration": {
+            "name": "BehaviourAccordion",
+            "module": "src/behaviour-accordion.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "accordion-item",
+          "declaration": {
+            "name": "AccordionItem",
+            "module": "src/behaviour-accordion.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "behaviour-accordion",
+          "declaration": {
+            "name": "BehaviourAccordion",
+            "module": "src/behaviour-accordion.js"
+          }
+        }
+      ]
+    }
+  ]
+}

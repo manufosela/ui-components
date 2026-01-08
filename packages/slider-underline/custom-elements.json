@@ -1,0 +1,350 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/slider-underline.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Range slider web component with underline track style.",
+          "name": "SliderUnderline",
+          "cssProperties": [
+            {
+              "description": "Track color (default: #e5e7eb)",
+              "name": "--slider-track"
+            },
+            {
+              "description": "Filled track color (default: #3b82f6)",
+              "name": "--slider-fill"
+            },
+            {
+              "description": "Thumb color (default: #3b82f6)",
+              "name": "--slider-thumb"
+            },
+            {
+              "description": "Thumb border (default: none)",
+              "name": "--slider-thumb-border"
+            },
+            {
+              "description": "Thumb size (default: 20px)",
+              "name": "--slider-thumb-size"
+            },
+            {
+              "description": "Track height (default: 4px)",
+              "name": "--slider-track-height"
+            },
+            {
+              "description": "Label text color (default: #1f2937)",
+              "name": "--slider-label-color"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "_percentage",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_formatValue",
+              "parameters": [
+                {
+                  "name": "val"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleInput",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleChange",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setValue",
+              "parameters": [
+                {
+                  "name": "val"
+                }
+              ],
+              "description": "Set value programmatically"
+            },
+            {
+              "kind": "method",
+              "name": "increase",
+              "description": "Increase value by step"
+            },
+            {
+              "kind": "method",
+              "name": "decrease",
+              "description": "Decrease value by step"
+            },
+            {
+              "kind": "method",
+              "name": "reset",
+              "description": "Reset to minimum value"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Current value",
+              "default": "50",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Minimum value",
+              "default": "0",
+              "attribute": "min"
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Maximum value",
+              "default": "100",
+              "attribute": "max"
+            },
+            {
+              "kind": "field",
+              "name": "step",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Step increment",
+              "default": "1",
+              "attribute": "step"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disabled state",
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showValue",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show value label",
+              "default": "true",
+              "attribute": "show-value"
+            },
+            {
+              "kind": "field",
+              "name": "labelPosition",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Value label position: above, below, tooltip",
+              "default": "'above'",
+              "attribute": "label-position"
+            },
+            {
+              "kind": "field",
+              "name": "format",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Custom value formatter function name",
+              "default": "''",
+              "attribute": "format"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Optional label text",
+              "default": "''",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "unit",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Unit suffix for value display",
+              "default": "''",
+              "attribute": "unit"
+            }
+          ],
+          "events": [
+            {
+              "name": "input",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired continuously while dragging"
+            },
+            {
+              "name": "change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when value changes (on release)"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "number"
+              },
+              "description": "Current value",
+              "default": "50",
+              "fieldName": "value"
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "number"
+              },
+              "description": "Minimum value",
+              "default": "0",
+              "fieldName": "min"
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "number"
+              },
+              "description": "Maximum value",
+              "default": "100",
+              "fieldName": "max"
+            },
+            {
+              "name": "step",
+              "type": {
+                "text": "number"
+              },
+              "description": "Step increment",
+              "default": "1",
+              "fieldName": "step"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disabled state",
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "show-value",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show value label",
+              "default": "true",
+              "fieldName": "showValue"
+            },
+            {
+              "name": "label-position",
+              "type": {
+                "text": "string"
+              },
+              "description": "Value label position: above, below, tooltip",
+              "default": "'above'",
+              "fieldName": "labelPosition"
+            },
+            {
+              "name": "format",
+              "type": {
+                "text": "string"
+              },
+              "description": "Custom value formatter function name",
+              "default": "''",
+              "fieldName": "format"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "description": "Optional label text",
+              "default": "''",
+              "fieldName": "label"
+            },
+            {
+              "name": "unit",
+              "type": {
+                "text": "string"
+              },
+              "description": "Unit suffix for value display",
+              "default": "''",
+              "fieldName": "unit"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "slider-underline",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SliderUnderline",
+          "declaration": {
+            "name": "SliderUnderline",
+            "module": "src/slider-underline.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "slider-underline",
+          "declaration": {
+            "name": "SliderUnderline",
+            "module": "src/slider-underline.js"
+          }
+        }
+      ]
+    }
+  ]
+}

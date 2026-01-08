@@ -1,0 +1,428 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/multi-carousel.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Responsive multi-slide carousel with navigation and sync capabilities.",
+          "name": "MultiCarousel",
+          "cssProperties": [
+            {
+              "description": "Carousel width (default: 100%)",
+              "name": "--carousel-width"
+            },
+            {
+              "description": "Carousel height (default: 300px)",
+              "name": "--carousel-height"
+            },
+            {
+              "description": "Background color (default: #f8fafc)",
+              "name": "--carousel-bg"
+            },
+            {
+              "description": "Navigation dot color (default: #94a3b8)",
+              "name": "--carousel-nav-color"
+            },
+            {
+              "description": "Active nav color (default: #3b82f6)",
+              "name": "--carousel-nav-active"
+            },
+            {
+              "description": "Arrow color (default: #64748b)",
+              "name": "--carousel-arrow-color"
+            },
+            {
+              "description": "Transition duration (default: 0.4s)",
+              "name": "--carousel-transition"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Slide content elements",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "_showNav",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_showArrows",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_loop",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_updateSlideCount"
+            },
+            {
+              "kind": "method",
+              "name": "_startAutoplay"
+            },
+            {
+              "kind": "method",
+              "name": "_stopAutoplay"
+            },
+            {
+              "kind": "method",
+              "name": "_handleSync",
+              "parameters": [
+                {
+                  "name": "event"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_broadcastChange"
+            },
+            {
+              "kind": "method",
+              "name": "goTo",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ],
+              "description": "Go to specific slide"
+            },
+            {
+              "kind": "method",
+              "name": "next",
+              "description": "Go to next slide"
+            },
+            {
+              "kind": "method",
+              "name": "prev",
+              "description": "Go to previous slide"
+            },
+            {
+              "kind": "method",
+              "name": "_handleNavClick",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleKeydown",
+              "parameters": [
+                {
+                  "name": "event"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_renderNavigation"
+            },
+            {
+              "kind": "method",
+              "name": "_renderArrows"
+            },
+            {
+              "kind": "field",
+              "name": "current",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Current slide index (0-based)",
+              "default": "0",
+              "attribute": "current"
+            },
+            {
+              "kind": "field",
+              "name": "autoplay",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Auto-play interval in ms (0 = disabled)",
+              "default": "0",
+              "attribute": "autoplay"
+            },
+            {
+              "kind": "field",
+              "name": "showNav",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show navigation dots",
+              "default": "true",
+              "attribute": "show-nav"
+            },
+            {
+              "kind": "field",
+              "name": "hideNav",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide navigation dots (declarative alternative)",
+              "default": "false",
+              "attribute": "hide-nav"
+            },
+            {
+              "kind": "field",
+              "name": "showArrows",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show arrow buttons",
+              "default": "true",
+              "attribute": "show-arrows"
+            },
+            {
+              "kind": "field",
+              "name": "hideArrows",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide arrow buttons (declarative alternative)",
+              "default": "false",
+              "attribute": "hide-arrows"
+            },
+            {
+              "kind": "field",
+              "name": "loop",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Loop slides infinitely",
+              "default": "true",
+              "attribute": "loop"
+            },
+            {
+              "kind": "field",
+              "name": "noLoop",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disable looping (declarative alternative)",
+              "default": "false",
+              "attribute": "no-loop"
+            },
+            {
+              "kind": "field",
+              "name": "masterId",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Master ID for syncing multiple carousels",
+              "default": "''",
+              "attribute": "master-id"
+            },
+            {
+              "kind": "field",
+              "name": "master",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Act as master (broadcast changes)",
+              "default": "false",
+              "attribute": "master"
+            },
+            {
+              "kind": "field",
+              "name": "_slideCount",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Internal: number of slides",
+              "default": "0",
+              "attribute": "_slideCount"
+            },
+            {
+              "kind": "field",
+              "name": "_autoplayTimer",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_isWrapping",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Internal: wrap-around transition in progress",
+              "default": "false",
+              "attribute": "_isWrapping"
+            },
+            {
+              "kind": "field",
+              "name": "_boundSyncHandler"
+            }
+          ],
+          "events": [
+            {
+              "name": "slide-change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when slide changes. Detail: { index, total }"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "current",
+              "type": {
+                "text": "number"
+              },
+              "description": "Current slide index (0-based)",
+              "default": "0",
+              "fieldName": "current"
+            },
+            {
+              "name": "autoplay",
+              "type": {
+                "text": "number"
+              },
+              "description": "Auto-play interval in ms (0 = disabled)",
+              "default": "0",
+              "fieldName": "autoplay"
+            },
+            {
+              "name": "show-nav",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show navigation dots",
+              "default": "true",
+              "fieldName": "showNav"
+            },
+            {
+              "name": "hide-nav",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide navigation dots (declarative alternative)",
+              "default": "false",
+              "fieldName": "hideNav"
+            },
+            {
+              "name": "show-arrows",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show arrow buttons",
+              "default": "true",
+              "fieldName": "showArrows"
+            },
+            {
+              "name": "hide-arrows",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide arrow buttons (declarative alternative)",
+              "default": "false",
+              "fieldName": "hideArrows"
+            },
+            {
+              "name": "loop",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Loop slides infinitely",
+              "default": "true",
+              "fieldName": "loop"
+            },
+            {
+              "name": "no-loop",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disable looping (declarative alternative)",
+              "default": "false",
+              "fieldName": "noLoop"
+            },
+            {
+              "name": "master-id",
+              "type": {
+                "text": "string"
+              },
+              "description": "Master ID for syncing multiple carousels",
+              "default": "''",
+              "fieldName": "masterId"
+            },
+            {
+              "name": "master",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Act as master (broadcast changes)",
+              "default": "false",
+              "fieldName": "master"
+            },
+            {
+              "name": "_slideCount",
+              "type": {
+                "text": "number"
+              },
+              "description": "Internal: number of slides",
+              "default": "0",
+              "fieldName": "_slideCount"
+            },
+            {
+              "name": "_isWrapping",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Internal: wrap-around transition in progress",
+              "default": "false",
+              "fieldName": "_isWrapping"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "multi-carousel",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MultiCarousel",
+          "declaration": {
+            "name": "MultiCarousel",
+            "module": "src/multi-carousel.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "multi-carousel",
+          "declaration": {
+            "name": "MultiCarousel",
+            "module": "src/multi-carousel.js"
+          }
+        }
+      ]
+    }
+  ]
+}

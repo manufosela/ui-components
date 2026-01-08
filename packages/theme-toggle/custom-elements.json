@@ -1,0 +1,184 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/theme-toggle.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A theme toggle component for switching between light and dark modes.",
+          "name": "ThemeToggle",
+          "cssProperties": [
+            {
+              "description": "Container padding (default: 4px)",
+              "name": "--theme-toggle-padding"
+            },
+            {
+              "description": "Background color (default: #f3f4f6)",
+              "name": "--theme-toggle-bg"
+            },
+            {
+              "description": "Border radius (default: 9999px)",
+              "name": "--theme-toggle-radius"
+            },
+            {
+              "description": "Button size (default: 36px)",
+              "name": "--theme-toggle-button-size"
+            },
+            {
+              "description": "Icon size (default: 20px)",
+              "name": "--theme-toggle-icon-size"
+            },
+            {
+              "description": "Active button background (default: #fff)",
+              "name": "--theme-toggle-active-bg"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_loadTheme"
+            },
+            {
+              "kind": "method",
+              "name": "_saveTheme"
+            },
+            {
+              "kind": "method",
+              "name": "_applyTheme"
+            },
+            {
+              "kind": "method",
+              "name": "setTheme",
+              "parameters": [
+                {
+                  "name": "theme"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "toggle"
+            },
+            {
+              "kind": "method",
+              "name": "_handleClick",
+              "parameters": [
+                {
+                  "name": "theme"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_dispatchChange"
+            },
+            {
+              "kind": "method",
+              "name": "_renderSunIcon"
+            },
+            {
+              "kind": "method",
+              "name": "_renderMoonIcon"
+            },
+            {
+              "kind": "field",
+              "name": "theme",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'light'",
+              "attribute": "theme",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "persist",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "persist"
+            },
+            {
+              "kind": "field",
+              "name": "storageKey",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'theme'",
+              "attribute": "storage-key"
+            }
+          ],
+          "events": [
+            {
+              "name": "theme-changed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the theme changes. Detail: { theme: 'light' | 'dark' }"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Current theme: 'light' or 'dark' (default: 'light')",
+              "name": "theme",
+              "default": "'light'",
+              "fieldName": "theme"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether to persist theme to localStorage (default: true)",
+              "name": "persist",
+              "default": "true",
+              "fieldName": "persist"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "LocalStorage key for persisting theme (default: 'theme')",
+              "name": "storage-key",
+              "default": "'theme'",
+              "fieldName": "storageKey"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "theme-toggle",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ThemeToggle",
+          "declaration": {
+            "name": "ThemeToggle",
+            "module": "src/theme-toggle.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "theme-toggle",
+          "declaration": {
+            "name": "ThemeToggle",
+            "module": "src/theme-toggle.js"
+          }
+        }
+      ]
+    }
+  ]
+}

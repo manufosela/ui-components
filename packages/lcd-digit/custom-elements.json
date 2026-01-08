@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/lcd-digit.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "7-segment LCD digit display component.",
+          "name": "LcdDigit",
+          "cssProperties": [
+            {
+              "description": "Segment length (default: 30px)",
+              "name": "--lcd-segment-length"
+            },
+            {
+              "description": "Segment width (default: 6px)",
+              "name": "--lcd-segment-width"
+            },
+            {
+              "description": "Active segment color (default: #22c55e)",
+              "name": "--lcd-digit-on-color"
+            },
+            {
+              "description": "Inactive segment color (default: rgba(0,0,0,0.1))",
+              "name": "--lcd-digit-off-color"
+            },
+            {
+              "description": "Glow effect color (default: rgba(34,197,94,0.5))",
+              "name": "--lcd-digit-glow-color"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "DIGIT_PATTERNS",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ 0: [1, 1, 1, 1, 1, 1, 0], 1: [0, 1, 1, 0, 0, 0, 0], 2: [1, 1, 0, 1, 1, 0, 1], 3: [1, 1, 1, 1, 0, 0, 1], 4: [0, 1, 1, 0, 0, 1, 1], 5: [1, 0, 1, 1, 0, 1, 1], 6: [1, 0, 1, 1, 1, 1, 1], 7: [1, 1, 1, 0, 0, 0, 0], 8: [1, 1, 1, 1, 1, 1, 1], 9: [1, 1, 1, 1, 0, 1, 1], '-': [0, 0, 0, 0, 0, 0, 1], ' ': [0, 0, 0, 0, 0, 0, 0], }"
+            },
+            {
+              "kind": "method",
+              "name": "_getSegments"
+            },
+            {
+              "kind": "method",
+              "name": "setDigit",
+              "parameters": [
+                {
+                  "name": "value"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "increment"
+            },
+            {
+              "kind": "method",
+              "name": "decrement"
+            },
+            {
+              "kind": "method",
+              "name": "_dispatchChange"
+            },
+            {
+              "kind": "field",
+              "name": "digit",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'0'",
+              "attribute": "digit",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "colon",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "colon"
+            },
+            {
+              "kind": "field",
+              "name": "colonOn",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "colon-on"
+            }
+          ],
+          "events": [
+            {
+              "name": "digit-changed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the digit value changes. Detail: { digit: string }"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "The digit to display (0-9, or '-' for minus)",
+              "name": "digit",
+              "default": "'0'",
+              "fieldName": "digit"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show colon after digit (for clock displays)",
+              "name": "colon",
+              "default": "false",
+              "fieldName": "colon"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether colon is lit",
+              "name": "colon-on",
+              "default": "false",
+              "fieldName": "colonOn"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "lcd-digit",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LcdDigit",
+          "declaration": {
+            "name": "LcdDigit",
+            "module": "src/lcd-digit.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "lcd-digit",
+          "declaration": {
+            "name": "LcdDigit",
+            "module": "src/lcd-digit.js"
+          }
+        }
+      ]
+    }
+  ]
+}

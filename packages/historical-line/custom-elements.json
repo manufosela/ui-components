@@ -1,0 +1,278 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/historical-line.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A horizontal timeline visualization component for displaying historical data.",
+          "name": "HistoricalLine",
+          "cssProperties": [
+            {
+              "description": "Base font size",
+              "name": "--font-size",
+              "default": "16px"
+            },
+            {
+              "description": "Title color",
+              "name": "--title-color",
+              "default": "#000"
+            },
+            {
+              "description": "Border color",
+              "name": "--border-color",
+              "default": "#000"
+            },
+            {
+              "description": "Description font size",
+              "name": "--desc-font-size",
+              "default": "0.8rem"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The title element",
+              "name": "title"
+            },
+            {
+              "description": "The table container",
+              "name": "container"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_parseSlottedData"
+            },
+            {
+              "kind": "method",
+              "name": "_monthDiff",
+              "parameters": [
+                {
+                  "name": "d1"
+                },
+                {
+                  "name": "d2"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_calculateTimeline"
+            },
+            {
+              "kind": "method",
+              "name": "_renderDesc",
+              "parameters": [
+                {
+                  "name": "text"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "title",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "title"
+            },
+            {
+              "kind": "field",
+              "name": "data",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "data"
+            },
+            {
+              "kind": "field",
+              "name": "_today",
+              "default": "new Date()"
+            },
+            {
+              "kind": "field",
+              "name": "_arrYears",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "_arrYears"
+            },
+            {
+              "kind": "field",
+              "name": "_arrMain",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "_arrMain"
+            },
+            {
+              "kind": "field",
+              "name": "_arrDesc",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "_arrDesc"
+            },
+            {
+              "kind": "field",
+              "name": "_arrColspan",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "_arrColspan"
+            },
+            {
+              "kind": "field",
+              "name": "_numMonths",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "_numMonths"
+            },
+            {
+              "kind": "field",
+              "name": "startYear",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "attribute": "start-year"
+            },
+            {
+              "kind": "field",
+              "name": "endYear",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "attribute": "end-year"
+            }
+          ],
+          "events": [
+            {
+              "description": "Fired when data is updated",
+              "name": "data-changed"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Timeline title",
+              "name": "title",
+              "default": "''",
+              "fieldName": "title"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Start year of the timeline",
+              "name": "start-year",
+              "fieldName": "startYear"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "End year of the timeline",
+              "name": "end-year",
+              "fieldName": "endYear"
+            },
+            {
+              "name": "data",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "data"
+            },
+            {
+              "name": "_arrYears",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "_arrYears"
+            },
+            {
+              "name": "_arrMain",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "_arrMain"
+            },
+            {
+              "name": "_arrDesc",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "_arrDesc"
+            },
+            {
+              "name": "_arrColspan",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "_arrColspan"
+            },
+            {
+              "name": "_numMonths",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "_numMonths"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "historical-line",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "HistoricalLine",
+          "declaration": {
+            "name": "HistoricalLine",
+            "module": "src/historical-line.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "historical-line",
+          "declaration": {
+            "name": "HistoricalLine",
+            "module": "src/historical-line.js"
+          }
+        }
+      ]
+    }
+  ]
+}

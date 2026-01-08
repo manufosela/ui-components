@@ -23,6 +23,7 @@ Monorepo de **27 web components** construidos con **Lit 3**, publicados en npm b
 | ESLint | 8.x | Linting |
 | Prettier | 3.x | Formatting |
 | Husky | 9.x | Git hooks |
+| @custom-elements-manifest/analyzer | 0.11.x | Generacion de manifests para playground |
 
 **Nota**: El codigo es vanilla JavaScript. TypeScript se usa SOLO para generar declaraciones de tipos (.d.ts) desde JSDoc para mejorar la DX de los consumidores.
 
@@ -34,11 +35,13 @@ packages/{component-name}/
 │   ├── {component-name}.js       # Componente principal
 │   └── {component-name}.styles.js # Estilos (opcional, para componentes grandes)
 ├── demo/
-│   └── index.html                # Demo interactiva
+│   ├── index.html                # Demo interactiva
+│   └── playground.html           # Playground con api-viewer-element
 ├── test/
 │   └── {component-name}.test.js  # Tests
 ├── package.json
 ├── README.md
+├── custom-elements.json          # Manifest generado (pnpm cem)
 └── web-test-runner.config.js
 ```
 
@@ -310,7 +313,8 @@ Todas las demos deben seguir este estilo consistente.
       <p class="subtitle">{Descripcion corta}</p>
       <p>
         <a href="../../../">&larr; Back to components</a> |
-        <a href="https://github.com/manufosela/ui-components/tree/main/packages/{name}" target="_blank">GitHub Repo</a>
+        <a href="https://github.com/manufosela/ui-components/tree/main/packages/{name}" target="_blank">GitHub Repo</a> |
+        <a href="playground.html">Playground</a>
       </p>
     </header>
 
@@ -402,7 +406,36 @@ pnpm lint:fix                       # Auto-fix
 # Publicacion
 pnpm publish -r --access public     # Publicar todos
 pnpm --filter @manufosela/{name} publish --access public  # Publicar uno
+
+# Playground
+pnpm cem                            # Regenerar custom-elements.json para todos
 ```
+
+## Playground Interactivo
+
+Cada componente tiene un playground interactivo en `demo/playground.html` que usa `api-viewer-element`.
+
+### Funcionalidades del Playground
+
+- **Knobs**: Controles para modificar atributos en tiempo real
+- **Eventos**: Log de eventos disparados
+- **Codigo**: HTML actualizado listo para copiar
+
+### Regenerar Manifests
+
+Los playgrounds dependen de `custom-elements.json`. Si modificas propiedades o eventos:
+
+```bash
+pnpm cem  # Regenera todos los manifests
+```
+
+Los manifests se generan automaticamente en CI antes del deploy a GitHub Pages.
+
+### Añadir Playground a Nuevo Componente
+
+1. Generar manifest: `pnpm cem`
+2. Ejecutar script: `node scripts/generate-playgrounds.js`
+3. Añadir link en demo: `node scripts/update-demos-links.js`
 
 ## Convenciones de Commits
 

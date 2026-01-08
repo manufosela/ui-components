@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/multi-select.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A multi-select dropdown component with checkbox options.",
+          "name": "MultiSelect",
+          "cssProperties": [
+            {
+              "description": "Minimum width (default: 200px)",
+              "name": "--multi-select-min-width"
+            },
+            {
+              "description": "Background color (default: white)",
+              "name": "--multi-select-bg"
+            },
+            {
+              "description": "Border color (default: #dee2e6)",
+              "name": "--multi-select-border-color"
+            },
+            {
+              "description": "Border radius (default: 4px)",
+              "name": "--multi-select-radius"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Default slot for declarative option elements",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "_sortedOptions",
+              "description": "Get options sorted according to sort property",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_processSlotOptions"
+            },
+            {
+              "kind": "method",
+              "name": "_addGlobalClickListener"
+            },
+            {
+              "kind": "method",
+              "name": "_removeGlobalClickListener"
+            },
+            {
+              "kind": "method",
+              "name": "_handleClickOutside",
+              "parameters": [
+                {
+                  "name": "event"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "toggleDropdown"
+            },
+            {
+              "kind": "method",
+              "name": "toggleOption",
+              "parameters": [
+                {
+                  "name": "value"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "selectAll"
+            },
+            {
+              "kind": "method",
+              "name": "clearAll"
+            },
+            {
+              "kind": "method",
+              "name": "_dispatchChange"
+            },
+            {
+              "kind": "method",
+              "name": "_getSelectedLabels"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "options",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "options"
+            },
+            {
+              "kind": "field",
+              "name": "selectedValues",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "selected-values"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Select...'",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "sort"
+            },
+            {
+              "kind": "field",
+              "name": "isOpen",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "isOpen"
+            },
+            {
+              "kind": "field",
+              "name": "_slotOptionsProcessed",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when selection changes. Detail: { selectedValues: string[] }"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Label for the select",
+              "name": "label",
+              "default": "''",
+              "fieldName": "label"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Placeholder text when nothing selected",
+              "name": "placeholder",
+              "default": "'Select...'",
+              "fieldName": "placeholder"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disable the select",
+              "name": "disabled",
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Sort options: '' (none), 'asc' (A-Z), 'desc' (Z-A)",
+              "name": "sort",
+              "default": "''",
+              "fieldName": "sort"
+            },
+            {
+              "name": "options",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "options"
+            },
+            {
+              "name": "selected-values",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "selectedValues"
+            },
+            {
+              "name": "isOpen",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "isOpen"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "multi-select",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MultiSelect",
+          "declaration": {
+            "name": "MultiSelect",
+            "module": "src/multi-select.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "multi-select",
+          "declaration": {
+            "name": "MultiSelect",
+            "module": "src/multi-select.js"
+          }
+        }
+      ]
+    }
+  ]
+}

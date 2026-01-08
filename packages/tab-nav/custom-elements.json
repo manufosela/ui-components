@@ -1,0 +1,317 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/tab-nav.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Tab panel component - used inside tab-nav.",
+          "name": "TabPanel",
+          "slots": [
+            {
+              "description": "Default slot for panel content",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Tab label/title",
+              "default": "''",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether this tab is disabled",
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Icon (optional, displayed before label)",
+              "default": "''",
+              "attribute": "icon"
+            },
+            {
+              "kind": "field",
+              "name": "_active",
+              "privacy": "public",
+              "description": "Internal: whether panel is active",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_active"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "description": "Tab label/title",
+              "default": "''",
+              "fieldName": "label"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether this tab is disabled",
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "icon",
+              "type": {
+                "text": "string"
+              },
+              "description": "Icon (optional, displayed before label)",
+              "default": "''",
+              "fieldName": "icon"
+            },
+            {
+              "name": "_active",
+              "description": "Internal: whether panel is active",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_active"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "tab-panel",
+          "customElement": true
+        },
+        {
+          "kind": "class",
+          "description": "Tab navigation web component.",
+          "name": "TabNav",
+          "cssProperties": [
+            {
+              "description": "Tab bar background (default: #f9fafb)",
+              "name": "--tab-bg"
+            },
+            {
+              "description": "Border color (default: #e5e7eb)",
+              "name": "--tab-border"
+            },
+            {
+              "description": "Tab text color (default: #6b7280)",
+              "name": "--tab-text"
+            },
+            {
+              "description": "Active tab text (default: #1f2937)",
+              "name": "--tab-active-text"
+            },
+            {
+              "description": "Active indicator color (default: #3b82f6)",
+              "name": "--tab-active-border"
+            },
+            {
+              "description": "Tab hover background (default: #f3f4f6)",
+              "name": "--tab-hover-bg"
+            },
+            {
+              "description": "Focus outline color (default: #3b82f6)",
+              "name": "--tab-focus"
+            },
+            {
+              "description": "Disabled tab color (default: #d1d5db)",
+              "name": "--tab-disabled"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Default slot for tab-panel elements",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_getPanels"
+            },
+            {
+              "kind": "method",
+              "name": "_updatePanels"
+            },
+            {
+              "kind": "method",
+              "name": "_selectTab",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleKeydown",
+              "parameters": [
+                {
+                  "name": "e"
+                },
+                {
+                  "name": "_index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "select",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ],
+              "description": "Select a tab by index"
+            },
+            {
+              "kind": "method",
+              "name": "getSelectedPanel",
+              "description": "Get the currently selected panel element"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Index of active tab",
+              "default": "0",
+              "attribute": "selected",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Tab position: top, bottom, left, right",
+              "default": "'top'",
+              "attribute": "position"
+            },
+            {
+              "kind": "field",
+              "name": "fill",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Fill available width equally",
+              "default": "false",
+              "attribute": "fill"
+            }
+          ],
+          "events": [
+            {
+              "name": "tab-change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when active tab changes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "selected",
+              "type": {
+                "text": "number"
+              },
+              "description": "Index of active tab",
+              "default": "0",
+              "fieldName": "selected"
+            },
+            {
+              "name": "position",
+              "type": {
+                "text": "string"
+              },
+              "description": "Tab position: top, bottom, left, right",
+              "default": "'top'",
+              "fieldName": "position"
+            },
+            {
+              "name": "fill",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Fill available width equally",
+              "default": "false",
+              "fieldName": "fill"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "tab-nav",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TabPanel",
+          "declaration": {
+            "name": "TabPanel",
+            "module": "src/tab-nav.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TabNav",
+          "declaration": {
+            "name": "TabNav",
+            "module": "src/tab-nav.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tab-panel",
+          "declaration": {
+            "name": "TabPanel",
+            "module": "src/tab-nav.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tab-nav",
+          "declaration": {
+            "name": "TabNav",
+            "module": "src/tab-nav.js"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,562 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/click-clock.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Countdown timer and clock web component.",
+          "name": "ClickClock",
+          "cssProperties": [
+            {
+              "description": "Font size (default: 2rem)",
+              "name": "--clock-font-size"
+            },
+            {
+              "description": "Font family (default: monospace)",
+              "name": "--clock-font-family"
+            },
+            {
+              "description": "Text color (default: #1f2937)",
+              "name": "--clock-color"
+            },
+            {
+              "description": "Background color (default: transparent)",
+              "name": "--clock-bg"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "_showDays",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_showHours",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_showMinutes",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_showSeconds",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_initialize"
+            },
+            {
+              "kind": "method",
+              "name": "_startClock"
+            },
+            {
+              "kind": "method",
+              "name": "_stopInterval"
+            },
+            {
+              "kind": "method",
+              "name": "start",
+              "description": "Start the timer"
+            },
+            {
+              "kind": "method",
+              "name": "_tick"
+            },
+            {
+              "kind": "method",
+              "name": "pause",
+              "description": "Pause the timer"
+            },
+            {
+              "kind": "method",
+              "name": "reset",
+              "description": "Reset the timer"
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "description": "Toggle start/pause"
+            },
+            {
+              "kind": "method",
+              "name": "getCurrentTime",
+              "description": "Get current time in seconds"
+            },
+            {
+              "kind": "method",
+              "name": "_getTimeUnits"
+            },
+            {
+              "kind": "method",
+              "name": "_pad",
+              "parameters": [
+                {
+                  "name": "num"
+                },
+                {
+                  "name": "length",
+                  "default": "2"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_renderUnit",
+              "parameters": [
+                {
+                  "name": "value"
+                },
+                {
+                  "name": "label"
+                },
+                {
+                  "name": "showLabel",
+                  "default": "true"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_renderSeparator"
+            },
+            {
+              "kind": "field",
+              "name": "mode",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Mode: 'countdown', 'stopwatch', 'clock'",
+              "default": "'countdown'",
+              "attribute": "mode"
+            },
+            {
+              "kind": "field",
+              "name": "time",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Initial time in seconds for countdown/stopwatch",
+              "default": "60",
+              "attribute": "time"
+            },
+            {
+              "kind": "field",
+              "name": "target",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Target date for countdown (ISO string or timestamp)",
+              "default": "''",
+              "attribute": "target"
+            },
+            {
+              "kind": "field",
+              "name": "autostart",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Auto-start on load",
+              "default": "false",
+              "attribute": "autostart"
+            },
+            {
+              "kind": "field",
+              "name": "showDays",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show days",
+              "default": "true",
+              "attribute": "show-days"
+            },
+            {
+              "kind": "field",
+              "name": "hideDays",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide days (declarative alternative)",
+              "default": "false",
+              "attribute": "hide-days"
+            },
+            {
+              "kind": "field",
+              "name": "showHours",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show hours",
+              "default": "true",
+              "attribute": "show-hours"
+            },
+            {
+              "kind": "field",
+              "name": "hideHours",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide hours (declarative alternative)",
+              "default": "false",
+              "attribute": "hide-hours"
+            },
+            {
+              "kind": "field",
+              "name": "showMinutes",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show minutes",
+              "default": "true",
+              "attribute": "show-minutes"
+            },
+            {
+              "kind": "field",
+              "name": "hideMinutes",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide minutes (declarative alternative)",
+              "default": "false",
+              "attribute": "hide-minutes"
+            },
+            {
+              "kind": "field",
+              "name": "showSeconds",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show seconds",
+              "default": "true",
+              "attribute": "show-seconds"
+            },
+            {
+              "kind": "field",
+              "name": "hideSeconds",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide seconds (declarative alternative)",
+              "default": "false",
+              "attribute": "hide-seconds"
+            },
+            {
+              "kind": "field",
+              "name": "showMilliseconds",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show milliseconds",
+              "default": "false",
+              "attribute": "show-milliseconds"
+            },
+            {
+              "kind": "field",
+              "name": "separator",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Separator between units",
+              "default": "':'",
+              "attribute": "separator"
+            },
+            {
+              "kind": "field",
+              "name": "format",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Format: 'full', 'compact', 'digital'",
+              "default": "'digital'",
+              "attribute": "format"
+            },
+            {
+              "kind": "field",
+              "name": "_remaining",
+              "privacy": "public",
+              "description": "Internal: current remaining time in ms",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "_remaining"
+            },
+            {
+              "kind": "field",
+              "name": "_running",
+              "privacy": "public",
+              "description": "Internal: is running",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_running"
+            },
+            {
+              "kind": "field",
+              "name": "_intervalId",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_startTime",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_pausedTime",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            }
+          ],
+          "events": [
+            {
+              "name": "start",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when timer starts"
+            },
+            {
+              "name": "complete",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when countdown reaches zero"
+            },
+            {
+              "name": "tick",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired every second with remaining time"
+            },
+            {
+              "name": "pause",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when timer pauses"
+            },
+            {
+              "name": "reset",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when timer resets"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "mode",
+              "type": {
+                "text": "string"
+              },
+              "description": "Mode: 'countdown', 'stopwatch', 'clock'",
+              "default": "'countdown'",
+              "fieldName": "mode"
+            },
+            {
+              "name": "time",
+              "type": {
+                "text": "number"
+              },
+              "description": "Initial time in seconds for countdown/stopwatch",
+              "default": "60",
+              "fieldName": "time"
+            },
+            {
+              "name": "target",
+              "type": {
+                "text": "string"
+              },
+              "description": "Target date for countdown (ISO string or timestamp)",
+              "default": "''",
+              "fieldName": "target"
+            },
+            {
+              "name": "autostart",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Auto-start on load",
+              "default": "false",
+              "fieldName": "autostart"
+            },
+            {
+              "name": "show-days",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show days",
+              "default": "true",
+              "fieldName": "showDays"
+            },
+            {
+              "name": "hide-days",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide days (declarative alternative)",
+              "default": "false",
+              "fieldName": "hideDays"
+            },
+            {
+              "name": "show-hours",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show hours",
+              "default": "true",
+              "fieldName": "showHours"
+            },
+            {
+              "name": "hide-hours",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide hours (declarative alternative)",
+              "default": "false",
+              "fieldName": "hideHours"
+            },
+            {
+              "name": "show-minutes",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show minutes",
+              "default": "true",
+              "fieldName": "showMinutes"
+            },
+            {
+              "name": "hide-minutes",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide minutes (declarative alternative)",
+              "default": "false",
+              "fieldName": "hideMinutes"
+            },
+            {
+              "name": "show-seconds",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show seconds",
+              "default": "true",
+              "fieldName": "showSeconds"
+            },
+            {
+              "name": "hide-seconds",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide seconds (declarative alternative)",
+              "default": "false",
+              "fieldName": "hideSeconds"
+            },
+            {
+              "name": "show-milliseconds",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show milliseconds",
+              "default": "false",
+              "fieldName": "showMilliseconds"
+            },
+            {
+              "name": "separator",
+              "type": {
+                "text": "string"
+              },
+              "description": "Separator between units",
+              "default": "':'",
+              "fieldName": "separator"
+            },
+            {
+              "name": "format",
+              "type": {
+                "text": "string"
+              },
+              "description": "Format: 'full', 'compact', 'digital'",
+              "default": "'digital'",
+              "fieldName": "format"
+            },
+            {
+              "name": "_remaining",
+              "description": "Internal: current remaining time in ms",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "_remaining"
+            },
+            {
+              "name": "_running",
+              "description": "Internal: is running",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_running"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "click-clock",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ClickClock",
+          "declaration": {
+            "name": "ClickClock",
+            "module": "src/click-clock.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "click-clock",
+          "declaration": {
+            "name": "ClickClock",
+            "module": "src/click-clock.js"
+          }
+        }
+      ]
+    }
+  ]
+}

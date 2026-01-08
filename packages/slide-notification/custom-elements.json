@@ -1,0 +1,287 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/slide-notification.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A slide-in notification component from the right edge.",
+          "name": "SlideNotification",
+          "cssProperties": [
+            {
+              "description": "Width (default: 300px)",
+              "name": "--slide-notification-width"
+            },
+            {
+              "description": "Background color (default: #17a2b8)",
+              "name": "--slide-notification-bg"
+            },
+            {
+              "description": "Text color (default: white)",
+              "name": "--slide-notification-color"
+            },
+            {
+              "description": "Border radius (default: 8px)",
+              "name": "--slide-notification-radius"
+            },
+            {
+              "description": "Z-index (default: 10000)",
+              "name": "--slide-notification-z-index"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_showNotification"
+            },
+            {
+              "kind": "field",
+              "name": "_handleClick"
+            },
+            {
+              "kind": "method",
+              "name": "hide"
+            },
+            {
+              "kind": "method",
+              "name": "show"
+            },
+            {
+              "kind": "method",
+              "name": "_getBackgroundColor"
+            },
+            {
+              "kind": "method",
+              "name": "_getTextColor"
+            },
+            {
+              "kind": "method",
+              "name": "_getTextShadow"
+            },
+            {
+              "kind": "field",
+              "name": "title",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "title"
+            },
+            {
+              "kind": "field",
+              "name": "message",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "message"
+            },
+            {
+              "kind": "field",
+              "name": "timetohide",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "3000",
+              "attribute": "timetohide"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'info'",
+              "attribute": "type",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "backgroundColor",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "background-color"
+            },
+            {
+              "kind": "field",
+              "name": "persistent",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "persistent",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "_hideTimeout",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_isVisible",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_createdProgrammatically",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_removeOnHide",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "events": [
+            {
+              "name": "slide-notification-shown",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when notification appears"
+            },
+            {
+              "name": "slide-notification-hidden",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when notification is hidden"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Notification title",
+              "name": "title",
+              "default": "''",
+              "fieldName": "title"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Notification message (supports HTML)",
+              "name": "message",
+              "default": "''",
+              "fieldName": "message"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Time in ms before auto-hide (default: 3000, 0 = persistent)",
+              "name": "timetohide",
+              "default": "3000",
+              "fieldName": "timetohide"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Type: 'info', 'success', 'warning', 'error'",
+              "name": "type",
+              "default": "'info'",
+              "fieldName": "type"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Custom background color",
+              "name": "background-color",
+              "default": "''",
+              "fieldName": "backgroundColor"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "If true, notification stays until clicked (same as timetohide=0)",
+              "name": "persistent",
+              "default": "false",
+              "fieldName": "persistent"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "slide-notification",
+          "customElement": true
+        },
+        {
+          "kind": "function",
+          "name": "showSlideNotification",
+          "parameters": [
+            {
+              "name": "options",
+              "default": "{}",
+              "description": "Notification options",
+              "type": {
+                "text": "@param {string} options.title - Notification title\n * @param {string} options.message - Notification message (supports HTML)\n * @param {number} options.timetohide - Time in ms before auto-hide (default: 3000, 0 = persistent)\n * @param {string} options.type - Type: 'info' | 'success' | 'warning' | 'error'\n * @param {string} options.backgroundColor - Custom background color\n * @param {boolean} options.persistent - If true, stays until clicked\n * "
+              }
+            }
+          ],
+          "description": "Helper function to show a slide notification",
+          "return": {
+            "type": {
+              "text": "SlideNotification"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SlideNotification",
+          "declaration": {
+            "name": "SlideNotification",
+            "module": "src/slide-notification.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "slide-notification",
+          "declaration": {
+            "name": "SlideNotification",
+            "module": "src/slide-notification.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "showSlideNotification",
+          "declaration": {
+            "name": "showSlideNotification",
+            "module": "src/slide-notification.js"
+          }
+        }
+      ]
+    }
+  ]
+}

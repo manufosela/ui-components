@@ -1,0 +1,483 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/rich-inputfile.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Enhanced file input web component with preview and validation.",
+          "name": "RichInputfile",
+          "cssProperties": [
+            {
+              "description": "Border color (default: #d1d5db)",
+              "name": "--input-border"
+            },
+            {
+              "description": "Focus border color (default: #3b82f6)",
+              "name": "--input-border-focus"
+            },
+            {
+              "description": "Background color (default: #fff)",
+              "name": "--input-bg"
+            },
+            {
+              "description": "Border radius (default: 8px)",
+              "name": "--input-radius"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_handleFileChange",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleDragOver",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleDragLeave",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleDrop",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_processFile",
+              "parameters": [
+                {
+                  "name": "file"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_dispatchError",
+              "parameters": [
+                {
+                  "name": "message"
+                },
+                {
+                  "name": "file"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_clearFile"
+            },
+            {
+              "kind": "method",
+              "name": "_formatSize",
+              "parameters": [
+                {
+                  "name": "bytes"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getFile",
+              "description": "Get the selected file"
+            },
+            {
+              "kind": "method",
+              "name": "getFileArrayBuffer",
+              "description": "Get file as ArrayBuffer"
+            },
+            {
+              "kind": "method",
+              "name": "getFileUint8Array",
+              "description": "Get file as Uint8Array"
+            },
+            {
+              "kind": "method",
+              "name": "getFileDataURL",
+              "description": "Get file as Data URL"
+            },
+            {
+              "kind": "method",
+              "name": "setFile",
+              "parameters": [
+                {
+                  "name": "file"
+                }
+              ],
+              "description": "Set file programmatically"
+            },
+            {
+              "kind": "method",
+              "name": "clear",
+              "description": "Clear the current file"
+            },
+            {
+              "kind": "method",
+              "name": "_renderHint"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Input name attribute",
+              "default": "''",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "allowedExtensions",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "description": "Comma-separated list of allowed file extensions",
+              "default": "[]",
+              "attribute": "allowed-extensions"
+            },
+            {
+              "kind": "field",
+              "name": "accept",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Comma-separated list of allowed MIME types",
+              "default": "''",
+              "attribute": "accept"
+            },
+            {
+              "kind": "field",
+              "name": "maxSize",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Maximum file size in bytes",
+              "default": "0",
+              "attribute": "max-size"
+            },
+            {
+              "kind": "field",
+              "name": "showPreview",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show image thumbnail preview",
+              "default": "true",
+              "attribute": "show-preview"
+            },
+            {
+              "kind": "field",
+              "name": "previewSize",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Preview size in pixels",
+              "default": "60",
+              "attribute": "preview-size"
+            },
+            {
+              "kind": "field",
+              "name": "dropzone",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Enable drag and drop",
+              "default": "true",
+              "attribute": "dropzone"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disable the input",
+              "default": "false",
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Label text",
+              "default": "''",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Placeholder text",
+              "default": "'Drop a file here or click to browse'",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "_fileName",
+              "privacy": "public",
+              "description": "Current file name",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "_fileName"
+            },
+            {
+              "kind": "field",
+              "name": "_fileUrl",
+              "privacy": "public",
+              "description": "Current file URL for preview",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "_fileUrl"
+            },
+            {
+              "kind": "field",
+              "name": "_error",
+              "privacy": "public",
+              "description": "Error message",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "_error"
+            },
+            {
+              "kind": "field",
+              "name": "_dragOver",
+              "privacy": "public",
+              "description": "Drag over state",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_dragOver"
+            },
+            {
+              "kind": "field",
+              "name": "_file",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            }
+          ],
+          "events": [
+            {
+              "name": "file-change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when a file is selected"
+            },
+            {
+              "name": "file-error",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when file validation fails"
+            },
+            {
+              "name": "file-clear",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the file is cleared"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "description": "Input name attribute",
+              "default": "''",
+              "fieldName": "name"
+            },
+            {
+              "name": "allowed-extensions",
+              "type": {
+                "text": "array"
+              },
+              "description": "Comma-separated list of allowed file extensions",
+              "default": "[]",
+              "fieldName": "allowedExtensions"
+            },
+            {
+              "name": "accept",
+              "type": {
+                "text": "string"
+              },
+              "description": "Comma-separated list of allowed MIME types",
+              "default": "''",
+              "fieldName": "accept"
+            },
+            {
+              "name": "max-size",
+              "type": {
+                "text": "number"
+              },
+              "description": "Maximum file size in bytes",
+              "default": "0",
+              "fieldName": "maxSize"
+            },
+            {
+              "name": "show-preview",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show image thumbnail preview",
+              "default": "true",
+              "fieldName": "showPreview"
+            },
+            {
+              "name": "preview-size",
+              "type": {
+                "text": "number"
+              },
+              "description": "Preview size in pixels",
+              "default": "60",
+              "fieldName": "previewSize"
+            },
+            {
+              "name": "dropzone",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Enable drag and drop",
+              "default": "true",
+              "fieldName": "dropzone"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disable the input",
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "description": "Label text",
+              "default": "''",
+              "fieldName": "label"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "description": "Placeholder text",
+              "default": "'Drop a file here or click to browse'",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "_fileName",
+              "description": "Current file name",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "_fileName"
+            },
+            {
+              "name": "_fileUrl",
+              "description": "Current file URL for preview",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "_fileUrl"
+            },
+            {
+              "name": "_error",
+              "description": "Error message",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "_error"
+            },
+            {
+              "name": "_dragOver",
+              "description": "Drag over state",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_dragOver"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "rich-inputfile",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RichInputfile",
+          "declaration": {
+            "name": "RichInputfile",
+            "module": "src/rich-inputfile.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "rich-inputfile",
+          "declaration": {
+            "name": "RichInputfile",
+            "module": "src/rich-inputfile.js"
+          }
+        }
+      ]
+    }
+  ]
+}

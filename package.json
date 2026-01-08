@@ -17,6 +17,7 @@
     "format:check": "prettier --check \"packages/*/src/**/*.js\" \"packages/*/test/**/*.js\"",
     "start": "web-dev-server --node-resolve --open --root-dir .",
     "start:demo": "web-dev-server --node-resolve --open index.html --root-dir .",
+    "cem": "node scripts/generate-cem.js",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "pnpm build && pnpm publish -r --access public",
@@ -43,6 +44,7 @@
   "packageManager": "pnpm@9.15.4",
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
+    "@custom-elements-manifest/analyzer": "^0.11.0",
     "@open-wc/testing": "^4.0.0",
     "@web/dev-server": "^0.4.6",
     "@web/test-runner": "^0.19.0",
@@ -61,5 +63,6 @@
       "eslint --fix",
       "prettier --write"
     ]
-  }
+  },
+  "customElements": "/home/manufosela/workspace/ui-components/packages/toast-notification/custom-elements.json"
 }

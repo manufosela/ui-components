@@ -1,0 +1,429 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/radar-chart.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "SVG-based radar/spider chart web component.",
+          "name": "RadarChart",
+          "cssProperties": [
+            {
+              "description": "Chart size (default: 300px)",
+              "name": "--radar-size"
+            },
+            {
+              "description": "Background color (default: #fff)",
+              "name": "--radar-bg"
+            },
+            {
+              "description": "Grid line color (default: #e2e8f0)",
+              "name": "--radar-grid-color"
+            },
+            {
+              "description": "Axis line color (default: #94a3b8)",
+              "name": "--radar-axis-color"
+            },
+            {
+              "description": "Label text color (default: #475569)",
+              "name": "--radar-label-color"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_parseSlottedContent",
+              "description": "Parse slotted elements for declarative labels and series"
+            },
+            {
+              "kind": "method",
+              "name": "_getMaxValue"
+            },
+            {
+              "kind": "method",
+              "name": "_polarToCartesian",
+              "parameters": [
+                {
+                  "name": "angle"
+                },
+                {
+                  "name": "radius"
+                },
+                {
+                  "name": "cx"
+                },
+                {
+                  "name": "cy"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getPolygonPoints",
+              "parameters": [
+                {
+                  "name": "values"
+                },
+                {
+                  "name": "cx"
+                },
+                {
+                  "name": "cy"
+                },
+                {
+                  "name": "radius"
+                },
+                {
+                  "name": "max"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointClick",
+              "parameters": [
+                {
+                  "name": "seriesIndex"
+                },
+                {
+                  "name": "pointIndex"
+                },
+                {
+                  "name": "value"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointHover",
+              "parameters": [
+                {
+                  "name": "event"
+                },
+                {
+                  "name": "seriesIndex"
+                },
+                {
+                  "name": "pointIndex"
+                },
+                {
+                  "name": "value"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointLeave"
+            },
+            {
+              "kind": "method",
+              "name": "_renderGrid",
+              "parameters": [
+                {
+                  "name": "cx"
+                },
+                {
+                  "name": "cy"
+                },
+                {
+                  "name": "radius"
+                },
+                {
+                  "name": "numAxes"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_renderLabels",
+              "parameters": [
+                {
+                  "name": "cx"
+                },
+                {
+                  "name": "cy"
+                },
+                {
+                  "name": "radius"
+                },
+                {
+                  "name": "labels"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_renderSeries",
+              "parameters": [
+                {
+                  "name": "cx"
+                },
+                {
+                  "name": "cy"
+                },
+                {
+                  "name": "radius"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getDefaultColor",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_renderLegend"
+            },
+            {
+              "kind": "method",
+              "name": "_renderTooltip"
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "description": "Array of axis labels",
+              "default": "[]",
+              "attribute": "labels"
+            },
+            {
+              "kind": "field",
+              "name": "series",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "description": "Array of data series [{name, values, color}]",
+              "default": "[]",
+              "attribute": "series"
+            },
+            {
+              "kind": "field",
+              "name": "maxValue",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Maximum value for scale (auto-calculated if not set)",
+              "default": "0",
+              "attribute": "max-value"
+            },
+            {
+              "kind": "field",
+              "name": "levels",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Number of grid levels",
+              "default": "5",
+              "attribute": "levels"
+            },
+            {
+              "kind": "field",
+              "name": "showDots",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show data point dots",
+              "default": "true",
+              "attribute": "show-dots"
+            },
+            {
+              "kind": "field",
+              "name": "showLegend",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show legend",
+              "default": "true",
+              "attribute": "show-legend"
+            },
+            {
+              "kind": "field",
+              "name": "showValues",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show value labels on hover",
+              "default": "true",
+              "attribute": "show-values"
+            },
+            {
+              "kind": "field",
+              "name": "fillOpacity",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Fill opacity for data areas",
+              "default": "0.25",
+              "attribute": "fill-opacity"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Chart size in pixels",
+              "default": "300",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "_hoveredPoint",
+              "privacy": "public",
+              "description": "Internal: hovered point",
+              "type": {
+                "text": "null"
+              },
+              "default": "null",
+              "attribute": "_hoveredPoint"
+            }
+          ],
+          "events": [
+            {
+              "name": "data-point-click",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when a data point is clicked"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "labels",
+              "type": {
+                "text": "array"
+              },
+              "description": "Array of axis labels",
+              "default": "[]",
+              "fieldName": "labels"
+            },
+            {
+              "name": "series",
+              "type": {
+                "text": "array"
+              },
+              "description": "Array of data series [{name, values, color}]",
+              "default": "[]",
+              "fieldName": "series"
+            },
+            {
+              "name": "max-value",
+              "type": {
+                "text": "number"
+              },
+              "description": "Maximum value for scale (auto-calculated if not set)",
+              "default": "0",
+              "fieldName": "maxValue"
+            },
+            {
+              "name": "levels",
+              "type": {
+                "text": "number"
+              },
+              "description": "Number of grid levels",
+              "default": "5",
+              "fieldName": "levels"
+            },
+            {
+              "name": "show-dots",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show data point dots",
+              "default": "true",
+              "fieldName": "showDots"
+            },
+            {
+              "name": "show-legend",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show legend",
+              "default": "true",
+              "fieldName": "showLegend"
+            },
+            {
+              "name": "show-values",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show value labels on hover",
+              "default": "true",
+              "fieldName": "showValues"
+            },
+            {
+              "name": "fill-opacity",
+              "type": {
+                "text": "number"
+              },
+              "description": "Fill opacity for data areas",
+              "default": "0.25",
+              "fieldName": "fillOpacity"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "description": "Chart size in pixels",
+              "default": "300",
+              "fieldName": "size"
+            },
+            {
+              "name": "_hoveredPoint",
+              "description": "Internal: hovered point",
+              "type": {
+                "text": "null"
+              },
+              "default": "null",
+              "fieldName": "_hoveredPoint"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "radar-chart",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadarChart",
+          "declaration": {
+            "name": "RadarChart",
+            "module": "src/radar-chart.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "radar-chart",
+          "declaration": {
+            "name": "RadarChart",
+            "module": "src/radar-chart.js"
+          }
+        }
+      ]
+    }
+  ]
+}

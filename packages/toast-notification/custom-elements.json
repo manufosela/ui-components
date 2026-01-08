@@ -1,0 +1,280 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/toast-notification.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Toast notification component for displaying brief messages.",
+          "name": "ToastNotification",
+          "cssProperties": [
+            {
+              "description": "Z-index (default: 9999)",
+              "name": "--toast-z-index"
+            },
+            {
+              "description": "Padding (default: 12px 16px)",
+              "name": "--toast-padding"
+            },
+            {
+              "description": "Border radius (default: 8px)",
+              "name": "--toast-radius"
+            },
+            {
+              "description": "Background color (default: #1f2937)",
+              "name": "--toast-bg"
+            },
+            {
+              "description": "Text color (default: #f9fafb)",
+              "name": "--toast-color"
+            },
+            {
+              "description": "Maximum width (default: 400px)",
+              "name": "--toast-max-width"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_handleGlobalShow",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleGlobalHide"
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "parameters": [
+                {
+                  "name": "message"
+                },
+                {
+                  "name": "options",
+                  "default": "{}"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "hide"
+            },
+            {
+              "kind": "method",
+              "name": "_clearTimeout"
+            },
+            {
+              "kind": "method",
+              "name": "_handleClose"
+            },
+            {
+              "kind": "method",
+              "name": "_renderIcon"
+            },
+            {
+              "kind": "field",
+              "name": "message",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "message"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "type",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'top-right'",
+              "attribute": "position",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "duration",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "3000",
+              "attribute": "duration"
+            },
+            {
+              "kind": "field",
+              "name": "visible",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "visible",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "closable",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "closable"
+            },
+            {
+              "kind": "field",
+              "name": "progress",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "progress"
+            },
+            {
+              "kind": "field",
+              "name": "_timeoutId",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            }
+          ],
+          "events": [
+            {
+              "name": "toast-show",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when toast is shown"
+            },
+            {
+              "name": "toast-hide",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when toast is hidden"
+            },
+            {
+              "name": "toast-close",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when close button is clicked"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Toast message content",
+              "name": "message",
+              "default": "''",
+              "fieldName": "message"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Toast type: 'success', 'error', 'warning', 'info', or empty for default",
+              "name": "type",
+              "default": "''",
+              "fieldName": "type"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Position: 'top-right', 'top-left', 'top-center', 'bottom-right', 'bottom-left', 'bottom-center'",
+              "name": "position",
+              "default": "'top-right'",
+              "fieldName": "position"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Auto-hide duration in ms (0 to disable)",
+              "name": "duration",
+              "default": "3000",
+              "fieldName": "duration"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the toast is visible",
+              "name": "visible",
+              "default": "false",
+              "fieldName": "visible"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show close button",
+              "name": "closable",
+              "default": "true",
+              "fieldName": "closable"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show progress bar",
+              "name": "progress",
+              "default": "true",
+              "fieldName": "progress"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "toast-notification",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ToastNotification",
+          "declaration": {
+            "name": "ToastNotification",
+            "module": "src/toast-notification.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "toast-notification",
+          "declaration": {
+            "name": "ToastNotification",
+            "module": "src/toast-notification.js"
+          }
+        }
+      ]
+    }
+  ]
+}

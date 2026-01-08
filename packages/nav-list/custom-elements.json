@@ -1,0 +1,280 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/nav-list.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Horizontal navigation list web component with selection support.",
+          "name": "NavList",
+          "cssProperties": [
+            {
+              "description": "Gap between items (default: 5px)",
+              "name": "--nav-list-gap"
+            },
+            {
+              "description": "Item padding (default: 10px 20px)",
+              "name": "--nav-list-padding"
+            },
+            {
+              "description": "Font size (default: 14px)",
+              "name": "--nav-list-font-size"
+            },
+            {
+              "description": "Letter spacing (default: 2px)",
+              "name": "--nav-list-letter-spacing"
+            },
+            {
+              "description": "Border radius (default: 4px)",
+              "name": "--nav-list-border-radius"
+            },
+            {
+              "description": "Border color (default: transparent)",
+              "name": "--nav-list-border-color"
+            },
+            {
+              "description": "Selected border color (default: #cc3743)",
+              "name": "--nav-list-selected-border-color"
+            },
+            {
+              "description": "Selected background (default: transparent)",
+              "name": "--nav-list-selected-bg"
+            },
+            {
+              "description": "Hover background (default: rgba(0,0,0,0.05))",
+              "name": "--nav-list-hover-bg"
+            },
+            {
+              "description": "Title font size (default: 16px)",
+              "name": "--nav-list-title-size"
+            },
+            {
+              "description": "Title font weight (default: 700)",
+              "name": "--nav-list-title-weight"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_initFromLightDom"
+            },
+            {
+              "kind": "method",
+              "name": "_getNextVal",
+              "parameters": [
+                {
+                  "name": "ev"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getLastVal",
+              "parameters": [
+                {
+                  "name": "ev"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_setValue",
+              "parameters": [
+                {
+                  "name": "val"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleClick",
+              "parameters": [
+                {
+                  "name": "val"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleKeydown",
+              "parameters": [
+                {
+                  "name": "ev"
+                },
+                {
+                  "name": "val"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "listValues",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "description": "Array of values to display in the list",
+              "default": "[]",
+              "attribute": "listValues"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "privacy": "public",
+              "type": {
+                "text": "null"
+              },
+              "description": "Currently selected value",
+              "default": "null",
+              "attribute": "selected"
+            },
+            {
+              "kind": "field",
+              "name": "title",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Title displayed above the list",
+              "default": "''",
+              "attribute": "title"
+            },
+            {
+              "kind": "field",
+              "name": "fixed",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "If true, selection is disabled",
+              "default": "false",
+              "attribute": "fixed"
+            },
+            {
+              "kind": "field",
+              "name": "listenEvents",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "If true, listens for external navlist-next/navlist-last events",
+              "default": "false",
+              "attribute": "listen-events"
+            },
+            {
+              "kind": "field",
+              "name": "_cursorPointer",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Internal: shows pointer cursor",
+              "default": "true",
+              "attribute": "_cursorPointer"
+            },
+            {
+              "kind": "field",
+              "name": "_boundGetNextVal"
+            },
+            {
+              "kind": "field",
+              "name": "_boundGetLastVal"
+            }
+          ],
+          "events": [
+            {
+              "name": "navlist-changed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when selection changes. Detail: { value, pos, id }"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "listValues",
+              "type": {
+                "text": "array"
+              },
+              "description": "Array of values to display in the list",
+              "default": "[]",
+              "fieldName": "listValues"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "null"
+              },
+              "description": "Currently selected value",
+              "default": "null",
+              "fieldName": "selected"
+            },
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "description": "Title displayed above the list",
+              "default": "''",
+              "fieldName": "title"
+            },
+            {
+              "name": "fixed",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "If true, selection is disabled",
+              "default": "false",
+              "fieldName": "fixed"
+            },
+            {
+              "name": "listen-events",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "If true, listens for external navlist-next/navlist-last events",
+              "default": "false",
+              "fieldName": "listenEvents"
+            },
+            {
+              "name": "_cursorPointer",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Internal: shows pointer cursor",
+              "default": "true",
+              "fieldName": "_cursorPointer"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "nav-list",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "NavList",
+          "declaration": {
+            "name": "NavList",
+            "module": "src/nav-list.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "nav-list",
+          "declaration": {
+            "name": "NavList",
+            "module": "src/nav-list.js"
+          }
+        }
+      ]
+    }
+  ]
+}

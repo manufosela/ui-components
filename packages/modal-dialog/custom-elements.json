@@ -1,0 +1,328 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/modal-dialog.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Modal dialog component with header, body, and footer slots.",
+          "name": "ModalDialog",
+          "cssProperties": [
+            {
+              "description": "Z-index (default: 9999)",
+              "name": "--modal-z-index"
+            },
+            {
+              "description": "Overlay background (default: rgba(0,0,0,0.5))",
+              "name": "--modal-overlay-bg"
+            },
+            {
+              "description": "Modal background (default: #fff)",
+              "name": "--modal-bg"
+            },
+            {
+              "description": "Border radius (default: 12px)",
+              "name": "--modal-radius"
+            },
+            {
+              "description": "Maximum width (default: 500px)",
+              "name": "--modal-max-width"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Default slot for modal body content",
+              "name": ""
+            },
+            {
+              "description": "Footer slot for action buttons",
+              "name": "footer"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "_modalStyles",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_lockBodyScroll"
+            },
+            {
+              "kind": "method",
+              "name": "_restoreBodyScroll"
+            },
+            {
+              "kind": "method",
+              "name": "show"
+            },
+            {
+              "kind": "method",
+              "name": "hide"
+            },
+            {
+              "kind": "method",
+              "name": "confirm"
+            },
+            {
+              "kind": "method",
+              "name": "cancel"
+            },
+            {
+              "kind": "method",
+              "name": "_dispatchOpen"
+            },
+            {
+              "kind": "method",
+              "name": "_dispatchClose"
+            },
+            {
+              "kind": "method",
+              "name": "_handleKeydown",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleOverlayClick",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleCloseClick"
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "title",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "title"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'medium'",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "width"
+            },
+            {
+              "kind": "field",
+              "name": "height",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "height"
+            },
+            {
+              "kind": "field",
+              "name": "closable",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "closable"
+            },
+            {
+              "kind": "field",
+              "name": "closeOnOverlay",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "close-on-overlay"
+            },
+            {
+              "kind": "field",
+              "name": "closeOnEscape",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "close-on-escape"
+            },
+            {
+              "kind": "field",
+              "name": "_previousActiveElement",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            }
+          ],
+          "events": [
+            {
+              "name": "modal-confirm",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when confirm action is triggered"
+            },
+            {
+              "name": "modal-cancel",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when cancel action is triggered"
+            },
+            {
+              "name": "modal-open",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when modal opens"
+            },
+            {
+              "name": "modal-close",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when modal closes"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the modal is open",
+              "name": "open",
+              "default": "false",
+              "fieldName": "open"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Modal title",
+              "name": "title",
+              "default": "''",
+              "fieldName": "title"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Modal size: 'small', 'medium', 'large', 'full', 'fullscreen'",
+              "name": "size",
+              "default": "'medium'",
+              "fieldName": "size"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Custom width (e.g., '50vw', '600px', '80%')",
+              "name": "width",
+              "default": "''",
+              "fieldName": "width"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Custom height (e.g., '70vh', '400px', '80%')",
+              "name": "height",
+              "default": "''",
+              "fieldName": "height"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show close button (default: true)",
+              "name": "closable",
+              "default": "true",
+              "fieldName": "closable"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Close when clicking overlay (default: true)",
+              "name": "close-on-overlay",
+              "default": "true",
+              "fieldName": "closeOnOverlay"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Close on Escape key (default: true)",
+              "name": "close-on-escape",
+              "default": "true",
+              "fieldName": "closeOnEscape"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "modal-dialog",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ModalDialog",
+          "declaration": {
+            "name": "ModalDialog",
+            "module": "src/modal-dialog.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "modal-dialog",
+          "declaration": {
+            "name": "ModalDialog",
+            "module": "src/modal-dialog.js"
+          }
+        }
+      ]
+    }
+  ]
+}

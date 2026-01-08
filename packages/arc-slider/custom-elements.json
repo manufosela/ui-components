@@ -1,0 +1,478 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/arc-slider.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An arc slider component with gradient colors.",
+          "name": "ArcSlider",
+          "cssProperties": [
+            {
+              "description": "Text color (default: #000)",
+              "name": "--arc-slider-text-color"
+            },
+            {
+              "description": "Size of the thumb (default: 20px)",
+              "name": "--arc-slider-thumb-size"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "_middleRange",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_degToRad",
+              "parameters": [
+                {
+                  "name": "deg"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getPointOnArc",
+              "parameters": [
+                {
+                  "name": "angleDeg"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "_isClockwise",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_valueToAngle",
+              "parameters": [
+                {
+                  "name": "value"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_angleToValue",
+              "parameters": [
+                {
+                  "name": "angleDeg"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getArcPath"
+            },
+            {
+              "kind": "field",
+              "name": "_viewBoxSize",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "hexToRgb",
+              "static": true,
+              "parameters": [
+                {
+                  "name": "hex"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "rgbToHex",
+              "static": true,
+              "parameters": [
+                {
+                  "name": "{ r, g, b }"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "calculateGradientColors",
+              "static": true,
+              "parameters": [
+                {
+                  "name": "color1"
+                },
+                {
+                  "name": "color2"
+                },
+                {
+                  "name": "numSteps",
+                  "default": "4"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_initColorStops"
+            },
+            {
+              "kind": "method",
+              "name": "_clampValue",
+              "parameters": [
+                {
+                  "name": "value"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getThumbColor"
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointerDown",
+              "parameters": [
+                {
+                  "name": "event"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointerMove",
+              "parameters": [
+                {
+                  "name": "event"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handlePointerUp"
+            },
+            {
+              "kind": "method",
+              "name": "_updateValueFromPointer",
+              "parameters": [
+                {
+                  "name": "event"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_dispatchChange"
+            },
+            {
+              "kind": "method",
+              "name": "_renderGradientStops"
+            },
+            {
+              "kind": "field",
+              "name": "_uniqueId",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "minRange",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "min-range"
+            },
+            {
+              "kind": "field",
+              "name": "maxRange",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "100",
+              "attribute": "max-range"
+            },
+            {
+              "kind": "field",
+              "name": "step",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "attribute": "step"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "color1",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'#FF1122'",
+              "attribute": "color1"
+            },
+            {
+              "kind": "field",
+              "name": "color2",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'#1122FF'",
+              "attribute": "color2"
+            },
+            {
+              "kind": "field",
+              "name": "radius",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "100",
+              "attribute": "radius"
+            },
+            {
+              "kind": "field",
+              "name": "startAngle",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "180",
+              "attribute": "start-angle"
+            },
+            {
+              "kind": "field",
+              "name": "endAngle",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "end-angle"
+            },
+            {
+              "kind": "field",
+              "name": "strokeWidth",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "8",
+              "attribute": "stroke-width"
+            },
+            {
+              "kind": "field",
+              "name": "clockwise",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "clockwise"
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "reverse"
+            },
+            {
+              "kind": "field",
+              "name": "_colorStops",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_isDragging",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "arcValue",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "attribute": "arc-value",
+              "reflects": true
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the slider value changes. Detail: { id, value }"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Minimum value of the slider (default: 0)",
+              "name": "min-range",
+              "default": "0",
+              "fieldName": "minRange"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Maximum value of the slider (default: 100)",
+              "name": "max-range",
+              "default": "100",
+              "fieldName": "maxRange"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Current value of the slider",
+              "name": "arc-value",
+              "fieldName": "arcValue"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Step increment value (default: 1)",
+              "name": "step",
+              "default": "1",
+              "fieldName": "step"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the slider is disabled",
+              "name": "disabled",
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Start color of the gradient (hex format, default: #FF1122)",
+              "name": "color1",
+              "default": "'#FF1122'",
+              "fieldName": "color1"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "End color of the gradient (hex format, default: #1122FF)",
+              "name": "color2",
+              "default": "'#1122FF'",
+              "fieldName": "color2"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Radius of the arc in pixels (default: 100)",
+              "name": "radius",
+              "default": "100",
+              "fieldName": "radius"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Start angle in degrees (default: 180, left side)",
+              "name": "start-angle",
+              "default": "180",
+              "fieldName": "startAngle"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "End angle in degrees (default: 0, right side)",
+              "name": "end-angle",
+              "default": "0",
+              "fieldName": "endAngle"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Width of the arc stroke (default: 8)",
+              "name": "stroke-width",
+              "default": "8",
+              "fieldName": "strokeWidth"
+            },
+            {
+              "name": "clockwise",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "clockwise"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "reverse"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "arc-slider",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ArcSlider",
+          "declaration": {
+            "name": "ArcSlider",
+            "module": "src/arc-slider.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "arc-slider",
+          "declaration": {
+            "name": "ArcSlider",
+            "module": "src/arc-slider.js"
+          }
+        }
+      ]
+    }
+  ]
+}

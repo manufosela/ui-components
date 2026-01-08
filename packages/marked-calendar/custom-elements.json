@@ -1,0 +1,518 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/marked-calendar.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Interactive calendar for tracking moods, habits, or marking dates.\nSupports year and month views with customizable legends.",
+          "name": "MarkedCalendar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "MONTH_NAMES",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ en: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', ], es: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre', ], }"
+            },
+            {
+              "kind": "field",
+              "name": "DAY_NAMES",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], es: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'], }"
+            },
+            {
+              "kind": "field",
+              "name": "DEFAULT_LEGEND",
+              "type": {
+                "text": "array"
+              },
+              "static": true,
+              "default": "[ { code: '#FFFFFF', label: '✕', title: 'Clear' }, { code: '#22c55e', label: '😃', title: 'Great' }, { code: '#3b82f6', label: '😊', title: 'Good' }, { code: '#94a3b8', label: '😐', title: 'Okay' }, { code: '#f59e0b', label: '😕', title: 'Meh' }, { code: '#ef4444', label: '😢', title: 'Bad' }, ]"
+            },
+            {
+              "kind": "method",
+              "name": "_loadLegendFromLightDom"
+            },
+            {
+              "kind": "method",
+              "name": "_loadHolidaysFromLightDom"
+            },
+            {
+              "kind": "method",
+              "name": "_loadData"
+            },
+            {
+              "kind": "method",
+              "name": "_saveData"
+            },
+            {
+              "kind": "method",
+              "name": "_getDaysInMonth",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getFirstDayOfMonth",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_isWeekend",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_isHoliday",
+              "parameters": [
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getDayValue",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_setDayValue",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                },
+                {
+                  "name": "value"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleDayClick",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleLegendClick",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_changeMonth",
+              "parameters": [
+                {
+                  "name": "delta"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_changeYear",
+              "parameters": [
+                {
+                  "name": "delta"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_toggleView"
+            },
+            {
+              "kind": "method",
+              "name": "_switchToMonth",
+              "parameters": [
+                {
+                  "name": "month"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_dispatchViewChange"
+            },
+            {
+              "kind": "method",
+              "name": "_renderLegend"
+            },
+            {
+              "kind": "method",
+              "name": "_renderNavigation"
+            },
+            {
+              "kind": "method",
+              "name": "_renderDayCell",
+              "parameters": [
+                {
+                  "name": "year"
+                },
+                {
+                  "name": "month"
+                },
+                {
+                  "name": "day"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_renderYearView"
+            },
+            {
+              "kind": "method",
+              "name": "_renderMonthView"
+            },
+            {
+              "kind": "method",
+              "name": "setMarkedDays",
+              "parameters": [
+                {
+                  "name": "days"
+                }
+              ],
+              "description": "Set marked days programmatically"
+            },
+            {
+              "kind": "method",
+              "name": "getMarkedDays",
+              "description": "Get all marked days"
+            },
+            {
+              "kind": "method",
+              "name": "clearData",
+              "description": "Clear all data"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Calendar title",
+              "default": "'Year in Pixels'",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "lang",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Language: 'en' or 'es'",
+              "default": "'en'",
+              "attribute": "lang"
+            },
+            {
+              "kind": "field",
+              "name": "view",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "View mode: 'year' or 'month'",
+              "default": "'year'",
+              "attribute": "view"
+            },
+            {
+              "kind": "field",
+              "name": "year",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Current year",
+              "attribute": "year"
+            },
+            {
+              "kind": "field",
+              "name": "month",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Current month (0-11)",
+              "attribute": "month"
+            },
+            {
+              "kind": "field",
+              "name": "saveData",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Enable data saving to localStorage",
+              "default": "false",
+              "attribute": "save-data"
+            },
+            {
+              "kind": "field",
+              "name": "weekends",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Highlight weekends",
+              "default": "false",
+              "attribute": "weekends"
+            },
+            {
+              "kind": "field",
+              "name": "changeView",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Allow view switching",
+              "default": "true",
+              "attribute": "change-view"
+            },
+            {
+              "kind": "field",
+              "name": "_selectedState",
+              "privacy": "public",
+              "type": {
+                "text": "null"
+              },
+              "description": "Currently selected legend state",
+              "default": "null",
+              "attribute": "_selectedState"
+            },
+            {
+              "kind": "field",
+              "name": "_data",
+              "privacy": "public",
+              "type": {
+                "text": "object"
+              },
+              "description": "Calendar data",
+              "default": "{}",
+              "attribute": "_data"
+            },
+            {
+              "kind": "field",
+              "name": "_legend",
+              "type": {
+                "text": "array"
+              },
+              "default": "[...MarkedCalendar.DEFAULT_LEGEND]"
+            },
+            {
+              "kind": "field",
+              "name": "_holidays",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_storageKey",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            }
+          ],
+          "events": [
+            {
+              "name": "marked-calendar-change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when a day is marked. Detail: { year, month, day, value }"
+            },
+            {
+              "name": "marked-calendar-view-change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when view changes. Detail: { view, year, month }"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "description": "Calendar title",
+              "default": "'Year in Pixels'",
+              "fieldName": "name"
+            },
+            {
+              "name": "lang",
+              "type": {
+                "text": "string"
+              },
+              "description": "Language: 'en' or 'es'",
+              "default": "'en'",
+              "fieldName": "lang"
+            },
+            {
+              "name": "view",
+              "type": {
+                "text": "string"
+              },
+              "description": "View mode: 'year' or 'month'",
+              "default": "'year'",
+              "fieldName": "view"
+            },
+            {
+              "name": "year",
+              "type": {
+                "text": "number"
+              },
+              "description": "Current year",
+              "fieldName": "year"
+            },
+            {
+              "name": "month",
+              "type": {
+                "text": "number"
+              },
+              "description": "Current month (0-11)",
+              "fieldName": "month"
+            },
+            {
+              "name": "save-data",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Enable data saving to localStorage",
+              "default": "false",
+              "fieldName": "saveData"
+            },
+            {
+              "name": "weekends",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Highlight weekends",
+              "default": "false",
+              "fieldName": "weekends"
+            },
+            {
+              "name": "change-view",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Allow view switching",
+              "default": "true",
+              "fieldName": "changeView"
+            },
+            {
+              "name": "_selectedState",
+              "type": {
+                "text": "null"
+              },
+              "description": "Currently selected legend state",
+              "default": "null",
+              "fieldName": "_selectedState"
+            },
+            {
+              "name": "_data",
+              "type": {
+                "text": "object"
+              },
+              "description": "Calendar data",
+              "default": "{}",
+              "fieldName": "_data"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "marked-calendar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MarkedCalendar",
+          "declaration": {
+            "name": "MarkedCalendar",
+            "module": "src/marked-calendar.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "marked-calendar",
+          "declaration": {
+            "name": "MarkedCalendar",
+            "module": "src/marked-calendar.js"
+          }
+        }
+      ]
+    }
+  ]
+}

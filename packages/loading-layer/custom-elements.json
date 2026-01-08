@@ -1,0 +1,244 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/loading-layer.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A loading overlay component with animated spinner.",
+          "name": "LoadingLayer",
+          "cssProperties": [
+            {
+              "description": "Background color (default: rgba(0, 0, 0, 0.5))",
+              "name": "--loading-layer-bg"
+            },
+            {
+              "description": "Z-index (default: 9999)",
+              "name": "--loading-layer-z-index"
+            },
+            {
+              "description": "Transition duration (default: 0.3s)",
+              "name": "--loading-layer-transition"
+            },
+            {
+              "description": "Spin animation duration (default: 1s)",
+              "name": "--loading-layer-spin-duration"
+            },
+            {
+              "description": "Message text color (default: #fff)",
+              "name": "--loading-layer-text-color"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_handleShowEvent",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleHideEvent"
+            },
+            {
+              "kind": "method",
+              "name": "show"
+            },
+            {
+              "kind": "method",
+              "name": "hide"
+            },
+            {
+              "kind": "method",
+              "name": "toggle"
+            },
+            {
+              "kind": "method",
+              "name": "_renderSpinner"
+            },
+            {
+              "kind": "method",
+              "name": "_onOverlayClick",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "visible",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "visible",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "message",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "message"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "60",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "color",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'#3b82f6'",
+              "attribute": "color"
+            },
+            {
+              "kind": "field",
+              "name": "strokeWidth",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "4",
+              "attribute": "stroke-width"
+            },
+            {
+              "kind": "field",
+              "name": "timeout",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "timeout"
+            },
+            {
+              "kind": "field",
+              "name": "_timeoutId",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            }
+          ],
+          "events": [
+            {
+              "name": "loading-layer-shown",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the loading layer is shown"
+            },
+            {
+              "name": "loading-layer-hidden",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the loading layer is hidden"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the loading layer is visible",
+              "name": "visible",
+              "default": "false",
+              "fieldName": "visible"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Optional message to display below the spinner",
+              "name": "message",
+              "default": "''",
+              "fieldName": "message"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Size of the spinner in pixels (default: 60)",
+              "name": "size",
+              "default": "60",
+              "fieldName": "size"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Color of the spinner (default: #3b82f6)",
+              "name": "color",
+              "default": "'#3b82f6'",
+              "fieldName": "color"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Width of the spinner stroke (default: 4)",
+              "name": "stroke-width",
+              "default": "4",
+              "fieldName": "strokeWidth"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Auto-hide timeout in seconds (0 = no auto-hide)",
+              "name": "timeout",
+              "default": "0",
+              "fieldName": "timeout"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "loading-layer",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LoadingLayer",
+          "declaration": {
+            "name": "LoadingLayer",
+            "module": "src/loading-layer.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "loading-layer",
+          "declaration": {
+            "name": "LoadingLayer",
+            "module": "src/loading-layer.js"
+          }
+        }
+      ]
+    }
+  ]
+}

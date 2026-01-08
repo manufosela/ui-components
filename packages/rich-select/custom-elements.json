@@ -1,0 +1,669 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/rich-select.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A rich option element for use within rich-select.",
+          "name": "RichOption",
+          "members": [
+            {
+              "kind": "method",
+              "name": "_updateShadowContent"
+            },
+            {
+              "kind": "method",
+              "name": "_notifyParent"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "record",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "record"
+            },
+            {
+              "kind": "field",
+              "name": "content",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_haveValidParent"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "selected",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "considered",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "considered",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "title",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "title"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether this option is selected",
+              "name": "selected",
+              "default": "false",
+              "fieldName": "selected"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether this option is being considered (keyboard navigation)",
+              "name": "considered",
+              "default": "false",
+              "fieldName": "considered"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether this option is disabled",
+              "name": "disabled",
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "The value of the option (defaults to innerText if not set)",
+              "name": "value",
+              "fieldName": "value"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Display title (used for display when selected)",
+              "name": "title",
+              "fieldName": "title"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Searchable record text (defaults to title)",
+              "name": "record",
+              "fieldName": "record"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "rich-option",
+          "customElement": true
+        },
+        {
+          "kind": "class",
+          "description": "A customizable rich select dropdown with search and keyboard navigation.",
+          "name": "RichSelect",
+          "cssProperties": [
+            {
+              "description": "Width of the select (default: auto)",
+              "name": "--rich-select-width"
+            },
+            {
+              "description": "Font family (default: inherit)",
+              "name": "--rich-select-font-family"
+            },
+            {
+              "description": "Padding of the trigger button (default: 8px 12px)",
+              "name": "--caller-padding"
+            },
+            {
+              "description": "Background of trigger (default: #fff)",
+              "name": "--caller-background"
+            },
+            {
+              "description": "Border of trigger (default: 1px solid #d1d5db)",
+              "name": "--caller-border"
+            },
+            {
+              "description": "Border radius (default: 6px)",
+              "name": "--caller-border-radius"
+            },
+            {
+              "description": "Padding of options (default: 10px 12px)",
+              "name": "--option-padding"
+            },
+            {
+              "description": "Background of considered option (default: #3b82f6)",
+              "name": "--option-active-background"
+            },
+            {
+              "description": "Background of selected option (default: #eff6ff)",
+              "name": "--option-selected-background"
+            },
+            {
+              "description": "Max height of dropdown (default: 300px)",
+              "name": "--selectOptions-max-height"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Slot for rich-option elements",
+              "name": "option"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "keyCodes",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ENTER: 13, ESC: 27, ARROW_LEFT: 37, ARROW_UP: 38, ARROW_RIGHT: 39, ARROW_DOWN: 40, HOME: 36, END: 35, }"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "value"
+            },
+            {
+              "kind": "method",
+              "name": "_onSlotChange"
+            },
+            {
+              "kind": "method",
+              "name": "_onCallerClick"
+            },
+            {
+              "kind": "method",
+              "name": "_onMouseDown",
+              "parameters": [
+                {
+                  "name": "ev"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onMouseUp",
+              "parameters": [
+                {
+                  "name": "ev"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onKeyDown",
+              "parameters": [
+                {
+                  "name": "ev"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onKeyUp",
+              "parameters": [
+                {
+                  "name": "ev"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onBlur"
+            },
+            {
+              "kind": "method",
+              "name": "_onScroll"
+            },
+            {
+              "kind": "method",
+              "name": "_expandedOption",
+              "parameters": [
+                {
+                  "name": "ev"
+                },
+                {
+                  "name": "opt"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_initializing"
+            },
+            {
+              "kind": "method",
+              "name": "_updateChosenDisplay"
+            },
+            {
+              "kind": "method",
+              "name": "_expand"
+            },
+            {
+              "kind": "method",
+              "name": "_collapse"
+            },
+            {
+              "kind": "method",
+              "name": "_setHidden",
+              "parameters": [
+                {
+                  "name": "val"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_toggle"
+            },
+            {
+              "kind": "method",
+              "name": "_select",
+              "parameters": [
+                {
+                  "name": "opt"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_transcend",
+              "parameters": [
+                {
+                  "name": "opt"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_consider",
+              "parameters": [
+                {
+                  "name": "opt"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_searching",
+              "parameters": [
+                {
+                  "name": "val"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_resetSearch"
+            },
+            {
+              "kind": "method",
+              "name": "_isValidOption",
+              "parameters": [
+                {
+                  "name": "opt"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_isValidAndEnabled",
+              "parameters": [
+                {
+                  "name": "opt"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_isVisibleAndEnabled",
+              "parameters": [
+                {
+                  "name": "opt"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_allOptions"
+            },
+            {
+              "kind": "method",
+              "name": "_allValidOptions"
+            },
+            {
+              "kind": "method",
+              "name": "_getSelected",
+              "parameters": [
+                {
+                  "name": "allOptions"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_firstOption"
+            },
+            {
+              "kind": "method",
+              "name": "_lastOption"
+            },
+            {
+              "kind": "method",
+              "name": "_nextOption"
+            },
+            {
+              "kind": "method",
+              "name": "_previousOption"
+            },
+            {
+              "kind": "method",
+              "name": "_attachSelectOptionsToCaller"
+            },
+            {
+              "kind": "method",
+              "name": "_releaseSelectOptions"
+            },
+            {
+              "kind": "method",
+              "name": "_dispatchChange"
+            },
+            {
+              "kind": "method",
+              "name": "_isTypingKey",
+              "parameters": [
+                {
+                  "name": "keyCode"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "expanded",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "expanded",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "search",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "search",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "arrow",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "arrow",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "animated",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "animated",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Search...'",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "_selectedOption",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_consideredOption",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_searchContent",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "options",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "name"
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the selected option changes"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "The current selected value",
+              "name": "value",
+              "fieldName": "value"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the dropdown is expanded",
+              "name": "expanded",
+              "default": "false",
+              "fieldName": "expanded"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the select is disabled",
+              "name": "disabled",
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether to show the search input",
+              "name": "search",
+              "default": "false",
+              "fieldName": "search"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether to show the dropdown arrow",
+              "name": "arrow",
+              "default": "true",
+              "fieldName": "arrow"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether to animate the dropdown",
+              "name": "animated",
+              "default": "true",
+              "fieldName": "animated"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Placeholder text for the search input",
+              "name": "placeholder",
+              "default": "'Search...'",
+              "fieldName": "placeholder"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Form field name",
+              "name": "name",
+              "fieldName": "name"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "rich-select",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RichOption",
+          "declaration": {
+            "name": "RichOption",
+            "module": "src/rich-select.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "rich-option",
+          "declaration": {
+            "name": "RichOption",
+            "module": "src/rich-select.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RichSelect",
+          "declaration": {
+            "name": "RichSelect",
+            "module": "src/rich-select.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "rich-select",
+          "declaration": {
+            "name": "RichSelect",
+            "module": "src/rich-select.js"
+          }
+        }
+      ]
+    }
+  ]
+}

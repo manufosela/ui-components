@@ -1,0 +1,376 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/circle-steps.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Step indicator web component with circular progress visualization.",
+          "name": "CircleSteps",
+          "cssProperties": [
+            {
+              "description": "Circle size (default: 40px)",
+              "name": "--steps-size"
+            },
+            {
+              "description": "Pending step color (default: #e5e7eb)",
+              "name": "--steps-pending"
+            },
+            {
+              "description": "Active step color (default: #3b82f6)",
+              "name": "--steps-active"
+            },
+            {
+              "description": "Completed step color (default: #22c55e)",
+              "name": "--steps-complete"
+            },
+            {
+              "description": "Text color (default: #1f2937)",
+              "name": "--steps-text"
+            },
+            {
+              "description": "Connector line color (default: #e5e7eb)",
+              "name": "--steps-line"
+            },
+            {
+              "description": "Completed connector (default: #22c55e)",
+              "name": "--steps-line-complete"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "_showNumbers",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_showCheck",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_parseSlottedContent",
+              "description": "Parse slotted elements for declarative steps"
+            },
+            {
+              "kind": "method",
+              "name": "_handleStepClick",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleKeydown",
+              "parameters": [
+                {
+                  "name": "e"
+                },
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "goToStep",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ],
+              "description": "Navigate to a specific step (-1 = not started, 0..n-1 = active, n = all complete)"
+            },
+            {
+              "kind": "method",
+              "name": "next",
+              "description": "Go to next step (or complete all if on last step)"
+            },
+            {
+              "kind": "method",
+              "name": "prev",
+              "description": "Go to previous step"
+            },
+            {
+              "kind": "method",
+              "name": "reset",
+              "description": "Reset to not started state"
+            },
+            {
+              "kind": "method",
+              "name": "start",
+              "description": "Start from beginning (go to first step)"
+            },
+            {
+              "kind": "method",
+              "name": "complete",
+              "description": "Mark all steps as complete"
+            },
+            {
+              "kind": "method",
+              "name": "isComplete",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ],
+              "description": "Check if step is completed"
+            },
+            {
+              "kind": "method",
+              "name": "isActive",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ],
+              "description": "Check if step is active"
+            },
+            {
+              "kind": "method",
+              "name": "_renderCheckIcon"
+            },
+            {
+              "kind": "method",
+              "name": "_renderCircleContent",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "steps",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "description": "Array of step objects [{label, description}] or number of steps",
+              "default": "[]",
+              "attribute": "steps"
+            },
+            {
+              "kind": "field",
+              "name": "current",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Current step index (0-based)",
+              "default": "-1",
+              "attribute": "current",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "orientation",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Orientation: horizontal or vertical",
+              "default": "'horizontal'",
+              "attribute": "orientation"
+            },
+            {
+              "kind": "field",
+              "name": "clickable",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Allow clicking on steps to navigate",
+              "default": "false",
+              "attribute": "clickable"
+            },
+            {
+              "kind": "field",
+              "name": "showNumbers",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show step numbers in circles",
+              "default": "true",
+              "attribute": "show-numbers"
+            },
+            {
+              "kind": "field",
+              "name": "hideNumbers",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide step numbers (declarative alternative)",
+              "default": "false",
+              "attribute": "hide-numbers"
+            },
+            {
+              "kind": "field",
+              "name": "showCheck",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show checkmarks for completed steps",
+              "default": "true",
+              "attribute": "show-check"
+            },
+            {
+              "kind": "field",
+              "name": "hideCheck",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide checkmarks (declarative alternative)",
+              "default": "false",
+              "attribute": "hide-check"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Size variant: small, medium, large",
+              "default": "'medium'",
+              "attribute": "size"
+            }
+          ],
+          "events": [
+            {
+              "name": "step-click",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when a step is clicked (if clickable)"
+            },
+            {
+              "name": "step-change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when current step changes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "steps",
+              "type": {
+                "text": "array"
+              },
+              "description": "Array of step objects [{label, description}] or number of steps",
+              "default": "[]",
+              "fieldName": "steps"
+            },
+            {
+              "name": "current",
+              "type": {
+                "text": "number"
+              },
+              "description": "Current step index (0-based)",
+              "default": "-1",
+              "fieldName": "current"
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "string"
+              },
+              "description": "Orientation: horizontal or vertical",
+              "default": "'horizontal'",
+              "fieldName": "orientation"
+            },
+            {
+              "name": "clickable",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Allow clicking on steps to navigate",
+              "default": "false",
+              "fieldName": "clickable"
+            },
+            {
+              "name": "show-numbers",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show step numbers in circles",
+              "default": "true",
+              "fieldName": "showNumbers"
+            },
+            {
+              "name": "hide-numbers",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide step numbers (declarative alternative)",
+              "default": "false",
+              "fieldName": "hideNumbers"
+            },
+            {
+              "name": "show-check",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show checkmarks for completed steps",
+              "default": "true",
+              "fieldName": "showCheck"
+            },
+            {
+              "name": "hide-check",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide checkmarks (declarative alternative)",
+              "default": "false",
+              "fieldName": "hideCheck"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "string"
+              },
+              "description": "Size variant: small, medium, large",
+              "default": "'medium'",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "circle-steps",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CircleSteps",
+          "declaration": {
+            "name": "CircleSteps",
+            "module": "src/circle-steps.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "circle-steps",
+          "declaration": {
+            "name": "CircleSteps",
+            "module": "src/circle-steps.js"
+          }
+        }
+      ]
+    }
+  ]
+}

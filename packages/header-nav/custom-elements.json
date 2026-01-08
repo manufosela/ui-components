@@ -1,0 +1,250 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/header-nav.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Responsive header navigation web component with hamburger menu.",
+          "name": "HeaderNav",
+          "cssProperties": [
+            {
+              "description": "Header height (default: 60px)",
+              "name": "--header-height"
+            },
+            {
+              "description": "Background color (default: #fff)",
+              "name": "--header-bg"
+            },
+            {
+              "description": "Box shadow (default: 0 2px 4px rgba(0,0,0,0.1))",
+              "name": "--header-shadow"
+            },
+            {
+              "description": "Link color (default: #374151)",
+              "name": "--header-link-color"
+            },
+            {
+              "description": "Link hover color (default: #3b82f6)",
+              "name": "--header-link-hover"
+            },
+            {
+              "description": "Mobile breakpoint (default: 768px)",
+              "name": "--header-mobile-bp"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Navigation links",
+              "name": ""
+            },
+            {
+              "description": "Custom logo content",
+              "name": "logo"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_toggleMenu"
+            },
+            {
+              "kind": "method",
+              "name": "_closeMenu"
+            },
+            {
+              "kind": "method",
+              "name": "_handleLinkClick"
+            },
+            {
+              "kind": "method",
+              "name": "_updateMobileStyles"
+            },
+            {
+              "kind": "method",
+              "name": "_updateMobileLinks"
+            },
+            {
+              "kind": "field",
+              "name": "logo",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Logo image URL",
+              "default": "''",
+              "attribute": "logo"
+            },
+            {
+              "kind": "field",
+              "name": "logoAlt",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Logo alt text",
+              "default": "'Logo'",
+              "attribute": "logo-alt"
+            },
+            {
+              "kind": "field",
+              "name": "logoHref",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Logo link URL",
+              "default": "'/'",
+              "attribute": "logo-href"
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Sticky header",
+              "default": "false",
+              "attribute": "sticky"
+            },
+            {
+              "kind": "field",
+              "name": "mobileBreakpoint",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Mobile breakpoint in pixels",
+              "default": "768",
+              "attribute": "mobile-breakpoint"
+            },
+            {
+              "kind": "field",
+              "name": "_menuOpen",
+              "privacy": "public",
+              "description": "Internal: menu open state",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_menuOpen"
+            },
+            {
+              "kind": "field",
+              "name": "_mobileLinks",
+              "privacy": "public",
+              "description": "Internal: cloned links for mobile menu",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "_mobileLinks"
+            }
+          ],
+          "events": [
+            {
+              "name": "menu-toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when mobile menu is toggled"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "logo",
+              "type": {
+                "text": "string"
+              },
+              "description": "Logo image URL",
+              "default": "''",
+              "fieldName": "logo"
+            },
+            {
+              "name": "logo-alt",
+              "type": {
+                "text": "string"
+              },
+              "description": "Logo alt text",
+              "default": "'Logo'",
+              "fieldName": "logoAlt"
+            },
+            {
+              "name": "logo-href",
+              "type": {
+                "text": "string"
+              },
+              "description": "Logo link URL",
+              "default": "'/'",
+              "fieldName": "logoHref"
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Sticky header",
+              "default": "false",
+              "fieldName": "sticky"
+            },
+            {
+              "name": "mobile-breakpoint",
+              "type": {
+                "text": "number"
+              },
+              "description": "Mobile breakpoint in pixels",
+              "default": "768",
+              "fieldName": "mobileBreakpoint"
+            },
+            {
+              "name": "_menuOpen",
+              "description": "Internal: menu open state",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_menuOpen"
+            },
+            {
+              "name": "_mobileLinks",
+              "description": "Internal: cloned links for mobile menu",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "_mobileLinks"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "header-nav",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "HeaderNav",
+          "declaration": {
+            "name": "HeaderNav",
+            "module": "src/header-nav.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "header-nav",
+          "declaration": {
+            "name": "HeaderNav",
+            "module": "src/header-nav.js"
+          }
+        }
+      ]
+    }
+  ]
+}

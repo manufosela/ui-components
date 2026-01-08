@@ -1,0 +1,420 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/data-card.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A versatile card component for displaying data with optional cover image,\nicon, links, and modal info panel.",
+          "name": "DataCard",
+          "cssProperties": [
+            {
+              "description": "Card width",
+              "name": "--data-card-width",
+              "default": "280px"
+            },
+            {
+              "description": "Card minimum height",
+              "name": "--data-card-min-height",
+              "default": "200px"
+            },
+            {
+              "description": "Card background color",
+              "name": "--data-card-bg",
+              "default": "#ffffff"
+            },
+            {
+              "description": "Border color",
+              "name": "--data-card-border-color",
+              "default": "#e5e7eb"
+            },
+            {
+              "description": "Border radius",
+              "name": "--data-card-border-radius",
+              "default": "16px"
+            },
+            {
+              "description": "Box shadow",
+              "name": "--data-card-shadow",
+              "default": "0 4px 6px -1px rgba(0,0,0,0.1)"
+            },
+            {
+              "description": "Card padding",
+              "name": "--data-card-padding",
+              "default": "1.5rem"
+            },
+            {
+              "description": "Title font size",
+              "name": "--data-card-title-size",
+              "default": "1.25rem"
+            },
+            {
+              "description": "Title color",
+              "name": "--data-card-title-color",
+              "default": "#1f2937"
+            },
+            {
+              "description": "Description font size",
+              "name": "--data-card-desc-size",
+              "default": "0.875rem"
+            },
+            {
+              "description": "Description color",
+              "name": "--data-card-desc-color",
+              "default": "#6b7280"
+            },
+            {
+              "description": "Icon size",
+              "name": "--data-card-icon-size",
+              "default": "3rem"
+            },
+            {
+              "description": "Icon color",
+              "name": "--data-card-icon-color",
+              "default": "#3b82f6"
+            },
+            {
+              "description": "Cover image height",
+              "name": "--data-card-cover-height",
+              "default": "140px"
+            },
+            {
+              "description": "Cover image opacity",
+              "name": "--data-card-cover-opacity",
+              "default": "1"
+            },
+            {
+              "description": "Group badge background",
+              "name": "--data-card-group-bg",
+              "default": "#3b82f6"
+            },
+            {
+              "description": "Group badge text color",
+              "name": "--data-card-group-color",
+              "default": "#ffffff"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Default slot for additional content",
+              "name": ""
+            },
+            {
+              "description": "Footer content",
+              "name": "footer"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_fetchMoreInfo"
+            },
+            {
+              "kind": "method",
+              "name": "_closeMoreInfo"
+            },
+            {
+              "kind": "method",
+              "name": "_handleCardClick",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_renderCover"
+            },
+            {
+              "kind": "method",
+              "name": "_renderMoreInfoPanel"
+            },
+            {
+              "kind": "field",
+              "name": "cardTitle",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "card-title"
+            },
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "description"
+            },
+            {
+              "kind": "field",
+              "name": "url",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "url"
+            },
+            {
+              "kind": "field",
+              "name": "newtab",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "newtab"
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "icon"
+            },
+            {
+              "kind": "field",
+              "name": "group",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "group"
+            },
+            {
+              "kind": "field",
+              "name": "imgCover",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "img-cover"
+            },
+            {
+              "kind": "field",
+              "name": "coverBgColor",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "cover-bg-color"
+            },
+            {
+              "kind": "field",
+              "name": "textColor",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "text-color"
+            },
+            {
+              "kind": "field",
+              "name": "moreInfo",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "more-info"
+            },
+            {
+              "kind": "field",
+              "name": "_moreInfoContent",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "_moreInfoContent"
+            },
+            {
+              "kind": "field",
+              "name": "_showMoreInfo",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_showMoreInfo"
+            },
+            {
+              "kind": "field",
+              "name": "_loading",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_loading"
+            }
+          ],
+          "events": [
+            {
+              "name": "data-card-click",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when card is clicked"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Card heading text",
+              "name": "card-title",
+              "default": "''",
+              "fieldName": "cardTitle"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Card description text",
+              "name": "description",
+              "default": "''",
+              "fieldName": "description"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Link URL when card is clicked",
+              "name": "url",
+              "default": "''",
+              "fieldName": "url"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Open link in new tab",
+              "name": "newtab",
+              "default": "false",
+              "fieldName": "newtab"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Icon character or emoji to display",
+              "name": "icon",
+              "default": "''",
+              "fieldName": "icon"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Group/category label",
+              "name": "group",
+              "default": "''",
+              "fieldName": "group"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "URL for cover image",
+              "name": "img-cover",
+              "default": "''",
+              "fieldName": "imgCover"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Background color for cover area",
+              "name": "cover-bg-color",
+              "default": "''",
+              "fieldName": "coverBgColor"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Text color",
+              "name": "text-color",
+              "default": "''",
+              "fieldName": "textColor"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "URL to fetch additional info content",
+              "name": "more-info",
+              "default": "''",
+              "fieldName": "moreInfo"
+            },
+            {
+              "name": "_moreInfoContent",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "_moreInfoContent"
+            },
+            {
+              "name": "_showMoreInfo",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_showMoreInfo"
+            },
+            {
+              "name": "_loading",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_loading"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "data-card",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DataCard",
+          "declaration": {
+            "name": "DataCard",
+            "module": "src/data-card.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "data-card",
+          "declaration": {
+            "name": "DataCard",
+            "module": "src/data-card.js"
+          }
+        }
+      ]
+    }
+  ]
+}

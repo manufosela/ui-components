@@ -1,0 +1,233 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/circle-percent.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A circular progress indicator with animated SVG arc.",
+          "name": "CirclePercent",
+          "cssProperties": [
+            {
+              "description": "Font family",
+              "name": "--circle-percent-font-family"
+            },
+            {
+              "description": "Background circle color (default: #e5e7eb)",
+              "name": "--circle-percent-bg-color"
+            },
+            {
+              "description": "Percentage text size (default: 1.5rem)",
+              "name": "--circle-percent-text-size"
+            },
+            {
+              "description": "Percentage text weight (default: 600)",
+              "name": "--circle-percent-text-weight"
+            },
+            {
+              "description": "Percentage text color",
+              "name": "--circle-percent-text-color"
+            },
+            {
+              "description": "Title text size (default: 0.875rem)",
+              "name": "--circle-percent-title-size"
+            },
+            {
+              "description": "Title text color (default: #6b7280)",
+              "name": "--circle-percent-title-color"
+            },
+            {
+              "description": "Transition duration (default: 0.5s)",
+              "name": "--circle-percent-animation-duration"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "_normalizedRadius",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_circumference",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_strokeDasharray",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_viewBoxSize",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "title",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "title"
+            },
+            {
+              "kind": "field",
+              "name": "percent",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "percent"
+            },
+            {
+              "kind": "field",
+              "name": "radius",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "50",
+              "attribute": "radius"
+            },
+            {
+              "kind": "field",
+              "name": "strokeWidth",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "6",
+              "attribute": "stroke-width"
+            },
+            {
+              "kind": "field",
+              "name": "strokeColor",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'#3b82f6'",
+              "attribute": "stroke-color"
+            },
+            {
+              "kind": "field",
+              "name": "showPercent",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "show-percent"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'medium'",
+              "attribute": "size",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Text label displayed below the circle",
+              "name": "title",
+              "default": "''",
+              "fieldName": "title"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Progress value from 0 to 100 (default: 0)",
+              "name": "percent",
+              "default": "0",
+              "fieldName": "percent"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Radius of the circle in pixels (default: 50)",
+              "name": "radius",
+              "default": "50",
+              "fieldName": "radius"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Width of the progress arc (default: 6)",
+              "name": "stroke-width",
+              "default": "6",
+              "fieldName": "strokeWidth"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Color of the progress arc (default: #3b82f6)",
+              "name": "stroke-color",
+              "default": "'#3b82f6'",
+              "fieldName": "strokeColor"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether to display the percentage text (default: true)",
+              "name": "show-percent",
+              "default": "true",
+              "fieldName": "showPercent"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Predefined size: 'small', 'medium', 'large' (default: medium)",
+              "name": "size",
+              "default": "'medium'",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "circle-percent",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CirclePercent",
+          "declaration": {
+            "name": "CirclePercent",
+            "module": "src/circle-percent.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "circle-percent",
+          "declaration": {
+            "name": "CirclePercent",
+            "module": "src/circle-percent.js"
+          }
+        }
+      ]
+    }
+  ]
+}
