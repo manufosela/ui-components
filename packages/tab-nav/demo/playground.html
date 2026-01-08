@@ -108,6 +108,17 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
+  
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e5e7eb;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--text-color); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -128,8 +139,25 @@
     </div>
 
     <api-demo src="../custom-elements.json" only="tab-panel"></api-demo>
+
+    <footer>
+      <p>
+        <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+        <a href="https://www.npmjs.com/package/@manufosela/tab-nav">npm</a>
+      </p>
+      <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
+          <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
+        </a>
+      </p>
+    </footer>
   </div>
 
+  
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
   <script type="module">
     // api-demo element (incluye Lit 2 bundled)
     import 'https://esm.sh/@api-viewer/demo@1.0.0-pre.10?bundle';
