@@ -1,7 +1,7 @@
 export default {
   files: 'test/**/*.test.js',
   nodeResolve: true,
-  port: 0,
+  port: 8109,
   coverage: true,
   coverageConfig: {
     reportDir: 'coverage',

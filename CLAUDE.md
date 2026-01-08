@@ -4,7 +4,7 @@ Este archivo proporciona contexto para asistentes de IA trabajando en este monor
 
 ## Resumen del Proyecto
 
-Monorepo de **26 web components** construidos con **Lit 3**, publicados en npm bajo el scope `@manufosela/*`.
+Monorepo de **27 web components** construidos con **Lit 3**, publicados en npm bajo el scope `@manufosela/*`.
 
 - **Repo**: https://github.com/manufosela/ui-components
 - **npm**: https://www.npmjs.com/org/manufosela
@@ -15,7 +15,7 @@ Monorepo de **26 web components** construidos con **Lit 3**, publicados en npm b
 | Tecnologia | Version | Proposito |
 |------------|---------|-----------|
 | Lit | 3.x | Framework de web components |
-| pnpm | 8.x | Package manager (workspaces) |
+| pnpm | 9.x | Package manager (workspaces) |
 | TypeScript | 5.x | Generacion de .d.ts desde JSDoc (DX) |
 | Changesets | 2.x | Versionado y changelogs |
 | web-test-runner | 0.19.x | Testing |
@@ -205,13 +205,24 @@ Soportar dark mode via clase `.dark` en ancestro:
 
 2. **Crear archivos**:
    - `src/{name}.js` - Componente Lit 3
-   - `demo/index.html` - Demo con ejemplos
+   - `demo/index.html` - Demo con ejemplos (incluir import map para CDN)
    - `test/{name}.test.js` - Tests
    - `package.json` - Metadatos npm
    - `README.md` - Documentacion
-   - `web-test-runner.config.js` - Config tests
+   - `web-test-runner.config.js` - Config tests (**puerto unico requerido**)
 
-3. **package.json template**:
+3. **web-test-runner.config.js template**:
+   ```javascript
+   export default {
+     files: 'test/**/*.test.js',
+     nodeResolve: true,
+     port: 8127,  // IMPORTANTE: Usar siguiente puerto disponible (ver otros packages)
+   };
+   ```
+
+   > **IMPORTANTE**: Cada paquete debe tener un puerto unico (8100-8199) para evitar conflictos cuando los tests se ejecutan en paralelo en CI. Verificar el ultimo puerto usado en otros `web-test-runner.config.js` y usar el siguiente.
+
+5. **package.json template**:
    ```json
    {
      "name": "@manufosela/{name}",
@@ -250,11 +261,11 @@ Soportar dark mode via clase `.dark` en ancestro:
 
    **Nota**: Las devDependencies estan en el root del monorepo.
 
-4. **Actualizar**:
+6. **Actualizar**:
    - `README.md` raiz (tabla de paquetes y estructura)
    - `index.html` raiz (catalogo de componentes)
 
-5. **Verificar**:
+7. **Verificar**:
    ```bash
    pnpm install
    pnpm test --filter @manufosela/{name}
@@ -262,12 +273,22 @@ Soportar dark mode via clase `.dark` en ancestro:
 
 ## Demo Template
 
-Todas las demos deben seguir este estilo consistente:
+Todas las demos deben seguir este estilo consistente.
+
+> **IMPORTANTE**: El import map es **obligatorio** para que las demos funcionen en GitHub Pages (sin servidor de desarrollo). Mapea `lit` al CDN esm.sh.
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script type="importmap">
+    {
+      "imports": {
+        "lit": "https://esm.sh/lit@3",
+        "lit/": "https://esm.sh/lit@3/"
+      }
+    }
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{Component Name} - Demo</title>
