@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { fixture, expect, oneEvent } from '@open-wc/testing';
-import '../src/app-modal.js';
+import { showModal } from '../src/app-modal.js';
 
 describe('AppModal', () => {
   afterEach(() => {
@@ -352,8 +352,6 @@ describe('AppModal', () => {
 
   describe('Programmatic mode (via showModal)', () => {
     it('shows automatically when created via showModal()', async () => {
-      // Import showModal dynamically
-      const { showModal } = await import('../src/app-modal.js');
       const el = showModal({ title: 'Test' });
       await el.updateComplete;
       await new Promise((resolve) => setTimeout(resolve, 50));
@@ -361,7 +359,6 @@ describe('AppModal', () => {
     });
 
     it('destroys modal on close() in programmatic mode', async () => {
-      const { showModal } = await import('../src/app-modal.js');
       const el = showModal({ title: 'Test' });
       await el.updateComplete;
 
