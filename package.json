@@ -18,6 +18,7 @@
     "start": "web-dev-server --node-resolve --open --root-dir .",
     "start:demo": "web-dev-server --node-resolve --open index.html --root-dir .",
     "cem": "node scripts/generate-cem.js",
+    "bundle-sizes": "node scripts/generate-bundle-sizes.js",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "pnpm build && pnpm publish -r --access public",

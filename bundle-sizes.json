@@ -1,0 +1,137 @@
+{
+  "app-modal": {
+    "raw": 15452,
+    "minified": 15452,
+    "gzipped": 3760
+  },
+  "arc-slider": {
+    "raw": 15945,
+    "minified": 15945,
+    "gzipped": 4518
+  },
+  "behaviour-accordion": {
+    "raw": 7572,
+    "minified": 4790,
+    "gzipped": 1632
+  },
+  "calendar-inline": {
+    "raw": 13209,
+    "minified": 8775,
+    "gzipped": 2643
+  },
+  "circle-percent": {
+    "raw": 5295,
+    "minified": 5295,
+    "gzipped": 1662
+  },
+  "circle-steps": {
+    "raw": 11082,
+    "minified": 7277,
+    "gzipped": 2207
+  },
+  "click-clock": {
+    "raw": 9337,
+    "minified": 5880,
+    "gzipped": 1888
+  },
+  "data-card": {
+    "raw": 11150,
+    "minified": 8190,
+    "gzipped": 2345
+  },
+  "header-nav": {
+    "raw": 8379,
+    "minified": 6578,
+    "gzipped": 1965
+  },
+  "historical-line": {
+    "raw": 6910,
+    "minified": 4611,
+    "gzipped": 1700
+  },
+  "lcd-digit": {
+    "raw": 5739,
+    "minified": 5739,
+    "gzipped": 1776
+  },
+  "loading-layer": {
+    "raw": 5375,
+    "minified": 5375,
+    "gzipped": 1765
+  },
+  "marked-calendar": {
+    "raw": 16746,
+    "minified": 16746,
+    "gzipped": 4541
+  },
+  "modal-dialog": {
+    "raw": 9280,
+    "minified": 9280,
+    "gzipped": 2733
+  },
+  "multi-carousel": {
+    "raw": 11380,
+    "minified": 11380,
+    "gzipped": 3264
+  },
+  "multi-select": {
+    "raw": 9074,
+    "minified": 9074,
+    "gzipped": 2678
+  },
+  "nav-list": {
+    "raw": 7530,
+    "minified": 7530,
+    "gzipped": 2356
+  },
+  "qr-code": {
+    "raw": 19894,
+    "minified": 10401,
+    "gzipped": 3824
+  },
+  "radar-chart": {
+    "raw": 12611,
+    "minified": 7834,
+    "gzipped": 2698
+  },
+  "rich-inputfile": {
+    "raw": 11522,
+    "minified": 8196,
+    "gzipped": 2620
+  },
+  "rich-select": {
+    "raw": 24874,
+    "minified": 24874,
+    "gzipped": 5664
+  },
+  "slide-notification": {
+    "raw": 8099,
+    "minified": 8099,
+    "gzipped": 2463
+  },
+  "slider-underline": {
+    "raw": 9246,
+    "minified": 7208,
+    "gzipped": 1879
+  },
+  "stars-rating": {
+    "raw": 7283,
+    "minified": 7283,
+    "gzipped": 2116
+  },
+  "tab-nav": {
+    "raw": 8800,
+    "minified": 6072,
+    "gzipped": 1888
+  },
+  "theme-toggle": {
+    "raw": 6547,
+    "minified": 6547,
+    "gzipped": 2069
+  },
+  "toast-notification": {
+    "raw": 9522,
+    "minified": 9522,
+    "gzipped": 2668
+  }
+}

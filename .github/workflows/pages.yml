@@ -38,6 +38,9 @@ jobs:
       - name: Generate Custom Elements Manifests
         run: pnpm cem
 
+      - name: Generate Bundle Sizes
+        run: pnpm bundle-sizes
+
       - name: Prepare site
         run: |
           mkdir -p _site
