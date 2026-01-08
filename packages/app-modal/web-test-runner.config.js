@@ -1,5 +1,5 @@
 export default {
   files: 'test/**/*.test.js',
   nodeResolve: true,
-  port: 8010,
+  port: 0,
 };
