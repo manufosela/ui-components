@@ -12,32 +12,39 @@
           "name": "CircleSteps",
           "cssProperties": [
             {
-              "description": "Circle size (default: 40px)",
-              "name": "--steps-size"
+              "description": "Circle size",
+              "name": "--steps-size",
+              "default": "40px"
             },
             {
-              "description": "Pending step color (default: #e5e7eb)",
-              "name": "--steps-pending"
+              "description": "Pending step color",
+              "name": "--steps-pending",
+              "default": "#e5e7eb"
             },
             {
-              "description": "Active step color (default: #3b82f6)",
-              "name": "--steps-active"
+              "description": "Active step color",
+              "name": "--steps-active",
+              "default": "#3b82f6"
             },
             {
-              "description": "Completed step color (default: #22c55e)",
-              "name": "--steps-complete"
+              "description": "Completed step color",
+              "name": "--steps-complete",
+              "default": "#22c55e"
             },
             {
-              "description": "Text color (default: #1f2937)",
-              "name": "--steps-text"
+              "description": "Text color",
+              "name": "--steps-text",
+              "default": "#1f2937"
             },
             {
-              "description": "Connector line color (default: #e5e7eb)",
-              "name": "--steps-line"
+              "description": "Connector line color",
+              "name": "--steps-line",
+              "default": "#e5e7eb"
             },
             {
-              "description": "Completed connector (default: #22c55e)",
-              "name": "--steps-line-complete"
+              "description": "Completed connector",
+              "name": "--steps-line-complete",
+              "default": "#22c55e"
             }
           ],
           "members": [

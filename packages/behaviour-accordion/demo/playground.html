@@ -7,9 +7,8 @@
   <script type="importmap">
     {
       "imports": {
-        "lit": "https://esm.sh/lit@3",
-        "lit/": "https://esm.sh/lit@3/",
-        "api-viewer-element": "https://esm.sh/api-viewer-element@1.0.0-pre.10"
+        "lit": "https://esm.sh/lit@3?bundle",
+        "lit/": "https://esm.sh/lit@3&bundle/"
       }
     }
   </script>
@@ -27,29 +26,30 @@
       background: var(--bg-color);
       color: var(--text-color);
       margin: 0;
-      padding: 2rem;
+      padding: 1.5rem;
       min-height: 100vh;
     }
     .container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
     }
     header {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
     h1 {
       margin: 0 0 0.5rem;
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: 600;
     }
     .subtitle {
       color: var(--text-muted);
-      margin: 0 0 1rem;
+      margin: 0 0 0.75rem;
     }
     .nav-links {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
+      font-size: 0.9rem;
     }
     .nav-links a {
       color: var(--accent);
@@ -58,24 +58,54 @@
     .nav-links a:hover {
       text-decoration: underline;
     }
+
+    /* API Demo styling */
     api-demo {
       display: block;
       background: var(--card-bg);
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       overflow: hidden;
-      min-height: 400px;
+
+      /* CSS custom properties for api-viewer theming */
+      --ave-accent-color: var(--accent);
+      --ave-border-color: #e5e7eb;
+      --ave-header-color: var(--text-color);
+      --ave-item-color: var(--text-muted);
+      --ave-monospace-font: 'SF Mono', Monaco, Consolas, monospace;
+
+      /* Minimum height for demo area */
+      --ave-demo-min-height: 300px;
     }
+
+    /* Force minimum size on the component preview wrapper */
+    api-demo::part(demo-output) {
+      min-height: 300px;
+      min-width: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: #fafafa;
+    }
+
+    /* Layout: controles izquierda, preview derecha en desktop */
+    @media (min-width: 900px) {
+      api-demo::part(demo-tabs) {
+        flex-direction: row-reverse;
+      }
+    }
+
     .info-box {
       background: var(--card-bg);
       border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
       border-left: 4px solid var(--accent);
     }
     .info-box p {
       margin: 0;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
     }
   </style>
@@ -101,7 +131,10 @@
   </div>
 
   <script type="module">
-    import 'api-viewer-element';
+    // api-demo element (incluye Lit 2 bundled)
+    import 'https://esm.sh/@api-viewer/demo@1.0.0-pre.10?bundle';
+
+    // Componente local (usa Lit 3 del import map)
     import '../src/behaviour-accordion.js';
   </script>
 </body>

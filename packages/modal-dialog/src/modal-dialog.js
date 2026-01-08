@@ -22,11 +22,11 @@ import { modalDialogStyles } from './modal-dialog.styles.js';
  * @slot - Default slot for modal body content
  * @slot footer - Footer slot for action buttons
  *
- * @cssprop --modal-z-index - Z-index (default: 9999)
- * @cssprop --modal-overlay-bg - Overlay background (default: rgba(0,0,0,0.5))
- * @cssprop --modal-bg - Modal background (default: #fff)
- * @cssprop --modal-radius - Border radius (default: 12px)
- * @cssprop --modal-max-width - Maximum width (default: 500px)
+ * @cssprop [--modal-z-index=9999] - Z-index
+ * @cssprop [--modal-overlay-bg=rgba(0,0,0,0.5] - Overlay background)
+ * @cssprop [--modal-bg=#fff] - Modal background
+ * @cssprop [--modal-radius=12px] - Border radius
+ * @cssprop [--modal-max-width=500px] - Maximum width
  */
 export class ModalDialog extends LitElement {
   static styles = modalDialogStyles;

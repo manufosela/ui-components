@@ -6,13 +6,13 @@ import { LitElement, html, css } from 'lit';
  * @element circle-steps
  * @fires step-click - Fired when a step is clicked (if clickable)
  * @fires step-change - Fired when current step changes
- * @cssprop --steps-size - Circle size (default: 40px)
- * @cssprop --steps-pending - Pending step color (default: #e5e7eb)
- * @cssprop --steps-active - Active step color (default: #3b82f6)
- * @cssprop --steps-complete - Completed step color (default: #22c55e)
- * @cssprop --steps-text - Text color (default: #1f2937)
- * @cssprop --steps-line - Connector line color (default: #e5e7eb)
- * @cssprop --steps-line-complete - Completed connector (default: #22c55e)
+ * @cssprop [--steps-size=40px] - Circle size
+ * @cssprop [--steps-pending=#e5e7eb] - Pending step color
+ * @cssprop [--steps-active=#3b82f6] - Active step color
+ * @cssprop [--steps-complete=#22c55e] - Completed step color
+ * @cssprop [--steps-text=#1f2937] - Text color
+ * @cssprop [--steps-line=#e5e7eb] - Connector line color
+ * @cssprop [--steps-line-complete=#22c55e] - Completed connector
  */
 export class CircleSteps extends LitElement {
   static properties = {

@@ -12,20 +12,24 @@
           "name": "RichInputfile",
           "cssProperties": [
             {
-              "description": "Border color (default: #d1d5db)",
-              "name": "--input-border"
+              "description": "Border color",
+              "name": "--input-border",
+              "default": "#d1d5db"
             },
             {
-              "description": "Focus border color (default: #3b82f6)",
-              "name": "--input-border-focus"
+              "description": "Focus border color",
+              "name": "--input-border-focus",
+              "default": "#3b82f6"
             },
             {
-              "description": "Background color (default: #fff)",
-              "name": "--input-bg"
+              "description": "Background color",
+              "name": "--input-bg",
+              "default": "#fff"
             },
             {
-              "description": "Border radius (default: 8px)",
-              "name": "--input-radius"
+              "description": "Border radius",
+              "name": "--input-radius",
+              "default": "8px"
             }
           ],
           "members": [

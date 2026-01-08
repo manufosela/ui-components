@@ -12,24 +12,29 @@
           "name": "StarsRating",
           "cssProperties": [
             {
-              "description": "Star size (default: 24px)",
-              "name": "--stars-rating-size"
+              "description": "Star size",
+              "name": "--stars-rating-size",
+              "default": "24px"
             },
             {
-              "description": "Gap between stars (default: 4px)",
-              "name": "--stars-rating-gap"
+              "description": "Gap between stars",
+              "name": "--stars-rating-gap",
+              "default": "4px"
             },
             {
-              "description": "Filled star color (default: #fbbf24)",
-              "name": "--stars-rating-color"
+              "description": "Filled star color",
+              "name": "--stars-rating-color",
+              "default": "#fbbf24"
             },
             {
-              "description": "Empty star color (default: #e5e7eb)",
-              "name": "--stars-rating-empty-color"
+              "description": "Empty star color",
+              "name": "--stars-rating-empty-color",
+              "default": "#e5e7eb"
             },
             {
-              "description": "Reset button color (default: #6b7280)",
-              "name": "--stars-rating-reset-color"
+              "description": "Reset button color",
+              "name": "--stars-rating-reset-color",
+              "default": "#6b7280"
             }
           ],
           "members": [

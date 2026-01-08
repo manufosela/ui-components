@@ -121,40 +121,49 @@
           "name": "BehaviourAccordion",
           "cssProperties": [
             {
-              "description": "Border color (default: #e5e7eb)",
-              "name": "--accordion-border"
+              "description": "Border color",
+              "name": "--accordion-border",
+              "default": "#e5e7eb"
             },
             {
-              "description": "Border radius (default: 8px)",
-              "name": "--accordion-radius"
+              "description": "Border radius",
+              "name": "--accordion-radius",
+              "default": "8px"
             },
             {
-              "description": "Header background (default: #f9fafb)",
-              "name": "--accordion-header-bg"
+              "description": "Header background",
+              "name": "--accordion-header-bg",
+              "default": "#f9fafb"
             },
             {
-              "description": "Header hover background (default: #f3f4f6)",
-              "name": "--accordion-header-hover"
+              "description": "Header hover background",
+              "name": "--accordion-header-hover",
+              "default": "#f3f4f6"
             },
             {
-              "description": "Header text color (default: #1f2937)",
-              "name": "--accordion-header-text"
+              "description": "Header text color",
+              "name": "--accordion-header-text",
+              "default": "#1f2937"
             },
             {
-              "description": "Content background (default: #fff)",
-              "name": "--accordion-content-bg"
+              "description": "Content background",
+              "name": "--accordion-content-bg",
+              "default": "#fff"
             },
             {
-              "description": "Content text color (default: #4b5563)",
-              "name": "--accordion-content-text"
+              "description": "Content text color",
+              "name": "--accordion-content-text",
+              "default": "#4b5563"
             },
             {
-              "description": "Icon color (default: #6b7280)",
-              "name": "--accordion-icon"
+              "description": "Icon color",
+              "name": "--accordion-icon",
+              "default": "#6b7280"
             },
             {
-              "description": "Focus outline color (default: #3b82f6)",
-              "name": "--accordion-focus"
+              "description": "Focus outline color",
+              "name": "--accordion-focus",
+              "default": "#3b82f6"
             }
           ],
           "slots": [

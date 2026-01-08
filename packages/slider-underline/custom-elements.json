@@ -12,32 +12,39 @@
           "name": "SliderUnderline",
           "cssProperties": [
             {
-              "description": "Track color (default: #e5e7eb)",
-              "name": "--slider-track"
+              "description": "Track color",
+              "name": "--slider-track",
+              "default": "#e5e7eb"
             },
             {
-              "description": "Filled track color (default: #3b82f6)",
-              "name": "--slider-fill"
+              "description": "Filled track color",
+              "name": "--slider-fill",
+              "default": "#3b82f6"
             },
             {
-              "description": "Thumb color (default: #3b82f6)",
-              "name": "--slider-thumb"
+              "description": "Thumb color",
+              "name": "--slider-thumb",
+              "default": "#3b82f6"
             },
             {
-              "description": "Thumb border (default: none)",
-              "name": "--slider-thumb-border"
+              "description": "Thumb border",
+              "name": "--slider-thumb-border",
+              "default": "none"
             },
             {
-              "description": "Thumb size (default: 20px)",
-              "name": "--slider-thumb-size"
+              "description": "Thumb size",
+              "name": "--slider-thumb-size",
+              "default": "20px"
             },
             {
-              "description": "Track height (default: 4px)",
-              "name": "--slider-track-height"
+              "description": "Track height",
+              "name": "--slider-track-height",
+              "default": "4px"
             },
             {
-              "description": "Label text color (default: #1f2937)",
-              "name": "--slider-label-color"
+              "description": "Label text color",
+              "name": "--slider-label-color",
+              "default": "#1f2937"
             }
           ],
           "members": [

@@ -6,13 +6,13 @@ import { LitElement, html, css } from 'lit';
  * @element slider-underline
  * @fires change - Fired when value changes (on release)
  * @fires input - Fired continuously while dragging
- * @cssprop --slider-track - Track color (default: #e5e7eb)
- * @cssprop --slider-fill - Filled track color (default: #3b82f6)
- * @cssprop --slider-thumb - Thumb color (default: #3b82f6)
- * @cssprop --slider-thumb-border - Thumb border (default: none)
- * @cssprop --slider-thumb-size - Thumb size (default: 20px)
- * @cssprop --slider-track-height - Track height (default: 4px)
- * @cssprop --slider-label-color - Label text color (default: #1f2937)
+ * @cssprop [--slider-track=#e5e7eb] - Track color
+ * @cssprop [--slider-fill=#3b82f6] - Filled track color
+ * @cssprop [--slider-thumb=#3b82f6] - Thumb color
+ * @cssprop [--slider-thumb-border=none] - Thumb border
+ * @cssprop [--slider-thumb-size=20px] - Thumb size
+ * @cssprop [--slider-track-height=4px] - Track height
+ * @cssprop [--slider-label-color=#1f2937] - Label text color
  */
 export class SliderUnderline extends LitElement {
   static properties = {

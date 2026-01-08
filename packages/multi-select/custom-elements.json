@@ -12,20 +12,24 @@
           "name": "MultiSelect",
           "cssProperties": [
             {
-              "description": "Minimum width (default: 200px)",
-              "name": "--multi-select-min-width"
+              "description": "Minimum width",
+              "name": "--multi-select-min-width",
+              "default": "200px"
             },
             {
-              "description": "Background color (default: white)",
-              "name": "--multi-select-bg"
+              "description": "Background color",
+              "name": "--multi-select-bg",
+              "default": "white"
             },
             {
-              "description": "Border color (default: #dee2e6)",
-              "name": "--multi-select-border-color"
+              "description": "Border color",
+              "name": "--multi-select-border-color",
+              "default": "#dee2e6"
             },
             {
-              "description": "Border radius (default: 4px)",
-              "name": "--multi-select-radius"
+              "description": "Border radius",
+              "name": "--multi-select-radius",
+              "default": "4px"
             }
           ],
           "slots": [

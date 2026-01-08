@@ -12,28 +12,34 @@
           "name": "ToastNotification",
           "cssProperties": [
             {
-              "description": "Z-index (default: 9999)",
-              "name": "--toast-z-index"
+              "description": "Z-index",
+              "name": "--toast-z-index",
+              "default": "9999"
             },
             {
-              "description": "Padding (default: 12px 16px)",
-              "name": "--toast-padding"
+              "description": "Padding",
+              "name": "--toast-padding",
+              "default": "12px 16px"
             },
             {
-              "description": "Border radius (default: 8px)",
-              "name": "--toast-radius"
+              "description": "Border radius",
+              "name": "--toast-radius",
+              "default": "8px"
             },
             {
-              "description": "Background color (default: #1f2937)",
-              "name": "--toast-bg"
+              "description": "Background color",
+              "name": "--toast-bg",
+              "default": "#1f2937"
             },
             {
-              "description": "Text color (default: #f9fafb)",
-              "name": "--toast-color"
+              "description": "Text color",
+              "name": "--toast-color",
+              "default": "#f9fafb"
             },
             {
-              "description": "Maximum width (default: 400px)",
-              "name": "--toast-max-width"
+              "description": "Maximum width",
+              "name": "--toast-max-width",
+              "default": "400px"
             }
           ],
           "members": [

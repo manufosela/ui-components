@@ -121,16 +121,16 @@ customElements.define('rich-option', RichOption);
  * @attr {String} placeholder - Placeholder text for the search input
  * @attr {String} name - Form field name
  *
- * @cssprop --rich-select-width - Width of the select (default: auto)
- * @cssprop --rich-select-font-family - Font family (default: inherit)
- * @cssprop --caller-padding - Padding of the trigger button (default: 8px 12px)
- * @cssprop --caller-background - Background of trigger (default: #fff)
- * @cssprop --caller-border - Border of trigger (default: 1px solid #d1d5db)
- * @cssprop --caller-border-radius - Border radius (default: 6px)
- * @cssprop --option-padding - Padding of options (default: 10px 12px)
- * @cssprop --option-active-background - Background of considered option (default: #3b82f6)
- * @cssprop --option-selected-background - Background of selected option (default: #eff6ff)
- * @cssprop --selectOptions-max-height - Max height of dropdown (default: 300px)
+ * @cssprop [--rich-select-width=auto] - Width of the select
+ * @cssprop [--rich-select-font-family=inherit] - Font family
+ * @cssprop [--caller-padding=8px 12px] - Padding of the trigger button
+ * @cssprop [--caller-background=#fff] - Background of trigger
+ * @cssprop [--caller-border=1px solid #d1d5db] - Border of trigger
+ * @cssprop [--caller-border-radius=6px] - Border radius
+ * @cssprop [--option-padding=10px 12px] - Padding of options
+ * @cssprop [--option-active-background=#3b82f6] - Background of considered option
+ * @cssprop [--option-selected-background=#eff6ff] - Background of selected option
+ * @cssprop [--selectOptions-max-height=300px] - Max height of dropdown
  *
  * @slot option - Slot for rich-option elements
  */

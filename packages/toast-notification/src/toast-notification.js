@@ -17,12 +17,12 @@ import { toastNotificationStyles } from './toast-notification.styles.js';
  * @attr {Boolean} closable - Show close button
  * @attr {Boolean} progress - Show progress bar
  *
- * @cssprop --toast-z-index - Z-index (default: 9999)
- * @cssprop --toast-padding - Padding (default: 12px 16px)
- * @cssprop --toast-radius - Border radius (default: 8px)
- * @cssprop --toast-bg - Background color (default: #1f2937)
- * @cssprop --toast-color - Text color (default: #f9fafb)
- * @cssprop --toast-max-width - Maximum width (default: 400px)
+ * @cssprop [--toast-z-index=9999] - Z-index
+ * @cssprop [--toast-padding=12px 16px] - Padding
+ * @cssprop [--toast-radius=8px] - Border radius
+ * @cssprop [--toast-bg=#1f2937] - Background color
+ * @cssprop [--toast-color=#f9fafb] - Text color
+ * @cssprop [--toast-max-width=400px] - Maximum width
  */
 export class ToastNotification extends LitElement {
   static styles = toastNotificationStyles;

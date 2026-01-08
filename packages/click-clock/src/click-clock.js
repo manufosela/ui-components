@@ -9,10 +9,10 @@ import { LitElement, html, css } from 'lit';
  * @fires start - Fired when timer starts
  * @fires pause - Fired when timer pauses
  * @fires reset - Fired when timer resets
- * @cssprop --clock-font-size - Font size (default: 2rem)
- * @cssprop --clock-font-family - Font family (default: monospace)
- * @cssprop --clock-color - Text color (default: #1f2937)
- * @cssprop --clock-bg - Background color (default: transparent)
+ * @cssprop [--clock-font-size=2rem] - Font size
+ * @cssprop [--clock-font-family=monospace] - Font family
+ * @cssprop [--clock-color=#1f2937] - Text color
+ * @cssprop [--clock-bg=transparent] - Background color
  */
 export class ClickClock extends LitElement {
   static properties = {

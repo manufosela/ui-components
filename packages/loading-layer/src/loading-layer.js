@@ -15,11 +15,11 @@ import { loadingLayerStyles } from './loading-layer.styles.js';
  * @attr {Number} stroke-width - Width of the spinner stroke (default: 4)
  * @attr {Number} timeout - Auto-hide timeout in seconds (0 = no auto-hide)
  *
- * @cssprop --loading-layer-bg - Background color (default: rgba(0, 0, 0, 0.5))
- * @cssprop --loading-layer-z-index - Z-index (default: 9999)
- * @cssprop --loading-layer-transition - Transition duration (default: 0.3s)
- * @cssprop --loading-layer-spin-duration - Spin animation duration (default: 1s)
- * @cssprop --loading-layer-text-color - Message text color (default: #fff)
+ * @cssprop [--loading-layer-bg=rgba(0, 0, 0, 0.5] - Background color)
+ * @cssprop [--loading-layer-z-index=9999] - Z-index
+ * @cssprop [--loading-layer-transition=0.3s] - Transition duration
+ * @cssprop [--loading-layer-spin-duration=1s] - Spin animation duration
+ * @cssprop [--loading-layer-text-color=#fff] - Message text color
  */
 export class LoadingLayer extends LitElement {
   static styles = loadingLayerStyles;

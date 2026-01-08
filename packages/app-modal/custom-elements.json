@@ -8,8 +8,41 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A feature-rich modal component with configurable buttons and content.\n\nSupports both programmatic usage via showModal() and declarative usage with the open attribute.",
           "name": "AppModal",
+          "cssProperties": [
+            {
+              "description": "Z-index",
+              "name": "--app-modal-z-index",
+              "default": "1000"
+            },
+            {
+              "description": "Modal background",
+              "name": "--app-modal-bg",
+              "default": "white"
+            },
+            {
+              "description": "Border radius",
+              "name": "--app-modal-radius",
+              "default": "8px"
+            },
+            {
+              "description": "Confirm button background",
+              "name": "--app-modal-confirm-bg",
+              "default": "#4caf50"
+            },
+            {
+              "description": "Cancel button background",
+              "name": "--app-modal-cancel-bg",
+              "default": "#f44336"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Default slot for modal body content",
+              "name": ""
+            }
+          ],
           "members": [
             {
               "kind": "method",
@@ -268,75 +301,147 @@
               "name": "modal-action1",
               "type": {
                 "text": "CustomEvent"
-              }
+              },
+              "description": "Fired when button 1 is clicked"
             },
             {
               "name": "modal-action2",
               "type": {
                 "text": "CustomEvent"
-              }
+              },
+              "description": "Fired when button 2 is clicked"
             },
             {
               "name": "modal-action3",
               "type": {
                 "text": "CustomEvent"
-              }
+              },
+              "description": "Fired when button 3 is clicked"
             },
             {
               "name": "modal-closed-requested",
               "type": {
                 "text": "CustomEvent"
-              }
+              },
+              "description": "Fired when modal close is requested"
             }
           ],
           "attributes": [
             {
-              "name": "title",
               "type": {
                 "text": "string"
               },
+              "description": "Modal title",
+              "name": "title",
               "default": "''",
               "fieldName": "title"
             },
             {
-              "name": "message",
               "type": {
                 "text": "string"
               },
+              "description": "Modal message (supports HTML)",
+              "name": "message",
               "default": "''",
               "fieldName": "message"
             },
             {
-              "name": "max-width",
               "type": {
                 "text": "string"
               },
+              "description": "Maximum width (default: 400px)",
+              "name": "max-width",
               "default": "'400px'",
               "fieldName": "maxWidth"
             },
             {
-              "name": "max-height",
               "type": {
                 "text": "string"
               },
+              "description": "Maximum height (default: 90vh)",
+              "name": "max-height",
               "default": "'90vh'",
               "fieldName": "maxHeight"
             },
             {
-              "name": "show-header",
               "type": {
                 "text": "boolean"
               },
+              "description": "Show header section (default: true)",
+              "name": "show-header",
               "default": "true",
               "fieldName": "showHeader"
             },
             {
-              "name": "show-footer",
               "type": {
                 "text": "boolean"
               },
+              "description": "Show footer section (default: true)",
+              "name": "show-footer",
               "default": "true",
               "fieldName": "showFooter"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Controls modal visibility in declarative mode. When present, modal won't auto-destroy on close.",
+              "name": "open",
+              "fieldName": "open"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Text for button 1",
+              "name": "button1-text",
+              "default": "''",
+              "fieldName": "button1Text"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Text for button 2",
+              "name": "button2-text",
+              "default": "''",
+              "fieldName": "button2Text"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Text for button 3",
+              "name": "button3-text",
+              "default": "''",
+              "fieldName": "button3Text"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Custom CSS for button 1",
+              "name": "button1-css",
+              "default": "''",
+              "fieldName": "button1Css"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Custom CSS for button 2",
+              "name": "button2-css",
+              "default": "''",
+              "fieldName": "button2Css"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Custom CSS for button 3",
+              "name": "button3-css",
+              "default": "''",
+              "fieldName": "button3Css"
             },
             {
               "name": "contentElementId",
@@ -361,61 +466,6 @@
               },
               "default": "''",
               "fieldName": "modalId"
-            },
-            {
-              "name": "button1-text",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "button1Text"
-            },
-            {
-              "name": "button2-text",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "button2Text"
-            },
-            {
-              "name": "button3-text",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "button3Text"
-            },
-            {
-              "name": "button1-css",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "button1Css"
-            },
-            {
-              "name": "button2-css",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "button2Css"
-            },
-            {
-              "name": "button3-css",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "fieldName": "button3Css"
-            },
-            {
-              "name": "open",
-              "type": {
-                "text": "boolean"
-              },
-              "fieldName": "open"
             }
           ],
           "superclass": {

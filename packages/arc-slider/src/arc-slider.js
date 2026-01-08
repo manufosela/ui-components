@@ -19,8 +19,8 @@ import { arcSliderStyles } from './arc-slider.styles.js';
  * @attr {Number} end-angle - End angle in degrees (default: 0, right side)
  * @attr {Number} stroke-width - Width of the arc stroke (default: 8)
  *
- * @cssprop --arc-slider-text-color - Text color (default: #000)
- * @cssprop --arc-slider-thumb-size - Size of the thumb (default: 20px)
+ * @cssprop [--arc-slider-text-color=#000] - Text color
+ * @cssprop [--arc-slider-thumb-size=20px] - Size of the thumb
  */
 export class ArcSlider extends LitElement {
   static styles = arcSliderStyles;

@@ -6,11 +6,11 @@ import { LitElement, html, css } from 'lit';
  * @element calendar-inline
  * @fires date-select - Fired when a date is selected
  * @fires month-change - Fired when month changes
- * @cssprop --calendar-bg - Background color (default: #fff)
- * @cssprop --calendar-text - Text color (default: #1f2937)
- * @cssprop --calendar-accent - Accent color (default: #3b82f6)
- * @cssprop --calendar-today - Today highlight (default: #dbeafe)
- * @cssprop --calendar-selected - Selected color (default: #3b82f6)
+ * @cssprop [--calendar-bg=#fff] - Background color
+ * @cssprop [--calendar-text=#1f2937] - Text color
+ * @cssprop [--calendar-accent=#3b82f6] - Accent color
+ * @cssprop [--calendar-today=#dbeafe] - Today highlight
+ * @cssprop [--calendar-selected=#3b82f6] - Selected color
  */
 export class CalendarInline extends LitElement {
   static properties = {

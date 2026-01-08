@@ -67,14 +67,14 @@ export class TabPanel extends LitElement {
  * @element tab-nav
  * @slot - Default slot for tab-panel elements
  * @fires tab-change - Fired when active tab changes
- * @cssprop --tab-bg - Tab bar background (default: #f9fafb)
- * @cssprop --tab-border - Border color (default: #e5e7eb)
- * @cssprop --tab-text - Tab text color (default: #6b7280)
- * @cssprop --tab-active-text - Active tab text (default: #1f2937)
- * @cssprop --tab-active-border - Active indicator color (default: #3b82f6)
- * @cssprop --tab-hover-bg - Tab hover background (default: #f3f4f6)
- * @cssprop --tab-focus - Focus outline color (default: #3b82f6)
- * @cssprop --tab-disabled - Disabled tab color (default: #d1d5db)
+ * @cssprop [--tab-bg=#f9fafb] - Tab bar background
+ * @cssprop [--tab-border=#e5e7eb] - Border color
+ * @cssprop [--tab-text=#6b7280] - Tab text color
+ * @cssprop [--tab-active-text=#1f2937] - Active tab text
+ * @cssprop [--tab-active-border=#3b82f6] - Active indicator color
+ * @cssprop [--tab-hover-bg=#f3f4f6] - Tab hover background
+ * @cssprop [--tab-focus=#3b82f6] - Focus outline color
+ * @cssprop [--tab-disabled=#d1d5db] - Disabled tab color
  */
 export class TabNav extends LitElement {
   static properties = {

@@ -12,24 +12,29 @@
           "name": "SlideNotification",
           "cssProperties": [
             {
-              "description": "Width (default: 300px)",
-              "name": "--slide-notification-width"
+              "description": "Width",
+              "name": "--slide-notification-width",
+              "default": "300px"
             },
             {
-              "description": "Background color (default: #17a2b8)",
-              "name": "--slide-notification-bg"
+              "description": "Background color",
+              "name": "--slide-notification-bg",
+              "default": "#17a2b8"
             },
             {
-              "description": "Text color (default: white)",
-              "name": "--slide-notification-color"
+              "description": "Text color",
+              "name": "--slide-notification-color",
+              "default": "white"
             },
             {
-              "description": "Border radius (default: 8px)",
-              "name": "--slide-notification-radius"
+              "description": "Border radius",
+              "name": "--slide-notification-radius",
+              "default": "8px"
             },
             {
-              "description": "Z-index (default: 10000)",
-              "name": "--slide-notification-z-index"
+              "description": "Z-index",
+              "name": "--slide-notification-z-index",
+              "default": "10000"
             }
           ],
           "members": [

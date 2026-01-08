@@ -12,24 +12,29 @@
           "name": "RadarChart",
           "cssProperties": [
             {
-              "description": "Chart size (default: 300px)",
-              "name": "--radar-size"
+              "description": "Chart size",
+              "name": "--radar-size",
+              "default": "300px"
             },
             {
-              "description": "Background color (default: #fff)",
-              "name": "--radar-bg"
+              "description": "Background color",
+              "name": "--radar-bg",
+              "default": "#fff"
             },
             {
-              "description": "Grid line color (default: #e2e8f0)",
-              "name": "--radar-grid-color"
+              "description": "Grid line color",
+              "name": "--radar-grid-color",
+              "default": "#e2e8f0"
             },
             {
-              "description": "Axis line color (default: #94a3b8)",
-              "name": "--radar-axis-color"
+              "description": "Axis line color",
+              "name": "--radar-axis-color",
+              "default": "#94a3b8"
             },
             {
-              "description": "Label text color (default: #475569)",
-              "name": "--radar-label-color"
+              "description": "Label text color",
+              "name": "--radar-label-color",
+              "default": "#475569"
             }
           ],
           "members": [

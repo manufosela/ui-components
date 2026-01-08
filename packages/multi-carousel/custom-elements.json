@@ -12,32 +12,39 @@
           "name": "MultiCarousel",
           "cssProperties": [
             {
-              "description": "Carousel width (default: 100%)",
-              "name": "--carousel-width"
+              "description": "Carousel width",
+              "name": "--carousel-width",
+              "default": "100%"
             },
             {
-              "description": "Carousel height (default: 300px)",
-              "name": "--carousel-height"
+              "description": "Carousel height",
+              "name": "--carousel-height",
+              "default": "300px"
             },
             {
-              "description": "Background color (default: #f8fafc)",
-              "name": "--carousel-bg"
+              "description": "Background color",
+              "name": "--carousel-bg",
+              "default": "#f8fafc"
             },
             {
-              "description": "Navigation dot color (default: #94a3b8)",
-              "name": "--carousel-nav-color"
+              "description": "Navigation dot color",
+              "name": "--carousel-nav-color",
+              "default": "#94a3b8"
             },
             {
-              "description": "Active nav color (default: #3b82f6)",
-              "name": "--carousel-nav-active"
+              "description": "Active nav color",
+              "name": "--carousel-nav-active",
+              "default": "#3b82f6"
             },
             {
-              "description": "Arrow color (default: #64748b)",
-              "name": "--carousel-arrow-color"
+              "description": "Arrow color",
+              "name": "--carousel-arrow-color",
+              "default": "#64748b"
             },
             {
-              "description": "Transition duration (default: 0.4s)",
-              "name": "--carousel-transition"
+              "description": "Transition duration",
+              "name": "--carousel-transition",
+              "default": "0.4s"
             }
           ],
           "slots": [

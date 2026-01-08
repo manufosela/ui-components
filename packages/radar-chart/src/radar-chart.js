@@ -5,11 +5,11 @@ import { LitElement, html, css, svg } from 'lit';
  *
  * @element radar-chart
  * @fires data-point-click - Fired when a data point is clicked
- * @cssprop --radar-size - Chart size (default: 300px)
- * @cssprop --radar-bg - Background color (default: #fff)
- * @cssprop --radar-grid-color - Grid line color (default: #e2e8f0)
- * @cssprop --radar-axis-color - Axis line color (default: #94a3b8)
- * @cssprop --radar-label-color - Label text color (default: #475569)
+ * @cssprop [--radar-size=300px] - Chart size
+ * @cssprop [--radar-bg=#fff] - Background color
+ * @cssprop [--radar-grid-color=#e2e8f0] - Grid line color
+ * @cssprop [--radar-axis-color=#94a3b8] - Axis line color
+ * @cssprop [--radar-label-color=#475569] - Label text color
  */
 export class RadarChart extends LitElement {
   static properties = {

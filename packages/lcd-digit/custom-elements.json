@@ -12,24 +12,29 @@
           "name": "LcdDigit",
           "cssProperties": [
             {
-              "description": "Segment length (default: 30px)",
-              "name": "--lcd-segment-length"
+              "description": "Segment length",
+              "name": "--lcd-segment-length",
+              "default": "30px"
             },
             {
-              "description": "Segment width (default: 6px)",
-              "name": "--lcd-segment-width"
+              "description": "Segment width",
+              "name": "--lcd-segment-width",
+              "default": "6px"
             },
             {
-              "description": "Active segment color (default: #22c55e)",
-              "name": "--lcd-digit-on-color"
+              "description": "Active segment color",
+              "name": "--lcd-digit-on-color",
+              "default": "#22c55e"
             },
             {
-              "description": "Inactive segment color (default: rgba(0,0,0,0.1))",
-              "name": "--lcd-digit-off-color"
+              "description": "Inactive segment color)",
+              "name": "--lcd-digit-off-color",
+              "default": "rgba(0,0,0,0.1"
             },
             {
-              "description": "Glow effect color (default: rgba(34,197,94,0.5))",
-              "name": "--lcd-digit-glow-color"
+              "description": "Glow effect color)",
+              "name": "--lcd-digit-glow-color",
+              "default": "rgba(34,197,94,0.5"
             }
           ],
           "members": [

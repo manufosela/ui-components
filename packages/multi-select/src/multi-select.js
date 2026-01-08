@@ -22,10 +22,10 @@ import { multiSelectStyles } from './multi-select.styles.js';
  *   <option value="cherry">Cherry</option>
  * </multi-select>
  *
- * @cssprop --multi-select-min-width - Minimum width (default: 200px)
- * @cssprop --multi-select-bg - Background color (default: white)
- * @cssprop --multi-select-border-color - Border color (default: #dee2e6)
- * @cssprop --multi-select-radius - Border radius (default: 4px)
+ * @cssprop [--multi-select-min-width=200px] - Minimum width
+ * @cssprop [--multi-select-bg=white] - Background color
+ * @cssprop [--multi-select-border-color=#dee2e6] - Border color
+ * @cssprop [--multi-select-radius=4px] - Border radius
  */
 export class MultiSelect extends LitElement {
   static styles = multiSelectStyles;

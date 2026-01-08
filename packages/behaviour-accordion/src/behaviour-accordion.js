@@ -155,15 +155,15 @@ export class AccordionItem extends LitElement {
  * @element behaviour-accordion
  * @slot - Default slot for accordion-item elements
  * @fires item-toggle - Fired when any item is toggled
- * @cssprop --accordion-border - Border color (default: #e5e7eb)
- * @cssprop --accordion-radius - Border radius (default: 8px)
- * @cssprop --accordion-header-bg - Header background (default: #f9fafb)
- * @cssprop --accordion-header-hover - Header hover background (default: #f3f4f6)
- * @cssprop --accordion-header-text - Header text color (default: #1f2937)
- * @cssprop --accordion-content-bg - Content background (default: #fff)
- * @cssprop --accordion-content-text - Content text color (default: #4b5563)
- * @cssprop --accordion-icon - Icon color (default: #6b7280)
- * @cssprop --accordion-focus - Focus outline color (default: #3b82f6)
+ * @cssprop [--accordion-border=#e5e7eb] - Border color
+ * @cssprop [--accordion-radius=8px] - Border radius
+ * @cssprop [--accordion-header-bg=#f9fafb] - Header background
+ * @cssprop [--accordion-header-hover=#f3f4f6] - Header hover background
+ * @cssprop [--accordion-header-text=#1f2937] - Header text color
+ * @cssprop [--accordion-content-bg=#fff] - Content background
+ * @cssprop [--accordion-content-text=#4b5563] - Content text color
+ * @cssprop [--accordion-icon=#6b7280] - Icon color
+ * @cssprop [--accordion-focus=#3b82f6] - Focus outline color
  */
 export class BehaviourAccordion extends LitElement {
   static properties = {

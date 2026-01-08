@@ -12,20 +12,24 @@
           "name": "ClickClock",
           "cssProperties": [
             {
-              "description": "Font size (default: 2rem)",
-              "name": "--clock-font-size"
+              "description": "Font size",
+              "name": "--clock-font-size",
+              "default": "2rem"
             },
             {
-              "description": "Font family (default: monospace)",
-              "name": "--clock-font-family"
+              "description": "Font family",
+              "name": "--clock-font-family",
+              "default": "monospace"
             },
             {
-              "description": "Text color (default: #1f2937)",
-              "name": "--clock-color"
+              "description": "Text color",
+              "name": "--clock-color",
+              "default": "#1f2937"
             },
             {
-              "description": "Background color (default: transparent)",
-              "name": "--clock-bg"
+              "description": "Background color",
+              "name": "--clock-bg",
+              "default": "transparent"
             }
           ],
           "members": [

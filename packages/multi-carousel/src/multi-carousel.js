@@ -8,13 +8,13 @@ import { MultiCarouselStyles } from './multi-carousel.styles.js';
  * @slot - Slide content elements
  * @fires slide-change - Fired when slide changes. Detail: { index, total }
  *
- * @cssprop --carousel-width - Carousel width (default: 100%)
- * @cssprop --carousel-height - Carousel height (default: 300px)
- * @cssprop --carousel-bg - Background color (default: #f8fafc)
- * @cssprop --carousel-nav-color - Navigation dot color (default: #94a3b8)
- * @cssprop --carousel-nav-active - Active nav color (default: #3b82f6)
- * @cssprop --carousel-arrow-color - Arrow color (default: #64748b)
- * @cssprop --carousel-transition - Transition duration (default: 0.4s)
+ * @cssprop [--carousel-width=100%] - Carousel width
+ * @cssprop [--carousel-height=300px] - Carousel height
+ * @cssprop [--carousel-bg=#f8fafc] - Background color
+ * @cssprop [--carousel-nav-color=#94a3b8] - Navigation dot color
+ * @cssprop [--carousel-nav-active=#3b82f6] - Active nav color
+ * @cssprop [--carousel-arrow-color=#64748b] - Arrow color
+ * @cssprop [--carousel-transition=0.4s] - Transition duration
  */
 export class MultiCarousel extends LitElement {
   static properties = {

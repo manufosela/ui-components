@@ -10,6 +10,8 @@ import { LitElement, html, css } from 'lit';
  * @attr {Number} start-year - Start year of the timeline
  * @attr {Number} end-year - End year of the timeline
  *
+ * @slot - Default slot for timeline-item elements
+ *
  * @csspart title - The title element
  * @csspart container - The table container
  *

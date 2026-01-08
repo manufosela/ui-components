@@ -8,17 +8,17 @@ import { NavListStyles } from './nav-list.styles.js';
  * @element nav-list
  * @fires navlist-changed - Fired when selection changes. Detail: { value, pos, id }
  *
- * @cssprop --nav-list-gap - Gap between items (default: 5px)
- * @cssprop --nav-list-padding - Item padding (default: 10px 20px)
- * @cssprop --nav-list-font-size - Font size (default: 14px)
- * @cssprop --nav-list-letter-spacing - Letter spacing (default: 2px)
- * @cssprop --nav-list-border-radius - Border radius (default: 4px)
- * @cssprop --nav-list-border-color - Border color (default: transparent)
- * @cssprop --nav-list-selected-border-color - Selected border color (default: #cc3743)
- * @cssprop --nav-list-selected-bg - Selected background (default: transparent)
- * @cssprop --nav-list-hover-bg - Hover background (default: rgba(0,0,0,0.05))
- * @cssprop --nav-list-title-size - Title font size (default: 16px)
- * @cssprop --nav-list-title-weight - Title font weight (default: 700)
+ * @cssprop [--nav-list-gap=5px] - Gap between items
+ * @cssprop [--nav-list-padding=10px 20px] - Item padding
+ * @cssprop [--nav-list-font-size=14px] - Font size
+ * @cssprop [--nav-list-letter-spacing=2px] - Letter spacing
+ * @cssprop [--nav-list-border-radius=4px] - Border radius
+ * @cssprop [--nav-list-border-color=transparent] - Border color
+ * @cssprop [--nav-list-selected-border-color=#cc3743] - Selected border color
+ * @cssprop [--nav-list-selected-bg=transparent] - Selected background
+ * @cssprop [--nav-list-hover-bg=rgba(0,0,0,0.05] - Hover background)
+ * @cssprop [--nav-list-title-size=16px] - Title font size
+ * @cssprop [--nav-list-title-weight=700] - Title font weight
  */
 export class NavList extends LitElement {
   static properties = {

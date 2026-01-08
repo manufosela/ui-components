@@ -11,12 +11,12 @@ import { themeToggleStyles } from './theme-toggle.styles.js';
  * @attr {Boolean} persist - Whether to persist theme to localStorage (default: true)
  * @attr {String} storage-key - LocalStorage key for persisting theme (default: 'theme')
  *
- * @cssprop --theme-toggle-padding - Container padding (default: 4px)
- * @cssprop --theme-toggle-bg - Background color (default: #f3f4f6)
- * @cssprop --theme-toggle-radius - Border radius (default: 9999px)
- * @cssprop --theme-toggle-button-size - Button size (default: 36px)
- * @cssprop --theme-toggle-icon-size - Icon size (default: 20px)
- * @cssprop --theme-toggle-active-bg - Active button background (default: #fff)
+ * @cssprop [--theme-toggle-padding=4px] - Container padding
+ * @cssprop [--theme-toggle-bg=#f3f4f6] - Background color
+ * @cssprop [--theme-toggle-radius=9999px] - Border radius
+ * @cssprop [--theme-toggle-button-size=36px] - Button size
+ * @cssprop [--theme-toggle-icon-size=20px] - Icon size
+ * @cssprop [--theme-toggle-active-bg=#fff] - Active button background
  */
 export class ThemeToggle extends LitElement {
   static styles = themeToggleStyles;

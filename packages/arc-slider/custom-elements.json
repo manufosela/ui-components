@@ -12,12 +12,14 @@
           "name": "ArcSlider",
           "cssProperties": [
             {
-              "description": "Text color (default: #000)",
-              "name": "--arc-slider-text-color"
+              "description": "Text color",
+              "name": "--arc-slider-text-color",
+              "default": "#000"
             },
             {
-              "description": "Size of the thumb (default: 20px)",
-              "name": "--arc-slider-thumb-size"
+              "description": "Size of the thumb",
+              "name": "--arc-slider-thumb-size",
+              "default": "20px"
             }
           ],
           "members": [

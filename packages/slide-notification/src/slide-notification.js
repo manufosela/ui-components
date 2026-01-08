@@ -30,11 +30,11 @@ const ICONS = {
  * @attr {String} background-color - Custom background color
  * @attr {Boolean} persistent - If true, notification stays until clicked (same as timetohide=0)
  *
- * @cssprop --slide-notification-width - Width (default: 300px)
- * @cssprop --slide-notification-bg - Background color (default: #17a2b8)
- * @cssprop --slide-notification-color - Text color (default: white)
- * @cssprop --slide-notification-radius - Border radius (default: 8px)
- * @cssprop --slide-notification-z-index - Z-index (default: 10000)
+ * @cssprop [--slide-notification-width=300px] - Width
+ * @cssprop [--slide-notification-bg=#17a2b8] - Background color
+ * @cssprop [--slide-notification-color=white] - Text color
+ * @cssprop [--slide-notification-radius=8px] - Border radius
+ * @cssprop [--slide-notification-z-index=10000] - Z-index
  */
 export class SlideNotification extends LitElement {
   static styles = slideNotificationStyles;

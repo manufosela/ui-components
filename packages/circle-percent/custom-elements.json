@@ -13,35 +13,43 @@
           "cssProperties": [
             {
               "description": "Font family",
-              "name": "--circle-percent-font-family"
+              "name": "--circle-percent-font-family",
+              "default": "inherit"
             },
             {
-              "description": "Background circle color (default: #e5e7eb)",
-              "name": "--circle-percent-bg-color"
+              "description": "Background circle color",
+              "name": "--circle-percent-bg-color",
+              "default": "#e5e7eb"
             },
             {
-              "description": "Percentage text size (default: 1.5rem)",
-              "name": "--circle-percent-text-size"
+              "description": "Percentage text size",
+              "name": "--circle-percent-text-size",
+              "default": "1.5rem"
             },
             {
-              "description": "Percentage text weight (default: 600)",
-              "name": "--circle-percent-text-weight"
+              "description": "Percentage text weight",
+              "name": "--circle-percent-text-weight",
+              "default": "600"
             },
             {
               "description": "Percentage text color",
-              "name": "--circle-percent-text-color"
+              "name": "--circle-percent-text-color",
+              "default": "currentColor"
             },
             {
-              "description": "Title text size (default: 0.875rem)",
-              "name": "--circle-percent-title-size"
+              "description": "Title text size",
+              "name": "--circle-percent-title-size",
+              "default": "0.875rem"
             },
             {
-              "description": "Title text color (default: #6b7280)",
-              "name": "--circle-percent-title-color"
+              "description": "Title text color",
+              "name": "--circle-percent-title-color",
+              "default": "#6b7280"
             },
             {
-              "description": "Transition duration (default: 0.5s)",
-              "name": "--circle-percent-animation-duration"
+              "description": "Transition duration",
+              "name": "--circle-percent-animation-duration",
+              "default": "0.5s"
             }
           ],
           "members": [

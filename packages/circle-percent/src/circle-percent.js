@@ -14,14 +14,14 @@ import { circlePercentStyles } from './circle-percent.styles.js';
  * @attr {Boolean} show-percent - Whether to display the percentage text (default: true)
  * @attr {String} size - Predefined size: 'small', 'medium', 'large' (default: medium)
  *
- * @cssprop --circle-percent-font-family - Font family
- * @cssprop --circle-percent-bg-color - Background circle color (default: #e5e7eb)
- * @cssprop --circle-percent-text-size - Percentage text size (default: 1.5rem)
- * @cssprop --circle-percent-text-weight - Percentage text weight (default: 600)
- * @cssprop --circle-percent-text-color - Percentage text color
- * @cssprop --circle-percent-title-size - Title text size (default: 0.875rem)
- * @cssprop --circle-percent-title-color - Title text color (default: #6b7280)
- * @cssprop --circle-percent-animation-duration - Transition duration (default: 0.5s)
+ * @cssprop [--circle-percent-font-family=inherit] - Font family
+ * @cssprop [--circle-percent-bg-color=#e5e7eb] - Background circle color
+ * @cssprop [--circle-percent-text-size=1.5rem] - Percentage text size
+ * @cssprop [--circle-percent-text-weight=600] - Percentage text weight
+ * @cssprop [--circle-percent-text-color=currentColor] - Percentage text color
+ * @cssprop [--circle-percent-title-size=0.875rem] - Title text size
+ * @cssprop [--circle-percent-title-color=#6b7280] - Title text color
+ * @cssprop [--circle-percent-animation-duration=0.5s] - Transition duration
  */
 export class CirclePercent extends LitElement {
   static styles = circlePercentStyles;

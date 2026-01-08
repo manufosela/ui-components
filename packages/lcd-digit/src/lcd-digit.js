@@ -11,11 +11,11 @@ import { lcdDigitStyles } from './lcd-digit.styles.js';
  * @attr {Boolean} colon - Show colon after digit (for clock displays)
  * @attr {Boolean} colon-on - Whether colon is lit
  *
- * @cssprop --lcd-segment-length - Segment length (default: 30px)
- * @cssprop --lcd-segment-width - Segment width (default: 6px)
- * @cssprop --lcd-digit-on-color - Active segment color (default: #22c55e)
- * @cssprop --lcd-digit-off-color - Inactive segment color (default: rgba(0,0,0,0.1))
- * @cssprop --lcd-digit-glow-color - Glow effect color (default: rgba(34,197,94,0.5))
+ * @cssprop [--lcd-segment-length=30px] - Segment length
+ * @cssprop [--lcd-segment-width=6px] - Segment width
+ * @cssprop [--lcd-digit-on-color=#22c55e] - Active segment color
+ * @cssprop [--lcd-digit-off-color=rgba(0,0,0,0.1] - Inactive segment color)
+ * @cssprop [--lcd-digit-glow-color=rgba(34,197,94,0.5] - Glow effect color)
  */
 export class LcdDigit extends LitElement {
   static styles = lcdDigitStyles;

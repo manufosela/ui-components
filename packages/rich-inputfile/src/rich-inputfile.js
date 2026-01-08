@@ -7,10 +7,10 @@ import { LitElement, html, css } from 'lit';
  * @fires file-change - Fired when a file is selected
  * @fires file-clear - Fired when the file is cleared
  * @fires file-error - Fired when file validation fails
- * @cssprop --input-border - Border color (default: #d1d5db)
- * @cssprop --input-border-focus - Focus border color (default: #3b82f6)
- * @cssprop --input-bg - Background color (default: #fff)
- * @cssprop --input-radius - Border radius (default: 8px)
+ * @cssprop [--input-border=#d1d5db] - Border color
+ * @cssprop [--input-border-focus=#3b82f6] - Focus border color
+ * @cssprop [--input-bg=#fff] - Background color
+ * @cssprop [--input-radius=8px] - Border radius
  */
 export class RichInputfile extends LitElement {
   static properties = {

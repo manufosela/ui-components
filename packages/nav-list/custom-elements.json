@@ -12,48 +12,59 @@
           "name": "NavList",
           "cssProperties": [
             {
-              "description": "Gap between items (default: 5px)",
-              "name": "--nav-list-gap"
+              "description": "Gap between items",
+              "name": "--nav-list-gap",
+              "default": "5px"
             },
             {
-              "description": "Item padding (default: 10px 20px)",
-              "name": "--nav-list-padding"
+              "description": "Item padding",
+              "name": "--nav-list-padding",
+              "default": "10px 20px"
             },
             {
-              "description": "Font size (default: 14px)",
-              "name": "--nav-list-font-size"
+              "description": "Font size",
+              "name": "--nav-list-font-size",
+              "default": "14px"
             },
             {
-              "description": "Letter spacing (default: 2px)",
-              "name": "--nav-list-letter-spacing"
+              "description": "Letter spacing",
+              "name": "--nav-list-letter-spacing",
+              "default": "2px"
             },
             {
-              "description": "Border radius (default: 4px)",
-              "name": "--nav-list-border-radius"
+              "description": "Border radius",
+              "name": "--nav-list-border-radius",
+              "default": "4px"
             },
             {
-              "description": "Border color (default: transparent)",
-              "name": "--nav-list-border-color"
+              "description": "Border color",
+              "name": "--nav-list-border-color",
+              "default": "transparent"
             },
             {
-              "description": "Selected border color (default: #cc3743)",
-              "name": "--nav-list-selected-border-color"
+              "description": "Selected border color",
+              "name": "--nav-list-selected-border-color",
+              "default": "#cc3743"
             },
             {
-              "description": "Selected background (default: transparent)",
-              "name": "--nav-list-selected-bg"
+              "description": "Selected background",
+              "name": "--nav-list-selected-bg",
+              "default": "transparent"
             },
             {
-              "description": "Hover background (default: rgba(0,0,0,0.05))",
-              "name": "--nav-list-hover-bg"
+              "description": "Hover background)",
+              "name": "--nav-list-hover-bg",
+              "default": "rgba(0,0,0,0.05"
             },
             {
-              "description": "Title font size (default: 16px)",
-              "name": "--nav-list-title-size"
+              "description": "Title font size",
+              "name": "--nav-list-title-size",
+              "default": "16px"
             },
             {
-              "description": "Title font weight (default: 700)",
-              "name": "--nav-list-title-weight"
+              "description": "Title font weight",
+              "name": "--nav-list-title-weight",
+              "default": "700"
             }
           ],
           "members": [

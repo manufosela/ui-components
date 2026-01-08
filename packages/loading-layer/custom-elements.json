@@ -12,24 +12,29 @@
           "name": "LoadingLayer",
           "cssProperties": [
             {
-              "description": "Background color (default: rgba(0, 0, 0, 0.5))",
-              "name": "--loading-layer-bg"
+              "description": "Background color)",
+              "name": "--loading-layer-bg",
+              "default": "rgba(0, 0, 0, 0.5"
             },
             {
-              "description": "Z-index (default: 9999)",
-              "name": "--loading-layer-z-index"
+              "description": "Z-index",
+              "name": "--loading-layer-z-index",
+              "default": "9999"
             },
             {
-              "description": "Transition duration (default: 0.3s)",
-              "name": "--loading-layer-transition"
+              "description": "Transition duration",
+              "name": "--loading-layer-transition",
+              "default": "0.3s"
             },
             {
-              "description": "Spin animation duration (default: 1s)",
-              "name": "--loading-layer-spin-duration"
+              "description": "Spin animation duration",
+              "name": "--loading-layer-spin-duration",
+              "default": "1s"
             },
             {
-              "description": "Message text color (default: #fff)",
-              "name": "--loading-layer-text-color"
+              "description": "Message text color",
+              "name": "--loading-layer-text-color",
+              "default": "#fff"
             }
           ],
           "members": [

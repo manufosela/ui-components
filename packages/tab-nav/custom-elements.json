@@ -114,36 +114,44 @@
           "name": "TabNav",
           "cssProperties": [
             {
-              "description": "Tab bar background (default: #f9fafb)",
-              "name": "--tab-bg"
+              "description": "Tab bar background",
+              "name": "--tab-bg",
+              "default": "#f9fafb"
             },
             {
-              "description": "Border color (default: #e5e7eb)",
-              "name": "--tab-border"
+              "description": "Border color",
+              "name": "--tab-border",
+              "default": "#e5e7eb"
             },
             {
-              "description": "Tab text color (default: #6b7280)",
-              "name": "--tab-text"
+              "description": "Tab text color",
+              "name": "--tab-text",
+              "default": "#6b7280"
             },
             {
-              "description": "Active tab text (default: #1f2937)",
-              "name": "--tab-active-text"
+              "description": "Active tab text",
+              "name": "--tab-active-text",
+              "default": "#1f2937"
             },
             {
-              "description": "Active indicator color (default: #3b82f6)",
-              "name": "--tab-active-border"
+              "description": "Active indicator color",
+              "name": "--tab-active-border",
+              "default": "#3b82f6"
             },
             {
-              "description": "Tab hover background (default: #f3f4f6)",
-              "name": "--tab-hover-bg"
+              "description": "Tab hover background",
+              "name": "--tab-hover-bg",
+              "default": "#f3f4f6"
             },
             {
-              "description": "Focus outline color (default: #3b82f6)",
-              "name": "--tab-focus"
+              "description": "Focus outline color",
+              "name": "--tab-focus",
+              "default": "#3b82f6"
             },
             {
-              "description": "Disabled tab color (default: #d1d5db)",
-              "name": "--tab-disabled"
+              "description": "Disabled tab color",
+              "name": "--tab-disabled",
+              "default": "#d1d5db"
             }
           ],
           "slots": [

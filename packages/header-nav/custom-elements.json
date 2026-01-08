@@ -12,28 +12,34 @@
           "name": "HeaderNav",
           "cssProperties": [
             {
-              "description": "Header height (default: 60px)",
-              "name": "--header-height"
+              "description": "Header height",
+              "name": "--header-height",
+              "default": "60px"
             },
             {
-              "description": "Background color (default: #fff)",
-              "name": "--header-bg"
+              "description": "Background color",
+              "name": "--header-bg",
+              "default": "#fff"
             },
             {
-              "description": "Box shadow (default: 0 2px 4px rgba(0,0,0,0.1))",
-              "name": "--header-shadow"
+              "description": "Box shadow)",
+              "name": "--header-shadow",
+              "default": "0 2px 4px rgba(0,0,0,0.1"
             },
             {
-              "description": "Link color (default: #374151)",
-              "name": "--header-link-color"
+              "description": "Link color",
+              "name": "--header-link-color",
+              "default": "#374151"
             },
             {
-              "description": "Link hover color (default: #3b82f6)",
-              "name": "--header-link-hover"
+              "description": "Link hover color",
+              "name": "--header-link-hover",
+              "default": "#3b82f6"
             },
             {
-              "description": "Mobile breakpoint (default: 768px)",
-              "name": "--header-mobile-bp"
+              "description": "Mobile breakpoint",
+              "name": "--header-mobile-bp",
+              "default": "768px"
             }
           ],
           "slots": [

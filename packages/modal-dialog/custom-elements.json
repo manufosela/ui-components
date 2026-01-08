@@ -12,24 +12,29 @@
           "name": "ModalDialog",
           "cssProperties": [
             {
-              "description": "Z-index (default: 9999)",
-              "name": "--modal-z-index"
+              "description": "Z-index",
+              "name": "--modal-z-index",
+              "default": "9999"
             },
             {
-              "description": "Overlay background (default: rgba(0,0,0,0.5))",
-              "name": "--modal-overlay-bg"
+              "description": "Overlay background)",
+              "name": "--modal-overlay-bg",
+              "default": "rgba(0,0,0,0.5"
             },
             {
-              "description": "Modal background (default: #fff)",
-              "name": "--modal-bg"
+              "description": "Modal background",
+              "name": "--modal-bg",
+              "default": "#fff"
             },
             {
-              "description": "Border radius (default: 12px)",
-              "name": "--modal-radius"
+              "description": "Border radius",
+              "name": "--modal-radius",
+              "default": "12px"
             },
             {
-              "description": "Maximum width (default: 500px)",
-              "name": "--modal-max-width"
+              "description": "Maximum width",
+              "name": "--modal-max-width",
+              "default": "500px"
             }
           ],
           "slots": [

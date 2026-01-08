@@ -12,24 +12,29 @@
           "name": "CalendarInline",
           "cssProperties": [
             {
-              "description": "Background color (default: #fff)",
-              "name": "--calendar-bg"
+              "description": "Background color",
+              "name": "--calendar-bg",
+              "default": "#fff"
             },
             {
-              "description": "Text color (default: #1f2937)",
-              "name": "--calendar-text"
+              "description": "Text color",
+              "name": "--calendar-text",
+              "default": "#1f2937"
             },
             {
-              "description": "Accent color (default: #3b82f6)",
-              "name": "--calendar-accent"
+              "description": "Accent color",
+              "name": "--calendar-accent",
+              "default": "#3b82f6"
             },
             {
-              "description": "Today highlight (default: #dbeafe)",
-              "name": "--calendar-today"
+              "description": "Today highlight",
+              "name": "--calendar-today",
+              "default": "#dbeafe"
             },
             {
-              "description": "Selected color (default: #3b82f6)",
-              "name": "--calendar-selected"
+              "description": "Selected color",
+              "name": "--calendar-selected",
+              "default": "#3b82f6"
             }
           ],
           "members": [

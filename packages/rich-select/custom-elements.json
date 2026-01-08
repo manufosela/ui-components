@@ -155,44 +155,54 @@
           "name": "RichSelect",
           "cssProperties": [
             {
-              "description": "Width of the select (default: auto)",
-              "name": "--rich-select-width"
+              "description": "Width of the select",
+              "name": "--rich-select-width",
+              "default": "auto"
             },
             {
-              "description": "Font family (default: inherit)",
-              "name": "--rich-select-font-family"
+              "description": "Font family",
+              "name": "--rich-select-font-family",
+              "default": "inherit"
             },
             {
-              "description": "Padding of the trigger button (default: 8px 12px)",
-              "name": "--caller-padding"
+              "description": "Padding of the trigger button",
+              "name": "--caller-padding",
+              "default": "8px 12px"
             },
             {
-              "description": "Background of trigger (default: #fff)",
-              "name": "--caller-background"
+              "description": "Background of trigger",
+              "name": "--caller-background",
+              "default": "#fff"
             },
             {
-              "description": "Border of trigger (default: 1px solid #d1d5db)",
-              "name": "--caller-border"
+              "description": "Border of trigger",
+              "name": "--caller-border",
+              "default": "1px solid #d1d5db"
             },
             {
-              "description": "Border radius (default: 6px)",
-              "name": "--caller-border-radius"
+              "description": "Border radius",
+              "name": "--caller-border-radius",
+              "default": "6px"
             },
             {
-              "description": "Padding of options (default: 10px 12px)",
-              "name": "--option-padding"
+              "description": "Padding of options",
+              "name": "--option-padding",
+              "default": "10px 12px"
             },
             {
-              "description": "Background of considered option (default: #3b82f6)",
-              "name": "--option-active-background"
+              "description": "Background of considered option",
+              "name": "--option-active-background",
+              "default": "#3b82f6"
             },
             {
-              "description": "Background of selected option (default: #eff6ff)",
-              "name": "--option-selected-background"
+              "description": "Background of selected option",
+              "name": "--option-selected-background",
+              "default": "#eff6ff"
             },
             {
-              "description": "Max height of dropdown (default: 300px)",
-              "name": "--selectOptions-max-height"
+              "description": "Max height of dropdown",
+              "name": "--selectOptions-max-height",
+              "default": "300px"
             }
           ],
           "slots": [

@@ -12,28 +12,34 @@
           "name": "ThemeToggle",
           "cssProperties": [
             {
-              "description": "Container padding (default: 4px)",
-              "name": "--theme-toggle-padding"
+              "description": "Container padding",
+              "name": "--theme-toggle-padding",
+              "default": "4px"
             },
             {
-              "description": "Background color (default: #f3f4f6)",
-              "name": "--theme-toggle-bg"
+              "description": "Background color",
+              "name": "--theme-toggle-bg",
+              "default": "#f3f4f6"
             },
             {
-              "description": "Border radius (default: 9999px)",
-              "name": "--theme-toggle-radius"
+              "description": "Border radius",
+              "name": "--theme-toggle-radius",
+              "default": "9999px"
             },
             {
-              "description": "Button size (default: 36px)",
-              "name": "--theme-toggle-button-size"
+              "description": "Button size",
+              "name": "--theme-toggle-button-size",
+              "default": "36px"
             },
             {
-              "description": "Icon size (default: 20px)",
-              "name": "--theme-toggle-icon-size"
+              "description": "Icon size",
+              "name": "--theme-toggle-icon-size",
+              "default": "20px"
             },
             {
-              "description": "Active button background (default: #fff)",
-              "name": "--theme-toggle-active-bg"
+              "description": "Active button background",
+              "name": "--theme-toggle-active-bg",
+              "default": "#fff"
             }
           ],
           "members": [

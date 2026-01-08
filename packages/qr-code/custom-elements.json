@@ -12,16 +12,19 @@
           "name": "QrCode",
           "cssProperties": [
             {
-              "description": "QR code size (default: 200px)",
-              "name": "--qr-size"
+              "description": "QR code size",
+              "name": "--qr-size",
+              "default": "200px"
             },
             {
-              "description": "Foreground color (default: #000)",
-              "name": "--qr-fg"
+              "description": "Foreground color",
+              "name": "--qr-fg",
+              "default": "#000"
             },
             {
-              "description": "Background color (default: #fff)",
-              "name": "--qr-bg"
+              "description": "Background color",
+              "name": "--qr-bg",
+              "default": "#fff"
             }
           ],
           "members": [

@@ -489,9 +489,9 @@ const QRCode = (() => {
  * QR Code generator web component.
  *
  * @element qr-code
- * @cssprop --qr-size - QR code size (default: 200px)
- * @cssprop --qr-fg - Foreground color (default: #000)
- * @cssprop --qr-bg - Background color (default: #fff)
+ * @cssprop [--qr-size=200px] - QR code size
+ * @cssprop [--qr-fg=#000] - Foreground color
+ * @cssprop [--qr-bg=#fff] - Background color
  */
 export class QrCode extends LitElement {
   static properties = {

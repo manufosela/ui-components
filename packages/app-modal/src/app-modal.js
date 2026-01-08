@@ -2,6 +2,10 @@ import { LitElement, html, nothing } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { appModalStyles } from './app-modal.styles.js';
 
+function generateDefaultId(prefix = 'modal') {
+  return `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
 /**
  * A feature-rich modal component with configurable buttons and content.
  *
@@ -29,17 +33,12 @@ import { appModalStyles } from './app-modal.styles.js';
  *
  * @slot - Default slot for modal body content
  *
- * @cssprop --app-modal-z-index - Z-index (default: 1000)
- * @cssprop --app-modal-bg - Modal background (default: white)
- * @cssprop --app-modal-radius - Border radius (default: 8px)
- * @cssprop --app-modal-confirm-bg - Confirm button background (default: #4caf50)
- * @cssprop --app-modal-cancel-bg - Cancel button background (default: #f44336)
+ * @cssprop [--app-modal-z-index=1000] - Z-index
+ * @cssprop [--app-modal-bg=white] - Modal background
+ * @cssprop [--app-modal-radius=8px] - Border radius
+ * @cssprop [--app-modal-confirm-bg=#4caf50] - Confirm button background
+ * @cssprop [--app-modal-cancel-bg=#f44336] - Cancel button background
  */
-
-function generateDefaultId(prefix = 'modal') {
-  return `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-}
-
 export class AppModal extends LitElement {
   static styles = appModalStyles;
 

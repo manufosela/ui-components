@@ -15,11 +15,11 @@ import { starsRatingStyles } from './stars-rating.styles.js';
  * @attr {Boolean} disabled - Disable interaction (default: false)
  * @attr {String} star - Star character to use (default: ★)
  *
- * @cssprop --stars-rating-size - Star size (default: 24px)
- * @cssprop --stars-rating-gap - Gap between stars (default: 4px)
- * @cssprop --stars-rating-color - Filled star color (default: #fbbf24)
- * @cssprop --stars-rating-empty-color - Empty star color (default: #e5e7eb)
- * @cssprop --stars-rating-reset-color - Reset button color (default: #6b7280)
+ * @cssprop [--stars-rating-size=24px] - Star size
+ * @cssprop [--stars-rating-gap=4px] - Gap between stars
+ * @cssprop [--stars-rating-color=#fbbf24] - Filled star color
+ * @cssprop [--stars-rating-empty-color=#e5e7eb] - Empty star color
+ * @cssprop [--stars-rating-reset-color=#6b7280] - Reset button color
  */
 export class StarsRating extends LitElement {
   static styles = starsRatingStyles;
