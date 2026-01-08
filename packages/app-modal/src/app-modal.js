@@ -85,6 +85,7 @@ export class AppModal extends LitElement {
     this.button3Action = () => {};
     this._pendingContent = null;
     this._declarativeMode = false;
+    this._programmaticMode = false;
 
     this._handleKeydown = this._handleKeydown.bind(this);
   }
@@ -96,16 +97,18 @@ export class AppModal extends LitElement {
       this.modalId = generateDefaultId('modal');
     }
 
-    // Detect declarative mode: if 'open' attribute exists or was set programmatically
-    this._declarativeMode = this.hasAttribute('open') || this.open !== undefined;
+    // Detect declarative mode: if 'open' attribute exists, open property was set, or NOT programmatic
+    // Programmatic mode (via showModal()) auto-shows; declarative mode requires open attribute
+    this._declarativeMode =
+      this.hasAttribute('open') || this.open !== undefined || !this._programmaticMode;
 
-    // In declarative mode, respect the open property; otherwise show immediately (legacy behavior)
-    const shouldShow = this._declarativeMode ? this.open : true;
+    // In programmatic mode, auto-show; in declarative mode, respect the open property
+    const shouldShow = this._programmaticMode || (this._declarativeMode && this.open);
 
     if (shouldShow) {
       this._showModal();
     } else {
-      // Hide initially in declarative mode when open is false
+      // Hide initially in declarative mode when open is false/undefined
       this.style.display = 'none';
     }
 
@@ -398,6 +401,9 @@ export function showModal(options = {}) {
   modal.button3Action = options.button3Action || (() => {});
   modal.showHeader = options.showHeader ?? true;
   modal.showFooter = options.showFooter ?? true;
+
+  // Mark as programmatic so it auto-shows on append
+  modal._programmaticMode = true;
 
   document.body.appendChild(modal);
 

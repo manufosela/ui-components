@@ -287,6 +287,14 @@
             },
             {
               "kind": "field",
+              "name": "_programmaticMode",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
               "name": "open",
               "privacy": "public",
               "type": {

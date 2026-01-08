@@ -236,7 +236,7 @@ showModal({
 });</div>
   </div>
 
-  <!-- Declarative modals (hidden initially with CSS, controlled by open property) -->
+  <!-- Declarative modals (hidden by default, controlled by open property) -->
   <app-modal
     id="declarativeModal"
     title="Confirm Delete"
@@ -244,14 +244,12 @@ showModal({
     button1-text="Delete"
     button2-text="Cancel"
     button1-css="background: #ef4444;"
-    style="display: none;"
   ></app-modal>
 
   <app-modal
     id="slottedModal"
     title="Custom Content"
     button1-text="Got it"
-    style="display: none;"
   >
     <p>This content is <strong>slotted</strong> into the modal.</p>
     <ul>
@@ -264,13 +262,9 @@ showModal({
     import '../src/app-modal.js';
     import { showModal } from '../src/app-modal.js';
 
-    // Initialize declarative modals
+    // Get declarative modals (hidden by default, no initialization needed)
     const declarativeModal = document.getElementById('declarativeModal');
     const slottedModal = document.getElementById('slottedModal');
-
-    // Enable declarative mode by setting open property
-    declarativeModal.open = false;
-    slottedModal.open = false;
 
     // Declarative modal event handlers
     document.getElementById('showDeclarative').addEventListener('click', () => {

@@ -32,7 +32,7 @@ Use the `open` attribute to control visibility. The modal persists in the DOM an
   import '@manufosela/app-modal';
 
   const modal = document.getElementById('confirmModal');
-  modal.open = false; // Initialize as closed
+  // Declarative modals are hidden by default - no initialization needed
 
   modal.addEventListener('modal-action1', () => {
     console.log('Deleted!');
@@ -114,7 +114,7 @@ showModal({
 | `button3-css`   | String  | `''`     | Third button inline CSS                          |
 | `modal-id`      | String  | auto     | Unique modal identifier                          |
 
-> **Note:** When the `open` property is set (even to `false`), the modal enters declarative mode. In this mode, `close()` hides the modal instead of destroying it, allowing reuse.
+> **Note:** Declarative modals (placed in HTML) are hidden by default and shown when `open` is set to `true`. In declarative mode, `close()` hides the modal instead of destroying it, allowing reuse. Modals created via `showModal()` auto-show and auto-destroy on close.
 
 ## Methods
 

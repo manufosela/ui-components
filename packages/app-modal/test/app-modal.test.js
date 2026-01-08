@@ -164,12 +164,16 @@ describe('AppModal', () => {
   });
 
   describe('Methods', () => {
-    it('close() removes modal from DOM', async () => {
-      const el = await fixture(html`<app-modal></app-modal>`);
-      el.close();
+    it('close() hides modal in declarative mode', async () => {
+      const el = await fixture(html`<app-modal open></app-modal>`);
+      await el.updateComplete;
+      expect(el.open).to.be.true;
 
+      el.close();
       await new Promise((resolve) => setTimeout(resolve, 350));
-      expect(document.querySelector('app-modal')).to.be.null;
+      expect(el.open).to.be.false;
+      expect(el.style.display).to.equal('none');
+      expect(el.isConnected).to.be.true; // Modal stays in DOM
     });
 
     it('setContent() sets content element properties', async () => {
@@ -346,21 +350,31 @@ describe('AppModal', () => {
     });
   });
 
-  describe('Retrocompatibility (programmatic mode)', () => {
-    it('shows automatically when open is not set', async () => {
-      const el = await fixture(html`<app-modal></app-modal>`);
+  describe('Programmatic mode (via showModal)', () => {
+    it('shows automatically when created via showModal()', async () => {
+      // Import showModal dynamically
+      const { showModal } = await import('../src/app-modal.js');
+      const el = showModal({ title: 'Test' });
       await el.updateComplete;
       await new Promise((resolve) => setTimeout(resolve, 50));
       expect(el.style.display).to.not.equal('none');
     });
 
     it('destroys modal on close() in programmatic mode', async () => {
-      const el = await fixture(html`<app-modal></app-modal>`);
+      const { showModal } = await import('../src/app-modal.js');
+      const el = showModal({ title: 'Test' });
       await el.updateComplete;
 
       el.close();
       await new Promise((resolve) => setTimeout(resolve, 350));
-      expect(document.querySelector('app-modal')).to.be.null;
+      expect(document.body.contains(el)).to.be.false;
+    });
+
+    it('stays hidden when created declaratively without open', async () => {
+      // Declarative modals (in HTML) should NOT auto-show
+      const el = await fixture(html`<app-modal></app-modal>`);
+      await el.updateComplete;
+      expect(el.style.display).to.equal('none');
     });
   });
 });
