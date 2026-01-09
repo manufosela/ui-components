@@ -108,7 +108,6 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
-  
     footer {
       text-align: center;
       margin-top: 2rem;
@@ -138,6 +137,18 @@
       <p>Modifica los atributos en el panel "Knobs" y observa los cambios en tiempo real. El codigo HTML se actualiza automaticamente.</p>
     </div>
 
+
+    <div class="info-box" style="margin-bottom: 1.5rem;">
+      <p><strong>Live Example</strong> (with slot content - api-demo below doesn't show slots)</p>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <multi-select>
+      <select-option value="opt1">Option 1</select-option>
+      <select-option value="opt2">Option 2</select-option>
+      <select-option value="opt3">Option 3</select-option>
+      </multi-select>
+    </div>
+
     <api-demo src="../custom-elements.json" only="multi-select"></api-demo>
 
     <footer>
@@ -154,7 +165,6 @@
     </footer>
   </div>
 
-  
   <script>
     document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
   </script>

@@ -98,7 +98,7 @@ Si construyes cosas tipo Tabs, Menu, Combobox, Dialog, Listbox... sigue los [pat
 
 ### app-modal
 
-- [ ] Bug: cuando marco el check de `open`, se ve el shadow pero no la modal
+- [x] Bug: cuando marco el check de `open`, se ve el shadow pero no la modal (fix: doble rAF)
 
 ### multi-carousel
 
@@ -113,9 +113,16 @@ Si construyes cosas tipo Tabs, Menu, Combobox, Dialog, Listbox... sigue los [pat
 
 ## Playgrounds con slots
 
-Revisar que componentes que necesitan slots no tienen en su source de playground dichos slots para que se vean correctamente:
+Componentes con slots ahora tienen seccion "Live Example" con contenido por defecto:
 
-- [ ] **header-nav**: no funciona si no se ponen slots en el source
-- [ ] **circle-steps**: no funciona si no se ponen slots en el source
-- [ ] **radar-chart**: necesita `chart-series` y `chart-values`
-- [ ] Revisar todos los demas componentes que usan slots
+- [x] **header-nav**: añadido ejemplo con links de navegacion
+- [x] **circle-steps**: añadido ejemplo con step-items
+- [x] **radar-chart**: añadido ejemplo con chart-series y chart-values
+- [x] **behaviour-accordion**: añadido ejemplo con accordion-items
+- [x] **tab-nav**: añadido ejemplo con tab-items
+- [x] **multi-carousel**: añadido ejemplo con slides
+- [x] **nav-list**: añadido ejemplo con nav-items
+- [x] **rich-select**: añadido ejemplo con rich-options
+- [x] **multi-select**: añadido ejemplo con select-options
+
+Script `generate-playgrounds.js` actualizado para incluir contenido por defecto.

@@ -36,7 +36,53 @@ function getTagName(pkgPath) {
   return null;
 }
 
-const playgroundTemplate = (componentName, displayName, tagName, jsFile) => `<!DOCTYPE html>
+// Default slot content for components that need it
+const defaultSlotContent = {
+  'header-nav': `
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>`,
+  'circle-steps': `
+      <step-item label="Step 1" description="First step"></step-item>
+      <step-item label="Step 2" description="Second step"></step-item>
+      <step-item label="Step 3" description="Third step"></step-item>
+      <step-item label="Step 4" description="Fourth step"></step-item>`,
+  'radar-chart': `
+      <chart-series name="Player" color="#3b82f6">
+        <chart-value label="Speed">80</chart-value>
+        <chart-value label="Power">65</chart-value>
+        <chart-value label="Defense">90</chart-value>
+        <chart-value label="Magic">45</chart-value>
+        <chart-value label="Luck">70</chart-value>
+      </chart-series>`,
+  'behaviour-accordion': `
+      <accordion-item header="Section 1">Content for section 1</accordion-item>
+      <accordion-item header="Section 2">Content for section 2</accordion-item>
+      <accordion-item header="Section 3">Content for section 3</accordion-item>`,
+  'tab-nav': `
+      <tab-item label="Tab 1">Content for Tab 1</tab-item>
+      <tab-item label="Tab 2">Content for Tab 2</tab-item>
+      <tab-item label="Tab 3">Content for Tab 3</tab-item>`,
+  'multi-carousel': `
+      <div style="background:#3b82f6;color:white;padding:2rem;text-align:center;">Slide 1</div>
+      <div style="background:#22c55e;color:white;padding:2rem;text-align:center;">Slide 2</div>
+      <div style="background:#8b5cf6;color:white;padding:2rem;text-align:center;">Slide 3</div>`,
+  'nav-list': `
+      <nav-item value="home">Home</nav-item>
+      <nav-item value="about">About</nav-item>
+      <nav-item value="contact">Contact</nav-item>`,
+  'rich-select': `
+      <rich-option value="opt1">Option 1</rich-option>
+      <rich-option value="opt2">Option 2</rich-option>
+      <rich-option value="opt3">Option 3</rich-option>`,
+  'multi-select': `
+      <select-option value="opt1">Option 1</select-option>
+      <select-option value="opt2">Option 2</select-option>
+      <select-option value="opt3">Option 3</select-option>`,
+};
+
+const playgroundTemplate = (componentName, displayName, tagName, jsFile, slotContent) => `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -146,6 +192,16 @@ const playgroundTemplate = (componentName, displayName, tagName, jsFile) => `<!D
       font-size: 0.85rem;
       color: var(--text-muted);
     }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e5e7eb;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--text-color); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -165,9 +221,34 @@ const playgroundTemplate = (componentName, displayName, tagName, jsFile) => `<!D
       <p>Modifica los atributos en el panel "Knobs" y observa los cambios en tiempo real. El codigo HTML se actualiza automaticamente.</p>
     </div>
 
+${slotContent ? `
+    <div class="info-box" style="margin-bottom: 1.5rem;">
+      <p><strong>Live Example</strong> (with slot content - api-demo below doesn't show slots)</p>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <${tagName}>${slotContent}
+      </${tagName}>
+    </div>
+` : ''}
     <api-demo src="../custom-elements.json" only="${tagName}"></api-demo>
+
+    <footer>
+      <p>
+        <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+        <a href="https://www.npmjs.com/package/@manufosela/${componentName}">npm</a>
+      </p>
+      <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
+          <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
+        </a>
+      </p>
+    </footer>
   </div>
 
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
   <script type="module">
     // api-demo element (incluye Lit 2 bundled)
     import 'https://esm.sh/@api-viewer/demo@1.0.0-pre.10?bundle';
@@ -208,9 +289,10 @@ for (const pkg of packages) {
 
   const displayName = toTitleCase(pkg);
   const playgroundPath = join(pkgPath, 'demo', 'playground.html');
+  const slotContent = defaultSlotContent[pkg] || '';
 
   try {
-    writeFileSync(playgroundPath, playgroundTemplate(pkg, displayName, tagName, jsFile));
+    writeFileSync(playgroundPath, playgroundTemplate(pkg, displayName, tagName, jsFile, slotContent));
     console.log(`  ✓ ${pkg}`);
     successCount++;
   } catch (error) {
