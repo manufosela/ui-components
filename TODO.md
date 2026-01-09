@@ -93,8 +93,8 @@ Si construyes cosas tipo Tabs, Menu, Combobox, Dialog, Listbox... sigue los [pat
 
 ### circle-percent
 
-- [ ] Añadir ejemplo en demo de avance del 1% cada 100ms al darle a un boton
-- [ ] Añadir boton de reset en el ejemplo
+- [x] Añadir ejemplo en demo de avance del 1% cada 100ms al darle a un boton
+- [x] Añadir boton de reset en el ejemplo
 
 ### app-modal
 
@@ -102,7 +102,7 @@ Si construyes cosas tipo Tabs, Menu, Combobox, Dialog, Listbox... sigue los [pat
 
 ### multi-carousel
 
-- [ ] Usar imagenes free en algun ejemplo de la demo
+- [x] Usar imagenes free en algun ejemplo de la demo (Picsum Photos)
 
 ### radar-chart
 

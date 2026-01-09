@@ -279,6 +279,26 @@
           </div>
           <div class="code-block" id="interactive-code">&lt;circle-percent percent="50" stroke-color="#3b82f6" radius="60"&gt;&lt;/circle-percent&gt;</div>
         </div>
+
+        <!-- Animated Progress -->
+        <div class="demo-card">
+          <h2>Animated Progress</h2>
+          <p>Watch the progress animate from 0 to 100%</p>
+          <div class="demo-content">
+            <circle-percent id="animated" percent="0" stroke-color="#22c55e" radius="60" title="Loading"></circle-percent>
+            <div class="controls">
+              <button id="start-btn" style="padding: 0.5rem 1.5rem; background: #22c55e; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">Start</button>
+              <button id="reset-btn" style="padding: 0.5rem 1.5rem; background: #6b7280; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">Reset</button>
+            </div>
+          </div>
+          <div class="code-block">// Animate 1% every 100ms
+let percent = 0;
+const interval = setInterval(() => {
+  percent++;
+  element.percent = percent;
+  if (percent >= 100) clearInterval(interval);
+}, 100);</div>
+        </div>
       </div>
 
       <footer>
@@ -336,6 +356,38 @@
       colorInput.addEventListener('input', (e) => {
         interactive.strokeColor = e.target.value;
         updateCode();
+      });
+
+      // Animated progress demo
+      const animated = document.getElementById('animated');
+      const startBtn = document.getElementById('start-btn');
+      const resetBtn = document.getElementById('reset-btn');
+      let animationInterval = null;
+
+      startBtn.addEventListener('click', () => {
+        if (animationInterval) return; // Already running
+        startBtn.disabled = true;
+        startBtn.style.opacity = '0.5';
+
+        animationInterval = setInterval(() => {
+          animated.percent = (animated.percent || 0) + 1;
+          if (animated.percent >= 100) {
+            clearInterval(animationInterval);
+            animationInterval = null;
+            startBtn.disabled = false;
+            startBtn.style.opacity = '1';
+          }
+        }, 100);
+      });
+
+      resetBtn.addEventListener('click', () => {
+        if (animationInterval) {
+          clearInterval(animationInterval);
+          animationInterval = null;
+        }
+        animated.percent = 0;
+        startBtn.disabled = false;
+        startBtn.style.opacity = '1';
       });
     </script>
   </body>
