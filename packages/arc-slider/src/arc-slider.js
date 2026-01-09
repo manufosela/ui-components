@@ -507,6 +507,7 @@ export class ArcSlider extends LitElement {
           class="arc-svg"
           viewBox="0 0 ${viewBox} ${viewBox}"
           @pointerdown=${this._handlePointerDown}
+          aria-hidden="true"
         >
           <defs>
             <linearGradient
@@ -573,7 +574,10 @@ export class ArcSlider extends LitElement {
           step="${this.step}"
           .value="${String(this.arcValue ?? this._middleRange)}"
           ?disabled=${this.disabled}
-          aria-label="Arc slider"
+          aria-label="${this.id ? `${this.id} slider` : 'Arc slider'}"
+          aria-valuemin="${this.minRange}"
+          aria-valuemax="${this.maxRange}"
+          aria-valuenow="${this.arcValue ?? this._middleRange}"
           @input=${(e) => {
             this.arcValue = parseInt(e.target.value, 10);
             this._dispatchChange();

@@ -363,6 +363,7 @@ export class CircleSteps extends LitElement {
         fill="none"
         stroke="currentColor"
         stroke-width="3"
+        aria-hidden="true"
       >
         <path d="M5 12l5 5L19 7" />
       </svg>
@@ -386,8 +387,11 @@ export class CircleSteps extends LitElement {
   render() {
     const isVertical = this.orientation === 'vertical';
 
+    const completedCount = this.steps.filter((_, i) => this.isComplete(i)).length;
+    const ariaLabel = `Progress: step ${this.current + 1} of ${this.steps.length}${completedCount > 0 ? `, ${completedCount} completed` : ''}`;
+
     return html`
-      <div class="container ${isVertical ? 'vertical' : ''}">
+      <div class="container ${isVertical ? 'vertical' : ''}" role="group" aria-label="${ariaLabel}">
         ${this.steps.map((step, index) => {
           const isComplete = this.isComplete(index);
           const isActive = this.isActive(index);

@@ -136,7 +136,14 @@ export class AccordionItem extends LitElement {
         <div class="header-content">
           <slot name="header">${this.header}</slot>
         </div>
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          class="icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
           <path d="M6 9l6 6 6-6" />
         </svg>
       </div>
