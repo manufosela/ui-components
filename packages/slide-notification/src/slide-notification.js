@@ -160,6 +160,15 @@ export class SlideNotification extends LitElement {
       : '1px 1px 2px rgba(0, 0, 0, 0.5)';
   }
 
+  _getRole() {
+    // Use alert for error/warning (more urgent), status for info/success
+    return this.type === 'error' || this.type === 'warning' ? 'alert' : 'status';
+  }
+
+  _getAriaLive() {
+    return this.type === 'error' || this.type === 'warning' ? 'assertive' : 'polite';
+  }
+
   render() {
     const icon = ICONS[this.type] || ICONS.info;
     const bgColor = this._getBackgroundColor();
@@ -171,10 +180,12 @@ export class SlideNotification extends LitElement {
     this.style.setProperty('--_text-shadow', textShadow);
 
     return html`
-      ${this.title ? html`<div class="title">${this.title}</div>` : ''}
-      <div class="notification-content">
-        <span class="icon">${icon}</span>
-        <div class="message">${unsafeHTML(this.message)}</div>
+      <div role="${this._getRole()}" aria-live="${this._getAriaLive()}">
+        ${this.title ? html`<div class="title">${this.title}</div>` : ''}
+        <div class="notification-content">
+          <span class="icon" aria-hidden="true">${icon}</span>
+          <div class="message">${unsafeHTML(this.message)}</div>
+        </div>
       </div>
     `;
   }
