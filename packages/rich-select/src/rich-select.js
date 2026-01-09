@@ -37,10 +37,17 @@ export class RichOption extends LitElement {
     if (this.slot !== 'option') {
       this.slot = 'option';
     }
+    this.setAttribute('role', 'option');
     this._updateShadowContent();
   }
 
   updated(changedProperties) {
+    if (changedProperties.has('selected')) {
+      this.setAttribute('aria-selected', String(this.selected));
+    }
+    if (changedProperties.has('disabled')) {
+      this.setAttribute('aria-disabled', String(this.disabled));
+    }
     if (changedProperties.has('selected') || changedProperties.has('considered')) {
       this._notifyParent();
     }
@@ -606,13 +613,19 @@ export class RichSelect extends LitElement {
 
   render() {
     return html`
-      <div id="caller">
+      <div
+        id="caller"
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded="${this.expanded}"
+        aria-disabled="${this.disabled}"
+      >
         <span id="chosen"></span>
-        <span id="arrow">
+        <span id="arrow" aria-hidden="true">
           <span>&#9662;</span>
         </span>
       </div>
-      <section id="selectOptions">
+      <section id="selectOptions" role="listbox">
         <div id="search">
           <input type="text" spellcheck="false" tabindex="-1" placeholder=${this.placeholder} />
         </div>

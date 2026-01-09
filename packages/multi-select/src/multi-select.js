@@ -132,6 +132,17 @@ export class MultiSelect extends LitElement {
     this.isOpen = !this.isOpen;
   }
 
+  _handleHeaderKeydown(e) {
+    if (this.disabled) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      this.toggleDropdown();
+    } else if (e.key === 'Escape' && this.isOpen) {
+      e.preventDefault();
+      this.isOpen = false;
+    }
+  }
+
   toggleOption(value) {
     if (this.disabled) return;
 
@@ -185,20 +196,31 @@ export class MultiSelect extends LitElement {
 
     return html`
       <div class="multi-select ${this.isOpen ? 'open' : ''}">
-        <div class="select-header" @click="${this.toggleDropdown}">
+        <div
+          class="select-header"
+          @click="${this.toggleDropdown}"
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded="${this.isOpen}"
+          aria-disabled="${this.disabled}"
+          tabindex="${this.disabled ? -1 : 0}"
+          @keydown="${this._handleHeaderKeydown}"
+        >
           <div class="selected-values ${hasSelection ? '' : 'placeholder'}">
             ${hasSelection ? selectedLabels.join(', ') : this.placeholder}
           </div>
-          <div class="select-arrow">▼</div>
+          <div class="select-arrow" aria-hidden="true">▼</div>
         </div>
 
-        <div class="options-container">
+        <div class="options-container" role="listbox" aria-multiselectable="true">
           ${this._sortedOptions.length === 0
             ? html` <div class="no-options">No options available</div> `
             : this._sortedOptions.map(
                 (option) => html`
                   <div
                     class="option ${this.selectedValues.includes(option.value) ? 'selected' : ''}"
+                    role="option"
+                    aria-selected="${this.selectedValues.includes(option.value)}"
                     @click="${() => this.toggleOption(option.value)}"
                   >
                     <input
