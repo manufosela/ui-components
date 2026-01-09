@@ -220,7 +220,10 @@ describe('AppModal', () => {
 
   describe('Global close event', () => {
     it('closes on close-modal event with matching modalId', async () => {
-      await fixture(html`<app-modal modal-id="test-modal"></app-modal>`);
+      // Use programmatic mode so modal is actually removed from DOM
+      const el = showModal({ title: 'Test' });
+      el.modalId = 'test-modal';
+      await el.updateComplete;
 
       document.dispatchEvent(
         new CustomEvent('close-modal', {
@@ -228,12 +231,14 @@ describe('AppModal', () => {
         })
       );
 
-      await new Promise((resolve) => setTimeout(resolve, 350));
-      expect(document.querySelector('app-modal')).to.be.null;
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      expect(document.body.contains(el)).to.be.false;
     });
 
     it('closes on close-modal event with target=all', async () => {
-      await fixture(html`<app-modal></app-modal>`);
+      // Use programmatic mode so modal is actually removed from DOM
+      const el = showModal({ title: 'Test' });
+      await el.updateComplete;
 
       document.dispatchEvent(
         new CustomEvent('close-modal', {
@@ -241,12 +246,14 @@ describe('AppModal', () => {
         })
       );
 
-      await new Promise((resolve) => setTimeout(resolve, 350));
-      expect(document.querySelector('app-modal')).to.be.null;
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      expect(document.body.contains(el)).to.be.false;
     });
 
     it('does not close on close-modal event with different modalId', async () => {
-      const el = await fixture(html`<app-modal modal-id="test-modal"></app-modal>`);
+      const el = showModal({ title: 'Test' });
+      el.modalId = 'test-modal';
+      await el.updateComplete;
 
       document.dispatchEvent(
         new CustomEvent('close-modal', {
@@ -255,7 +262,7 @@ describe('AppModal', () => {
       );
 
       await new Promise((resolve) => setTimeout(resolve, 100));
-      expect(el.isConnected).to.be.true;
+      expect(document.body.contains(el)).to.be.true;
     });
   });
 
