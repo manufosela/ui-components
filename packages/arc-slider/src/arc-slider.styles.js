@@ -21,6 +21,13 @@ export const arcSliderStyles = css`
     width: var(--arc-slider-width);
     max-width: 100%;
     user-select: none;
+    outline: none;
+    border-radius: 8px;
+  }
+
+  .arc-slider-container:focus-visible {
+    outline: 2px solid var(--arc-slider-focus-color, #3b82f6);
+    outline-offset: 4px;
   }
 
   .arc-svg {

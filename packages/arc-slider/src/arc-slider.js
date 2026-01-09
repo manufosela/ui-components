@@ -361,6 +361,41 @@ export class ArcSlider extends LitElement {
     );
   }
 
+  _handleKeydown(e) {
+    if (this.disabled) return;
+
+    let newValue = this.arcValue;
+    const step = this.step || 1;
+
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowUp':
+        e.preventDefault();
+        newValue = Math.min(this.maxRange, this.arcValue + step);
+        break;
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        e.preventDefault();
+        newValue = Math.max(this.minRange, this.arcValue - step);
+        break;
+      case 'Home':
+        e.preventDefault();
+        newValue = this.minRange;
+        break;
+      case 'End':
+        e.preventDefault();
+        newValue = this.maxRange;
+        break;
+      default:
+        return;
+    }
+
+    if (newValue !== this.arcValue) {
+      this.arcValue = newValue;
+      this._dispatchChange();
+    }
+  }
+
   _renderGradientStops() {
     return this._colorStops.map(
       (color, index) => svg`
@@ -500,7 +535,18 @@ export class ArcSlider extends LitElement {
       : '';
 
     return html`
-      <div class="arc-slider-container" data-value-position="${this.valuePosition}">
+      <div
+        class="arc-slider-container"
+        data-value-position="${this.valuePosition}"
+        tabindex="${this.disabled ? -1 : 0}"
+        role="slider"
+        aria-valuemin="${this.minRange}"
+        aria-valuemax="${this.maxRange}"
+        aria-valuenow="${this.arcValue ?? this._middleRange}"
+        aria-label="${this.id ? `${this.id} slider` : 'Arc slider'}"
+        aria-disabled="${this.disabled}"
+        @keydown=${this._handleKeydown}
+      >
         ${this.valuePosition === 'top' ? valueDisplay : ''}
 
         <svg
