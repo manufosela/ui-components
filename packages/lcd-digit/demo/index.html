@@ -97,7 +97,37 @@ digit.decrement();</div>
           <lcd-digit id="s2" digit="6"></lcd-digit>
         </div>
       </div>
-      <div class="code-block">&lt;lcd-digit digit="1" colon colon-on&gt;&lt;/lcd-digit&gt;</div>
+      <div class="code-block">&lt;!-- HTML --&gt;
+&lt;div class="clock-display"&gt;
+  &lt;lcd-digit id="h1" digit="0"&gt;&lt;/lcd-digit&gt;
+  &lt;lcd-digit id="h2" digit="0" colon colon-on&gt;&lt;/lcd-digit&gt;
+  &lt;lcd-digit id="m1" digit="0"&gt;&lt;/lcd-digit&gt;
+  &lt;lcd-digit id="m2" digit="0" colon colon-on&gt;&lt;/lcd-digit&gt;
+  &lt;lcd-digit id="s1" digit="0"&gt;&lt;/lcd-digit&gt;
+  &lt;lcd-digit id="s2" digit="0"&gt;&lt;/lcd-digit&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+
+  document.getElementById('h1').digit = h[0];
+  document.getElementById('h2').digit = h[1];
+  document.getElementById('m1').digit = m[0];
+  document.getElementById('m2').digit = m[1];
+  document.getElementById('s1').digit = s[0];
+  document.getElementById('s2').digit = s[1];
+
+  // Blink colons
+  const blink = now.getMilliseconds() &lt; 500;
+  document.getElementById('h2').colonOn = blink;
+  document.getElementById('m2').colonOn = blink;
+}
+setInterval(updateClock, 100);
+&lt;/script&gt;</div>
     </div>
 
     <div class="demo-card">
