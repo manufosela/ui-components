@@ -86,10 +86,10 @@ Si construyes cosas tipo Tabs, Menu, Combobox, Dialog, Listbox... sigue los [pat
 
 ### arc-slider
 
-- [ ] Poder cambiar la posicion de `.value-display` (arriba/abajo)
-- [ ] Poder mostrar el valor como badge en el punto del slider
-- [ ] Poder mostrar los valores maximo y minimo al principio y final del arco
-- [ ] Poder mostrar steps en el arco (valores numericos a lo largo del arco)
+- [x] Poder cambiar la posicion de `.value-display` (arriba/abajo) - `value-position` attr
+- [x] Poder mostrar el valor como badge en el punto del slider - `show-value-on-thumb` attr
+- [x] Poder mostrar los valores maximo y minimo al principio y final del arco - `show-limits` attr
+- [x] Poder mostrar steps en el arco (valores numericos a lo largo del arco) - `show-ticks` attr
 
 ### circle-percent
 

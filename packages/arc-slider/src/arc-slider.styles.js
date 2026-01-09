@@ -65,6 +65,24 @@ export const arcSliderStyles = css`
     color: var(--arc-slider-text-color);
   }
 
+  /* Value position variants */
+  .arc-slider-container[data-value-position='top'] .value-display {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .arc-slider-container[data-value-position='center'] {
+    position: relative;
+  }
+
+  .arc-slider-container[data-value-position='center'] .value-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+
   .value-text {
     user-select: none;
   }

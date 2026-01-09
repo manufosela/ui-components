@@ -18,6 +18,11 @@ import { arcSliderStyles } from './arc-slider.styles.js';
  * @attr {Number} start-angle - Start angle in degrees (default: 180, left side)
  * @attr {Number} end-angle - End angle in degrees (default: 0, right side)
  * @attr {Number} stroke-width - Width of the arc stroke (default: 8)
+ * @attr {String} value-position - Position of value display: top, bottom, center (default: bottom)
+ * @attr {Boolean} show-value-on-thumb - Show value as badge on the thumb
+ * @attr {Boolean} show-limits - Show min/max values at arc ends
+ * @attr {Number} show-ticks - Number of tick marks to show on the arc (0 = none)
+ * @attr {Boolean} hide-value - Hide the value display entirely
  *
  * @cssprop [--arc-slider-text-color=#000] - Text color
  * @cssprop [--arc-slider-thumb-size=20px] - Size of the thumb
@@ -39,6 +44,11 @@ export class ArcSlider extends LitElement {
     strokeWidth: { type: Number, attribute: 'stroke-width' },
     clockwise: { type: Boolean },
     reverse: { type: Boolean }, // Reverse value direction (right-to-left instead of left-to-right)
+    valuePosition: { type: String, attribute: 'value-position' }, // top, bottom, center
+    showValueOnThumb: { type: Boolean, attribute: 'show-value-on-thumb' },
+    showLimits: { type: Boolean, attribute: 'show-limits' },
+    showTicks: { type: Number, attribute: 'show-ticks' },
+    hideValue: { type: Boolean, attribute: 'hide-value' },
   };
 
   constructor() {
@@ -55,6 +65,11 @@ export class ArcSlider extends LitElement {
     this.strokeWidth = 8;
     this.clockwise = false; // false = through top (upward), true = through bottom (downward)
     this.reverse = false; // false = left-to-right, true = right-to-left
+    this.valuePosition = 'bottom'; // top, bottom, center
+    this.showValueOnThumb = false;
+    this.showLimits = false;
+    this.showTicks = 0;
+    this.hideValue = false;
 
     this._colorStops = [];
     this._isDragging = false;
@@ -357,6 +372,120 @@ export class ArcSlider extends LitElement {
     );
   }
 
+  _renderLimits() {
+    if (!this.showLimits) return '';
+
+    const startPos = this._getPointOnArc(this.startAngle);
+    const endPos = this._getPointOnArc(this.endAngle);
+    const offset = this.strokeWidth + 15;
+
+    // Calculate offset direction based on angle
+    const startOffsetX = Math.cos(this._degToRad(this.startAngle)) * offset;
+    const startOffsetY = Math.sin(this._degToRad(this.startAngle)) * offset;
+    const endOffsetX = Math.cos(this._degToRad(this.endAngle)) * offset;
+    const endOffsetY = Math.sin(this._degToRad(this.endAngle)) * offset;
+
+    const minValue = this.reverse ? this.minRange : this.maxRange;
+    const maxValue = this.reverse ? this.maxRange : this.minRange;
+
+    return svg`
+      <text
+        x="${startPos.x + startOffsetX}"
+        y="${startPos.y + startOffsetY}"
+        class="limit-text"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        fill="var(--arc-slider-text-color, #666)"
+        font-size="12"
+      >${minValue}</text>
+      <text
+        x="${endPos.x + endOffsetX}"
+        y="${endPos.y + endOffsetY}"
+        class="limit-text"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        fill="var(--arc-slider-text-color, #666)"
+        font-size="12"
+      >${maxValue}</text>
+    `;
+  }
+
+  _renderTicks() {
+    if (!this.showTicks || this.showTicks < 2) return '';
+
+    const ticks = [];
+    const tickCount = this.showTicks;
+
+    for (let i = 0; i <= tickCount; i++) {
+      const progress = i / tickCount;
+      const value = Math.round(this.minRange + progress * (this.maxRange - this.minRange));
+
+      // Calculate angle for this tick
+      const tickProgress = this.reverse ? progress : 1 - progress;
+      let angle;
+
+      if (this._isClockwise) {
+        let angleDiff = this.endAngle - this.startAngle;
+        if (angleDiff <= 0) angleDiff += 360;
+        angle = this.startAngle + tickProgress * angleDiff;
+        if (angle >= 360) angle -= 360;
+      } else {
+        let angleDiff = this.startAngle - this.endAngle;
+        if (angleDiff <= 0) angleDiff += 360;
+        angle = this.startAngle - tickProgress * angleDiff;
+        if (angle < 0) angle += 360;
+      }
+
+      const pos = this._getPointOnArc(angle);
+      const offset = this.strokeWidth + 20;
+      const offsetX = Math.cos(this._degToRad(angle)) * offset;
+      const offsetY = Math.sin(this._degToRad(angle)) * offset;
+
+      ticks.push(svg`
+        <text
+          x="${pos.x + offsetX}"
+          y="${pos.y + offsetY}"
+          class="tick-text"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          fill="var(--arc-slider-text-color, #999)"
+          font-size="10"
+        >${value}</text>
+      `);
+    }
+
+    return ticks;
+  }
+
+  _renderThumbValue(thumbPos) {
+    if (!this.showValueOnThumb) return '';
+
+    // Position the value above the thumb
+    const offsetY = -25;
+
+    return svg`
+      <g class="thumb-value-group">
+        <rect
+          x="${thumbPos.x - 20}"
+          y="${thumbPos.y + offsetY - 10}"
+          width="40"
+          height="20"
+          rx="10"
+          fill="var(--arc-slider-thumb-badge-bg, #333)"
+        />
+        <text
+          x="${thumbPos.x}"
+          y="${thumbPos.y + offsetY}"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          fill="var(--arc-slider-thumb-badge-color, #fff)"
+          font-size="12"
+          font-weight="bold"
+        >${this.arcValue ?? this._middleRange}</text>
+      </g>
+    `;
+  }
+
   render() {
     const currentAngle = this._valueToAngle(this.arcValue ?? this._middleRange);
     const thumbPos = this._getPointOnArc(currentAngle);
@@ -364,8 +493,16 @@ export class ArcSlider extends LitElement {
     const viewBox = this._viewBoxSize;
     const thumbSize = 20;
 
+    const valueDisplay = !this.hideValue
+      ? html`<div class="value-display">
+          <span class="value-text">${this.arcValue ?? this._middleRange}</span>
+        </div>`
+      : '';
+
     return html`
-      <div class="arc-slider-container">
+      <div class="arc-slider-container" data-value-position="${this.valuePosition}">
+        ${this.valuePosition === 'top' ? valueDisplay : ''}
+
         <svg
           class="arc-svg"
           viewBox="0 0 ${viewBox} ${viewBox}"
@@ -383,6 +520,12 @@ export class ArcSlider extends LitElement {
               ${this._renderGradientStops()}
             </linearGradient>
           </defs>
+
+          <!-- Ticks -->
+          ${this._renderTicks()}
+
+          <!-- Limits -->
+          ${this._renderLimits()}
 
           <!-- Arc path -->
           <path
@@ -413,12 +556,13 @@ export class ArcSlider extends LitElement {
             r="${thumbSize / 2 - 4}"
             fill="${thumbColor}"
           />
+
+          <!-- Value badge on thumb -->
+          ${this._renderThumbValue(thumbPos)}
         </svg>
 
-        <!-- Value display -->
-        <div class="value-display">
-          <span class="value-text">${this.arcValue ?? this._middleRange}</span>
-        </div>
+        ${this.valuePosition === 'center' ? valueDisplay : ''}
+        ${this.valuePosition === 'bottom' || !this.valuePosition ? valueDisplay : ''}
 
         <!-- Hidden input for accessibility -->
         <input
