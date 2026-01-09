@@ -139,18 +139,43 @@
 
 
     <div class="info-box" style="margin-bottom: 1.5rem;">
-      <p><strong>Live Example</strong> (with slot content - api-demo below doesn't show slots)</p>
+      <p><strong>Live Editor</strong> - Edita el codigo HTML y pulsa "Actualizar" para ver los cambios</p>
     </div>
-    <div style="background: var(--card-bg); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-      <radar-chart>
-      <chart-series name="Player" color="#3b82f6">
-        <chart-value label="Speed">80</chart-value>
-        <chart-value label="Power">65</chart-value>
-        <chart-value label="Defense">90</chart-value>
-        <chart-value label="Magic">45</chart-value>
-        <chart-value label="Luck">70</chart-value>
-      </chart-series>
-      </radar-chart>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+      <div style="background: var(--card-bg); border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <strong style="font-size: 0.9rem;">HTML Code</strong>
+          <div style="display: flex; gap: 0.5rem;">
+            <select id="example-select" style="padding: 0.4rem 0.6rem; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; background: white;">
+              <option value="basic">Basic</option>
+              <option value="multiple">Multiple Series</option>
+              <option value="rpg">RPG Stats</option>
+              <option value="product">Product Comparison</option>
+            </select>
+            <button id="update-btn" style="padding: 0.4rem 1rem; background: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem;">Actualizar</button>
+          </div>
+        </div>
+        <textarea id="code-editor" style="width: 100%; height: 350px; font-family: 'SF Mono', Monaco, monospace; font-size: 0.8rem; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px; resize: vertical; background: #1d1d1f; color: #f5f5f7;"></textarea>
+      </div>
+      <div style="background: var(--card-bg); border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <strong style="display: block; margin-bottom: 1rem; font-size: 0.9rem;">Preview</strong>
+        <div id="preview-container" style="min-height: 350px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 8px; padding: 1rem;">
+        </div>
+      </div>
+    </div>
+
+    <style>
+      @media (max-width: 900px) {
+        .container > div[style*="grid-template-columns"] {
+          grid-template-columns: 1fr !important;
+        }
+      }
+      chart-series, chart-value { display: none; }
+    </style>
+
+    <div class="info-box" style="margin-bottom: 1rem;">
+      <p><strong>API Explorer</strong> - Modifica atributos del componente (sin slots)</p>
     </div>
 
     <api-demo src="../custom-elements.json" only="radar-chart"></api-demo>
@@ -178,6 +203,114 @@
 
     // Componente local (usa Lit 3 del import map)
     import '../src/radar-chart.js';
+
+    // Examples for the live editor
+    const examples = {
+      basic: `<radar-chart>
+  <chart-series name="Player" color="#3b82f6">
+    <chart-value label="Speed">80</chart-value>
+    <chart-value label="Power">65</chart-value>
+    <chart-value label="Defense">90</chart-value>
+    <chart-value label="Magic">45</chart-value>
+    <chart-value label="Luck">70</chart-value>
+  </chart-series>
+</radar-chart>`,
+
+      multiple: `<radar-chart>
+  <chart-series name="Alice" color="#3b82f6">
+    <chart-value label="HTML">90</chart-value>
+    <chart-value label="CSS">85</chart-value>
+    <chart-value label="JavaScript">80</chart-value>
+    <chart-value label="React">75</chart-value>
+    <chart-value label="Node.js">70</chart-value>
+  </chart-series>
+  <chart-series name="Bob" color="#22c55e">
+    <chart-value label="HTML">70</chart-value>
+    <chart-value label="CSS">90</chart-value>
+    <chart-value label="JavaScript">85</chart-value>
+    <chart-value label="React">80</chart-value>
+    <chart-value label="Node.js">60</chart-value>
+  </chart-series>
+</radar-chart>`,
+
+      rpg: `<radar-chart>
+  <chart-series name="Warrior" color="#ef4444">
+    <chart-value label="Attack">90</chart-value>
+    <chart-value label="Defense">80</chart-value>
+    <chart-value label="Speed">50</chart-value>
+  </chart-series>
+  <chart-series name="Mage" color="#8b5cf6">
+    <chart-value label="Attack">70</chart-value>
+    <chart-value label="Defense">40</chart-value>
+    <chart-value label="Speed">70</chart-value>
+  </chart-series>
+  <chart-series name="Rogue" color="#22c55e">
+    <chart-value label="Attack">60</chart-value>
+    <chart-value label="Defense">30</chart-value>
+    <chart-value label="Speed">95</chart-value>
+  </chart-series>
+</radar-chart>`,
+
+      product: `<radar-chart size="300" fill-opacity="0.3">
+  <chart-series name="Product A" color="#3b82f6">
+    <chart-value label="Price">85</chart-value>
+    <chart-value label="Quality">90</chart-value>
+    <chart-value label="Design">75</chart-value>
+    <chart-value label="Features">80</chart-value>
+    <chart-value label="Support">95</chart-value>
+  </chart-series>
+  <chart-series name="Product B" color="#f59e0b">
+    <chart-value label="Price">70</chart-value>
+    <chart-value label="Quality">75</chart-value>
+    <chart-value label="Design">95</chart-value>
+    <chart-value label="Features">90</chart-value>
+    <chart-value label="Support">60</chart-value>
+  </chart-series>
+</radar-chart>`
+    };
+
+    const codeEditor = document.getElementById('code-editor');
+    const previewContainer = document.getElementById('preview-container');
+    const updateBtn = document.getElementById('update-btn');
+    const exampleSelect = document.getElementById('example-select');
+
+    function updatePreview() {
+      const code = codeEditor.value.trim();
+      if (!code) return;
+
+      // Clear previous content
+      previewContainer.innerHTML = '';
+
+      // Create a wrapper and set innerHTML
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = code;
+
+      // Append to preview
+      previewContainer.appendChild(wrapper);
+    }
+
+    function loadExample(name) {
+      codeEditor.value = examples[name] || examples.basic;
+      updatePreview();
+    }
+
+    // Event listeners
+    updateBtn.addEventListener('click', updatePreview);
+
+    exampleSelect.addEventListener('change', (e) => {
+      loadExample(e.target.value);
+    });
+
+    // Allow Ctrl+Enter to update
+    codeEditor.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'Enter') {
+        e.preventDefault();
+        updatePreview();
+      }
+    });
+
+    // Load initial example
+    loadExample('basic');
   </script>
 </body>
 </html>

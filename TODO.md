@@ -106,8 +106,8 @@ Si construyes cosas tipo Tabs, Menu, Combobox, Dialog, Listbox... sigue los [pat
 
 ### radar-chart
 
-- [ ] En playground: no se ve como meter el slot con `chart-series` y `chart-values`
-- [ ] Añadir ejemplos con slots en el source del playground para que se puedan modificar valores
+- [x] En playground: no se ve como meter el slot con `chart-series` y `chart-values`
+- [x] Añadir ejemplos con slots en el source del playground para que se puedan modificar valores
 
 ### Documentacion
 
