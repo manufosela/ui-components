@@ -69,11 +69,25 @@ export class CirclePercent extends LitElement {
     const viewBox = this._viewBoxSize;
     const center = this.radius;
     const normalizedRadius = this._normalizedRadius;
+    const clampedPercent = Math.min(100, Math.max(0, this.percent));
+    const ariaLabel = this.title || 'Progress';
 
     return html`
-      <div class="circle-container">
+      <div
+        class="circle-container"
+        role="progressbar"
+        aria-valuenow="${Math.round(clampedPercent)}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-label="${ariaLabel}: ${Math.round(clampedPercent)}%"
+      >
         <div class="circle-wrapper">
-          <svg width="${viewBox}" height="${viewBox}" viewBox="0 0 ${viewBox} ${viewBox}">
+          <svg
+            width="${viewBox}"
+            height="${viewBox}"
+            viewBox="0 0 ${viewBox} ${viewBox}"
+            aria-hidden="true"
+          >
             <!-- Background circle -->
             <circle
               class="background-circle"

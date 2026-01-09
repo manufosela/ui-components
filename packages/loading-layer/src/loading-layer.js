@@ -107,7 +107,13 @@ export class LoadingLayer extends LitElement {
     const dashArray = `${circumference * 0.75} ${circumference * 0.25}`;
 
     return svg`
-      <svg class="spinner" width="${this.size}" height="${this.size}" viewBox="0 0 ${this.size} ${this.size}">
+      <svg
+        class="spinner"
+        width="${this.size}"
+        height="${this.size}"
+        viewBox="0 0 ${this.size} ${this.size}"
+        aria-hidden="true"
+      >
         <circle
           cx="${center}"
           cy="${center}"
@@ -123,8 +129,17 @@ export class LoadingLayer extends LitElement {
   }
 
   render() {
+    const statusMessage = this.message || 'Loading';
+
     return html`
-      <div class="loading-overlay" @click=${this._onOverlayClick}>
+      <div
+        class="loading-overlay"
+        role="status"
+        aria-live="polite"
+        aria-busy="${this.visible}"
+        aria-label="${statusMessage}"
+        @click=${this._onOverlayClick}
+      >
         <div class="spinner-container">
           ${this._renderSpinner()}
           ${this.message ? html`<div class="message">${this.message}</div>` : ''}

@@ -322,6 +322,21 @@ export class ClickClock extends LitElement {
     return html`<span class="separator">${this.separator}</span>`;
   }
 
+  _getAriaLabel() {
+    const { days, hours, minutes, seconds } = this._getTimeUnits();
+    const parts = [];
+
+    if (this._showDays && days > 0) parts.push(`${days} days`);
+    if (this._showHours) parts.push(`${hours} hours`);
+    if (this._showMinutes) parts.push(`${minutes} minutes`);
+    if (this._showSeconds) parts.push(`${seconds} seconds`);
+
+    const modeLabel =
+      this.mode === 'countdown' ? 'Countdown' : this.mode === 'stopwatch' ? 'Stopwatch' : 'Clock';
+
+    return `${modeLabel}: ${parts.join(', ')}`;
+  }
+
   render() {
     const { days, hours, minutes, seconds, milliseconds } = this._getTimeUnits();
     const expired = this.mode === 'countdown' && this._remaining === 0;
@@ -354,7 +369,14 @@ export class ClickClock extends LitElement {
     });
 
     return html`
-      <div class="clock ${this.format} ${expired ? 'expired' : ''}">${withSeparators}</div>
+      <div
+        class="clock ${this.format} ${expired ? 'expired' : ''}"
+        role="timer"
+        aria-label="${this._getAriaLabel()}"
+        aria-live="off"
+      >
+        ${withSeparators}
+      </div>
     `;
   }
 }
