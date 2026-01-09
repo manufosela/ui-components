@@ -125,18 +125,21 @@ export class AppModal extends LitElement {
 
   _showModal() {
     this.style.display = '';
+    // Double rAF ensures render is complete before accessing shadow DOM
     requestAnimationFrame(() => {
-      const modal = this.shadowRoot?.querySelector('.modal');
-      if (modal) {
-        modal.style.opacity = '1';
-      }
-      this.style.opacity = '1';
-      this.style.background = 'rgba(0, 0, 0, 0.5)';
+      requestAnimationFrame(() => {
+        const modal = this.shadowRoot?.querySelector('.modal');
+        if (modal) {
+          modal.style.opacity = '1';
+        }
+        this.style.opacity = '1';
+        this.style.background = 'rgba(0, 0, 0, 0.5)';
 
-      if (this._pendingContent) {
-        this.setContent(this._pendingContent);
-        this._pendingContent = null;
-      }
+        if (this._pendingContent) {
+          this.setContent(this._pendingContent);
+          this._pendingContent = null;
+        }
+      });
     });
   }
 
