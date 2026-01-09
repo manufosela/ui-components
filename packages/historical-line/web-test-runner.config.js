@@ -4,6 +4,7 @@ export default {
   port: 8109,
   coverage: true,
   coverageConfig: {
+    include: ['src/**/*.js'],
     reportDir: 'coverage',
     threshold: {
       statements: 70,
