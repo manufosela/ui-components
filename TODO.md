@@ -109,6 +109,10 @@ Si construyes cosas tipo Tabs, Menu, Combobox, Dialog, Listbox... sigue los [pat
 - [ ] En playground: no se ve como meter el slot con `chart-series` y `chart-values`
 - [ ] Añadir ejemplos con slots en el source del playground para que se puedan modificar valores
 
+### Documentacion
+
+- [x] Crear CONTRIBUTING.md (referenciado en README pero daba 404)
+
 ---
 
 ## Playgrounds con slots
