@@ -118,10 +118,13 @@ npm install @manufosela/circle-steps
 
 ## Accessibility
 
-- Proper ARIA roles (button/presentation)
-- aria-current for active step
-- Keyboard support for clickable mode
-- Focus management
+- Uses `role="group"` container with progress aria-label
+- Proper ARIA roles: `role="button"` for clickable, `role="presentation"` otherwise
+- `aria-current="step"` for active step
+- SVG icons use `aria-hidden="true"`
+- Full keyboard support: Enter/Space to navigate in clickable mode
+- Focus visible indicator on clickable steps
+- Respects `prefers-reduced-motion` by disabling transitions
 
 ## License
 

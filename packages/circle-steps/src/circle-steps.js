@@ -222,6 +222,17 @@ export class CircleSteps extends LitElement {
       width: 28px;
       height: 28px;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .line,
+      .circle {
+        transition: none;
+      }
+
+      .circle.clickable:hover:not(.active) {
+        transform: none;
+      }
+    }
   `;
 
   constructor() {
