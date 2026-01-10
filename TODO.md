@@ -111,7 +111,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | behaviour-accordion | | | | | | | | |
 | calendar-inline | | | | | | | | |
 | circle-percent | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| circle-steps | | | | | | | | |
+| circle-steps | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | click-clock | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | data-card | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | header-nav | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

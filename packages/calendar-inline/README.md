@@ -131,6 +131,13 @@ npm install @manufosela/calendar-inline
 "></calendar-inline>
 ```
 
+## Accessibility
+
+- Navigation buttons have `aria-label` for screen readers
+- Holiday dates show descriptive `title` attribute on hover
+- Visual indicators for today, selected, disabled, and holiday states
+- Respects `prefers-reduced-motion` by disabling transitions
+
 ## License
 
 Apache-2.0

@@ -164,6 +164,13 @@ export class CalendarInline extends LitElement {
     .day.holiday.selected::after {
       background: white;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .nav-btn,
+      .day {
+        transition: none;
+      }
+    }
   `;
 
   constructor() {
