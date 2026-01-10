@@ -140,6 +140,13 @@ export class RadarChart extends LitElement {
       font-size: 9px;
       fill: var(--radar-axis-color, #94a3b8);
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .data-area,
+      .data-point {
+        transition: none;
+      }
+    }
   `;
 
   constructor() {

@@ -154,6 +154,14 @@ radar-chart {
 - Survey results
 - Multi-dimensional analysis
 
+## Accessibility
+
+- Data points are clickable with cursor feedback
+- Tooltips show values on hover
+- Legend provides color-label association
+- Labels use `user-select: none` to prevent accidental selection
+- Respects `prefers-reduced-motion` by disabling animations
+
 ## License
 
 Apache-2.0

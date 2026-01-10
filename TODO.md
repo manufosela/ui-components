@@ -121,7 +121,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | marked-calendar | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | modal-dialog | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | multi-carousel | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| multi-select | | | | | | | | |
+| multi-select | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | nav-list | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | qr-code | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | radar-chart | | | | | | | | |
