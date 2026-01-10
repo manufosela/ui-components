@@ -124,9 +124,9 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | multi-select | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | nav-list | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | qr-code | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| radar-chart | | | | | | | | |
-| rich-inputfile | | | | | | | | |
-| rich-select | | | | | | | | |
+| radar-chart | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| rich-inputfile | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| rich-select | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | slide-notification | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | slider-underline | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | stars-rating | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
