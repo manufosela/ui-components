@@ -127,9 +127,9 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | radar-chart | | | | | | | | |
 | rich-inputfile | | | | | | | | |
 | rich-select | | | | | | | | |
-| slide-notification | | | | | | | | |
+| slide-notification | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | slider-underline | | | | | | | | |
 | stars-rating | | | | | | | | |
 | tab-nav | | | | | | | | |
 | theme-toggle | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| toast-notification | | | | | | | | |
+| toast-notification | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
