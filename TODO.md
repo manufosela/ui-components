@@ -109,26 +109,27 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | app-modal | | | | | | | | |
 | arc-slider | | | | | | | | |
 | behaviour-accordion | | | | | | | | |
+| calendar-inline | | | | | | | | |
 | circle-percent | | | | | | | | |
 | circle-steps | | | | | | | | |
-| countdown-timer | | | | | | | | |
+| click-clock | | | | | | | | |
+| data-card | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | header-nav | | | | | | | | |
 | historical-line | | | | | | | | |
-| lcd-digit | | | | | | | | |
-| manu-logo | | | | | | | | |
+| lcd-digit | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| loading-layer | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| marked-calendar | | | | | | | | |
+| modal-dialog | | | | | | | | |
 | multi-carousel | | | | | | | | |
 | multi-select | | | | | | | | |
 | nav-list | | | | | | | | |
-| polar-clock | | | | | | | | |
+| qr-code | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | radar-chart | | | | | | | | |
-| rating-stars | | | | | | | | |
-| rich-input | | | | | | | | |
+| rich-inputfile | | | | | | | | |
 | rich-select | | | | | | | | |
-| scroll-top | | | | | | | | |
-| simple-footer | | | | | | | | |
-| snow-effect | | | | | | | | |
-| star-rating | | | | | | | | |
+| slide-notification | | | | | | | | |
+| slider-underline | | | | | | | | |
+| stars-rating | | | | | | | | |
 | tab-nav | | | | | | | | |
-| tiny-qr | | | | | | | | |
-| toggle-switch | | | | | | | | |
-| typing-effect | | | | | | | | |
+| theme-toggle | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| toast-notification | | | | | | | | |
