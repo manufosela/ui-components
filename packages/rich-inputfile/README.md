@@ -195,6 +195,17 @@ rich-inputfile {
 | Methods | Limited | Full API |
 | Tests | Basic | Comprehensive |
 
+## Accessibility
+
+- Native `<input type="file">` element ensures screen reader compatibility
+- Label text properly associated with input area
+- Visual feedback for drag-over state
+- Error messages displayed clearly for validation failures
+- Clear button provides explicit file removal action
+- Disabled state visually distinct with reduced opacity
+- File size and type information displayed after selection
+- Respects `prefers-reduced-motion` by disabling transitions
+
 ## License
 
 Apache-2.0

@@ -197,6 +197,13 @@ export class RichInputfile extends LitElement {
       font-size: 0.75rem;
       margin-top: 0.5rem;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .dropzone,
+      .clear-btn {
+        transition: none;
+      }
+    }
   `;
 
   constructor() {
