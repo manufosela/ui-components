@@ -85,6 +85,14 @@ Use these in your CSS:
 | `--theme-toggle-icon-size`    | `20px`    | Icon size                |
 | `--theme-toggle-active-bg`    | `#fff`    | Active button background |
 
+## Accessibility
+
+- Uses `role="radiogroup"` with native radio inputs for full keyboard support
+- Each option has a descriptive `aria-label` ("Light theme", "Dark theme")
+- Icons are hidden from screen readers (`aria-hidden="true"`)
+- Keyboard navigation: Tab to focus, Arrow keys to switch, Enter/Space to select
+- Respects `prefers-reduced-motion` by disabling transitions
+
 ## License
 
 MIT

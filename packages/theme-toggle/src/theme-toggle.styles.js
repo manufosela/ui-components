@@ -67,4 +67,10 @@ export const themeToggleStyles = css`
   :host([theme='dark']) label:hover {
     background: var(--theme-toggle-dark-hover-bg, rgba(255, 255, 255, 0.05));
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    label {
+      transition: none;
+    }
+  }
 `;
