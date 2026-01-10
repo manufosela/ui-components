@@ -15,7 +15,7 @@ import { loadingLayerStyles } from './loading-layer.styles.js';
  * @attr {Number} stroke-width - Width of the spinner stroke (default: 4)
  * @attr {Number} timeout - Auto-hide timeout in seconds (0 = no auto-hide)
  *
- * @cssprop [--loading-layer-bg=rgba(0, 0, 0, 0.5] - Background color)
+ * @cssprop [--loading-layer-bg=rgba(0,0,0,0.5)] - Background color
  * @cssprop [--loading-layer-z-index=9999] - Z-index
  * @cssprop [--loading-layer-transition=0.3s] - Transition duration
  * @cssprop [--loading-layer-spin-duration=1s] - Spin animation duration

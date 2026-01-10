@@ -83,6 +83,14 @@ document.dispatchEvent(new CustomEvent('loading-layer-hide'));
 | `--loading-layer-spin-duration`  | `1s`                | Spin animation       |
 | `--loading-layer-text-color`     | `#fff`              | Message color        |
 
+## Accessibility
+
+- Uses `role="status"` with `aria-live="polite"` for screen reader announcements
+- `aria-busy` reflects the loading state
+- `aria-label` announces the message (defaults to "Loading")
+- Spinner SVG is hidden from assistive technology (`aria-hidden="true"`)
+- Respects `prefers-reduced-motion` by disabling animations
+
 ## License
 
 MIT

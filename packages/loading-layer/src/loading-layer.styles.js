@@ -54,4 +54,14 @@ export const loadingLayerStyles = css`
       transform: rotate(360deg);
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spinner {
+      animation: none;
+    }
+
+    .loading-overlay {
+      transition: none;
+    }
+  }
 `;
