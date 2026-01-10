@@ -144,6 +144,16 @@ nav-list .navlist__item--selected {
 }
 ```
 
+## Accessibility
+
+- Uses `role="radiogroup"` with `role="radio"` for each item
+- Dynamic `aria-checked` for selected state
+- `aria-label` on the radiogroup using the title or "Navigation"
+- Full keyboard navigation: Enter/Space to select
+- Focus visible indicator with customizable color
+- Fixed mode sets `tabindex="-1"` and disables inputs
+- Respects `prefers-reduced-motion` by disabling animations
+
 ## License
 
 Apache-2.0

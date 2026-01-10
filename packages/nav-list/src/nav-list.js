@@ -16,7 +16,7 @@ import { NavListStyles } from './nav-list.styles.js';
  * @cssprop [--nav-list-border-color=transparent] - Border color
  * @cssprop [--nav-list-selected-border-color=#cc3743] - Selected border color
  * @cssprop [--nav-list-selected-bg=transparent] - Selected background
- * @cssprop [--nav-list-hover-bg=rgba(0,0,0,0.05] - Hover background)
+ * @cssprop [--nav-list-hover-bg=rgba(0,0,0,0.05)] - Hover background
  * @cssprop [--nav-list-title-size=16px] - Title font size
  * @cssprop [--nav-list-title-weight=700] - Title font weight
  */

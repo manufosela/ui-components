@@ -94,4 +94,15 @@ export const NavListStyles = css`
       opacity: 1;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .navlist__item {
+      transition: none;
+    }
+
+    .fadein {
+      animation: none;
+      opacity: 1;
+    }
+  }
 `;

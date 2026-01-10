@@ -128,7 +128,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | rich-inputfile | | | | | | | | |
 | rich-select | | | | | | | | |
 | slide-notification | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| slider-underline | | | | | | | | |
+| slider-underline | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | stars-rating | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | tab-nav | | | | | | | | |
 | theme-toggle | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
