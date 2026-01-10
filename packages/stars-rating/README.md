@@ -63,6 +63,15 @@ starsRating.addEventListener('rating-changed', (e) => {
 });
 ```
 
+## Accessibility
+
+- Uses `role="radiogroup"` with `role="radio"` for each star
+- Dynamic `aria-checked` and `aria-label` for each star
+- Full keyboard navigation (see below)
+- Reset button has descriptive `aria-label`
+- Disabled state properly communicated
+- Respects `prefers-reduced-motion` by disabling hover animations
+
 ## Keyboard Navigation
 
 When `manual` is enabled:

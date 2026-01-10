@@ -80,4 +80,15 @@ export const starsRatingStyles = css`
     cursor: not-allowed;
     opacity: 0.5;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .star,
+    .reset-btn {
+      transition: none;
+    }
+
+    :host([manual]) .star:hover {
+      transform: none;
+    }
+  }
 `;
