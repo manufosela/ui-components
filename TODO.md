@@ -108,7 +108,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 |------------|-----|------|--------------|--------------|-----|-------------|-------|------|
 | app-modal | | | | | | | | |
 | arc-slider | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| behaviour-accordion | | | | | | | | |
+| behaviour-accordion | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | calendar-inline | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | circle-percent | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | circle-steps | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

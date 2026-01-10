@@ -135,11 +135,12 @@ npm install @manufosela/tab-nav
 
 ## Accessibility
 
-- Full keyboard navigation
-- ARIA roles (tablist, tab, tabpanel)
-- aria-selected and aria-disabled attributes
-- Proper focus management
+- Full keyboard navigation (Arrow keys, Home, End)
+- ARIA roles: `tablist`, `tab`, `tabpanel`
+- `aria-selected` and `aria-disabled` attributes
+- Proper focus management with visible focus indicators
 - Screen reader compatible
+- Respects `prefers-reduced-motion` by disabling animations
 
 ## License
 

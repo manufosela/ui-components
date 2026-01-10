@@ -36,6 +36,12 @@ export class TabPanel extends LitElement {
         opacity: 1;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      :host([active]) {
+        animation: none;
+      }
+    }
   `;
 
   constructor() {
@@ -237,6 +243,12 @@ export class TabNav extends LitElement {
     .panels {
       flex: 1;
       padding: var(--tab-panel-padding, 1rem);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tab {
+        transition: none;
+      }
     }
   `;
 
