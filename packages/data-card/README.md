@@ -140,6 +140,15 @@ import '@manufosela/data-card';
 ></data-card>
 ```
 
+## Accessibility
+
+- Uses semantic `<article>` element for card container
+- Title rendered as `<h3>` heading
+- Cover images include `alt` attribute from card title
+- More info panel uses `role="dialog"` with proper ARIA attributes
+- Info trigger has `aria-expanded` state
+- Respects `prefers-reduced-motion` by disabling hover animations and transitions
+
 ## License
 
 MIT

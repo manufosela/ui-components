@@ -263,6 +263,19 @@ export class DataCard extends LitElement {
         width: 100%;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card,
+      .more-info-panel,
+      .more-info-trigger,
+      .more-info-close {
+        transition: none;
+      }
+
+      .card:hover {
+        transform: none;
+      }
+    }
   `;
 
   constructor() {
@@ -360,7 +373,12 @@ export class DataCard extends LitElement {
     if (!this.moreInfo) return '';
 
     return html`
-      <div class="more-info-panel ${this._showMoreInfo ? 'visible' : ''}">
+      <div
+        id="more-info-panel"
+        class="more-info-panel ${this._showMoreInfo ? 'visible' : ''}"
+        role="dialog"
+        aria-label="More information"
+      >
         <button class="more-info-close" @click="${this._closeMoreInfo}" aria-label="Close">
           &times;
         </button>
@@ -383,7 +401,14 @@ export class DataCard extends LitElement {
         <slot></slot>
         ${this.moreInfo
           ? html`
-              <button class="more-info-trigger" @click="${this._fetchMoreInfo}">+ Info</button>
+              <button
+                class="more-info-trigger"
+                @click="${this._fetchMoreInfo}"
+                aria-expanded="${this._showMoreInfo}"
+                aria-controls="more-info-panel"
+              >
+                + Info
+              </button>
             `
           : ''}
       </div>
