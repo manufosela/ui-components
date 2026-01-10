@@ -106,4 +106,14 @@ export const arcSliderStyles = css`
     white-space: nowrap;
     border: 0;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .arc-thumb {
+      transition: none;
+    }
+
+    .arc-thumb:hover {
+      transform: none;
+    }
+  }
 `;

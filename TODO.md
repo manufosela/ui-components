@@ -109,7 +109,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | app-modal | | | | | | | | |
 | arc-slider | | | | | | | | |
 | behaviour-accordion | | | | | | | | |
-| calendar-inline | | | | | | | | |
+| calendar-inline | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | circle-percent | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | circle-steps | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | click-clock | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

@@ -187,6 +187,17 @@ arc-slider {
 }
 ```
 
+## Accessibility
+
+- Container has `role="slider"` with full ARIA attributes
+- `aria-valuemin`, `aria-valuemax`, `aria-valuenow` for range information
+- `aria-disabled` reflects disabled state
+- Hidden native range input for screen reader compatibility
+- Full keyboard navigation: Arrow keys, Home/End
+- Focus visible indicator on container
+- SVG elements marked `aria-hidden="true"` to avoid duplication
+- Respects `prefers-reduced-motion` by disabling animations
+
 ## Browser Support
 
 - Chrome/Edge (latest)
