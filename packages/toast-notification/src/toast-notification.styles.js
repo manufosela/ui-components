@@ -149,4 +149,19 @@ export const toastNotificationStyles = css`
       transform: scaleX(0);
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast {
+      transition: none;
+    }
+
+    .progress-bar {
+      animation: none;
+      transform: scaleX(0);
+    }
+
+    .close-btn {
+      transition: none;
+    }
+  }
 `;

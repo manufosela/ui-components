@@ -105,6 +105,14 @@ document.dispatchEvent(new CustomEvent('toast-notification-hide'));
 | `--toast-warning-bg`   | `#d97706`          | Warning background   |
 | `--toast-info-bg`      | `#2563eb`          | Info background      |
 
+## Accessibility
+
+- Uses `role="alert"` with `aria-live="polite"` for screen reader announcements
+- `aria-atomic="true"` ensures the entire notification is read
+- Close button has descriptive `aria-label`
+- Icons are hidden from assistive technology (`aria-hidden="true"`)
+- Respects `prefers-reduced-motion` by disabling animations
+
 ## toast-notification vs slide-notification
 
 This library includes two notification components. Choose based on your needs:
