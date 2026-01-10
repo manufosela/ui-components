@@ -155,6 +155,17 @@ This library includes two modal components. Choose based on your needs:
 - You want predefined button layouts (OK/Cancel/Other)
 - You're creating modals programmatically
 
+## Accessibility
+
+- `role="dialog"` and `aria-modal="true"` on modal container
+- `aria-labelledby` links to modal title
+- Close button has descriptive `aria-label`
+- Focus trap keeps focus within modal
+- Focus returns to trigger element on close
+- Escape key closes modal (configurable)
+- Body scroll lock when modal is open
+- Respects `prefers-reduced-motion` by disabling animations
+
 ## License
 
 MIT

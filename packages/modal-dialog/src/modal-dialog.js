@@ -23,7 +23,7 @@ import { modalDialogStyles } from './modal-dialog.styles.js';
  * @slot footer - Footer slot for action buttons
  *
  * @cssprop [--modal-z-index=9999] - Z-index
- * @cssprop [--modal-overlay-bg=rgba(0,0,0,0.5] - Overlay background)
+ * @cssprop [--modal-overlay-bg=rgba(0,0,0,0.5)] - Overlay background
  * @cssprop [--modal-bg=#fff] - Modal background
  * @cssprop [--modal-radius=12px] - Border radius
  * @cssprop [--modal-max-width=500px] - Maximum width

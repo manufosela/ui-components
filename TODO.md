@@ -120,7 +120,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | loading-layer | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | marked-calendar | | | | | | | | |
 | modal-dialog | | | | | | | | |
-| multi-carousel | | | | | | | | |
+| multi-carousel | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | multi-select | | | | | | | | |
 | nav-list | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | qr-code | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

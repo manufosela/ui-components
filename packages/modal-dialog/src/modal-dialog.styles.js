@@ -131,4 +131,18 @@ export const modalDialogStyles = css`
     white-space: nowrap;
     border: 0;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .overlay {
+      transition: none;
+    }
+
+    .modal {
+      transition: none;
+    }
+
+    .close-btn {
+      transition: none;
+    }
+  }
 `;
