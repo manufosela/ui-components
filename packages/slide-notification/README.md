@@ -130,6 +130,14 @@ showSlideNotification({
 | `--slide-notification-z-index`    | `10000`                        | Z-index            |
 | `--slide-notification-min-height` | `80px`                         | Minimum height     |
 
+## Accessibility
+
+- Uses `role="alert"` with `aria-live="assertive"` for error/warning types
+- Uses `role="status"` with `aria-live="polite"` for info/success types
+- Icons are hidden from screen readers (`aria-hidden="true"`)
+- Click-to-close for persistent notifications is accessible
+- Respects `prefers-reduced-motion` by disabling slide animation
+
 ## slide-notification vs toast-notification
 
 This library includes two notification components. Choose based on your needs:

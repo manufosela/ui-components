@@ -66,4 +66,10 @@ export const slideNotificationStyles = css`
     font-size: 1.2em;
     flex-shrink: 0;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    :host {
+      transition: none;
+    }
+  }
 `;
