@@ -144,6 +144,13 @@ clock.addEventListener('complete', () => {
 | `--clock-color`       | `#1f2937`    | Text color         |
 | `--clock-bg`          | `transparent`| Background color   |
 
+## Accessibility
+
+- Uses `role="timer"` for proper semantic identification
+- Dynamic `aria-label` describes current time (e.g., "Countdown: 5 minutes, 30 seconds")
+- `aria-live="off"` prevents constant screen reader announcements during countdown
+- For important countdown completion, listen to the `complete` event and announce via your application
+
 ## Styling Example
 
 ```css
