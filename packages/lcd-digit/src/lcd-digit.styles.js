@@ -24,6 +24,12 @@ export const lcdDigitStyles = css`
     transition: background-color 0.1s ease;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .segment {
+      transition: none;
+    }
+  }
+
   .segment.on {
     background-color: var(--lcd-digit-on-color, #22c55e);
     box-shadow: 0 0 4px var(--lcd-digit-glow-color, rgba(34, 197, 94, 0.5));

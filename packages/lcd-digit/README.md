@@ -95,6 +95,21 @@ lcdDigit.addEventListener('digit-changed', (e) => {
 <lcd-digit digit="5"></lcd-digit>
 ```
 
+## Accessibility
+
+- Uses `role="img"` with dynamic `aria-label` describing the displayed digit
+- Respects `prefers-reduced-motion` by disabling segment transitions
+- For clock displays, consider wrapping multiple digits in a container with `aria-label` describing the full time
+
+```html
+<div role="img" aria-label="Time: 12:34">
+  <lcd-digit digit="1"></lcd-digit>
+  <lcd-digit digit="2" colon colon-on></lcd-digit>
+  <lcd-digit digit="3"></lcd-digit>
+  <lcd-digit digit="4"></lcd-digit>
+</div>
+```
+
 ## License
 
 MIT

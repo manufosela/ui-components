@@ -14,8 +14,8 @@ import { lcdDigitStyles } from './lcd-digit.styles.js';
  * @cssprop [--lcd-segment-length=30px] - Segment length
  * @cssprop [--lcd-segment-width=6px] - Segment width
  * @cssprop [--lcd-digit-on-color=#22c55e] - Active segment color
- * @cssprop [--lcd-digit-off-color=rgba(0,0,0,0.1] - Inactive segment color)
- * @cssprop [--lcd-digit-glow-color=rgba(34,197,94,0.5] - Glow effect color)
+ * @cssprop [--lcd-digit-off-color=rgba(0,0,0,0.1)] - Inactive segment color
+ * @cssprop [--lcd-digit-glow-color=rgba(34,197,94,0.5)] - Glow effect color
  */
 export class LcdDigit extends LitElement {
   static styles = lcdDigitStyles;
