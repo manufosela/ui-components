@@ -122,7 +122,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | modal-dialog | | | | | | | | |
 | multi-carousel | | | | | | | | |
 | multi-select | | | | | | | | |
-| nav-list | | | | | | | | |
+| nav-list | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | qr-code | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | radar-chart | | | | | | | | |
 | rich-inputfile | | | | | | | | |

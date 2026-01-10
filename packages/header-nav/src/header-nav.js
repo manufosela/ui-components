@@ -9,7 +9,7 @@ import { LitElement, html, css } from 'lit';
  * @fires menu-toggle - Fired when mobile menu is toggled
  * @cssprop [--header-height=60px] - Header height
  * @cssprop [--header-bg=#fff] - Background color
- * @cssprop [--header-shadow=0 2px 4px rgba(0,0,0,0.1] - Box shadow)
+ * @cssprop [--header-shadow=0 2px 4px rgba(0,0,0,0.1)] - Box shadow
  * @cssprop [--header-link-color=#374151] - Link color
  * @cssprop [--header-link-hover=#3b82f6] - Link hover color
  * @cssprop [--header-mobile-bp=768px] - Mobile breakpoint
@@ -190,6 +190,14 @@ export class HeaderNav extends LitElement {
 
     .overlay.open {
       display: block;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      ::slotted(a),
+      .hamburger span,
+      .mobile-menu a {
+        transition: none;
+      }
     }
   `;
 

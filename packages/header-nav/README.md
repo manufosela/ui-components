@@ -169,6 +169,14 @@ header-nav {
 | Events | No | Yes |
 | Tests | Basic | Comprehensive |
 
+## Accessibility
+
+- Hamburger button has `aria-label="Toggle menu"` for screen readers
+- `aria-expanded` reflects the current menu state
+- Links in mobile menu close the menu on click for keyboard users
+- Overlay allows clicking outside to close the menu
+- Respects `prefers-reduced-motion` by disabling transitions
+
 ## License
 
 Apache-2.0
