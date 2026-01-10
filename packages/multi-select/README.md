@@ -147,6 +147,16 @@ select.addEventListener('change', (e) => {
 | `--multi-select-max-height`        | `300px`     | Dropdown max height    |
 | `--multi-select-z-index`           | `1000`      | Dropdown z-index       |
 
+## Accessibility
+
+- `role="combobox"` on header with `aria-haspopup` and `aria-expanded`
+- `role="listbox"` on options container with `aria-multiselectable="true"`
+- `role="option"` with `aria-selected` on each option
+- Keyboard navigation: Enter/Space to toggle, Escape to close
+- Click outside closes dropdown
+- Disabled state communicated via `aria-disabled`
+- Respects `prefers-reduced-motion` by disabling animations
+
 ## License
 
 MIT

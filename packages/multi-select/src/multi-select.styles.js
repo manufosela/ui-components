@@ -110,4 +110,12 @@ export const multiSelectStyles = css`
     text-align: center;
     color: var(--multi-select-placeholder-color, #6c757d);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .select-header,
+    .select-arrow,
+    .option {
+      transition: none;
+    }
+  }
 `;

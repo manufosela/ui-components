@@ -118,7 +118,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | historical-line | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | lcd-digit | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | loading-layer | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| marked-calendar | | | | | | | | |
+| marked-calendar | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | modal-dialog | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | multi-carousel | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | multi-select | | | | | | | | |
