@@ -142,6 +142,15 @@ Traditional calendar grid with weekday headers. Navigate between months with arr
 | Orange  | 😕    | Meh    |
 | Red     | 😢    | Bad    |
 
+## Accessibility
+
+- Legend buttons have descriptive `title` attributes
+- Day cells show state information via `title` on hover
+- Disabled legend items are properly marked `disabled`
+- Keyboard navigable buttons for navigation and view switching
+- Blocked weekend/holiday cells are visually distinct
+- Respects `prefers-reduced-motion` by disabling animations
+
 ## License
 
 Apache-2.0

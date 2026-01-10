@@ -115,7 +115,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | click-clock | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | data-card | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | header-nav | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| historical-line | | | | | | | | |
+| historical-line | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | lcd-digit | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | loading-layer | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | marked-calendar | | | | | | | | |

@@ -287,4 +287,17 @@ export const MarkedCalendarStyles = css`
       height: 2rem;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .legend-item,
+    .nav-btn,
+    .month-label,
+    .day-cell {
+      transition: none;
+    }
+
+    .day-cell.clickable:not(.blocked):hover {
+      transform: none;
+    }
+  }
 `;
