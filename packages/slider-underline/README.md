@@ -129,10 +129,11 @@ npm install @manufosela/slider-underline
 
 ## Accessibility
 
-- Native range input element
-- ARIA valuemin, valuemax, valuenow
-- ARIA valuetext for screen readers
-- Keyboard navigation support
+- Native range input element for full browser/screen reader support
+- ARIA valuemin, valuemax, valuenow, valuetext attributes
+- Keyboard navigation: Arrow keys to adjust value
+- Focus indicator with `focus-visible` styling
+- Respects `prefers-reduced-motion` by disabling hover animations
 
 ## License
 

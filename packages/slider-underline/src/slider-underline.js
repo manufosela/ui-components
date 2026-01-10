@@ -224,6 +224,22 @@ export class SliderUnderline extends LitElement {
       color: #6b7280;
       margin-top: 0.25rem;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fill,
+      .tooltip,
+      input[type='range']::-webkit-slider-thumb,
+      input[type='range']::-moz-range-thumb {
+        transition: none;
+      }
+
+      input[type='range']::-webkit-slider-thumb:hover,
+      input[type='range']::-moz-range-thumb:hover,
+      input[type='range']:active::-webkit-slider-thumb,
+      input[type='range']:active::-moz-range-thumb {
+        transform: none;
+      }
+    }
   `;
 
   constructor() {
