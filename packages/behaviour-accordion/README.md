@@ -148,9 +148,11 @@ npm install @manufosela/behaviour-accordion
 ## Accessibility
 
 - Full keyboard navigation (Enter/Space to toggle)
-- ARIA attributes (role, aria-expanded, aria-disabled)
-- Focus management and visible focus indicators
+- ARIA attributes: `role="button"`, `aria-expanded`, `aria-disabled`
+- SVG icons use `aria-hidden="true"`
+- Focus management with visible focus indicators
 - Screen reader compatible
+- Respects `prefers-reduced-motion` by disabling animations
 
 ## License
 

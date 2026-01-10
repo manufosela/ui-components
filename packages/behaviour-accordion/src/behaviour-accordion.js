@@ -94,6 +94,14 @@ export class AccordionItem extends LitElement {
       background: var(--accordion-content-bg, #fff);
       color: var(--accordion-content-text, #4b5563);
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .header,
+      .icon,
+      .panel {
+        transition: none;
+      }
+    }
   `;
 
   constructor() {
