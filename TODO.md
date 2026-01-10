@@ -110,9 +110,9 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | arc-slider | | | | | | | | |
 | behaviour-accordion | | | | | | | | |
 | calendar-inline | | | | | | | | |
-| circle-percent | | | | | | | | |
+| circle-percent | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | circle-steps | | | | | | | | |
-| click-clock | | | | | | | | |
+| click-clock | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | data-card | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | header-nav | | | | | | | | |
 | historical-line | | | | | | | | |
@@ -129,7 +129,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | rich-select | | | | | | | | |
 | slide-notification | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | slider-underline | | | | | | | | |
-| stars-rating | | | | | | | | |
+| stars-rating | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | tab-nav | | | | | | | | |
 | theme-toggle | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | toast-notification | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
