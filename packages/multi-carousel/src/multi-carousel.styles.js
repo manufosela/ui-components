@@ -171,4 +171,31 @@ export const MultiCarouselStyles = css`
       height: 0.5rem;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slides {
+      transition: none;
+    }
+
+    .slides.wrapping {
+      animation: none;
+    }
+
+    .arrow {
+      transition: none;
+    }
+
+    .arrow:hover {
+      transform: none;
+    }
+
+    .nav-dot {
+      transition: none;
+    }
+
+    .nav-dot:hover,
+    .nav-dot.active {
+      transform: none;
+    }
+  }
 `;

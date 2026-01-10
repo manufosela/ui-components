@@ -138,6 +138,17 @@ Slides can contain any HTML:
 </multi-carousel>
 ```
 
+## Accessibility
+
+- `role="region"` and `aria-roledescription="carousel"` on container
+- `aria-live="polite"` for slide change announcements
+- Navigation dots use `role="tablist"` and `role="tab"`
+- `aria-selected` and `aria-label` on navigation dots
+- Arrow buttons have descriptive `aria-label`
+- Full keyboard navigation (Arrow keys)
+- Focus visible indicator on carousel
+- Respects `prefers-reduced-motion` by disabling animations
+
 ## License
 
 MIT

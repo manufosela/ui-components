@@ -130,6 +130,6 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | slide-notification | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | slider-underline | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | stars-rating | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| tab-nav | | | | | | | | |
+| tab-nav | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | theme-toggle | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | toast-notification | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
