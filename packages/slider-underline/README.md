@@ -63,6 +63,32 @@ npm install @manufosela/slider-underline
 <slider-underline disabled value="30"></slider-underline>
 ```
 
+### Custom Width
+
+```html
+<slider-underline width="300px" label="Fixed width"></slider-underline>
+<slider-underline width="50%" label="Percentage width"></slider-underline>
+```
+
+### With Scale Ticks
+
+```html
+<!-- Show 10 tick marks -->
+<slider-underline show-ticks="10"></slider-underline>
+
+<!-- Show ticks with values -->
+<slider-underline show-ticks="5" show-tick-values></slider-underline>
+
+<!-- Full scale with custom range -->
+<slider-underline
+  min="0"
+  max="100"
+  show-ticks="10"
+  show-tick-values
+  unit="%"
+></slider-underline>
+```
+
 ## Properties
 
 | Property | Type | Default | Description |
@@ -72,10 +98,13 @@ npm install @manufosela/slider-underline
 | `max` | `Number` | `100` | Maximum value |
 | `step` | `Number` | `1` | Step increment |
 | `disabled` | `Boolean` | `false` | Disabled state |
-| `showValue` | `Boolean` | `true` | Show value display |
-| `labelPosition` | `String` | `'above'` | above, below, tooltip |
+| `show-value` | `Boolean` | `true` | Show value display |
+| `label-position` | `String` | `'above'` | above, below, tooltip |
 | `label` | `String` | `''` | Label text |
 | `unit` | `String` | `''` | Unit suffix |
+| `width` | `String` | `''` | Slider width (e.g., '300px', '100%') |
+| `show-ticks` | `Number` | `0` | Number of tick marks (0 = none) |
+| `show-tick-values` | `Boolean` | `false` | Show values on tick marks |
 
 ## Methods
 
@@ -104,6 +133,8 @@ npm install @manufosela/slider-underline
 | `--slider-thumb-size` | `20px` | Thumb size |
 | `--slider-track-height` | `4px` | Track height |
 | `--slider-label-color` | `#1f2937` | Label text color |
+| `--slider-tick-color` | `#9ca3af` | Tick mark color |
+| `--slider-tick-value-color` | `#6b7280` | Tick value text color |
 
 ## Styling Examples
 

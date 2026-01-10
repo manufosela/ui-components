@@ -13,6 +13,8 @@ import { LitElement, html, css } from 'lit';
  * @cssprop [--slider-thumb-size=20px] - Thumb size
  * @cssprop [--slider-track-height=4px] - Track height
  * @cssprop [--slider-label-color=#1f2937] - Label text color
+ * @cssprop [--slider-tick-color=#9ca3af] - Tick mark color
+ * @cssprop [--slider-tick-value-color=#6b7280] - Tick value text color
  */
 export class SliderUnderline extends LitElement {
   static properties = {
@@ -36,6 +38,12 @@ export class SliderUnderline extends LitElement {
     label: { type: String },
     /** Unit suffix for value display */
     unit: { type: String },
+    /** Slider width (e.g., '300px', '100%') */
+    width: { type: String },
+    /** Number of tick marks to show (0 = none) */
+    showTicks: { type: Number, attribute: 'show-ticks' },
+    /** Show values on tick marks */
+    showTickValues: { type: Boolean, attribute: 'show-tick-values' },
   };
 
   static styles = css`
@@ -225,6 +233,39 @@ export class SliderUnderline extends LitElement {
       margin-top: 0.25rem;
     }
 
+    .ticks-container {
+      position: relative;
+      width: 100%;
+      height: 20px;
+      margin-top: 0.25rem;
+    }
+
+    .tick {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateX(-50%);
+    }
+
+    .tick-mark {
+      width: 1px;
+      height: 8px;
+      background: var(--slider-tick-color, #9ca3af);
+    }
+
+    .tick-mark.major {
+      height: 12px;
+      width: 2px;
+    }
+
+    .tick-value {
+      font-size: 0.625rem;
+      color: var(--slider-tick-value-color, #6b7280);
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .fill,
       .tooltip,
@@ -254,6 +295,9 @@ export class SliderUnderline extends LitElement {
     this.format = '';
     this.label = '';
     this.unit = '';
+    this.width = '';
+    this.showTicks = 0;
+    this.showTickValues = false;
   }
 
   get _percentage() {
@@ -321,13 +365,38 @@ export class SliderUnderline extends LitElement {
     this.setValue(this.min);
   }
 
+  _renderTicks() {
+    if (!this.showTicks || this.showTicks < 2) return '';
+
+    const ticks = [];
+    const tickCount = this.showTicks;
+
+    for (let i = 0; i <= tickCount; i++) {
+      const percentage = (i / tickCount) * 100;
+      const value = Math.round(this.min + (i / tickCount) * (this.max - this.min));
+      const isMajor = i === 0 || i === tickCount || i === Math.floor(tickCount / 2);
+
+      ticks.push(html`
+        <div class="tick" style="left: ${percentage}%">
+          <div class="tick-mark ${isMajor ? 'major' : ''}"></div>
+          ${this.showTickValues
+            ? html`<span class="tick-value">${this._formatValue(value)}</span>`
+            : ''}
+        </div>
+      `);
+    }
+
+    return html`<div class="ticks-container">${ticks}</div>`;
+  }
+
   render() {
     const percentage = this._percentage;
     const formattedValue = this._formatValue(this.value);
     const tooltipLeft = `calc(${percentage}% + (${(50 - percentage) * 0.2}px))`;
+    const containerStyle = this.width ? `width: ${this.width}` : '';
 
     return html`
-      <div class="container">
+      <div class="container" style="${containerStyle}">
         ${this.label || (this.showValue && this.labelPosition === 'above')
           ? html`
               <div class="label-row">
@@ -363,6 +432,7 @@ export class SliderUnderline extends LitElement {
             : ''}
         </div>
 
+        ${this._renderTicks()}
         ${this.showValue && this.labelPosition === 'below'
           ? html` <div class="value-below">${formattedValue}</div> `
           : ''}

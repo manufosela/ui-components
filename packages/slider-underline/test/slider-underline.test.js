@@ -275,4 +275,116 @@ describe('SliderUnderline', () => {
       expect(el.value).to.be.closeTo(5.6, 0.01);
     });
   });
+
+  describe('width property', () => {
+    it('has empty width by default', async () => {
+      const el = await fixture(html`<slider-underline></slider-underline>`);
+      expect(el.width).to.equal('');
+    });
+
+    it('accepts width attribute', async () => {
+      const el = await fixture(html`<slider-underline width="300px"></slider-underline>`);
+      expect(el.width).to.equal('300px');
+    });
+
+    it('applies width style to container', async () => {
+      const el = await fixture(html`<slider-underline width="250px"></slider-underline>`);
+      const container = el.shadowRoot.querySelector('.container');
+      expect(container.style.width).to.equal('250px');
+    });
+
+    it('accepts percentage width', async () => {
+      const el = await fixture(html`<slider-underline width="50%"></slider-underline>`);
+      const container = el.shadowRoot.querySelector('.container');
+      expect(container.style.width).to.equal('50%');
+    });
+  });
+
+  describe('ticks', () => {
+    it('has no ticks by default', async () => {
+      const el = await fixture(html`<slider-underline></slider-underline>`);
+      expect(el.showTicks).to.equal(0);
+      const ticks = el.shadowRoot.querySelector('.ticks-container');
+      expect(ticks).to.be.null;
+    });
+
+    it('renders ticks when show-ticks is set', async () => {
+      const el = await fixture(html`<slider-underline show-ticks="5"></slider-underline>`);
+      const ticksContainer = el.shadowRoot.querySelector('.ticks-container');
+      expect(ticksContainer).to.exist;
+    });
+
+    it('renders correct number of tick marks', async () => {
+      const el = await fixture(html`<slider-underline show-ticks="4"></slider-underline>`);
+      const ticks = el.shadowRoot.querySelectorAll('.tick');
+      expect(ticks.length).to.equal(5); // 4 divisions = 5 tick marks (0, 1, 2, 3, 4)
+    });
+
+    it('does not render ticks when show-ticks is less than 2', async () => {
+      const el = await fixture(html`<slider-underline show-ticks="1"></slider-underline>`);
+      const ticksContainer = el.shadowRoot.querySelector('.ticks-container');
+      expect(ticksContainer).to.be.null;
+    });
+
+    it('marks first, middle, and last ticks as major', async () => {
+      const el = await fixture(html`<slider-underline show-ticks="4"></slider-underline>`);
+      const majorTicks = el.shadowRoot.querySelectorAll('.tick-mark.major');
+      expect(majorTicks.length).to.equal(3); // first, middle, last
+    });
+  });
+
+  describe('tick values', () => {
+    it('does not show tick values by default', async () => {
+      const el = await fixture(html`<slider-underline show-ticks="5"></slider-underline>`);
+      expect(el.showTickValues).to.be.false;
+      const tickValues = el.shadowRoot.querySelectorAll('.tick-value');
+      expect(tickValues.length).to.equal(0);
+    });
+
+    it('shows tick values when show-tick-values is set', async () => {
+      const el = await fixture(
+        html`<slider-underline show-ticks="5" show-tick-values></slider-underline>`
+      );
+      const tickValues = el.shadowRoot.querySelectorAll('.tick-value');
+      expect(tickValues.length).to.equal(6); // 5 divisions = 6 tick values
+    });
+
+    it('displays correct values on ticks', async () => {
+      const el = await fixture(
+        html`<slider-underline
+          min="0"
+          max="100"
+          show-ticks="4"
+          show-tick-values
+        ></slider-underline>`
+      );
+      const tickValues = el.shadowRoot.querySelectorAll('.tick-value');
+      expect(tickValues[0].textContent).to.equal('0');
+      expect(tickValues[2].textContent).to.equal('50');
+      expect(tickValues[4].textContent).to.equal('100');
+    });
+
+    it('applies unit to tick values', async () => {
+      const el = await fixture(
+        html`<slider-underline
+          min="0"
+          max="100"
+          unit="%"
+          show-ticks="4"
+          show-tick-values
+        ></slider-underline>`
+      );
+      const tickValues = el.shadowRoot.querySelectorAll('.tick-value');
+      expect(tickValues[0].textContent).to.equal('0%');
+      expect(tickValues[4].textContent).to.equal('100%');
+    });
+
+    it('positions ticks correctly', async () => {
+      const el = await fixture(html`<slider-underline show-ticks="4"></slider-underline>`);
+      const ticks = el.shadowRoot.querySelectorAll('.tick');
+      expect(ticks[0].style.left).to.equal('0%');
+      expect(ticks[2].style.left).to.equal('50%');
+      expect(ticks[4].style.left).to.equal('100%');
+    });
+  });
 });
