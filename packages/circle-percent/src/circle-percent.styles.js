@@ -70,4 +70,10 @@ export const circlePercentStyles = css`
     --circle-percent-text-size: 2rem;
     --circle-percent-title-size: 1rem;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress-circle {
+      transition: none;
+    }
+  }
 `;

@@ -124,6 +124,13 @@ circle-percent {
 }
 ```
 
+## Accessibility
+
+- Uses `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, and `aria-valuemax`
+- Dynamic `aria-label` announces title and current percentage
+- SVG is hidden from assistive technology (`aria-hidden="true"`)
+- Respects `prefers-reduced-motion` by disabling progress animation
+
 ## Development
 
 ```bash
