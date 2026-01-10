@@ -121,4 +121,26 @@ export const appModalStyles = css`
   button.cancel:hover {
     background: var(--app-modal-cancel-hover-bg, #e53935);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    :host {
+      transition: none;
+    }
+
+    .modal {
+      transition: none;
+    }
+
+    .close-btn {
+      transition: none;
+    }
+
+    .close-btn.standalone:hover {
+      transform: none;
+    }
+
+    button {
+      transition: none;
+    }
+  }
 `;

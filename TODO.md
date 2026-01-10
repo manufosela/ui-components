@@ -119,7 +119,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 | lcd-digit | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | loading-layer | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | marked-calendar | | | | | | | | |
-| modal-dialog | | | | | | | | |
+| modal-dialog | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | multi-carousel | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | multi-select | | | | | | | | |
 | nav-list | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

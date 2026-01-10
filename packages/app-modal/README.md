@@ -209,6 +209,14 @@ This library includes two modal components. Choose based on your needs:
 - You're building complex forms inside modals
 - You need multiple custom footer actions
 
+## Accessibility
+
+- Escape key closes the modal
+- Click outside overlay closes the modal
+- Close button provides explicit dismiss action
+- Global close event allows programmatic closing
+- Respects `prefers-reduced-motion` by disabling animations
+
 ## License
 
 MIT
