@@ -264,4 +264,23 @@ export const richSelectStyles = css`
     background: var(--dark-option-selected-background, #1e3a5f);
     color: var(--dark-option-selected-color, #60a5fa);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    #caller {
+      transition: none;
+    }
+
+    :host([arrow]) #arrow > span {
+      transition: none;
+    }
+
+    #selectOptions {
+      transition: none;
+    }
+
+    ::slotted(rich-option),
+    rich-option {
+      transition: none;
+    }
+  }
 `;

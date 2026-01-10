@@ -222,6 +222,18 @@ The component automatically adapts to dark mode when placed inside a container w
 
 Dark mode CSS properties are prefixed with `--dark-*` (e.g., `--dark-caller-background`).
 
+## Accessibility
+
+- `role="combobox"` on trigger with `aria-haspopup="listbox"` and `aria-expanded`
+- `role="listbox"` on options container
+- `role="option"` on each option with `aria-selected` state
+- `aria-disabled` communicated on disabled select and options
+- Full keyboard navigation: Arrow keys, Home, End, Enter, Escape
+- Focus management with proper tabindex handling
+- Search input allows type-to-filter functionality
+- Scroll closes dropdown to prevent floating orphan
+- Respects `prefers-reduced-motion` by disabling transitions
+
 ## Development
 
 ```bash
