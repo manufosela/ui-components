@@ -106,7 +106,7 @@ El objetivo es mejorar calidad, accesibilidad, consistencia y experiencia de uso
 
 | Componente | API | A11y | Arquitectura | Consistencia | DX | Performance | Tests | Docs |
 |------------|-----|------|--------------|--------------|-----|-------------|-------|------|
-| app-modal | | | | | | | | |
+| app-modal | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | arc-slider | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | behaviour-accordion | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | calendar-inline | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

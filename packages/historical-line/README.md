@@ -78,6 +78,12 @@ Each data item should have:
 | `--border-color` | `#d2d2d7` | Border color |
 | `--desc-font-size` | `0.8rem` | Description font size |
 
+## Accessibility
+
+- Uses semantic HTML table structure for data representation
+- Supports dark mode via `.dark` class on parent
+- CSS parts available for custom styling: `title`, `container`
+
 ## License
 
 MIT
