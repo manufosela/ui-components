@@ -609,9 +609,18 @@ export class QrCode extends LitElement {
   }
 
   render() {
+    const ariaLabel = this.data ? `QR code containing: ${this.data}` : 'Empty QR code';
+
     return html`
-      <div class="qr-container" style="--qr-size: ${this.size}px">
-        ${this.data ? html`<canvas></canvas>` : html`<div class="error">No data to encode</div>`}
+      <div
+        class="qr-container"
+        style="--qr-size: ${this.size}px"
+        role="img"
+        aria-label="${ariaLabel}"
+      >
+        ${this.data
+          ? html`<canvas aria-hidden="true"></canvas>`
+          : html`<div class="error">No data to encode</div>`}
       </div>
     `;
   }

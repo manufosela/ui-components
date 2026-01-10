@@ -169,6 +169,13 @@ EMAIL:john@example.com
 END:VCARD"></qr-code>
 ```
 
+## Accessibility
+
+- Container has `role="img"` for screen reader identification
+- `aria-label` dynamically describes the QR code content (e.g., "QR code containing: https://example.com")
+- Canvas is marked as `aria-hidden="true"` since it's decorative
+- Consider providing alternative text or link for users who cannot scan QR codes
+
 ## Compared to Original
 
 | Feature | @nickmitchko/qr-code | @manufosela/qr-code |
