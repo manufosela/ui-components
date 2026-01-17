@@ -81,6 +81,34 @@
       color: var(--muted);
     }
 
+    .search {
+      margin-top: 2rem;
+      display: grid;
+      gap: 0.75rem;
+      justify-items: center;
+    }
+
+    .search input {
+      width: min(520px, 100%);
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .search input:focus {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 2px rgba(0, 208, 255, 0.2);
+    }
+
+    .search-meta {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -193,13 +221,17 @@
           <div class="stat-label">Components</div>
         </div>
         <div class="stat">
-          <div class="stat-value">943</div>
-          <div class="stat-label">Tests</div>
+          <div class="stat-value">27</div>
+          <div class="stat-label">Demos</div>
         </div>
         <div class="stat">
-          <div class="stat-value">~2.6 KB</div>
-          <div class="stat-label">Avg. Size (gzip)</div>
+          <div class="stat-value">27</div>
+          <div class="stat-label">Test files</div>
         </div>
+      </div>
+      <div class="search">
+        <input id="searchInput" type="search" placeholder="Search components..." />
+        <div id="searchMeta" class="search-meta"></div>
       </div>
     </header>
 
@@ -650,6 +682,33 @@
   </div>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const searchInput = document.getElementById('searchInput');
+    const searchMeta = document.getElementById('searchMeta');
+    const cards = Array.from(document.querySelectorAll('.card'));
+
+    const updateMeta = (visibleCount) => {
+      searchMeta.textContent = `Showing ${visibleCount} of ${cards.length} components`;
+    };
+
+    const filterCards = () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const text = card.textContent.toLowerCase();
+        const match = text.includes(query);
+        card.style.display = match ? 'block' : 'none';
+        if (match) {
+          visibleCount += 1;
+        }
+      });
+
+      updateMeta(visibleCount);
+    };
+
+    searchInput.addEventListener('input', filterCards);
+    updateMeta(cards.length);
   </script>
 </body>
 </html>
