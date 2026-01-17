@@ -165,7 +165,7 @@ export class DataCard extends LitElement {
     }
 
     .more-info-trigger:hover {
-      color: #2563eb;
+      color: var(--data-card-info-trigger-hover, #2563eb);
     }
 
     .more-info-panel {
@@ -174,7 +174,7 @@ export class DataCard extends LitElement {
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(255, 255, 255, 0.98);
+      background: var(--data-card-info-bg, rgba(255, 255, 255, 0.98));
       padding: 1.5rem;
       opacity: 0;
       visibility: hidden;
@@ -197,25 +197,25 @@ export class DataCard extends LitElement {
       width: 28px;
       height: 28px;
       border: none;
-      background: #f3f4f6;
+      background: var(--data-card-info-close-bg, #f3f4f6);
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.25rem;
-      color: #6b7280;
+      color: var(--data-card-info-close-color, #6b7280);
       transition: background 0.2s;
     }
 
     .more-info-close:hover {
-      background: #e5e7eb;
+      background: var(--data-card-info-close-hover-bg, #e5e7eb);
     }
 
     .more-info-content {
       font-size: 0.875rem;
       line-height: 1.6;
-      color: #374151;
+      color: var(--data-card-info-text, #374151);
       margin-top: 2rem;
     }
 
@@ -224,7 +224,7 @@ export class DataCard extends LitElement {
       align-items: center;
       justify-content: center;
       height: 100px;
-      color: #6b7280;
+      color: var(--data-card-loading-color, #6b7280);
     }
 
     .footer {

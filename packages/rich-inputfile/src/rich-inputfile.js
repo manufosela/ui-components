@@ -69,7 +69,7 @@ export class RichInputfile extends LitElement {
       display: block;
       font-size: 0.875rem;
       font-weight: 500;
-      color: #374151;
+      color: var(--input-label-color, #374151);
       margin-bottom: 0.5rem;
     }
 
@@ -88,24 +88,24 @@ export class RichInputfile extends LitElement {
 
     .dropzone:hover:not(.disabled) {
       border-color: var(--input-border-focus, #3b82f6);
-      background: #f8fafc;
+      background: var(--input-hover-bg, #f8fafc);
     }
 
     .dropzone.drag-over {
       border-color: var(--input-border-focus, #3b82f6);
-      background: #eff6ff;
+      background: var(--input-drag-bg, #eff6ff);
     }
 
     .dropzone.disabled {
       opacity: 0.6;
       cursor: not-allowed;
-      background: #f5f5f5;
+      background: var(--input-disabled-bg, #f5f5f5);
     }
 
     .dropzone.has-file {
       border-style: solid;
-      border-color: #22c55e;
-      background: #f0fdf4;
+      border-color: var(--input-success-border, #22c55e);
+      background: var(--input-success-bg, #f0fdf4);
     }
 
     input[type='file'] {
@@ -124,16 +124,16 @@ export class RichInputfile extends LitElement {
     .upload-icon {
       font-size: 2rem;
       margin-bottom: 0.5rem;
-      color: #94a3b8;
+      color: var(--input-icon-color, #94a3b8);
     }
 
     .upload-text {
-      color: #64748b;
+      color: var(--input-text-color, #64748b);
       font-size: 0.9rem;
     }
 
     .upload-text strong {
-      color: var(--input-border-focus, #3b82f6);
+      color: var(--input-accent-color, var(--input-border-focus, #3b82f6));
     }
 
     .file-info {
@@ -141,7 +141,7 @@ export class RichInputfile extends LitElement {
       align-items: center;
       gap: 1rem;
       padding: 0.75rem;
-      background: #fff;
+      background: var(--input-file-bg, #fff);
       border-radius: 6px;
       margin-top: 1rem;
     }
@@ -150,7 +150,7 @@ export class RichInputfile extends LitElement {
       flex-shrink: 0;
       border-radius: 4px;
       object-fit: cover;
-      background: #f1f5f9;
+      background: var(--input-preview-bg, #f1f5f9);
     }
 
     .file-details {
@@ -160,13 +160,13 @@ export class RichInputfile extends LitElement {
 
     .file-name {
       font-weight: 500;
-      color: #1f2937;
+      color: var(--input-file-name-color, #1f2937);
       word-break: break-all;
       font-size: 0.875rem;
     }
 
     .file-size {
-      color: #6b7280;
+      color: var(--input-file-size-color, #6b7280);
       font-size: 0.75rem;
       margin-top: 0.125rem;
     }
@@ -187,13 +187,13 @@ export class RichInputfile extends LitElement {
     }
 
     .error {
-      color: #ef4444;
+      color: var(--input-error-color, #ef4444);
       font-size: 0.75rem;
       margin-top: 0.5rem;
     }
 
     .hint {
-      color: #6b7280;
+      color: var(--input-hint-color, #6b7280);
       font-size: 0.75rem;
       margin-top: 0.5rem;
     }

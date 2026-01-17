@@ -229,7 +229,7 @@ export class SliderUnderline extends LitElement {
       display: flex;
       justify-content: space-between;
       font-size: 0.75rem;
-      color: #6b7280;
+      color: var(--slider-tick-value-color, #6b7280);
       margin-top: 0.25rem;
     }
 

@@ -71,14 +71,14 @@ export const appModalStyles = css`
     position: absolute;
     top: 0.2rem;
     right: 0.2rem;
-    background: rgba(150, 50, 50, 0.5);
-    color: #000;
+    background: var(--app-modal-standalone-bg, rgba(150, 50, 50, 0.5));
+    color: var(--app-modal-standalone-color, #000);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 10;
   }
 
   .close-btn.standalone:hover {
-    background: #f8f9fa;
+    background: var(--app-modal-standalone-hover-bg, #f8f9fa);
     transform: scale(1.1);
   }
 

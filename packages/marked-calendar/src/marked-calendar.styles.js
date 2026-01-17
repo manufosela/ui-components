@@ -12,6 +12,15 @@ export const MarkedCalendarStyles = css`
       sans-serif;
     --calendar-bg: #f8fafc;
     --calendar-border: #e2e8f0;
+    --calendar-title: #1e293b;
+    --calendar-muted: #64748b;
+    --calendar-surface: #ffffff;
+    --calendar-accent: #3b82f6;
+    --calendar-accent-hover: #2563eb;
+    --calendar-border-strong: #94a3b8;
+    --calendar-contrast: #ffffff;
+    --calendar-nav-bg: #ffffff;
+    --calendar-nav-hover: #e2e8f0;
     --cell-size: 1.25rem;
   }
 
@@ -28,7 +37,7 @@ export const MarkedCalendarStyles = css`
     font-size: 1.5rem;
     font-weight: 600;
     margin: 0 0 1rem 0;
-    color: #1e293b;
+    color: var(--calendar-title);
   }
 
   /* Legend */
@@ -42,7 +51,7 @@ export const MarkedCalendarStyles = css`
 
   .legend-title {
     font-weight: 600;
-    color: #64748b;
+    color: var(--calendar-muted);
     font-size: 0.875rem;
   }
 
@@ -60,7 +69,7 @@ export const MarkedCalendarStyles = css`
     padding: 0.375rem 0.625rem;
     border: 2px solid transparent;
     border-radius: 6px;
-    background: white;
+    background: var(--calendar-surface);
     cursor: pointer;
     transition: all 0.2s;
     font-size: 0.875rem;
@@ -71,11 +80,11 @@ export const MarkedCalendarStyles = css`
   }
 
   .legend-item:not(:disabled):hover {
-    border-color: #94a3b8;
+    border-color: var(--calendar-border-strong);
   }
 
   .legend-item.selected {
-    border-color: #3b82f6;
+    border-color: var(--calendar-accent);
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
   }
 
@@ -105,7 +114,7 @@ export const MarkedCalendarStyles = css`
     height: 2rem;
     border: none;
     border-radius: 6px;
-    background: white;
+    background: var(--calendar-nav-bg);
     cursor: pointer;
     font-size: 1.25rem;
     display: flex;
@@ -115,7 +124,7 @@ export const MarkedCalendarStyles = css`
   }
 
   .nav-btn:hover {
-    background: #e2e8f0;
+    background: var(--calendar-nav-hover);
   }
 
   .nav-title {
@@ -149,7 +158,7 @@ export const MarkedCalendarStyles = css`
     align-items: center;
     justify-content: center;
     font-size: 0.625rem;
-    color: #64748b;
+    color: var(--calendar-muted);
   }
 
   .months-container {
@@ -168,8 +177,8 @@ export const MarkedCalendarStyles = css`
     width: 1.75rem;
     height: var(--cell-size);
     border: none;
-    background: #3b82f6;
-    color: white;
+    background: var(--calendar-accent);
+    color: var(--calendar-contrast);
     font-weight: 600;
     font-size: 0.75rem;
     border-radius: 4px;
@@ -178,7 +187,7 @@ export const MarkedCalendarStyles = css`
   }
 
   .month-label:hover {
-    background: #2563eb;
+    background: var(--calendar-accent-hover);
   }
 
   .month-days {
@@ -231,7 +240,7 @@ export const MarkedCalendarStyles = css`
     text-align: center;
     font-size: 0.75rem;
     font-weight: 600;
-    color: #64748b;
+    color: var(--calendar-muted);
     padding: 0.25rem;
   }
 
@@ -250,7 +259,7 @@ export const MarkedCalendarStyles = css`
 
   .day-label {
     font-size: 0.75rem;
-    color: #64748b;
+    color: var(--calendar-muted);
   }
 
   .month-view .day-cell {

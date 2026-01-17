@@ -167,7 +167,7 @@ export class HeaderNav extends LitElement {
 
     .mobile-menu a:hover {
       color: var(--header-link-hover, #3b82f6);
-      background: #f5f5f7;
+      background: var(--header-mobile-hover-bg, #f5f5f7);
     }
 
     @media (max-width: 768px) {

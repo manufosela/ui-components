@@ -132,7 +132,7 @@ export class CircleSteps extends LitElement {
       font-weight: 600;
       font-size: 0.875rem;
       background: var(--steps-pending, #e5e7eb);
-      color: #6b7280;
+      color: var(--steps-muted, #6b7280);
       transition: all 0.3s;
       flex-shrink: 0;
       border: 2px solid transparent;
@@ -204,7 +204,7 @@ export class CircleSteps extends LitElement {
 
     .description {
       font-size: 0.75rem;
-      color: #6b7280;
+      color: var(--steps-muted, #6b7280);
       margin-top: 0.25rem;
     }
 

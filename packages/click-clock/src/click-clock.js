@@ -83,7 +83,7 @@ export class ClickClock extends LitElement {
 
     .label {
       font-size: 0.5em;
-      color: #6b7280;
+      color: var(--clock-muted-color, #6b7280);
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }

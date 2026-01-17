@@ -6,6 +6,9 @@ export const arcSliderStyles = css`
     --arc-slider-text-color: #000;
     --arc-slider-thumb-size: 20px;
     --arc-slider-width: 12.5em;
+    --arc-slider-value-bg: #f2f2f3;
+    --arc-slider-value-border: #dbdbe3;
+    --arc-slider-value-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.1);
   }
 
   :host([disabled]) {
@@ -58,11 +61,11 @@ export const arcSliderStyles = css`
     justify-content: center;
     align-items: center;
     margin-top: 0.5rem;
-    border: 1px solid #dbdbe3;
+    border: 1px solid var(--arc-slider-value-border);
     border-radius: 5rem;
     padding: 0.25rem 0.75rem;
-    background-color: #f2f2f3;
-    box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.1);
+    background-color: var(--arc-slider-value-bg);
+    box-shadow: var(--arc-slider-value-shadow);
     font-size: 0.9rem;
     font-feature-settings: 'tnum';
     font-variant-numeric: tabular-nums;

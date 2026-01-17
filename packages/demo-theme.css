@@ -178,3 +178,215 @@ footer {
 footer a {
   color: var(--text);
 }
+
+arc-slider {
+  --arc-slider-text-color: var(--text);
+  --arc-slider-value-bg: #0b0f1a;
+  --arc-slider-value-border: var(--line);
+  --arc-slider-value-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+rich-select {
+  --caller-background: #1c2233;
+  --caller-color: var(--text);
+  --caller-border: 1px solid var(--line);
+  --caller-hover-background: #263046;
+  --caller-hover-color: var(--text);
+  --caller-hover-border-color: #3a435a;
+  --caller-focus-border-color: var(--accent-2);
+  --caller-focus-shadow: 0 0 0 3px rgba(0, 208, 255, 0.25);
+  --caller-disabled-background: #111827;
+  --caller-disabled-color: #6b7280;
+  --caller-disabled-border-color: #1f2937;
+  --arrow-color: var(--muted);
+  --selectOptions-background: #1c2233;
+  --selectOptions-border: 1px solid var(--line);
+  --selectOptions-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
+  --input-background: #0b0f1a;
+  --input-border: 1px solid var(--line);
+  --input-color: var(--text);
+  --input-placeholder-color: #6b7280;
+  --option-color: var(--text);
+  --option-hover-background: #263046;
+  --option-hover-color: var(--text);
+  --option-active-background: var(--accent);
+  --option-active-color: #111;
+  --option-selected-background: #1b2a44;
+  --option-selected-color: #9cc7ff;
+  --option-disabled-background: #111827;
+  --option-disabled-color: #6b7280;
+}
+
+multi-select {
+  --multi-select-bg: #1c2233;
+  --multi-select-border-color: var(--line);
+  --multi-select-border-hover: #3a435a;
+  --multi-select-border-focus: var(--accent-2);
+  --multi-select-text-color: var(--text);
+  --multi-select-placeholder-color: #6b7280;
+  --multi-select-arrow-color: var(--muted);
+  --multi-select-dropdown-bg: #1c2233;
+  --multi-select-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
+  --multi-select-option-hover-bg: #263046;
+  --multi-select-option-selected-bg: #1b2a44;
+}
+
+tab-nav {
+  --tab-bg: #1c2233;
+  --tab-border: var(--line);
+  --tab-text: var(--muted);
+  --tab-active-text: var(--text);
+  --tab-hover-bg: #263046;
+  --tab-active-border: var(--accent);
+  --tab-disabled: #56607a;
+}
+
+slider-underline {
+  --slider-track: #2b3247;
+  --slider-fill: var(--accent);
+  --slider-thumb: var(--accent);
+  --slider-label-color: var(--text);
+  --slider-tick-color: #4b5563;
+  --slider-tick-value-color: var(--muted);
+}
+
+header-nav {
+  --header-bg: #1c2233;
+  --header-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+  --header-link-color: var(--text);
+  --header-link-hover: var(--accent);
+  --header-mobile-hover-bg: #263046;
+}
+
+calendar-inline {
+  --calendar-bg: #1c2233;
+  --calendar-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+  --calendar-text: var(--text);
+  --calendar-accent: var(--accent);
+  --calendar-today: rgba(255, 176, 0, 0.2);
+  --calendar-selected: var(--accent);
+  --calendar-hover-bg: #263046;
+  --calendar-muted: var(--muted);
+  --calendar-muted-strong: #94a3b8;
+  --calendar-other-month: #4b5563;
+  --calendar-disabled: #3b4254;
+  --calendar-holiday: #ef4444;
+  --calendar-holiday-selected: #111;
+}
+
+marked-calendar {
+  --calendar-bg: #1c2233;
+  --calendar-border: #2b3247;
+  --calendar-title: var(--text);
+  --calendar-muted: var(--muted);
+  --calendar-surface: #0b0f1a;
+  --calendar-accent: var(--accent);
+  --calendar-accent-hover: #ff7a1a;
+  --calendar-border-strong: #3a435a;
+  --calendar-contrast: #111;
+  --calendar-nav-bg: #0b0f1a;
+  --calendar-nav-hover: #263046;
+}
+
+radar-chart {
+  --radar-bg: #1c2233;
+  --radar-grid-color: #2f3a53;
+  --radar-axis-color: #3a435a;
+  --radar-label-color: var(--muted);
+}
+
+multi-carousel {
+  --carousel-bg: #1c2233;
+  --carousel-arrow-bg: rgba(11, 15, 26, 0.9);
+  --carousel-arrow-color: var(--text);
+  --carousel-arrow-hover-bg: #263046;
+  --carousel-arrow-hover-color: var(--text);
+  --carousel-nav-bg: rgba(11, 15, 26, 0.85);
+  --carousel-nav-color: #4b5563;
+  --carousel-nav-hover: #9ca3af;
+  --carousel-nav-active: var(--accent);
+  --carousel-focus-color: var(--accent-2);
+}
+
+nav-list {
+  --nav-list-bg: #1c2233;
+  --nav-list-border-color: var(--line);
+  --nav-list-selected-border-color: var(--accent);
+  --nav-list-selected-bg: #263046;
+  --nav-list-hover-bg: #263046;
+  --nav-list-selected-color: var(--text);
+}
+
+theme-toggle {
+  --theme-toggle-bg: #1c2233;
+  --theme-toggle-icon-color: var(--muted);
+  --theme-toggle-hover-bg: #263046;
+  --theme-toggle-active-bg: #0b0f1a;
+  --theme-toggle-active-color: var(--text);
+}
+
+qr-code {
+  --qr-fg: #0f1117;
+  --qr-bg: #f3f6ff;
+}
+
+click-clock {
+  --clock-color: var(--text);
+  --clock-bg: #1c2233;
+  --clock-muted-color: var(--muted);
+}
+
+historical-line {
+  --title-color: var(--text);
+  --border-color: var(--line);
+  --year-bg: #0b0f1a;
+}
+
+circle-steps {
+  --steps-muted: var(--muted);
+  --steps-text: var(--text);
+  --steps-pending: #263046;
+}
+
+rich-inputfile {
+  --input-border: var(--line);
+  --input-border-focus: var(--accent-2);
+  --input-bg: #1c2233;
+  --input-label-color: var(--text);
+  --input-hover-bg: #263046;
+  --input-drag-bg: #1b2a44;
+  --input-disabled-bg: #111827;
+  --input-success-border: #22c55e;
+  --input-success-bg: rgba(34, 197, 94, 0.12);
+  --input-icon-color: #94a3b8;
+  --input-text-color: var(--muted);
+  --input-accent-color: var(--accent-2);
+  --input-file-bg: #0b0f1a;
+  --input-preview-bg: #111827;
+  --input-file-name-color: var(--text);
+  --input-file-size-color: var(--muted);
+  --input-error-color: #ef4444;
+  --input-hint-color: var(--muted);
+}
+
+data-card {
+  --data-card-bg: #1c2233;
+  --data-card-border-color: var(--line);
+  --data-card-title-color: var(--text);
+  --data-card-desc-color: var(--muted);
+  --data-card-info-bg: rgba(15, 17, 23, 0.98);
+  --data-card-info-close-bg: #263046;
+  --data-card-info-close-color: var(--text);
+  --data-card-info-close-hover-bg: #3a435a;
+  --data-card-info-text: var(--text);
+  --data-card-loading-color: var(--muted);
+  --data-card-info-trigger-hover: var(--accent);
+}
+
+app-modal {
+  --app-modal-bg: #1c2233;
+  --app-modal-body-color: var(--text);
+  --app-modal-standalone-bg: rgba(255, 176, 0, 0.35);
+  --app-modal-standalone-color: #111;
+  --app-modal-standalone-hover-bg: rgba(255, 176, 0, 0.6);
+}

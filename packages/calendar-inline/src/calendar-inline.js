@@ -46,7 +46,7 @@ export class CalendarInline extends LitElement {
       border-radius: 12px;
       padding: 1rem;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--calendar-shadow, 0 2px 8px rgba(0, 0, 0, 0.1));
       max-width: 320px;
     }
 
@@ -75,7 +75,7 @@ export class CalendarInline extends LitElement {
     }
 
     .nav-btn:hover {
-      background: #f1f5f9;
+      background: var(--calendar-hover-bg, #f1f5f9);
     }
 
     .weekdays {
@@ -92,7 +92,7 @@ export class CalendarInline extends LitElement {
     .weekday {
       font-size: 0.75rem;
       font-weight: 500;
-      color: #6b7280;
+      color: var(--calendar-muted, #6b7280);
       padding: 0.5rem 0;
     }
 
@@ -108,7 +108,7 @@ export class CalendarInline extends LitElement {
 
     .week-number {
       font-size: 0.7rem;
-      color: #9ca3af;
+      color: var(--calendar-muted-strong, #9ca3af);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -129,7 +129,7 @@ export class CalendarInline extends LitElement {
     }
 
     .day:hover:not(.disabled):not(.other-month) {
-      background: #f1f5f9;
+      background: var(--calendar-hover-bg, #f1f5f9);
     }
 
     .day.today {
@@ -143,11 +143,11 @@ export class CalendarInline extends LitElement {
     }
 
     .day.other-month {
-      color: #d1d5db;
+      color: var(--calendar-other-month, #d1d5db);
     }
 
     .day.disabled {
-      color: #e5e7eb;
+      color: var(--calendar-disabled, #e5e7eb);
       cursor: not-allowed;
     }
 
@@ -158,11 +158,11 @@ export class CalendarInline extends LitElement {
       width: 4px;
       height: 4px;
       border-radius: 50%;
-      background: #ef4444;
+      background: var(--calendar-holiday, #ef4444);
     }
 
     .day.holiday.selected::after {
-      background: white;
+      background: var(--calendar-holiday-selected, white);
     }
 
     @media (prefers-reduced-motion: reduce) {

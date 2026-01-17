@@ -42,6 +42,7 @@ export class HistoricalLine extends LitElement {
       --font-size: 16px;
       --title-color: #1d1d1f;
       --border-color: #d2d2d7;
+      --year-bg: #f5f5f7;
       --desc-font-size: 0.8rem;
     }
 
@@ -76,7 +77,7 @@ export class HistoricalLine extends LitElement {
     }
 
     .year {
-      background: #f5f5f7;
+      background: var(--year-bg);
       font-size: 0.9rem;
     }
 
@@ -106,10 +107,7 @@ export class HistoricalLine extends LitElement {
     :host-context(.dark) {
       --title-color: #f5f5f7;
       --border-color: #48484a;
-    }
-
-    :host-context(.dark) .year {
-      background: #2c2c2e;
+      --year-bg: #2c2c2e;
     }
   `;
 
