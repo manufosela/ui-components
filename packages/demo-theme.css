@@ -27,6 +27,29 @@ a {
   color: var(--accent);
 }
 
+.demo-links {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.demo-links a {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.demo-links a:hover {
+  color: var(--text);
+  border-color: var(--accent-2);
+}
+
 header {
   border-bottom: 1px solid var(--line);
 }
