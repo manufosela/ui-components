@@ -4,20 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>@manufosela/ui-components</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
   <style>
     :root {
-      --bg: #f5f5f7;
-      --card-bg: #fff;
-      --text: #1d1d1f;
-      --muted: #86868b;
-      --accent: #3b82f6;
+      --bg: #0f1117;
+      --bg-2: #151a26;
+      --card-bg: #1c2233;
+      --text: #f3f6ff;
+      --muted: #b8c0d9;
+      --accent: #ffb000;
+      --accent-2: #00d0ff;
+      --line: #2b3247;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
+      font-family: "Space Grotesk", "Trebuchet MS", Arial, sans-serif;
+      background: radial-gradient(circle at 10% 10%, #1a2136, transparent 50%),
+        radial-gradient(circle at 80% 0%, #1d1b34, transparent 45%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
       color: var(--text);
       min-height: 100vh;
       padding: 2rem;
@@ -36,7 +47,7 @@
     h1 {
       font-size: 3rem;
       margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      background: linear-gradient(135deg, var(--accent), #ff6a00);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -80,7 +91,8 @@
       background: var(--card-bg);
       border-radius: 16px;
       padding: 1.5rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 28px rgba(6, 10, 24, 0.45);
       transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none;
       color: inherit;
@@ -89,7 +101,7 @@
 
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 18px 36px rgba(6, 10, 24, 0.6);
     }
 
     .card-header {
@@ -107,8 +119,8 @@
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      color: white;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #111;
     }
 
     .card-title {
@@ -145,8 +157,8 @@
     .badge {
       display: inline-block;
       padding: 0.25rem 0.5rem;
-      background: #e0f2fe;
-      color: #0369a1;
+      background: rgba(255, 176, 0, 0.15);
+      color: var(--accent);
       border-radius: 4px;
       font-size: 0.75rem;
       font-weight: 500;
@@ -156,7 +168,7 @@
       text-align: center;
       margin-top: 4rem;
       padding-top: 2rem;
-      border-top: 1px solid #e5e7eb;
+      border-top: 1px solid var(--line);
       color: var(--muted);
     }
 
