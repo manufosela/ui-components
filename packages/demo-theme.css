@@ -92,6 +92,15 @@ code {
   border-radius: 8px;
 }
 
+.value-display,
+.output,
+.result,
+.demo-output {
+  background: #0b0f1a;
+  border: 1px solid var(--line);
+  color: #d6d9e6;
+}
+
 button {
   background: linear-gradient(120deg, var(--accent), #ff6a00);
   color: #111;
