@@ -87,6 +87,9 @@
   <a href="https://github.com/manufosela/ui-components/tree/main/packages/marked-calendar" target="_blank" rel="noopener">GitHub Repo</a>
   <a href="playground.html">Playground</a>
 </div>
+<div class="demo-theme-toggle">
+  <theme-toggle theme="dark"></theme-toggle>
+</div>
 <div class="demo-section">
     <h2>Interactive Mode (save-data)</h2>
     <p>Click a mood/color first, then click days to mark them. Data persists in localStorage.</p>
@@ -114,8 +117,8 @@
   <div class="demo-section">
     <h2>Month View</h2>
     <p>Start directly in month view.</p>
-    <marked-calendar view="month" name="January Tracker" change-view></marked-calendar>
-    <div class="code-block">&lt;marked-calendar view="month" change-view&gt;&lt;/marked-calendar&gt;</div>
+  <marked-calendar view="month" name="January Tracker" change-view save-data></marked-calendar>
+  <div class="code-block">&lt;marked-calendar view="month" change-view save-data&gt;&lt;/marked-calendar&gt;</div>
   </div>
 
   <div class="demo-section">
@@ -213,5 +216,21 @@
       readonly.requestUpdate();
     }, 100);
   </script>
+<script type="module">
+  import '../../theme-toggle/src/theme-toggle.js';
+
+  const root = document.documentElement;
+  root.classList.add('dark');
+
+  const toggle = document.querySelector('theme-toggle');
+  if (toggle) {
+    toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
+    toggle.addEventListener('theme-changed', (event) => {
+      const theme = event.detail?.theme;
+      if (!theme) return;
+      root.classList.toggle('dark', theme === 'dark');
+    });
+  }
+</script>
 </body>
 </html>

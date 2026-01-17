@@ -58,6 +58,9 @@
   <a href="https://github.com/manufosela/ui-components/tree/main/packages/modal-dialog" target="_blank" rel="noopener">GitHub Repo</a>
   <a href="playground.html">Playground</a>
 </div>
+<div class="demo-theme-toggle">
+  <theme-toggle theme="dark"></theme-toggle>
+</div>
       </header>
 
     <div class="demo-card">
@@ -269,5 +272,21 @@
       alert('Form submitted!');
     });
   </script>
+<script type="module">
+  import '../../theme-toggle/src/theme-toggle.js';
+
+  const root = document.documentElement;
+  root.classList.add('dark');
+
+  const toggle = document.querySelector('theme-toggle');
+  if (toggle) {
+    toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
+    toggle.addEventListener('theme-changed', (event) => {
+      const theme = event.detail?.theme;
+      if (!theme) return;
+      root.classList.toggle('dark', theme === 'dark');
+    });
+  }
+</script>
 </body>
 </html>

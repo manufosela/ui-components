@@ -79,6 +79,9 @@
   <a href="https://github.com/manufosela/ui-components/tree/main/packages/slide-notification" target="_blank" rel="noopener">GitHub Repo</a>
   <a href="playground.html">Playground</a>
 </div>
+<div class="demo-theme-toggle">
+  <theme-toggle theme="dark"></theme-toggle>
+</div>
 <div class="demo-section">
     <h2>Notification Types</h2>
     <p>Click the buttons to show different notification types.</p>
@@ -89,18 +92,6 @@
       <button class="btn-error" id="showError">Error</button>
     </div>
     <div class="code-block">showSlideNotification({ type: 'success', title: 'Success!', message: 'Done.' });</div>
-      <footer>
-        <p>
-          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
-          <a href="https://www.npmjs.com/package/@manufosela/slide-notification">npm</a>
-        </p>
-        <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
-        <p style="margin-top: 0.5rem;">
-          <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
-            <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
-          </a>
-        </p>
-      </footer>
   </div>
 
   <div class="demo-section">
@@ -147,6 +138,19 @@
   </div>
 
   <slide-notification id="manualNotification" title="Manual" message="Controlled manually." persistent></slide-notification>
+
+  <footer>
+    <p>
+      <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+      <a href="https://www.npmjs.com/package/@manufosela/slide-notification">npm</a>
+    </p>
+    <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
+        <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
+      </a>
+    </p>
+  </footer>
 
   
   <script>
@@ -200,5 +204,21 @@
     document.getElementById('showManual').addEventListener('click', () => manual.show());
     document.getElementById('hideManual').addEventListener('click', () => manual.hide());
   </script>
+<script type="module">
+  import '../../theme-toggle/src/theme-toggle.js';
+
+  const root = document.documentElement;
+  root.classList.add('dark');
+
+  const toggle = document.querySelector('theme-toggle');
+  if (toggle) {
+    toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
+    toggle.addEventListener('theme-changed', (event) => {
+      const theme = event.detail?.theme;
+      if (!theme) return;
+      root.classList.toggle('dark', theme === 'dark');
+    });
+  }
+</script>
 </body>
 </html>

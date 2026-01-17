@@ -87,6 +87,9 @@
   <a href="https://github.com/manufosela/ui-components/tree/main/packages/tab-nav" target="_blank" rel="noopener">GitHub Repo</a>
   <a href="playground.html">Playground</a>
 </div>
+<div class="demo-theme-toggle">
+  <theme-toggle theme="dark"></theme-toggle>
+</div>
 <div class="demo-section">
     <h2>Basic Usage</h2>
     <p>Click tabs to switch content. Keyboard: Arrow keys, Home, End.</p>
@@ -309,5 +312,21 @@
       basicOutput.textContent = `Selected tab ${e.detail.index}: "${e.detail.label}"`;
     });
   </script>
+<script type="module">
+  import '../../theme-toggle/src/theme-toggle.js';
+
+  const root = document.documentElement;
+  root.classList.add('dark');
+
+  const toggle = document.querySelector('theme-toggle');
+  if (toggle) {
+    toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
+    toggle.addEventListener('theme-changed', (event) => {
+      const theme = event.detail?.theme;
+      if (!theme) return;
+      root.classList.toggle('dark', theme === 'dark');
+    });
+  }
+</script>
 </body>
 </html>

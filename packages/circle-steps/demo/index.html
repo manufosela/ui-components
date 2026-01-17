@@ -91,6 +91,9 @@
   <a href="https://github.com/manufosela/ui-components/tree/main/packages/circle-steps" target="_blank" rel="noopener">GitHub Repo</a>
   <a href="playground.html">Playground</a>
 </div>
+<div class="demo-theme-toggle">
+  <theme-toggle theme="dark"></theme-toggle>
+</div>
 <div class="demo-section">
     <h2>Basic Usage</h2>
     <p>Starts in "not started" state (current=-1). Use next() to activate first step. On last step, next() marks all as complete.</p>
@@ -423,5 +426,21 @@
       }
     });
   </script>
+<script type="module">
+  import '../../theme-toggle/src/theme-toggle.js';
+
+  const root = document.documentElement;
+  root.classList.add('dark');
+
+  const toggle = document.querySelector('theme-toggle');
+  if (toggle) {
+    toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
+    toggle.addEventListener('theme-changed', (event) => {
+      const theme = event.detail?.theme;
+      if (!theme) return;
+      root.classList.toggle('dark', theme === 'dark');
+    });
+  }
+</script>
 </body>
 </html>

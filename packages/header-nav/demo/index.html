@@ -83,6 +83,9 @@
   <a href="https://github.com/manufosela/ui-components/tree/main/packages/header-nav" target="_blank" rel="noopener">GitHub Repo</a>
   <a href="playground.html">Playground</a>
 </div>
+<div class="demo-theme-toggle">
+  <theme-toggle theme="dark"></theme-toggle>
+</div>
 <div class="note">
       <strong>Tip:</strong> Resize your browser window to see the responsive hamburger menu.
     </div>
@@ -254,5 +257,21 @@
       eventOutput.textContent = `Menu state: ${e.detail.open ? 'open' : 'closed'}`;
     });
   </script>
+<script type="module">
+  import '../../theme-toggle/src/theme-toggle.js';
+
+  const root = document.documentElement;
+  root.classList.add('dark');
+
+  const toggle = document.querySelector('theme-toggle');
+  if (toggle) {
+    toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
+    toggle.addEventListener('theme-changed', (event) => {
+      const theme = event.detail?.theme;
+      if (!theme) return;
+      root.classList.toggle('dark', theme === 'dark');
+    });
+  }
+</script>
 </body>
 </html>
