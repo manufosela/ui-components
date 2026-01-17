@@ -381,4 +381,78 @@ describe('AppModal', () => {
       expect(el.style.display).to.equal('none');
     });
   });
+
+  describe('Intercept close (intercept-close attribute)', () => {
+    it('interceptClose defaults to false', async () => {
+      const el = await fixture(html`<app-modal></app-modal>`);
+      expect(el.interceptClose).to.be.false;
+    });
+
+    it('accepts intercept-close attribute', async () => {
+      const el = await fixture(html`<app-modal intercept-close></app-modal>`);
+      expect(el.interceptClose).to.be.true;
+    });
+
+    it('auto-closes after 200ms when interceptClose is false (default)', async () => {
+      const el = await fixture(html`<app-modal open></app-modal>`);
+      await el.updateComplete;
+
+      const closeBtn = el.shadowRoot.querySelector('.close-btn');
+      closeBtn.click();
+
+      await new Promise((resolve) => setTimeout(resolve, 350));
+      expect(el.open).to.be.false;
+    });
+
+    it('does NOT auto-close when interceptClose is true', async () => {
+      const el = await fixture(html`<app-modal open intercept-close></app-modal>`);
+      await el.updateComplete;
+
+      const closeBtn = el.shadowRoot.querySelector('.close-btn');
+      closeBtn.click();
+
+      await new Promise((resolve) => setTimeout(resolve, 350));
+      expect(el.open).to.be.true; // Should still be open
+    });
+
+    it('dispatches modal-closed-requested even when interceptClose is true', async () => {
+      const el = await fixture(html`<app-modal open intercept-close></app-modal>`);
+      await el.updateComplete;
+
+      const closeBtn = el.shadowRoot.querySelector('.close-btn');
+      setTimeout(() => closeBtn.click());
+      const event = await oneEvent(el, 'modal-closed-requested');
+      expect(event).to.exist;
+      expect(event.detail.modalId).to.equal(el.modalId);
+    });
+
+    it('closes via close-modal event when interceptClose is true', async () => {
+      const el = await fixture(
+        html`<app-modal open intercept-close modal-id="intercept-test"></app-modal>`
+      );
+      await el.updateComplete;
+
+      // Simulate user clicking close - modal should NOT auto-close
+      const closeBtn = el.shadowRoot.querySelector('.close-btn');
+      closeBtn.click();
+      await new Promise((resolve) => setTimeout(resolve, 350));
+      expect(el.open).to.be.true;
+
+      // Now external code decides to close it via event
+      document.dispatchEvent(
+        new CustomEvent('close-modal', {
+          detail: { modalId: 'intercept-test' },
+        })
+      );
+
+      await new Promise((resolve) => setTimeout(resolve, 350));
+      expect(el.open).to.be.false;
+    });
+
+    it('supports interceptClose via showModal options', async () => {
+      const el = showModal({ title: 'Test', interceptClose: true });
+      await el.updateComplete;
+      expect(el.interceptClose).to.be.true;
+    });
+  });
 });

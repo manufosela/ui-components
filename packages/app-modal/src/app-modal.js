@@ -15,8 +15,9 @@ function generateDefaultId(prefix = 'modal') {
  * @fires modal-action1 - Fired when button 1 is clicked
  * @fires modal-action2 - Fired when button 2 is clicked
  * @fires modal-action3 - Fired when button 3 is clicked
- * @fires modal-closed-requested - Fired when modal close is requested
+ * @fires modal-closed-requested - Fired when modal close is requested (can be intercepted with intercept-close)
  *
+ * @attr {Boolean} intercept-close - When true, modal won't auto-close on close request. Listen to modal-closed-requested and dispatch close-modal event to close manually.
  * @attr {String} title - Modal title
  * @attr {String} message - Modal message (supports HTML)
  * @attr {String} max-width - Maximum width (default: 400px)
@@ -59,6 +60,7 @@ export class AppModal extends LitElement {
     button2Css: { type: String, attribute: 'button2-css' },
     button3Css: { type: String, attribute: 'button3-css' },
     open: { type: Boolean, reflect: true },
+    interceptClose: { type: Boolean, attribute: 'intercept-close' },
   };
 
   constructor() {
@@ -78,6 +80,7 @@ export class AppModal extends LitElement {
     this.contentElementId = '';
     this.contentElementType = '';
     this.modalId = '';
+    this.interceptClose = false;
     // open is intentionally not initialized to detect declarative usage
 
     this.button1Action = () => {};
@@ -257,6 +260,12 @@ export class AppModal extends LitElement {
       })
     );
 
+    // If intercept-close is enabled, don't auto-close - let external code decide
+    // External code should dispatch 'close-modal' event with { detail: { modalId } } to close
+    if (this.interceptClose) {
+      return;
+    }
+
     if (this._closeTimeout) {
       clearTimeout(this._closeTimeout);
     }
@@ -401,6 +410,7 @@ export function showModal(options = {}) {
   modal.button3Action = options.button3Action || (() => {});
   modal.showHeader = options.showHeader ?? true;
   modal.showFooter = options.showFooter ?? true;
+  modal.interceptClose = options.interceptClose ?? false;
 
   // Mark as programmatic so it auto-shows on append
   modal._programmaticMode = true;

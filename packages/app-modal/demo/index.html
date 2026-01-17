@@ -242,6 +242,40 @@ showModal({
   </div>
 
   <div class="demo-section">
+    <h2>Intercept Close</h2>
+    <p style="color: #1d1d1f;">Use <code>intercept-close</code> to prevent auto-close and handle the close request externally.</p>
+    <div class="button-grid">
+      <button id="showIntercept">Show Intercepted Modal</button>
+    </div>
+    <div class="output" id="interceptOutput">Waiting for action...</div>
+    <div class="code-block">&lt;app-modal
+  id="interceptModal"
+  intercept-close
+  modal-id="intercept-demo"
+  title="Unsaved Changes"
+  message="You have unsaved changes. Are you sure you want to close?"
+  button1-text="Save &amp; Close"
+  button2-text="Discard"
+&gt;&lt;/app-modal&gt;
+
+&lt;script&gt;
+  const modal = document.getElementById('interceptModal');
+
+  // Listen for close request (X button, Escape, overlay click)
+  document.addEventListener('modal-closed-requested', (e) => {
+    if (e.detail.modalId === 'intercept-demo') {
+      // Ask for confirmation before closing
+      if (confirm('Close without saving?')) {
+        document.dispatchEvent(new CustomEvent('close-modal', {
+          detail: { modalId: 'intercept-demo' }
+        }));
+      }
+    }
+  });
+&lt;/script&gt;</div>
+  </div>
+
+  <div class="demo-section">
     <h2>HTML Message</h2>
     <div class="button-grid">
       <button id="showHtml">Show HTML Modal</button>
@@ -281,6 +315,16 @@ showModal({
     </ul>
   </app-modal>
 
+  <app-modal
+    id="interceptModal"
+    intercept-close
+    modal-id="intercept-demo"
+    title="Unsaved Changes"
+    message="You have unsaved changes. Are you sure you want to close?"
+    button1-text="Save & Close"
+    button2-text="Discard"
+  ></app-modal>
+
   
   <script>
     document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
@@ -292,6 +336,7 @@ showModal({
     // Get declarative modals (hidden by default, no initialization needed)
     const declarativeModal = document.getElementById('declarativeModal');
     const slottedModal = document.getElementById('slottedModal');
+    const interceptModal = document.getElementById('interceptModal');
 
     // Declarative modal event handlers
     document.getElementById('showDeclarative').addEventListener('click', () => {
@@ -308,6 +353,35 @@ showModal({
     // Slotted modal
     document.getElementById('showSlotted').addEventListener('click', () => {
       slottedModal.open = true;
+    });
+
+    // Intercept close modal
+    document.getElementById('showIntercept').addEventListener('click', () => {
+      interceptModal.open = true;
+      document.getElementById('interceptOutput').textContent = 'Modal opened. Try clicking X, pressing Escape, or clicking outside...';
+    });
+
+    interceptModal.addEventListener('modal-action1', () => {
+      document.getElementById('interceptOutput').textContent = 'Saved and closed!';
+    });
+    interceptModal.addEventListener('modal-action2', () => {
+      document.getElementById('interceptOutput').textContent = 'Discarded changes.';
+    });
+
+    // Listen for close request on intercept modal
+    document.addEventListener('modal-closed-requested', (e) => {
+      if (e.detail.modalId === 'intercept-demo') {
+        document.getElementById('interceptOutput').textContent = 'Close requested - showing confirmation...';
+        // Ask for confirmation before closing
+        if (confirm('You have unsaved changes. Close anyway?')) {
+          document.getElementById('interceptOutput').textContent = 'Closed without saving.';
+          document.dispatchEvent(new CustomEvent('close-modal', {
+            detail: { modalId: 'intercept-demo' }
+          }));
+        } else {
+          document.getElementById('interceptOutput').textContent = 'Close cancelled - modal stays open.';
+        }
+      }
     });
 
     // Programmatic examples
