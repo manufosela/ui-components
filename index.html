@@ -44,6 +44,29 @@
       margin-bottom: 3rem;
     }
 
+    .top-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .top-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      border: 1px solid var(--line);
+      padding: 6px 12px;
+      border-radius: 999px;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .top-links a:hover {
+      color: var(--text);
+      border-color: var(--accent-2);
+    }
+
     h1 {
       font-size: 3rem;
       margin-bottom: 0.5rem;
@@ -213,6 +236,9 @@
 <body>
   <div class="container">
     <header>
+      <div class="top-links">
+        <a href="https://manufosela.github.io/">Main catalog</a>
+      </div>
       <h1>@manufosela/ui-components</h1>
       <p class="subtitle">Polished web components with clear demos and practical UI patterns.</p>
       <div class="stats">
@@ -221,12 +247,12 @@
           <div class="stat-label">Components</div>
         </div>
         <div class="stat">
-          <div class="stat-value">27</div>
+          <div class="stat-value">54</div>
           <div class="stat-label">Demos</div>
         </div>
         <div class="stat">
-          <div class="stat-value">27</div>
-          <div class="stat-label">Test files</div>
+          <div class="stat-value">936</div>
+          <div class="stat-label">Tests</div>
         </div>
       </div>
       <div class="search">
