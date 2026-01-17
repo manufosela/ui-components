@@ -185,18 +185,167 @@
     <div class="container">
       <header>
         <h1>Arc Slider</h1>
-<p class="subtitle">Curved slider control for precise values in a compact radial UI.</p>
-<div class="demo-links">
-  <a href="https://manufosela.github.io/ui-components/">← Back to components</a>
-  <a href="https://github.com/manufosela/ui-components/tree/main/packages/arc-slider" target="_blank" rel="noopener">GitHub Repo</a>
-  <a href="playground.html">Playground</a>
-</div>
-        </header>
+        <p class="subtitle">A customizable arc slider web component with gradient colors</p>
+        <div class="demo-links">
+          <a href="https://manufosela.github.io/ui-components/">← Back to components</a>
+          <a href="https://github.com/manufosela/ui-components/tree/main/packages/arc-slider" target="_blank" rel="noopener">GitHub Repo</a>
+          <a href="playground.html">Playground</a>
+        </div>
+      </header>
 
       <div class="demo-grid">
         <!-- 1. Upward arc (default) -->
         <div class="demo-card">
           <h2>Upward (default)</h2>
+          <p>Min a la derecha, Max a la izquierda</p>
+          <div class="demo-content">
+            <arc-slider id="basic"></arc-slider>
+            <div class="value-display">Value: <span id="basic-value">50</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 2. Downward arc (smile) -->
+        <div class="demo-card">
+          <h2>Downward (clockwise)</h2>
+          <p>Min a la derecha, Max a la izquierda</p>
+          <div class="demo-content">
+            <arc-slider id="range" clockwise min-range="-50" max-range="50" arc-value="0"></arc-slider>
+            <div class="value-display">Value: <span id="range-value">0</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider clockwise&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 3. Upward with custom colors -->
+        <div class="demo-card">
+          <h2>Upward - Custom Colors</h2>
+          <p>Min a la derecha, Max a la izquierda</p>
+          <div class="demo-content">
+            <arc-slider id="colors" color1="#22C55E" color2="#3B82F6"></arc-slider>
+            <div class="value-display">Value: <span id="colors-value">50</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider color1="#22C55E" color2="#3B82F6"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 4. Downward temperature -->
+        <div class="demo-card">
+          <h2>Downward - Temperature</h2>
+          <p>16°C a la derecha, 30°C a la izquierda</p>
+          <div class="demo-content">
+            <arc-slider id="temp" clockwise min-range="16" max-range="30" arc-value="22" color1="#0EA5E9" color2="#EF4444"></arc-slider>
+            <div class="value-display"><span id="temp-value">22</span>°C</div>
+          </div>
+          <div class="code-block">&lt;arc-slider clockwise min-range="16" max-range="30"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 5. With reverse (left-to-right) -->
+        <div class="demo-card">
+          <h2>Upward + Reverse</h2>
+          <p>Min a la IZQUIERDA, Max a la DERECHA</p>
+          <div class="demo-content">
+            <arc-slider id="top" reverse color1="#8B5CF6" color2="#EC4899"></arc-slider>
+            <div class="value-display">Value: <span id="top-value">50</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider reverse&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 6. Quarter Arc -->
+        <div class="demo-card">
+          <h2>Quarter Arc (Upper Right)</h2>
+          <p>Arc from 270° to 0° (top-right quadrant)</p>
+          <div class="demo-content">
+            <arc-slider id="quarter-up" start-angle="270" end-angle="0" color1="#F59E0B" color2="#10B981"></arc-slider>
+            <div class="value-display">Value: <span id="quarter-up-value">50</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider start-angle="270" end-angle="0"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 7. Downward disabled -->
+        <div class="demo-card">
+          <h2>Downward - Disabled</h2>
+          <p>Non-interactive smile slider</p>
+          <div class="demo-content">
+            <arc-slider id="disabled" clockwise arc-value="75" disabled></arc-slider>
+            <div class="value-display">Value: 75 (disabled)</div>
+          </div>
+          <div class="code-block">&lt;arc-slider clockwise disabled arc-value="75"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 8. Upward custom size -->
+        <div class="demo-card">
+          <h2>Upward - Custom Size</h2>
+          <p>Smaller radius with thicker stroke</p>
+          <div class="demo-content">
+            <arc-slider id="custom-size" radius="60" stroke-width="12" color1="#06B6D4" color2="#6366F1" style="--arc-slider-width: 150px;"></arc-slider>
+            <div class="value-display">Value: <span id="custom-size-value">50</span></div>
+          </div>
+          <div class="code-block">&lt;arc-slider radius="60" stroke-width="12"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 9. Value Position Top -->
+        <div class="demo-card">
+          <h2>Value Position: Top</h2>
+          <p>Value display above the arc</p>
+          <div class="demo-content">
+            <arc-slider id="value-top" value-position="top" color1="#10B981" color2="#059669"></arc-slider>
+          </div>
+          <div class="code-block">&lt;arc-slider value-position="top"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 10. Value Position Center -->
+        <div class="demo-card">
+          <h2>Value Position: Center</h2>
+          <p>Value display centered in the arc</p>
+          <div class="demo-content">
+            <arc-slider id="value-center" value-position="center" color1="#8B5CF6" color2="#A855F7"></arc-slider>
+          </div>
+          <div class="code-block">&lt;arc-slider value-position="center"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 11. Value on Thumb -->
+        <div class="demo-card">
+          <h2>Value on Thumb</h2>
+          <p>Badge showing value on the thumb</p>
+          <div class="demo-content">
+            <arc-slider id="thumb-value" show-value-on-thumb hide-value color1="#F59E0B" color2="#EF4444"></arc-slider>
+          </div>
+          <div class="code-block">&lt;arc-slider show-value-on-thumb hide-value&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 12. Show Limits -->
+        <div class="demo-card">
+          <h2>Show Limits</h2>
+          <p>Min/Max values at arc ends</p>
+          <div class="demo-content">
+            <arc-slider id="limits" show-limits min-range="0" max-range="100" color1="#3B82F6" color2="#1D4ED8"></arc-slider>
+          </div>
+          <div class="code-block">&lt;arc-slider show-limits&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 13. Show Ticks -->
+        <div class="demo-card">
+          <h2>Show Ticks</h2>
+          <p>Numeric tick marks along the arc</p>
+          <div class="demo-content">
+            <arc-slider id="ticks" show-ticks="5" min-range="0" max-range="100" color1="#EC4899" color2="#BE185D"></arc-slider>
+          </div>
+          <div class="code-block">&lt;arc-slider show-ticks="5"&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- 14. Combined Features -->
+        <div class="demo-card">
+          <h2>Combined Features</h2>
+          <p>Limits + Ticks + Thumb Value</p>
+          <div class="demo-content">
+            <arc-slider id="combined" show-limits show-ticks="4" show-value-on-thumb hide-value min-range="0" max-range="200" color1="#14B8A6" color2="#0D9488"></arc-slider>
+          </div>
+          <div class="code-block">&lt;arc-slider show-limits show-ticks="4" show-value-on-thumb hide-value&gt;&lt;/arc-slider&gt;</div>
+        </div>
+
+        <!-- Interactive Playground -->
+        <div class="demo-card wide-card">
+          <h2>Interactive Playground</h2>
+          <p>Try different configurations</p>
           <div style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
             <div class="demo-content" style="flex: 1; min-width: 250px;">
               <arc-slider id="playground"></arc-slider>
