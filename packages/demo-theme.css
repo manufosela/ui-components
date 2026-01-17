@@ -76,6 +76,48 @@ header {
   margin-top: auto;
 }
 
+.demo-grid,
+.grid {
+  align-items: stretch;
+}
+
+.demo-card h2,
+.demo-card h3,
+.section h2,
+.demo-section h2,
+.panel-header {
+  color: var(--text);
+}
+
+.label,
+.stat-label,
+.category-title,
+.subtitle,
+.hint,
+.note {
+  color: var(--muted);
+}
+
+.info-item,
+.capability,
+.preference,
+.option-group,
+.output,
+.current-url,
+.event-log,
+.result-card,
+.log,
+.stat {
+  background: #0b0f1a;
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+
+.info-item .label,
+.capability .name {
+  color: var(--muted);
+}
+
 .panel-header,
 .options,
 .topbar,
