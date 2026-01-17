@@ -128,3 +128,11 @@ textarea {
   color: var(--text);
   border: 1px solid var(--line);
 }
+
+footer {
+  color: var(--muted);
+}
+
+footer a {
+  color: var(--text);
+}
