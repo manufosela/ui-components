@@ -2,13 +2,13 @@ import { css } from 'lit';
 
 export const appModalStyles = css`
   :host {
+    /* Layout */
     display: block;
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,16 +17,66 @@ export const appModalStyles = css`
     transition:
       opacity 0.3s ease-out,
       background 0.3s ease-out;
+    background: rgba(0, 0, 0, 0);
+
+    /* ========================================
+       Design System Tokens
+       ======================================== */
+
+    /* Modal container */
+    --modal-bg: var(--bg-primary, #ffffff);
+    --modal-text-color: var(--text-primary, #333333);
+    --modal-border-radius: var(--radius-lg, 8px);
+    --modal-shadow: var(--shadow-xl, 0 8px 32px rgba(0, 0, 0, 0.3));
+    --modal-overlay-bg: rgba(0, 0, 0, 0.6);
+    --modal-max-width: 80vw;
+    --modal-max-height: 80vh;
+
+    /* Header */
+    --modal-header-bg: var(--bg-secondary, transparent);
+    --modal-header-text: var(--text-primary, inherit);
+    --modal-header-padding: var(--spacing-md, 1rem);
+    --modal-header-font-size: var(--font-size-xl, 1.5rem);
+
+    /* Body */
+    --modal-body-padding: var(--spacing-lg, 1.5rem);
+    --modal-body-color: var(--text-primary, #333333);
+
+    /* Footer */
+    --modal-footer-bg: var(--bg-secondary, transparent);
+    --modal-footer-padding: var(--spacing-md, 1rem);
+    --modal-border-color: var(--border-default, #e0e0e0);
+
+    /* Close button */
+    --modal-close-bg: var(--bg-muted, rgba(0, 0, 0, 0.1));
+    --modal-close-color: var(--text-secondary, #666666);
+    --modal-close-hover-bg: var(--bg-muted-hover, rgba(0, 0, 0, 0.2));
+    --modal-close-hover-color: var(--text-primary, #333333);
+
+    /* Primary button (confirm) */
+    --modal-btn-primary-bg: var(--brand-primary, #4caf50);
+    --modal-btn-primary-text: var(--text-inverse, #ffffff);
+    --modal-btn-primary-hover-bg: var(--brand-primary-hover, #45a047);
+
+    /* Secondary button (cancel) */
+    --modal-btn-secondary-bg: var(--brand-danger, #f44336);
+    --modal-btn-secondary-text: var(--text-inverse, #ffffff);
+    --modal-btn-secondary-hover-bg: var(--brand-danger-hover, #e53935);
+
+    /* Tertiary button */
+    --modal-btn-tertiary-bg: var(--bg-muted, #e9ecef);
+    --modal-btn-tertiary-text: var(--text-primary, #333333);
+    --modal-btn-tertiary-hover-bg: var(--bg-muted-hover, #dee2e6);
   }
 
   .modal {
-    background: var(--app-modal-bg, white);
-    border-radius: var(--app-modal-radius, 8px);
-    padding: var(--app-modal-padding, 1.5rem);
-    box-shadow: var(--app-modal-shadow, 0 4px 8px rgba(0, 0, 0, 0.2));
+    background: var(--modal-bg);
+    color: var(--modal-text-color);
+    border-radius: var(--modal-border-radius);
+    box-shadow: var(--modal-shadow);
     width: 90%;
-    max-width: var(--max-width, 400px);
-    max-height: var(--max-height, 90vh);
+    max-width: var(--max-width, var(--modal-max-width));
+    max-height: var(--max-height, var(--modal-max-height));
     text-align: center;
     position: relative;
     overflow: auto;
@@ -35,26 +85,29 @@ export const appModalStyles = css`
   }
 
   .modal-header {
-    font-size: var(--app-modal-title-size, 1.5rem);
+    font-size: var(--modal-header-font-size);
     font-weight: bold;
-    margin-bottom: 1rem;
+    padding: var(--modal-header-padding);
+    margin-bottom: 0;
     position: relative;
     min-height: 1.5rem;
-    color: var(--app-modal-title-color, inherit);
+    color: var(--modal-header-text);
+    background: var(--modal-header-bg);
+    border-bottom: 1px solid var(--modal-border-color);
   }
 
   .close-btn {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: 0.5rem;
+    right: 0.5rem;
     font-size: 1.5rem;
     cursor: pointer;
-    background: var(--app-modal-close-bg, rgba(0, 0, 0, 0.1));
+    background: var(--modal-close-bg);
     border: none;
-    color: var(--app-modal-close-color, #666);
+    color: var(--modal-close-color);
     z-index: 1;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,63 +116,75 @@ export const appModalStyles = css`
   }
 
   .close-btn:hover {
-    color: var(--app-modal-close-hover-color, #333);
-    background: var(--app-modal-close-hover-bg, rgba(0, 0, 0, 0.2));
+    color: var(--modal-close-hover-color);
+    background: var(--modal-close-hover-bg);
   }
 
   .close-btn.standalone {
     position: absolute;
-    top: 0.2rem;
-    right: 0.2rem;
-    background: var(--app-modal-standalone-bg, rgba(150, 50, 50, 0.5));
-    color: var(--app-modal-standalone-color, #000);
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--modal-close-bg);
+    color: var(--modal-close-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 10;
   }
 
   .close-btn.standalone:hover {
-    background: var(--app-modal-standalone-hover-bg, #f8f9fa);
+    background: var(--modal-close-hover-bg);
     transform: scale(1.1);
   }
 
   .modal-body {
-    margin-bottom: 1rem;
+    padding: var(--modal-body-padding);
     font-size: 1rem;
-    color: var(--app-modal-body-color, #333);
+    color: var(--modal-body-color);
   }
 
   .modal-footer {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-top: 1rem;
+    padding: var(--modal-footer-padding);
+    background: var(--modal-footer-bg);
+    border-top: 1px solid var(--modal-border-color);
   }
 
   button {
     padding: 0.5rem 1rem;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--modal-border-radius);
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.2s;
   }
 
   button.confirm {
-    background: var(--app-modal-confirm-bg, #4caf50);
-    color: var(--app-modal-confirm-color, white);
+    background: var(--modal-btn-primary-bg);
+    color: var(--modal-btn-primary-text);
   }
 
   button.confirm:hover {
-    background: var(--app-modal-confirm-hover-bg, #45a047);
+    background: var(--modal-btn-primary-hover-bg);
   }
 
   button.cancel {
-    background: var(--app-modal-cancel-bg, #f44336);
-    color: var(--app-modal-cancel-color, white);
+    background: var(--modal-btn-secondary-bg);
+    color: var(--modal-btn-secondary-text);
   }
 
   button.cancel:hover {
-    background: var(--app-modal-cancel-hover-bg, #e53935);
+    background: var(--modal-btn-secondary-hover-bg);
+  }
+
+  /* Tertiary button (button3) */
+  .modal-footer button:not(.confirm):not(.cancel) {
+    background: var(--modal-btn-tertiary-bg);
+    color: var(--modal-btn-tertiary-text);
+  }
+
+  .modal-footer button:not(.confirm):not(.cancel):hover {
+    background: var(--modal-btn-tertiary-hover-bg);
   }
 
   @media (prefers-reduced-motion: reduce) {

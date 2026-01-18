@@ -10,6 +10,7 @@ function generateDefaultId(prefix = 'modal') {
  * A feature-rich modal component with configurable buttons and content.
  *
  * Supports both programmatic usage via showModal() and declarative usage with the open attribute.
+ * Fully themeable via CSS custom properties with design system token fallbacks.
  *
  * @element app-modal
  * @fires modal-action1 - Fired when button 1 is clicked
@@ -34,11 +35,53 @@ function generateDefaultId(prefix = 'modal') {
  *
  * @slot - Default slot for modal body content
  *
- * @cssprop [--app-modal-z-index=1000] - Z-index
- * @cssprop [--app-modal-bg=white] - Modal background
- * @cssprop [--app-modal-radius=8px] - Border radius
- * @cssprop [--app-modal-confirm-bg=#4caf50] - Confirm button background
- * @cssprop [--app-modal-cancel-bg=#f44336] - Cancel button background
+ * @csspart container - The modal container element
+ * @csspart header - The modal header element
+ * @csspart body - The modal body element
+ * @csspart footer - The modal footer element
+ * @csspart close-btn - The close button
+ * @csspart btn-primary - The primary action button (button1)
+ * @csspart btn-secondary - The secondary action button (button2)
+ * @csspart btn-tertiary - The tertiary action button (button3)
+ *
+ * @cssprop [--app-modal-z-index=1000] - Z-index of the modal overlay
+ *
+ * @cssprop [--modal-bg] - Modal background (falls back to --bg-primary or #ffffff)
+ * @cssprop [--modal-text-color] - Modal text color (falls back to --text-primary or #333333)
+ * @cssprop [--modal-border-radius] - Border radius (falls back to --radius-lg or 8px)
+ * @cssprop [--modal-shadow] - Box shadow (falls back to --shadow-xl)
+ * @cssprop [--modal-overlay-bg=rgba(0,0,0,0.6)] - Overlay background color
+ * @cssprop [--modal-max-width=80vw] - Default max width
+ * @cssprop [--modal-max-height=80vh] - Default max height
+ *
+ * @cssprop [--modal-header-bg] - Header background (falls back to --bg-secondary)
+ * @cssprop [--modal-header-text] - Header text color (falls back to --text-primary)
+ * @cssprop [--modal-header-padding] - Header padding (falls back to --spacing-md or 1rem)
+ * @cssprop [--modal-header-font-size] - Header font size (falls back to --font-size-xl or 1.5rem)
+ *
+ * @cssprop [--modal-body-padding] - Body padding (falls back to --spacing-lg or 1.5rem)
+ * @cssprop [--modal-body-color] - Body text color (falls back to --text-primary or #333333)
+ *
+ * @cssprop [--modal-footer-bg] - Footer background (falls back to --bg-secondary)
+ * @cssprop [--modal-footer-padding] - Footer padding (falls back to --spacing-md or 1rem)
+ * @cssprop [--modal-border-color] - Border color for header/footer (falls back to --border-default or #e0e0e0)
+ *
+ * @cssprop [--modal-close-bg] - Close button background (falls back to --bg-muted)
+ * @cssprop [--modal-close-color] - Close button color (falls back to --text-secondary or #666666)
+ * @cssprop [--modal-close-hover-bg] - Close button hover background
+ * @cssprop [--modal-close-hover-color] - Close button hover color
+ *
+ * @cssprop [--modal-btn-primary-bg] - Primary button background (falls back to --brand-primary or #4caf50)
+ * @cssprop [--modal-btn-primary-text] - Primary button text (falls back to --text-inverse or #ffffff)
+ * @cssprop [--modal-btn-primary-hover-bg] - Primary button hover background
+ *
+ * @cssprop [--modal-btn-secondary-bg] - Secondary button background (falls back to --brand-danger or #f44336)
+ * @cssprop [--modal-btn-secondary-text] - Secondary button text (falls back to --text-inverse or #ffffff)
+ * @cssprop [--modal-btn-secondary-hover-bg] - Secondary button hover background
+ *
+ * @cssprop [--modal-btn-tertiary-bg] - Tertiary button background (falls back to --bg-muted or #e9ecef)
+ * @cssprop [--modal-btn-tertiary-text] - Tertiary button text (falls back to --text-primary or #333333)
+ * @cssprop [--modal-btn-tertiary-hover-bg] - Tertiary button hover background
  */
 export class AppModal extends LitElement {
   static styles = appModalStyles;
@@ -329,18 +372,22 @@ export class AppModal extends LitElement {
 
   render() {
     return html`
-      <div class="modal" @click="${(e) => e.stopPropagation()}">
+      <div class="modal" part="container" @click="${(e) => e.stopPropagation()}">
         ${this.showHeader
           ? html`
-              <div class="modal-header">
+              <div class="modal-header" part="header">
                 ${this.title}
-                <button class="close-btn" @click="${this._requestClose}">&times;</button>
+                <button class="close-btn" part="close-btn" @click="${this._requestClose}">
+                  &times;
+                </button>
               </div>
             `
           : html`
-              <button class="close-btn standalone" @click="${this._requestClose}">&times;</button>
+              <button class="close-btn standalone" part="close-btn" @click="${this._requestClose}">
+                &times;
+              </button>
             `}
-        <div class="modal-body">
+        <div class="modal-body" part="body">
           ${this.message
             ? html`<div class="modal-message">${unsafeHTML(this.message)}</div>`
             : nothing}
@@ -348,11 +395,12 @@ export class AppModal extends LitElement {
         </div>
         ${this.showFooter
           ? html`
-              <div class="modal-footer">
+              <div class="modal-footer" part="footer">
                 ${this.button1Text
                   ? html`
                       <button
                         class="confirm"
+                        part="btn-primary"
                         style="${this.button1Css}"
                         @click="${this._handleButton1}"
                       >
@@ -364,6 +412,7 @@ export class AppModal extends LitElement {
                   ? html`
                       <button
                         class="cancel"
+                        part="btn-secondary"
                         style="${this.button2Css}"
                         @click="${this._handleButton2}"
                       >
@@ -373,7 +422,11 @@ export class AppModal extends LitElement {
                   : nothing}
                 ${this.button3Text
                   ? html`
-                      <button style="${this.button3Css}" @click="${this._handleButton3}">
+                      <button
+                        part="btn-tertiary"
+                        style="${this.button3Css}"
+                        @click="${this._handleButton3}"
+                      >
                         ${this.button3Text}
                       </button>
                     `

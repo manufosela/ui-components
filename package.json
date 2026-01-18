@@ -5,7 +5,8 @@
   "description": "Monorepo for @manufosela UI web components built with Lit",
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "apps/*"
   ],
   "scripts": {
     "build": "pnpm -r run build",
@@ -17,6 +18,9 @@
     "format:check": "prettier --check \"packages/*/src/**/*.js\" \"packages/*/test/**/*.js\"",
     "start": "web-dev-server --node-resolve --open --root-dir .",
     "start:demo": "web-dev-server --node-resolve --open index.html --root-dir .",
+    "site:dev": "pnpm --dir apps/site dev",
+    "site:build": "SITE_URL=https://manufosela.github.io/ui-components/ BASE_PATH=/ui-components/ pnpm --dir apps/site build",
+    "site:preview": "pnpm --dir apps/site preview",
     "cem": "node scripts/generate-cem.js",
     "bundle-sizes": "node scripts/generate-bundle-sizes.js",
     "changeset": "changeset",
