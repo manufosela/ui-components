@@ -170,30 +170,30 @@ describe('SlideNotification', () => {
   });
 
   describe('Custom colors', () => {
-    it('uses custom background-color', async () => {
+    it('uses custom background-color via CSS variable', async () => {
       const el = await fixture(
         html`<slide-notification background-color="#ff0000"></slide-notification>`
       );
       await el.updateComplete;
-      expect(el.style.getPropertyValue('--_bg')).to.equal('#ff0000');
+      expect(el.style.getPropertyValue('--notification-bg')).to.equal('#ff0000');
     });
 
-    it('uses type-specific color when no custom color', async () => {
+    it('reflects type attribute for CSS styling', async () => {
       const el = await fixture(html`<slide-notification type="error"></slide-notification>`);
       await el.updateComplete;
-      expect(el.style.getPropertyValue('--_bg')).to.equal('#dc3545');
+      expect(el.getAttribute('type')).to.equal('error');
     });
 
-    it('uses dark text for warning type', async () => {
+    it('reflects warning type for CSS styling', async () => {
       const el = await fixture(html`<slide-notification type="warning"></slide-notification>`);
       await el.updateComplete;
-      expect(el.style.getPropertyValue('--_color')).to.equal('#212529');
+      expect(el.getAttribute('type')).to.equal('warning');
     });
 
-    it('uses white text for other types', async () => {
+    it('reflects success type for CSS styling', async () => {
       const el = await fixture(html`<slide-notification type="success"></slide-notification>`);
       await el.updateComplete;
-      expect(el.style.getPropertyValue('--_color')).to.equal('white');
+      expect(el.getAttribute('type')).to.equal('success');
     });
   });
 

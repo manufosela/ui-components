@@ -2,43 +2,85 @@ import { css } from 'lit';
 
 export const slideNotificationStyles = css`
   :host {
-    --_width: var(--slide-notification-width, 300px);
-    --_bg: var(--slide-notification-bg, #17a2b8);
-    --_color: var(--slide-notification-color, white);
-    --_text-shadow: var(--slide-notification-text-shadow, 1px 1px 2px rgba(0, 0, 0, 0.5));
+    /* ========================================
+       Design System Tokens
+       ======================================== */
 
+    /* Base tokens */
+    --notification-bg: var(--notification-info-bg, #17a2b8);
+    --notification-text: var(--text-inverse, #ffffff);
+    --notification-border-radius: var(--radius-md, 6px);
+    --notification-shadow: var(--shadow-lg, 0 4px 8px rgba(0, 0, 0, 0.15));
+    --notification-padding: var(--spacing-md, 1rem);
+    --notification-min-width: 300px;
+    --notification-max-width: 400px;
+
+    /* Title */
+    --notification-title-size: var(--font-size-lg, 1.1rem);
+    --notification-title-weight: 600;
+
+    /* Message */
+    --notification-message-size: var(--font-size-base, 1rem);
+
+    /* Icon */
+    --notification-icon-size: 1.2em;
+
+    /* Animation */
+    --notification-animation-duration: 0.5s;
+    --notification-slide-distance: 100%;
+
+    /* Layout */
     position: fixed;
-    bottom: var(--slide-notification-bottom, 20px);
-    right: calc(-20px - var(--_width));
-    width: var(--_width);
-    min-height: var(--slide-notification-min-height, 80px);
-    background: var(--_bg);
-    color: var(--_color);
-    border-radius: var(--slide-notification-radius, 8px);
+    bottom: var(--notification-bottom, 20px);
+    right: calc(-20px - var(--notification-max-width));
+    width: var(--notification-max-width);
+    min-width: var(--notification-min-width);
+    min-height: var(--notification-min-height, 80px);
+    background: var(--notification-bg);
+    color: var(--notification-text);
+    border-radius: var(--notification-border-radius);
     border-left: 4px solid rgba(255, 255, 255, 0.3);
-    padding: var(--slide-notification-padding, 1.5rem);
-    box-shadow: var(--slide-notification-shadow, 0 2px 8px rgba(0, 0, 0, 0.2));
-    font-size: 1rem;
+    padding: var(--notification-padding);
+    box-shadow: var(--notification-shadow);
+    font-size: var(--notification-message-size);
     font-weight: 500;
     opacity: 0;
     transition:
-      transform 0.5s ease-in-out,
-      opacity 0.5s ease-in-out;
+      transform var(--notification-animation-duration) ease-in-out,
+      opacity var(--notification-animation-duration) ease-in-out;
     transform: translateX(0);
-    z-index: var(--slide-notification-z-index, 10000);
+    z-index: var(--notification-z-index, 10000);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
+  /* Type variants using attribute selectors */
+  :host([type='success']) {
+    --notification-bg: var(--notification-success-bg, #22c55e);
+  }
+
+  :host([type='error']) {
+    --notification-bg: var(--notification-error-bg, #dc3545);
+  }
+
+  :host([type='warning']) {
+    --notification-bg: var(--notification-warning-bg, #ffc107);
+    --notification-text: var(--text-primary, #333333);
+  }
+
+  :host([type='info']) {
+    --notification-bg: var(--notification-info-bg, #17a2b8);
+  }
+
   :host(.visible) {
     opacity: 1;
-    transform: translateX(calc(-1 * var(--_width) - 40px));
+    transform: translateX(calc(-1 * var(--notification-max-width) - 40px));
   }
 
   :host(.hiding) {
-    transform: translateX(calc(var(--_width) + 40px));
+    transform: translateX(calc(var(--notification-max-width) + 40px));
   }
 
   :host([persistent]) {
@@ -46,9 +88,10 @@ export const slideNotificationStyles = css`
   }
 
   .title {
-    font-weight: 600;
+    font-size: var(--notification-title-size);
+    font-weight: var(--notification-title-weight);
     margin-bottom: 0.25rem;
-    text-shadow: var(--_text-shadow);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   .notification-content {
@@ -58,12 +101,13 @@ export const slideNotificationStyles = css`
   }
 
   .message {
+    font-size: var(--notification-message-size);
     font-weight: 500;
-    text-shadow: var(--_text-shadow);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   .icon {
-    font-size: 1.2em;
+    font-size: var(--notification-icon-size);
     flex-shrink: 0;
   }
 

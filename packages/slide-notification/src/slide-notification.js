@@ -2,13 +2,6 @@ import { LitElement, html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { slideNotificationStyles } from './slide-notification.styles.js';
 
-const DEFAULT_COLORS = {
-  error: '#dc3545',
-  success: '#22c55e',
-  warning: '#ffc107',
-  info: '#17a2b8',
-};
-
 const ICONS = {
   error: '❌',
   success: '✅',
@@ -18,6 +11,7 @@ const ICONS = {
 
 /**
  * A slide-in notification component from the right edge.
+ * Fully themeable via CSS custom properties with design system token fallbacks.
  *
  * @element slide-notification
  * @fires slide-notification-shown - Fired when notification appears
@@ -27,14 +21,38 @@ const ICONS = {
  * @attr {String} message - Notification message (supports HTML)
  * @attr {Number} timetohide - Time in ms before auto-hide (default: 3000, 0 = persistent)
  * @attr {String} type - Type: 'info', 'success', 'warning', 'error'
- * @attr {String} background-color - Custom background color
+ * @attr {String} background-color - Custom background color (overrides type color)
  * @attr {Boolean} persistent - If true, notification stays until clicked (same as timetohide=0)
  *
- * @cssprop [--slide-notification-width=300px] - Width
- * @cssprop [--slide-notification-bg=#17a2b8] - Background color
- * @cssprop [--slide-notification-color=white] - Text color
- * @cssprop [--slide-notification-radius=8px] - Border radius
- * @cssprop [--slide-notification-z-index=10000] - Z-index
+ * @csspart container - The notification container wrapper
+ * @csspart title - The notification title element
+ * @csspart content - The notification content wrapper (icon + message)
+ * @csspart icon - The notification icon
+ * @csspart message - The notification message element
+ *
+ * @cssprop [--notification-bg] - Background color (falls back to type-specific token)
+ * @cssprop [--notification-text] - Text color (falls back to --text-inverse or #ffffff)
+ * @cssprop [--notification-border-radius] - Border radius (falls back to --radius-md or 6px)
+ * @cssprop [--notification-shadow] - Box shadow (falls back to --shadow-lg)
+ * @cssprop [--notification-padding] - Padding (falls back to --spacing-md or 1rem)
+ * @cssprop [--notification-min-width=300px] - Minimum width
+ * @cssprop [--notification-max-width=400px] - Maximum width
+ * @cssprop [--notification-min-height=80px] - Minimum height
+ * @cssprop [--notification-bottom=20px] - Distance from bottom
+ * @cssprop [--notification-z-index=10000] - Z-index
+ *
+ * @cssprop [--notification-title-size] - Title font size (falls back to --font-size-lg or 1.1rem)
+ * @cssprop [--notification-title-weight=600] - Title font weight
+ * @cssprop [--notification-message-size] - Message font size (falls back to --font-size-base or 1rem)
+ * @cssprop [--notification-icon-size=1.2em] - Icon size
+ *
+ * @cssprop [--notification-animation-duration=0.5s] - Animation duration
+ * @cssprop [--notification-slide-distance=100%] - Slide distance
+ *
+ * @cssprop [--notification-success-bg=#22c55e] - Success type background
+ * @cssprop [--notification-error-bg=#dc3545] - Error type background
+ * @cssprop [--notification-warning-bg=#ffc107] - Warning type background
+ * @cssprop [--notification-info-bg=#17a2b8] - Info type background
  */
 export class SlideNotification extends LitElement {
   static styles = slideNotificationStyles;
@@ -145,21 +163,6 @@ export class SlideNotification extends LitElement {
     this._showNotification();
   }
 
-  _getBackgroundColor() {
-    if (this.backgroundColor) return this.backgroundColor;
-    return DEFAULT_COLORS[this.type] || DEFAULT_COLORS.info;
-  }
-
-  _getTextColor() {
-    return this.type === 'warning' ? '#212529' : 'white';
-  }
-
-  _getTextShadow() {
-    return this.type === 'warning'
-      ? '1px 1px 2px rgba(0, 0, 0, 0.3)'
-      : '1px 1px 2px rgba(0, 0, 0, 0.5)';
-  }
-
   _getRole() {
     // Use alert for error/warning (more urgent), status for info/success
     return this.type === 'error' || this.type === 'warning' ? 'alert' : 'status';
@@ -171,20 +174,18 @@ export class SlideNotification extends LitElement {
 
   render() {
     const icon = ICONS[this.type] || ICONS.info;
-    const bgColor = this._getBackgroundColor();
-    const textColor = this._getTextColor();
-    const textShadow = this._getTextShadow();
 
-    this.style.setProperty('--_bg', bgColor);
-    this.style.setProperty('--_color', textColor);
-    this.style.setProperty('--_text-shadow', textShadow);
+    // Allow backgroundColor attribute to override CSS token
+    if (this.backgroundColor) {
+      this.style.setProperty('--notification-bg', this.backgroundColor);
+    }
 
     return html`
-      <div role="${this._getRole()}" aria-live="${this._getAriaLive()}">
-        ${this.title ? html`<div class="title">${this.title}</div>` : ''}
-        <div class="notification-content">
-          <span class="icon" aria-hidden="true">${icon}</span>
-          <div class="message">${unsafeHTML(this.message)}</div>
+      <div part="container" role="${this._getRole()}" aria-live="${this._getAriaLive()}">
+        ${this.title ? html`<div class="title" part="title">${this.title}</div>` : ''}
+        <div class="notification-content" part="content">
+          <span class="icon" part="icon" aria-hidden="true">${icon}</span>
+          <div class="message" part="message">${unsafeHTML(this.message)}</div>
         </div>
       </div>
     `;
@@ -200,7 +201,7 @@ customElements.define('slide-notification', SlideNotification);
  * @param {string} options.message - Notification message (supports HTML)
  * @param {number} options.timetohide - Time in ms before auto-hide (default: 3000, 0 = persistent)
  * @param {string} options.type - Type: 'info' | 'success' | 'warning' | 'error'
- * @param {string} options.backgroundColor - Custom background color
+ * @param {string} options.backgroundColor - Custom background color (overrides type)
  * @param {boolean} options.persistent - If true, stays until clicked
  * @returns {SlideNotification} The created notification element
  */
