@@ -1,5 +1,11 @@
 # @manufosela/app-modal
 
+## 2.3.0
+
+### Minor Changes
+
+- 24fcb3a: Add fullHeight property to expand modal content to fill maxHeight
+
 ## 2.2.0
 
 ### Minor Changes
