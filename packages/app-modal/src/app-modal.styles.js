@@ -187,6 +187,25 @@ export const appModalStyles = css`
     background: var(--modal-btn-tertiary-hover-bg);
   }
 
+  /* Full height mode - content expands to fill maxHeight */
+  :host([full-height]) .modal {
+    height: var(--max-height, var(--modal-max-height));
+    display: flex;
+    flex-direction: column;
+  }
+
+  :host([full-height]) .modal-body {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  :host([full-height]) .modal-body > * {
+    flex: 1;
+    min-height: 0;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     :host {
       transition: none;

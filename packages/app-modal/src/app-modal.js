@@ -19,6 +19,7 @@ function generateDefaultId(prefix = 'modal') {
  * @fires modal-closed-requested - Fired when modal close is requested (can be intercepted with intercept-close)
  *
  * @attr {Boolean} intercept-close - When true, modal won't auto-close on close request. Listen to modal-closed-requested and dispatch close-modal event to close manually.
+ * @attr {Boolean} full-height - When true, modal content expands to fill the maxHeight
  * @attr {String} title - Modal title
  * @attr {String} message - Modal message (supports HTML)
  * @attr {String} max-width - Maximum width (default: 400px)
@@ -104,6 +105,7 @@ export class AppModal extends LitElement {
     button3Css: { type: String, attribute: 'button3-css' },
     open: { type: Boolean, reflect: true },
     interceptClose: { type: Boolean, attribute: 'intercept-close' },
+    fullHeight: { type: Boolean, attribute: 'full-height', reflect: true },
   };
 
   constructor() {
@@ -124,6 +126,7 @@ export class AppModal extends LitElement {
     this.contentElementType = '';
     this.modalId = '';
     this.interceptClose = false;
+    this.fullHeight = false;
     // open is intentionally not initialized to detect declarative usage
 
     this.button1Action = () => {};
@@ -464,6 +467,7 @@ export function showModal(options = {}) {
   modal.showHeader = options.showHeader ?? true;
   modal.showFooter = options.showFooter ?? true;
   modal.interceptClose = options.interceptClose ?? false;
+  modal.fullHeight = options.fullHeight ?? false;
 
   // Mark as programmatic so it auto-shows on append
   modal._programmaticMode = true;
