@@ -10,15 +10,14 @@ const stripTag = (input, tag) =>
   input.replace(new RegExp(`<\\/?${tag}[^>]*>`, "gi"), "").trim();
 
 const extractImportmaps = (scripts = "") => {
-  const matches = scripts.match(/<script[^>]*type=["']?importmap["']?[^>]*>[\\s\\S]*?<\\/script>/gi);
+  const re = new RegExp('<script[^>]*type=["\']?importmap["\']?[^>]*>[\\s\\S]*?<\\/script>', 'gi');
+  const matches = scripts.match(re);
   return matches ? matches.join("\n") : "";
 };
 
 const extractScripts = (scripts = "") => {
-  const withoutImportmaps = scripts.replace(
-    /<script[^>]*type=["']?importmap["']?[^>]*>[\\s\\S]*?<\\/script>/gi,
-    ""
-  );
+  const re = new RegExp('<script[^>]*type=["\']?importmap["\']?[^>]*>[\\s\\S]*?<\\/script>', 'gi');
+  const withoutImportmaps = scripts.replace(re, "");
   return stripTag(withoutImportmaps, "script");
 };
 
