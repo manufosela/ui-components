@@ -14,6 +14,7 @@ Visit the [live demo](https://manufosela.github.io/ui-components/) to see all co
 | ------- | ------- | ----------- |
 | [@manufosela/app-modal](./packages/app-modal) | ![npm](https://img.shields.io/npm/v/@manufosela/app-modal) | Feature-rich modal with buttons |
 | [@manufosela/arc-slider](./packages/arc-slider) | ![npm](https://img.shields.io/npm/v/@manufosela/arc-slider) | Circular arc slider control |
+| [@manufosela/before-after](./packages/before-after) | ![npm](https://img.shields.io/npm/v/@manufosela/before-after) | Before/after image comparison slider |
 | [@manufosela/behaviour-accordion](./packages/behaviour-accordion) | ![npm](https://img.shields.io/npm/v/@manufosela/behaviour-accordion) | Accessible accordion with animations |
 | [@manufosela/calendar-inline](./packages/calendar-inline) | ![npm](https://img.shields.io/npm/v/@manufosela/calendar-inline) | Inline calendar with date selection |
 | [@manufosela/circle-percent](./packages/circle-percent) | ![npm](https://img.shields.io/npm/v/@manufosela/circle-percent) | Circular progress indicator |
@@ -112,6 +113,7 @@ ui-components/
 ├── packages/                  # Individual component packages
 │   ├── app-modal/
 │   ├── arc-slider/
+│   ├── before-after/
 │   ├── behaviour-accordion/
 │   ├── calendar-inline/
 │   ├── circle-percent/

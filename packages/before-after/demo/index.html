@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="importmap">
+    {
+      "imports": {
+        "lit": "https://esm.sh/lit@3",
+        "lit/": "https://esm.sh/lit@3/"
+      }
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Before After - Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow: auto;
+      max-height: 300px;
+      white-space: pre;
+    }
+    .output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f7;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    before-after {
+      max-width: 100%;
+    }
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .controls button {
+      padding: 0.5rem 1rem;
+      border: 1px solid #d2d2d7;
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .controls button:hover {
+      background: #f0f0f0;
+    }
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #d2d2d7;
+      color: #86868b;
+      font-size: 0.9rem;
+    }
+    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .kbd {
+      display: inline-block;
+      padding: 2px 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #f9f9f9;
+      font-family: monospace;
+      font-size: 0.85rem;
+    }
+  </style>
+  <link rel="stylesheet" href="../../demo-theme.css" />
+</head>
+<body>
+  <h1>Before After</h1>
+  <p class="subtitle">Image comparison slider to reveal before/after views.</p>
+  <div class="demo-links">
+    <a href="https://manufosela.github.io/ui-components/">&larr; Back to components</a>
+    <a href="https://github.com/manufosela/ui-components/tree/main/packages/before-after" target="_blank" rel="noopener">GitHub Repo</a>
+    <a href="playground.html">Playground</a>
+  </div>
+  <div class="demo-theme-toggle">
+    <theme-toggle theme="dark"></theme-toggle>
+  </div>
+
+  <div class="demo-section">
+    <h2>Basic Usage</h2>
+    <p>Drag the divider to compare two images. Default position is 50%.</p>
+    <before-after>
+      <img slot="before" src="https://picsum.photos/id/10/800/500?grayscale" alt="Grayscale landscape">
+      <img slot="after" src="https://picsum.photos/id/10/800/500" alt="Color landscape">
+    </before-after>
+    <div class="code-block">&lt;before-after&gt;
+  &lt;img slot="before" src="grayscale.jpg" alt="Before"&gt;
+  &lt;img slot="after" src="color.jpg" alt="After"&gt;
+&lt;/before-after&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Initial Position</h2>
+    <p>Start with the divider at 25%.</p>
+    <before-after position="25">
+      <img slot="before" src="https://picsum.photos/id/15/800/500?grayscale" alt="Grayscale">
+      <img slot="after" src="https://picsum.photos/id/15/800/500" alt="Color">
+    </before-after>
+    <div class="code-block">&lt;before-after position="25"&gt;
+  &lt;img slot="before" src="grayscale.jpg" alt="Before"&gt;
+  &lt;img slot="after" src="color.jpg" alt="After"&gt;
+&lt;/before-after&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Labels</h2>
+    <p>Customize the before and after labels.</p>
+    <before-after before-label="Original" after-label="Edited">
+      <img slot="before" src="https://picsum.photos/id/20/800/500?grayscale" alt="Original">
+      <img slot="after" src="https://picsum.photos/id/20/800/500" alt="Edited">
+    </before-after>
+    <div class="code-block">&lt;before-after before-label="Original" after-label="Edited"&gt;
+  &lt;img slot="before" src="original.jpg" alt="Original"&gt;
+  &lt;img slot="after" src="edited.jpg" alt="Edited"&gt;
+&lt;/before-after&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Hover Mode</h2>
+    <p>The divider follows the mouse without clicking.</p>
+    <before-after hover-mode hide-labels>
+      <img slot="before" src="https://picsum.photos/id/25/800/500?grayscale" alt="Grayscale">
+      <img slot="after" src="https://picsum.photos/id/25/800/500" alt="Color">
+    </before-after>
+    <div class="code-block">&lt;before-after hover-mode hide-labels&gt;
+  ...
+&lt;/before-after&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Custom Styles</h2>
+    <p>Customize divider color, handle size, and label appearance via CSS custom properties.</p>
+    <before-after style="
+      --before-after-divider-color: #ff6600;
+      --before-after-divider-width: 4px;
+      --before-after-handle-size: 48px;
+      --before-after-handle-color: #ff6600;
+      --before-after-label-bg: rgba(255, 102, 0, 0.8);
+    ">
+      <img slot="before" src="https://picsum.photos/id/30/800/500?grayscale" alt="Grayscale">
+      <img slot="after" src="https://picsum.photos/id/30/800/500" alt="Color">
+    </before-after>
+    <div class="code-block">&lt;before-after style="
+  --before-after-divider-color: #ff6600;
+  --before-after-divider-width: 4px;
+  --before-after-handle-size: 48px;
+  --before-after-handle-color: #ff6600;
+  --before-after-label-bg: rgba(255, 102, 0, 0.8);
+"&gt;
+  ...
+&lt;/before-after&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Disabled State</h2>
+    <p>The slider is disabled and cannot be interacted with.</p>
+    <before-after disabled position="35">
+      <img slot="before" src="https://picsum.photos/id/35/800/500?grayscale" alt="Grayscale">
+      <img slot="after" src="https://picsum.photos/id/35/800/500" alt="Color">
+    </before-after>
+    <div class="code-block">&lt;before-after disabled position="35"&gt;
+  ...
+&lt;/before-after&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Programmatic Control</h2>
+    <p>Control the position programmatically and listen for events.</p>
+    <before-after id="controlled">
+      <img slot="before" src="https://picsum.photos/id/40/800/500?grayscale" alt="Grayscale">
+      <img slot="after" src="https://picsum.photos/id/40/800/500" alt="Color">
+    </before-after>
+    <div class="controls">
+      <button onclick="document.getElementById('controlled').position = 0">0%</button>
+      <button onclick="document.getElementById('controlled').position = 25">25%</button>
+      <button onclick="document.getElementById('controlled').position = 50">50%</button>
+      <button onclick="document.getElementById('controlled').position = 75">75%</button>
+      <button onclick="document.getElementById('controlled').position = 100">100%</button>
+    </div>
+    <div id="event-log" class="output">Events will appear here...</div>
+    <div class="code-block">const el = document.querySelector('before-after');
+el.position = 75;
+
+el.addEventListener('before-after-change', (e) =&gt; {
+  console.log('Position:', e.detail.position);
+});</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Keyboard Navigation</h2>
+    <p>Focus the slider and use the keyboard to control it:</p>
+    <ul style="color: #1d1d1f; line-height: 2;">
+      <li><span class="kbd">Arrow Left</span> / <span class="kbd">Arrow Right</span> &mdash; move 1%</li>
+      <li><span class="kbd">Page Up</span> / <span class="kbd">Page Down</span> &mdash; move 10%</li>
+      <li><span class="kbd">Home</span> &mdash; go to 0%</li>
+      <li><span class="kbd">End</span> &mdash; go to 100%</li>
+    </ul>
+    <before-after>
+      <img slot="before" src="https://picsum.photos/id/45/800/500?grayscale" alt="Grayscale">
+      <img slot="after" src="https://picsum.photos/id/45/800/500" alt="Color">
+    </before-after>
+  </div>
+
+  <footer>
+    <p>
+      <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+      <a href="https://www.npmjs.com/package/@manufosela/before-after">npm</a>
+    </p>
+    <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+
+    const controlled = document.getElementById('controlled');
+    const log = document.getElementById('event-log');
+    controlled.addEventListener('before-after-change', (e) => {
+      log.textContent = `before-after-change: position = ${e.detail.position.toFixed(1)}%`;
+    });
+    controlled.addEventListener('before-after-input', (e) => {
+      log.textContent = `before-after-input: position = ${e.detail.position.toFixed(1)}%`;
+    });
+  </script>
+  <script type="module">
+    import '../src/before-after.js';
+  </script>
+  <script type="module">
+    import '../../theme-toggle/src/theme-toggle.js';
+
+    const root = document.documentElement;
+    root.classList.add('dark');
+
+    const toggle = document.querySelector('theme-toggle');
+    if (toggle) {
+      toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
+      toggle.addEventListener('theme-changed', (event) => {
+        const theme = event.detail?.theme;
+        if (!theme) return;
+        root.classList.toggle('dark', theme === 'dark');
+      });
+    }
+  </script>
+</body>
+</html>

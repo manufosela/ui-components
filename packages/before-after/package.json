@@ -1,0 +1,48 @@
+{
+  "name": "@manufosela/before-after",
+  "version": "1.0.0",
+  "description": "Before/after image comparison slider web component",
+  "license": "MIT",
+  "author": "manufosela",
+  "type": "module",
+  "main": "./src/before-after.js",
+  "module": "./src/before-after.js",
+  "types": "./src/before-after.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/before-after.d.ts",
+      "import": "./src/before-after.js"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/before-after.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/before-after"
+  },
+  "keywords": [
+    "web-components",
+    "lit",
+    "before-after",
+    "image-comparison",
+    "slider",
+    "reveal"
+  ],
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/before-after#readme",
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "customElements": "custom-elements.json"
+}
