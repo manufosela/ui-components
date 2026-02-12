@@ -99,7 +99,6 @@ export class BeforeAfter extends LitElement {
       width: var(--before-after-divider-width, 3px);
       background: var(--before-after-divider-color, #ffffff);
       transform: translateX(-50%);
-      cursor: ew-resize;
       z-index: 2;
       pointer-events: none;
     }
@@ -117,7 +116,8 @@ export class BeforeAfter extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      pointer-events: none;
+      pointer-events: auto;
+      cursor: ew-resize;
       z-index: 3;
     }
 
@@ -224,10 +224,10 @@ export class BeforeAfter extends LitElement {
     return this.renderRoot?.querySelector('.container');
   }
 
-  _onPointerDown(e) {
+  _onHandlePointerDown(e) {
     if (this.disabled) return;
+    e.preventDefault();
     this._dragging = true;
-    this._setPosition(this._clientXToPosition(e.clientX));
     this._container.setPointerCapture(e.pointerId);
   }
 
@@ -292,7 +292,6 @@ export class BeforeAfter extends LitElement {
         aria-valuemax="100"
         aria-valuenow="${pos}"
         aria-label="Image comparison slider"
-        @pointerdown="${this._onPointerDown}"
         @pointermove="${this._onPointerMove}"
         @pointerup="${this._onPointerUp}"
         @lostpointercapture="${this._onPointerUp}"
@@ -307,7 +306,7 @@ export class BeforeAfter extends LitElement {
         </div>
 
         <div class="divider" style="left: ${pos}%">
-          <div class="handle">
+          <div class="handle" @pointerdown="${this._onHandlePointerDown}">
             <svg viewBox="0 0 24 24">
               <polyline points="8,4 4,12 8,20"></polyline>
               <polyline points="16,4 20,12 16,20"></polyline>
