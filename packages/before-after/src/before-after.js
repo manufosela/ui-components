@@ -54,6 +54,7 @@ export class BeforeAfter extends LitElement {
 
     .container {
       position: relative;
+      display: grid;
       touch-action: none;
       overflow: hidden;
     }
@@ -68,23 +69,13 @@ export class BeforeAfter extends LitElement {
       cursor: not-allowed;
     }
 
-    .before-layer {
-      display: block;
-      width: 100%;
-    }
-
-    .before-layer ::slotted(*) {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
+    .before-layer,
     .after-layer {
-      position: absolute;
-      inset: 0;
+      grid-area: 1 / 1;
       overflow: hidden;
     }
 
+    .before-layer ::slotted(*),
     .after-layer ::slotted(*) {
       display: block;
       width: 100%;
