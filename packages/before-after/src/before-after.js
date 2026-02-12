@@ -172,59 +172,6 @@ export class BeforeAfter extends LitElement {
 
     this._onPointerMove = this._onPointerMove.bind(this);
     this._onPointerUp = this._onPointerUp.bind(this);
-    this._onImageLoad = this._onImageLoad.bind(this);
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    this._setupImageListeners();
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this._cleanupImageListeners();
-  }
-
-  _setupImageListeners() {
-    const images = this.querySelectorAll('[slot="before"], [slot="after"]');
-    images.forEach((img) => {
-      if (img.complete) {
-        this._updateAspectRatio();
-      } else {
-        img.addEventListener('load', this._onImageLoad);
-      }
-    });
-  }
-
-  _cleanupImageListeners() {
-    const images = this.querySelectorAll('[slot="before"], [slot="after"]');
-    images.forEach((img) => {
-      img.removeEventListener('load', this._onImageLoad);
-    });
-  }
-
-  _onImageLoad() {
-    this._updateAspectRatio();
-  }
-
-  _updateAspectRatio() {
-    const beforeImg = this.querySelector('[slot="before"]');
-    const afterImg = this.querySelector('[slot="after"]');
-    if (!beforeImg?.naturalWidth || !afterImg?.naturalWidth) return;
-
-    const beforeRatio = beforeImg.naturalWidth / beforeImg.naturalHeight;
-    const afterRatio = afterImg.naturalWidth / afterImg.naturalHeight;
-    const widestRatio = Math.max(beforeRatio, afterRatio);
-
-    const container = this._container;
-    if (container) {
-      container.style.aspectRatio = `${widestRatio}`;
-    }
-  }
-
-  _onSlotChange() {
-    this._cleanupImageListeners();
-    this._setupImageListeners();
   }
 
   /** Clamp a value between 0 and 100 */
@@ -343,11 +290,11 @@ export class BeforeAfter extends LitElement {
         @keydown="${this._onKeyDown}"
       >
         <div class="before-layer" style="clip-path: inset(0 ${100 - pos}% 0 0)">
-          <slot name="before" @slotchange="${this._onSlotChange}"></slot>
+          <slot name="before"></slot>
         </div>
 
         <div class="after-layer" style="clip-path: inset(0 0 0 ${pos}%)">
-          <slot name="after" @slotchange="${this._onSlotChange}"></slot>
+          <slot name="after"></slot>
         </div>
 
         <div class="divider" style="left: ${pos}%">
