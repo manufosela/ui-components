@@ -118,6 +118,19 @@
   </div>
 
   <div class="demo-section">
+    <h2>Different Image Sizes</h2>
+    <p>Images with different dimensions. The container adapts to fit both without gaps.</p>
+    <before-after before-label="800x500" after-label="800x600">
+      <img slot="before" src="https://picsum.photos/id/11/800/500?grayscale" alt="800x500 grayscale">
+      <img slot="after" src="https://picsum.photos/id/11/800/600" alt="800x600 color">
+    </before-after>
+    <div class="code-block">&lt;before-after&gt;
+  &lt;img slot="before" src="photo-800x500.jpg" alt="Before"&gt;
+  &lt;img slot="after" src="photo-800x600.jpg" alt="After"&gt;
+&lt;/before-after&gt;</div>
+  </div>
+
+  <div class="demo-section">
     <h2>Custom Initial Position</h2>
     <p>Start with the divider at 25%.</p>
     <before-after position="25">
