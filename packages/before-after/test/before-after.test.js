@@ -91,12 +91,20 @@ describe('BeforeAfter', () => {
       expect(afterLayer.style.clipPath).to.equal('inset(0px 0px 0px 30%)');
     });
 
+    it('sets correct clip-path on before layer', async () => {
+      const el = await fixture(html`<before-after position="30"></before-after>`);
+      const beforeLayer = el.shadowRoot.querySelector('.before-layer');
+      expect(beforeLayer.style.clipPath).to.equal('inset(0px 70% 0px 0px)');
+    });
+
     it('updates clip-path when position changes', async () => {
       const el = await fixture(html`<before-after position="50"></before-after>`);
       el.position = 75;
       await el.updateComplete;
       const afterLayer = el.shadowRoot.querySelector('.after-layer');
       expect(afterLayer.style.clipPath).to.equal('inset(0px 0px 0px 75%)');
+      const beforeLayer = el.shadowRoot.querySelector('.before-layer');
+      expect(beforeLayer.style.clipPath).to.equal('inset(0px 25% 0px 0px)');
     });
   });
 

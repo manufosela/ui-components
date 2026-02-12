@@ -154,6 +154,7 @@ export class BeforeAfter extends LitElement {
       right: 12px;
     }
 
+    .transition .before-layer,
     .transition .after-layer,
     .transition .divider {
       transition:
@@ -297,7 +298,7 @@ export class BeforeAfter extends LitElement {
         @lostpointercapture="${this._onPointerUp}"
         @keydown="${this._onKeyDown}"
       >
-        <div class="before-layer">
+        <div class="before-layer" style="clip-path: inset(0 ${100 - pos}% 0 0)">
           <slot name="before"></slot>
         </div>
 
