@@ -1,5 +1,8 @@
 # @manufosela/before-after
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/before-after)](https://www.npmjs.com/package/@manufosela/before-after)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Before/after image comparison slider web component built with [Lit 3](https://lit.dev/).
 
 Drag the divider to reveal more of either image. Supports mouse, touch, and keyboard interaction with full ARIA slider semantics.

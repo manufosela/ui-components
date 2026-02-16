@@ -1,5 +1,8 @@
 # @manufosela/multi-select
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/multi-select)](https://www.npmjs.com/package/@manufosela/multi-select)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Multi-select dropdown web component with checkbox options. Built with [Lit](https://lit.dev/).
 
 ## Installation

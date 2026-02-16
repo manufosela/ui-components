@@ -1,5 +1,8 @@
 # @manufosela/card-rain-section
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/card-rain-section)](https://www.npmjs.com/package/@manufosela/card-rain-section)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Scroll-driven card rain animation section web component built with [Lit 3](https://lit.dev/).
 
 Cards fall (or zoom) into view as the user scrolls through the page. Supports two animation modes, mobile-friendly trigger animations, and respects `prefers-reduced-motion` for accessibility.

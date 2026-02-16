@@ -1,5 +1,8 @@
 # @manufosela/stars-rating
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/stars-rating)](https://www.npmjs.com/package/@manufosela/stars-rating)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 An interactive star rating web component with half-star support. Built with [Lit](https://lit.dev/).
 
 ## Installation

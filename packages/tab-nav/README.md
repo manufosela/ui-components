@@ -1,5 +1,8 @@
 # @manufosela/tab-nav
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/tab-nav)](https://www.npmjs.com/package/@manufosela/tab-nav)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Accessible tab navigation web component built with Lit 3. Features keyboard navigation, multiple positions, and smooth transitions.
 
 ## Installation

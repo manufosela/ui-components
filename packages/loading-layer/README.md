@@ -1,5 +1,8 @@
 # @manufosela/loading-layer
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/loading-layer)](https://www.npmjs.com/package/@manufosela/loading-layer)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A customizable loading overlay web component with animated spinner. Built with [Lit](https://lit.dev/).
 
 ## Installation

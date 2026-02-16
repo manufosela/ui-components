@@ -1,5 +1,8 @@
 # @manufosela/radar-chart
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/radar-chart)](https://www.npmjs.com/package/@manufosela/radar-chart)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 SVG-based radar/spider chart web component. Built with [Lit](https://lit.dev/).
 
 ## Installation

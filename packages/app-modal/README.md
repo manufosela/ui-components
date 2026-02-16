@@ -1,5 +1,8 @@
 # @manufosela/app-modal
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/app-modal)](https://www.npmjs.com/package/@manufosela/app-modal)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Feature-rich modal web component with configurable buttons and dynamic content. Built with [Lit](https://lit.dev/).
 
 ## Installation

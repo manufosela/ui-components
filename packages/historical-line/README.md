@@ -1,5 +1,8 @@
 # @manufosela/historical-line
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/historical-line)](https://www.npmjs.com/package/@manufosela/historical-line)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A horizontal timeline visualization web component for displaying historical data, built with [Lit](https://lit.dev/).
 
 ## Installation

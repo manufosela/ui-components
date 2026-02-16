@@ -1,5 +1,8 @@
 # @manufosela/rich-inputfile
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/rich-inputfile)](https://www.npmjs.com/package/@manufosela/rich-inputfile)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Enhanced file input web component with preview and validation. Built with [Lit](https://lit.dev/).
 
 ## Installation

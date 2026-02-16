@@ -1,5 +1,8 @@
 # @manufosela/theme-toggle
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/theme-toggle)](https://www.npmjs.com/package/@manufosela/theme-toggle)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A light/dark theme toggle web component with smooth transitions and localStorage persistence. Built with [Lit](https://lit.dev/).
 
 ## Installation

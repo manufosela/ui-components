@@ -1,5 +1,8 @@
 # @manufosela/lcd-digit
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/lcd-digit)](https://www.npmjs.com/package/@manufosela/lcd-digit)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A 7-segment LCD digit display web component. Built with [Lit](https://lit.dev/).
 
 ## Installation

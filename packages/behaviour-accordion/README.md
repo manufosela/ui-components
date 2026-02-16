@@ -1,5 +1,8 @@
 # @manufosela/behaviour-accordion
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/behaviour-accordion)](https://www.npmjs.com/package/@manufosela/behaviour-accordion)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Accessible accordion web component built with Lit 3. Features smooth animations, keyboard navigation, and flexible configuration.
 
 ## Installation

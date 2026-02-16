@@ -1,5 +1,8 @@
 # @manufosela/device-card-stack
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/device-card-stack)](https://www.npmjs.com/package/@manufosela/device-card-stack)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Accordion-style card stack with 3D perspective and image preview panel, built with [Lit 3](https://lit.dev/).
 
 Cards expand on click to reveal their content while a side panel displays the associated image. On mobile viewports the preview panel is hidden and images appear inline within each card. Supports keyboard navigation and ARIA tablist semantics.

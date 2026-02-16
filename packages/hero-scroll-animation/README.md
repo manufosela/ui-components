@@ -1,5 +1,8 @@
 # @manufosela/hero-scroll-animation
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/hero-scroll-animation)](https://www.npmjs.com/package/@manufosela/hero-scroll-animation)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Hero section with scroll-driven parallax animation built with [Lit 3](https://lit.dev/).
 
 As the user scrolls, the hero content fades out and slides up while a center image rises and side images slide in from the edges. On mobile, the animation is triggered by an intersection observer instead of continuous scroll tracking.

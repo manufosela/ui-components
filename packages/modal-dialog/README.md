@@ -1,5 +1,8 @@
 # @manufosela/modal-dialog
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/modal-dialog)](https://www.npmjs.com/package/@manufosela/modal-dialog)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Modal dialog web component with header, body, and footer slots. Built with [Lit](https://lit.dev/).
 
 ## Installation

@@ -1,5 +1,8 @@
 # @manufosela/calendar-inline
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/calendar-inline)](https://www.npmjs.com/package/@manufosela/calendar-inline)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Inline calendar web component built with Lit 3. Features date selection, navigation, holidays, week numbers, and full localization support.
 
 ## Installation

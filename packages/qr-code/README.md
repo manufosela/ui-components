@@ -1,5 +1,8 @@
 # @manufosela/qr-code
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/qr-code)](https://www.npmjs.com/package/@manufosela/qr-code)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 QR code generator web component. Built with [Lit](https://lit.dev/).
 
 ## Installation

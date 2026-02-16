@@ -1,5 +1,8 @@
 # @manufosela/circle-steps
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/circle-steps)](https://www.npmjs.com/package/@manufosela/circle-steps)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Step indicator web component with circular progress visualization. Built with Lit 3.
 
 ## Installation

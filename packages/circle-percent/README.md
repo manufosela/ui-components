@@ -1,5 +1,8 @@
 # @manufosela/circle-percent
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/circle-percent)](https://www.npmjs.com/package/@manufosela/circle-percent)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A circular progress indicator web component with animated SVG arc and customizable styling. Built with [Lit](https://lit.dev/).
 
 ## Installation

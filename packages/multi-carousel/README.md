@@ -1,5 +1,8 @@
 # @manufosela/multi-carousel
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/multi-carousel)](https://www.npmjs.com/package/@manufosela/multi-carousel)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Responsive multi-slide carousel web component with navigation and arrows. Built with [Lit](https://lit.dev/).
 
 ## Installation

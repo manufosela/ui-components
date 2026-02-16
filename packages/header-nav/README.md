@@ -1,5 +1,8 @@
 # @manufosela/header-nav
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/header-nav)](https://www.npmjs.com/package/@manufosela/header-nav)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Responsive header navigation web component with hamburger menu. Built with [Lit](https://lit.dev/).
 
 ## Installation

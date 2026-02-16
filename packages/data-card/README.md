@@ -1,5 +1,8 @@
 # @manufosela/data-card
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/data-card)](https://www.npmjs.com/package/@manufosela/data-card)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A versatile card web component for displaying data with optional cover image, icon, links, and modal info panel. Built with Lit.
 
 ## Installation

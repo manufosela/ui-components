@@ -1,5 +1,8 @@
 # @manufosela/toast-notification
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/toast-notification)](https://www.npmjs.com/package/@manufosela/toast-notification)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Toast notification web component for displaying brief messages. Built with [Lit](https://lit.dev/).
 
 ## Installation

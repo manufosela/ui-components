@@ -1,5 +1,8 @@
 # @manufosela/slider-underline
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/slider-underline)](https://www.npmjs.com/package/@manufosela/slider-underline)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Range slider web component with underline track style. Built with Lit 3.
 
 ## Installation

@@ -1,5 +1,8 @@
 # @manufosela/nav-list
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/nav-list)](https://www.npmjs.com/package/@manufosela/nav-list)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Horizontal navigation list web component with selection support. Built with [Lit](https://lit.dev/).
 
 ## Installation

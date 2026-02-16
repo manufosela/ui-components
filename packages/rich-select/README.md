@@ -1,5 +1,8 @@
 # @manufosela/rich-select
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/rich-select)](https://www.npmjs.com/package/@manufosela/rich-select)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A customizable rich select dropdown web component with search, keyboard navigation, and extensive styling options. Built with [Lit](https://lit.dev/).
 
 ## Installation

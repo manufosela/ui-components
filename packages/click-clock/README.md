@@ -1,5 +1,8 @@
 # @manufosela/click-clock
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/click-clock)](https://www.npmjs.com/package/@manufosela/click-clock)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Countdown timer, stopwatch, and clock web component. Built with [Lit](https://lit.dev/).
 
 ## Installation

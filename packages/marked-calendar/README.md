@@ -1,5 +1,8 @@
 # @manufosela/marked-calendar
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/marked-calendar)](https://www.npmjs.com/package/@manufosela/marked-calendar)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Interactive calendar web component for tracking moods, habits, or marking dates. Built with [Lit](https://lit.dev/).
 
 ## Installation

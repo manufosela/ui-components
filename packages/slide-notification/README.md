@@ -1,5 +1,8 @@
 # @manufosela/slide-notification
 
+[![npm version](https://img.shields.io/npm/v/@manufosela/slide-notification)](https://www.npmjs.com/package/@manufosela/slide-notification)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Slide-in notification web component from the right edge. Built with [Lit](https://lit.dev/).
 
 ## Installation
