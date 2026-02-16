@@ -372,16 +372,27 @@ export class HeroScrollAnimation extends LitElement {
     this._setupAnimation();
   }
 
+  _getImgSrc(slotEl) {
+    if (!slotEl) return '';
+    if (slotEl.tagName === 'PICTURE') {
+      const webpSource = slotEl.querySelector('source[type="image/webp"]');
+      if (webpSource) return webpSource.getAttribute('srcset') || '';
+      const img = slotEl.querySelector('img');
+      return img ? img.getAttribute('src') || '' : '';
+    }
+    return slotEl.getAttribute('src') || '';
+  }
+
   _extractSlotSources() {
     const bgSlot = this.querySelector('[slot="background"]');
     const centerSlot = this.querySelector('[slot="center"]');
     const leftSlot = this.querySelector('[slot="left"]');
     const rightSlot = this.querySelector('[slot="right"]');
 
-    if (bgSlot) this._bgSrc = bgSlot.getAttribute('src') || '';
-    if (centerSlot) this._centerSrc = centerSlot.getAttribute('src') || '';
-    if (leftSlot) this._leftSrc = leftSlot.getAttribute('src') || '';
-    if (rightSlot) this._rightSrc = rightSlot.getAttribute('src') || '';
+    this._bgSrc = this._getImgSrc(bgSlot);
+    this._centerSrc = this._getImgSrc(centerSlot);
+    this._leftSrc = this._getImgSrc(leftSlot);
+    this._rightSrc = this._getImgSrc(rightSlot);
 
     this.requestUpdate();
   }
@@ -612,21 +623,35 @@ export class HeroScrollAnimation extends LitElement {
           ${this._centerSrc
             ? html`
                 <div class="center-img">
-                  <img src="${this._centerSrc}" alt="" loading="eager" />
+                  <img src="${this._centerSrc}" alt="" loading="eager" width="900" height="506" />
                 </div>
               `
             : ''}
           ${this._leftSrc
             ? html`
                 <div class="side-img side-img--left">
-                  <img src="${this._leftSrc}" alt="" loading="lazy" decoding="async" />
+                  <img
+                    src="${this._leftSrc}"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    width="960"
+                    height="540"
+                  />
                 </div>
               `
             : ''}
           ${this._rightSrc
             ? html`
                 <div class="side-img side-img--right">
-                  <img src="${this._rightSrc}" alt="" loading="lazy" decoding="async" />
+                  <img
+                    src="${this._rightSrc}"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    width="960"
+                    height="540"
+                  />
                 </div>
               `
             : ''}

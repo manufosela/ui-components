@@ -341,7 +341,13 @@ export class DataCard extends LitElement {
     if (this.imgCover) {
       return html`
         <div class="cover" style="${coverStyle}">
-          <img src="${this.imgCover}" alt="${this.cardTitle}" />
+          <img
+            src="${this.imgCover}"
+            alt="${this.cardTitle}"
+            loading="lazy"
+            width="280"
+            height="140"
+          />
           ${this.group ? html`<span class="group-badge">${this.group}</span>` : ''}
         </div>
       `;

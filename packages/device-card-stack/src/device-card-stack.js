@@ -151,9 +151,13 @@ export class DeviceCardStack extends LitElement {
     :host([data-mobile]) .card[data-active] .card-mobile-image {
       display: block;
       width: 100%;
+      margin-bottom: 20px;
+    }
+
+    :host([data-mobile]) .card[data-active] .card-mobile-image img {
+      width: 100%;
       max-height: 200px;
       object-fit: contain;
-      margin-bottom: 20px;
       border-radius: 8px;
     }
 
@@ -224,7 +228,7 @@ export class DeviceCardStack extends LitElement {
       font-size: 2rem;
     }
 
-    :host([data-mobile]) .card-mobile-image {
+    :host([data-mobile]) .card-mobile-image img {
       max-height: 160px;
     }
 
@@ -309,6 +313,7 @@ export class DeviceCardStack extends LitElement {
         num: el.dataset.num || String(i + 1).padStart(2, '0'),
         title: el.dataset.title || '',
         image: el.dataset.image || '',
+        imageWebp: el.dataset.imageWebp || '',
         color: el.dataset.color || '#4a4a4a',
       });
     });
@@ -448,12 +453,18 @@ export class DeviceCardStack extends LitElement {
                   aria-hidden=${i === this.activeIndex ? 'false' : 'true'}
                 >
                   ${card.image
-                    ? html`<img
-                        class="card-mobile-image"
-                        src="${card.image}"
-                        alt="${card.title}"
-                        loading="lazy"
-                      />`
+                    ? html`<picture class="card-mobile-image">
+                        ${card.imageWebp
+                          ? html`<source type="image/webp" srcset="${card.imageWebp}" />`
+                          : ''}
+                        <img
+                          src="${card.image}"
+                          alt="${card.title}"
+                          loading="lazy"
+                          width="441"
+                          height="400"
+                        />
+                      </picture>`
                     : ''}
                   <h3 class="card-body-title">${card.title}</h3>
                   <slot name="${card.slotName}"></slot>
@@ -468,11 +479,18 @@ export class DeviceCardStack extends LitElement {
             (card, i) => html`
               <div class="preview-image" ?data-visible=${i === this.activeIndex}>
                 ${card.image
-                  ? html`<img
-                      src="${card.image}"
-                      alt="${card.title}"
-                      loading="${i === this.activeIndex ? 'eager' : 'lazy'}"
-                    />`
+                  ? html`<picture>
+                      ${card.imageWebp
+                        ? html`<source type="image/webp" srcset="${card.imageWebp}" />`
+                        : ''}
+                      <img
+                        src="${card.image}"
+                        alt="${card.title}"
+                        loading="${i === this.activeIndex ? 'eager' : 'lazy'}"
+                        width="441"
+                        height="400"
+                      />
+                    </picture>`
                   : ''}
               </div>
             `

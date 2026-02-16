@@ -316,7 +316,7 @@ export class HeaderNav extends LitElement {
           ${this.logo
             ? html`
                 <a href="${this.logoHref}">
-                  <img src="${this.logo}" alt="${this.logoAlt}" />
+                  <img src="${this.logo}" alt="${this.logoAlt}" width="120" height="40" />
                 </a>
               `
             : html`
