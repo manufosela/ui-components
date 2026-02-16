@@ -45,6 +45,16 @@
               "description": "Label text color",
               "name": "--slider-label-color",
               "default": "#1f2937"
+            },
+            {
+              "description": "Tick mark color",
+              "name": "--slider-tick-color",
+              "default": "#9ca3af"
+            },
+            {
+              "description": "Tick value text color",
+              "name": "--slider-tick-value-color",
+              "default": "#6b7280"
             }
           ],
           "members": [
@@ -104,6 +114,10 @@
               "kind": "method",
               "name": "reset",
               "description": "Reset to minimum value"
+            },
+            {
+              "kind": "method",
+              "name": "_renderTicks"
             },
             {
               "kind": "field",
@@ -216,6 +230,39 @@
               "description": "Unit suffix for value display",
               "default": "''",
               "attribute": "unit"
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "description": "Slider width (e.g., '300px', '100%')",
+              "default": "''",
+              "attribute": "width"
+            },
+            {
+              "kind": "field",
+              "name": "showTicks",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "description": "Number of tick marks to show (0 = none)",
+              "default": "0",
+              "attribute": "show-ticks"
+            },
+            {
+              "kind": "field",
+              "name": "showTickValues",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show values on tick marks",
+              "default": "false",
+              "attribute": "show-tick-values"
             }
           ],
           "events": [
@@ -324,6 +371,33 @@
               "description": "Unit suffix for value display",
               "default": "''",
               "fieldName": "unit"
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "string"
+              },
+              "description": "Slider width (e.g., '300px', '100%')",
+              "default": "''",
+              "fieldName": "width"
+            },
+            {
+              "name": "show-ticks",
+              "type": {
+                "text": "number"
+              },
+              "description": "Number of tick marks to show (0 = none)",
+              "default": "0",
+              "fieldName": "showTicks"
+            },
+            {
+              "name": "show-tick-values",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show values on tick marks",
+              "default": "false",
+              "fieldName": "showTickValues"
             }
           ],
           "superclass": {

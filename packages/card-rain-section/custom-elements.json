@@ -1,0 +1,382 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/card-rain-section.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Scroll-driven card rain animation section.\n\nCards fall (or zoom) into view as the user scrolls through the page.\nSupports two animation modes: \"drop\" (cards fall from above) and \"zoom\"\n(cards scale down from a large size with a blur effect). The component\nadapts to mobile viewports with a simpler trigger-based animation and\nrespects `prefers-reduced-motion` for accessibility.",
+          "name": "CardRainSection",
+          "cssProperties": [
+            {
+              "description": "Background color of the canvas area",
+              "name": "--crs-bg",
+              "default": "#1a1618"
+            },
+            {
+              "description": "Card background color",
+              "name": "--crs-card-bg",
+              "default": "var(--accent-gold, #bfa15f)"
+            },
+            {
+              "description": "Card border radius",
+              "name": "--crs-card-radius",
+              "default": "16px"
+            },
+            {
+              "description": "Card width",
+              "name": "--crs-card-width",
+              "default": "440px"
+            },
+            {
+              "description": "Card inner padding",
+              "name": "--crs-card-padding",
+              "default": "48px"
+            },
+            {
+              "description": "Title font size",
+              "name": "--crs-title-size",
+              "default": "10rem"
+            },
+            {
+              "description": "Title text color",
+              "name": "--crs-title-color",
+              "default": "rgba(255, 255, 255, 1)"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Title content displayed behind the cards (parsed as innerHTML)",
+              "name": "title"
+            },
+            {
+              "description": "Card elements that animate into view (multiple allowed)",
+              "name": "card"
+            },
+            {
+              "description": "Action buttons displayed at the bottom of the section",
+              "name": "actions"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_processSlots"
+            },
+            {
+              "kind": "method",
+              "name": "_checkMobile"
+            },
+            {
+              "kind": "method",
+              "name": "_onResize"
+            },
+            {
+              "kind": "method",
+              "name": "_cleanup"
+            },
+            {
+              "kind": "method",
+              "name": "_resetCardStyles"
+            },
+            {
+              "kind": "method",
+              "name": "_setupAnimation"
+            },
+            {
+              "kind": "method",
+              "name": "_setupDesktopAnimation"
+            },
+            {
+              "kind": "method",
+              "name": "_setupMobileAnimation"
+            },
+            {
+              "kind": "method",
+              "name": "_applyMobileDelays"
+            },
+            {
+              "kind": "method",
+              "name": "_onScroll"
+            },
+            {
+              "kind": "method",
+              "name": "_startRafLoop"
+            },
+            {
+              "kind": "method",
+              "name": "_easeOutCubic",
+              "parameters": [
+                {
+                  "name": "t"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getSubProgress",
+              "parameters": [
+                {
+                  "name": "progress"
+                },
+                {
+                  "name": "start"
+                },
+                {
+                  "name": "end"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_applyDesktopTransforms",
+              "parameters": [
+                {
+                  "name": "progress"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_calcDropCard",
+              "parameters": [
+                {
+                  "name": "sub"
+                },
+                {
+                  "name": "pose"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_calcZoomCard",
+              "parameters": [
+                {
+                  "name": "sub"
+                },
+                {
+                  "name": "pose"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "scrollHeight",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "300",
+              "attribute": "scroll-height"
+            },
+            {
+              "kind": "field",
+              "name": "mobileBreakpoint",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "768",
+              "attribute": "mobile-breakpoint"
+            },
+            {
+              "kind": "field",
+              "name": "fallMode",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'drop'",
+              "attribute": "fall-mode"
+            },
+            {
+              "kind": "field",
+              "name": "_isMobile",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_isMobile"
+            },
+            {
+              "kind": "field",
+              "name": "_reducedMotion",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_reducedMotion"
+            },
+            {
+              "kind": "field",
+              "name": "_mobileTriggered",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_mobileTriggered"
+            },
+            {
+              "kind": "field",
+              "name": "_cardCount",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "_cardCount"
+            },
+            {
+              "kind": "field",
+              "name": "_currentProgress",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_targetProgress",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_rafId",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_scrollHandler",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_resizeHandler",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_cardElements",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_titleText",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Height of the scroll area in viewport units (default: 300)",
+              "name": "scroll-height",
+              "default": "300",
+              "fieldName": "scrollHeight"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Viewport width threshold for mobile layout in pixels (default: 768)",
+              "name": "mobile-breakpoint",
+              "default": "768",
+              "fieldName": "mobileBreakpoint"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Animation mode: \"drop\" or \"zoom\" (default: \"drop\")",
+              "name": "fall-mode",
+              "default": "'drop'",
+              "fieldName": "fallMode"
+            },
+            {
+              "name": "_isMobile",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_isMobile"
+            },
+            {
+              "name": "_reducedMotion",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_reducedMotion"
+            },
+            {
+              "name": "_mobileTriggered",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_mobileTriggered"
+            },
+            {
+              "name": "_cardCount",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "_cardCount"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "card-rain-section",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CardRainSection",
+          "declaration": {
+            "name": "CardRainSection",
+            "module": "src/card-rain-section.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "card-rain-section",
+          "declaration": {
+            "name": "CardRainSection",
+            "module": "src/card-rain-section.js"
+          }
+        }
+      ]
+    }
+  ]
+}

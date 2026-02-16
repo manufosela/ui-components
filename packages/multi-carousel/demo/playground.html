@@ -125,9 +125,6 @@
     <header>
       <h1>Multi Carousel</h1>
       <p class="subtitle">Playground interactivo</p>
-<div class="demo-theme-toggle">
-  <theme-toggle theme="dark"></theme-toggle>
-</div>
       <div class="nav-links">
         <a href="index.html">&larr; Demo tradicional</a>
         <a href="../../../">Todos los componentes</a>
@@ -178,21 +175,5 @@
     // Componente local (usa Lit 3 del import map)
     import '../src/multi-carousel.js';
   </script>
-<script type="module">
-  import '../../theme-toggle/src/theme-toggle.js';
-
-  const root = document.documentElement;
-  root.classList.add('dark');
-
-  const toggle = document.querySelector('theme-toggle');
-  if (toggle) {
-    toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
-    toggle.addEventListener('theme-changed', (event) => {
-      const theme = event.detail?.theme;
-      if (!theme) return;
-      root.classList.toggle('dark', theme === 'dark');
-    });
-  }
-</script>
 </body>
 </html>

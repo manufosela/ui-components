@@ -132,6 +132,10 @@
               "name": "_renderSeparator"
             },
             {
+              "kind": "method",
+              "name": "_getAriaLabel"
+            },
+            {
               "kind": "field",
               "name": "mode",
               "privacy": "public",

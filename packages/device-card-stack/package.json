@@ -1,0 +1,35 @@
+{
+  "name": "@manufosela/device-card-stack",
+  "version": "1.0.0",
+  "description": "Accordion-style card stack with 3D perspective and image preview panel",
+  "license": "MIT",
+  "author": "manufosela",
+  "type": "module",
+  "main": "./src/device-card-stack.js",
+  "module": "./src/device-card-stack.js",
+  "types": "./src/device-card-stack.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/device-card-stack.d.ts",
+      "import": "./src/device-card-stack.js"
+    }
+  },
+  "files": ["src"],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/device-card-stack.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/device-card-stack"
+  },
+  "keywords": ["web-components", "lit", "card-stack", "accordion", "device-showcase"],
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/device-card-stack#readme",
+  "bugs": {"url": "https://github.com/manufosela/ui-components/issues"},
+  "dependencies": {"lit": "^3.2.1"},
+  "customElements": "custom-elements.json"
+}

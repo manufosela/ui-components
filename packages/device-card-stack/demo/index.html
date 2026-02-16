@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="importmap">
+    {
+      "imports": {
+        "lit": "https://esm.sh/lit@3",
+        "lit/": "https://esm.sh/lit@3/"
+      }
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Device Card Stack - Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow: auto;
+      max-height: 300px;
+      white-space: pre;
+    }
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #d2d2d7;
+      color: #86868b;
+      font-size: 0.9rem;
+    }
+    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    th {
+      background: #f9fafb;
+      color: #1d1d1f;
+      font-weight: 600;
+    }
+    td { color: #374151; }
+    td code {
+      background: #f3f4f6;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 0.8rem;
+    }
+  </style>
+  <link rel="stylesheet" href="../../demo-theme.css" />
+</head>
+<body>
+  <h1>Device Card Stack</h1>
+  <p class="subtitle">Accordion-style card stack with 3D perspective and image preview panel.</p>
+  <div class="demo-links">
+    <a href="https://manufosela.github.io/ui-components/">&larr; Back to components</a>
+    <a href="https://github.com/manufosela/ui-components/tree/main/packages/device-card-stack" target="_blank" rel="noopener">GitHub Repo</a>
+    <a href="playground.html">Playground</a>
+  </div>
+  <div class="demo-theme-toggle">
+    <theme-toggle theme="dark"></theme-toggle>
+  </div>
+
+  <!-- Basic Usage -->
+  <div class="demo-section">
+    <h2>Basic Usage</h2>
+    <p>Three cards with images. Click a card to expand it and see the preview image on the right panel.</p>
+    <device-card-stack>
+      <div slot="card" data-title="Mountain Landscape" data-color="#1a1a2e" data-image="https://picsum.photos/id/29/600/400" data-num="01">
+        <p>Breathtaking mountain views captured at golden hour. The peaks rise above the clouds creating a stunning natural spectacle.</p>
+      </div>
+      <div slot="card" data-title="Ocean Waves" data-color="#16213e" data-image="https://picsum.photos/id/37/600/400" data-num="02">
+        <p>Powerful ocean waves crash against the rocky shoreline. The deep blue waters stretch endlessly towards the horizon.</p>
+      </div>
+      <div slot="card" data-title="Forest Path" data-color="#0f3460" data-image="https://picsum.photos/id/15/600/400" data-num="03">
+        <p>A winding path through an ancient forest. Sunlight filters through the canopy creating dappled patterns on the ground.</p>
+      </div>
+    </device-card-stack>
+    <div class="code-block">&lt;device-card-stack&gt;
+  &lt;div slot="card" data-title="Mountain Landscape"
+       data-color="#1a1a2e"
+       data-image="https://picsum.photos/id/29/600/400"
+       data-num="01"&gt;
+    &lt;p&gt;Breathtaking mountain views...&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div slot="card" data-title="Ocean Waves"
+       data-color="#16213e"
+       data-image="https://picsum.photos/id/37/600/400"
+       data-num="02"&gt;
+    &lt;p&gt;Powerful ocean waves...&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div slot="card" data-title="Forest Path"
+       data-color="#0f3460"
+       data-image="https://picsum.photos/id/15/600/400"
+       data-num="03"&gt;
+    &lt;p&gt;A winding path through...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/device-card-stack&gt;</div>
+  </div>
+
+  <!-- Custom Rotation -->
+  <div class="demo-section">
+    <h2>Custom Rotation</h2>
+    <p>Increase the 3D rotation angle applied to inactive cards for a more dramatic perspective effect.</p>
+    <device-card-stack stack-rotation="5">
+      <div slot="card" data-title="Desert Dunes" data-color="#78350f" data-image="https://picsum.photos/id/60/600/400" data-num="01">
+        <p>Rolling sand dunes under an expansive desert sky. The wind sculpts ever-changing patterns across the golden landscape.</p>
+      </div>
+      <div slot="card" data-title="Arctic Ice" data-color="#164e63" data-image="https://picsum.photos/id/65/600/400" data-num="02">
+        <p>Massive ice formations float silently in crystal-clear arctic waters, reflecting shades of blue and white.</p>
+      </div>
+      <div slot="card" data-title="Volcanic Terrain" data-color="#4a044e" data-image="https://picsum.photos/id/70/600/400" data-num="03">
+        <p>Rugged volcanic terrain carved by ancient eruptions. Dark basalt contrasts with patches of resilient green moss.</p>
+      </div>
+    </device-card-stack>
+    <div class="code-block">&lt;device-card-stack stack-rotation="5"&gt;
+  &lt;div slot="card" data-title="Desert Dunes" data-color="#78350f" ...&gt;...&lt;/div&gt;
+  &lt;div slot="card" data-title="Arctic Ice" data-color="#164e63" ...&gt;...&lt;/div&gt;
+  &lt;div slot="card" data-title="Volcanic Terrain" data-color="#4a044e" ...&gt;...&lt;/div&gt;
+&lt;/device-card-stack&gt;</div>
+  </div>
+
+  <!-- Custom Transition -->
+  <div class="demo-section">
+    <h2>Custom Transition Duration</h2>
+    <p>Slow down the transition for a more deliberate animation effect (800ms).</p>
+    <device-card-stack transition-duration="800">
+      <div slot="card" data-title="City Skyline" data-color="#1e3a5f" data-image="https://picsum.photos/id/43/600/400" data-num="01">
+        <p>A glittering city skyline illuminated by thousands of lights as dusk settles over the urban landscape.</p>
+      </div>
+      <div slot="card" data-title="Country Road" data-color="#2d4a22" data-image="https://picsum.photos/id/55/600/400" data-num="02">
+        <p>A quiet country road stretches into the distance, flanked by golden wheat fields swaying in the breeze.</p>
+      </div>
+      <div slot="card" data-title="Starry Night" data-color="#1a1a2e" data-image="https://picsum.photos/id/85/600/400" data-num="03">
+        <p>The Milky Way arches across a clear night sky, millions of stars creating a celestial tapestry overhead.</p>
+      </div>
+    </device-card-stack>
+    <div class="code-block">&lt;device-card-stack transition-duration="800"&gt;
+  &lt;div slot="card" data-title="City Skyline" data-color="#1e3a5f" ...&gt;...&lt;/div&gt;
+  &lt;div slot="card" data-title="Country Road" data-color="#2d4a22" ...&gt;...&lt;/div&gt;
+  &lt;div slot="card" data-title="Starry Night" data-color="#1a1a2e" ...&gt;...&lt;/div&gt;
+&lt;/device-card-stack&gt;</div>
+  </div>
+
+  <!-- CSS Custom Properties Reference -->
+  <div class="demo-section">
+    <h2>CSS Custom Properties</h2>
+    <p>Available CSS custom properties for styling the component.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--dcs-border-radius</code></td>
+          <td><code>20px</code></td>
+          <td>Border radius of the outer wrapper</td>
+        </tr>
+        <tr>
+          <td><code>--dcs-height</code></td>
+          <td><code>700px</code></td>
+          <td>Height of the component in desktop mode</td>
+        </tr>
+        <tr>
+          <td><code>--dcs-preview-bg</code></td>
+          <td><code>#000</code></td>
+          <td>Background color of the preview panel</td>
+        </tr>
+        <tr>
+          <td><code>--dcs-text-color</code></td>
+          <td><code>#fff</code></td>
+          <td>Text color for the card body title</td>
+        </tr>
+        <tr>
+          <td><code>--dcs-title-size</code></td>
+          <td><code>3.5rem</code></td>
+          <td>Font size of the expanded card title</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>
+      <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+      <a href="https://www.npmjs.com/package/@manufosela/device-card-stack">npm</a>
+    </p>
+    <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
+  <script type="module">
+    import '../src/device-card-stack.js';
+  </script>
+  <script type="module">
+    import '../../theme-toggle/src/theme-toggle.js';
+
+    const root = document.documentElement;
+    root.classList.add('dark');
+
+    const toggle = document.querySelector('theme-toggle');
+    if (toggle) {
+      toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
+      toggle.addEventListener('theme-changed', (event) => {
+        const theme = event.detail?.theme;
+        if (!theme) return;
+        root.classList.toggle('dark', theme === 'dark');
+      });
+    }
+  </script>
+</body>
+</html>

@@ -8,33 +8,123 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A slide-in notification component from the right edge.",
+          "description": "A slide-in notification component from the right edge.\nFully themeable via CSS custom properties with design system token fallbacks.",
           "name": "SlideNotification",
           "cssProperties": [
             {
-              "description": "Width",
-              "name": "--slide-notification-width",
+              "description": "Background color (falls back to type-specific token)",
+              "name": "--notification-bg"
+            },
+            {
+              "description": "Text color (falls back to --text-inverse or #ffffff)",
+              "name": "--notification-text"
+            },
+            {
+              "description": "Border radius (falls back to --radius-md or 6px)",
+              "name": "--notification-border-radius"
+            },
+            {
+              "description": "Box shadow (falls back to --shadow-lg)",
+              "name": "--notification-shadow"
+            },
+            {
+              "description": "Padding (falls back to --spacing-md or 1rem)",
+              "name": "--notification-padding"
+            },
+            {
+              "description": "Minimum width",
+              "name": "--notification-min-width",
               "default": "300px"
             },
             {
-              "description": "Background color",
-              "name": "--slide-notification-bg",
-              "default": "#17a2b8"
+              "description": "Maximum width",
+              "name": "--notification-max-width",
+              "default": "400px"
             },
             {
-              "description": "Text color",
-              "name": "--slide-notification-color",
-              "default": "white"
+              "description": "Minimum height",
+              "name": "--notification-min-height",
+              "default": "80px"
             },
             {
-              "description": "Border radius",
-              "name": "--slide-notification-radius",
-              "default": "8px"
+              "description": "Distance from bottom",
+              "name": "--notification-bottom",
+              "default": "20px"
             },
             {
               "description": "Z-index",
-              "name": "--slide-notification-z-index",
+              "name": "--notification-z-index",
               "default": "10000"
+            },
+            {
+              "description": "Title font size (falls back to --font-size-lg or 1.1rem)",
+              "name": "--notification-title-size"
+            },
+            {
+              "description": "Title font weight",
+              "name": "--notification-title-weight",
+              "default": "600"
+            },
+            {
+              "description": "Message font size (falls back to --font-size-base or 1rem)",
+              "name": "--notification-message-size"
+            },
+            {
+              "description": "Icon size",
+              "name": "--notification-icon-size",
+              "default": "1.2em"
+            },
+            {
+              "description": "Animation duration",
+              "name": "--notification-animation-duration",
+              "default": "0.5s"
+            },
+            {
+              "description": "Slide distance",
+              "name": "--notification-slide-distance",
+              "default": "100%"
+            },
+            {
+              "description": "Success type background",
+              "name": "--notification-success-bg",
+              "default": "#22c55e"
+            },
+            {
+              "description": "Error type background",
+              "name": "--notification-error-bg",
+              "default": "#dc3545"
+            },
+            {
+              "description": "Warning type background",
+              "name": "--notification-warning-bg",
+              "default": "#ffc107"
+            },
+            {
+              "description": "Info type background",
+              "name": "--notification-info-bg",
+              "default": "#17a2b8"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The notification container wrapper",
+              "name": "container"
+            },
+            {
+              "description": "The notification title element",
+              "name": "title"
+            },
+            {
+              "description": "The notification content wrapper (icon + message)",
+              "name": "content"
+            },
+            {
+              "description": "The notification icon",
+              "name": "icon"
+            },
+            {
+              "description": "The notification message element",
+              "name": "message"
             }
           ],
           "members": [
@@ -56,15 +146,11 @@
             },
             {
               "kind": "method",
-              "name": "_getBackgroundColor"
+              "name": "_getRole"
             },
             {
               "kind": "method",
-              "name": "_getTextColor"
-            },
-            {
-              "kind": "method",
-              "name": "_getTextShadow"
+              "name": "_getAriaLive"
             },
             {
               "kind": "field",
@@ -218,7 +304,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "Custom background color",
+              "description": "Custom background color (overrides type color)",
               "name": "background-color",
               "default": "''",
               "fieldName": "backgroundColor"
@@ -249,7 +335,7 @@
               "default": "{}",
               "description": "Notification options",
               "type": {
-                "text": "@param {string} options.title - Notification title\n * @param {string} options.message - Notification message (supports HTML)\n * @param {number} options.timetohide - Time in ms before auto-hide (default: 3000, 0 = persistent)\n * @param {string} options.type - Type: 'info' | 'success' | 'warning' | 'error'\n * @param {string} options.backgroundColor - Custom background color\n * @param {boolean} options.persistent - If true, stays until clicked\n * "
+                "text": "@param {string} options.title - Notification title\n * @param {string} options.message - Notification message (supports HTML)\n * @param {number} options.timetohide - Time in ms before auto-hide (default: 3000, 0 = persistent)\n * @param {string} options.type - Type: 'info' | 'success' | 'warning' | 'error'\n * @param {string} options.backgroundColor - Custom background color (overrides type)\n * @param {boolean} options.persistent - If true, stays until clicked\n * "
               }
             }
           ],

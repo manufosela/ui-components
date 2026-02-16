@@ -12,9 +12,9 @@
           "name": "LoadingLayer",
           "cssProperties": [
             {
-              "description": "Background color)",
+              "description": "Background color",
               "name": "--loading-layer-bg",
-              "default": "rgba(0, 0, 0, 0.5"
+              "default": "rgba(0,0,0,0.5)"
             },
             {
               "description": "Z-index",

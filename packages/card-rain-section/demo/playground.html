@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Rain Section - Playground</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "lit": "https://esm.sh/lit@3?bundle",
+        "lit/": "https://esm.sh/lit@3&bundle/"
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bg-color: #f5f5f7;
+      --card-bg: #ffffff;
+      --text-color: #1d1d1f;
+      --text-muted: #86868b;
+      --accent: #3b82f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      margin: 0 0 0.75rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+    }
+    .nav-links a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* API Demo styling */
+    api-demo {
+      display: block;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+
+      /* CSS custom properties for api-viewer theming */
+      --ave-accent-color: var(--accent);
+      --ave-border-color: #e5e7eb;
+      --ave-header-color: var(--text-color);
+      --ave-item-color: var(--text-muted);
+      --ave-monospace-font: 'SF Mono', Monaco, Consolas, monospace;
+
+      /* Minimum height for demo area */
+      --ave-demo-min-height: 300px;
+    }
+
+    /* Force minimum size on the component preview wrapper */
+    api-demo::part(demo-output) {
+      min-height: 300px;
+      min-width: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: #fafafa;
+    }
+
+    /* Layout: controles izquierda, preview derecha en desktop */
+    @media (min-width: 900px) {
+      api-demo::part(demo-tabs) {
+        flex-direction: row-reverse;
+      }
+    }
+
+    .info-box {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--accent);
+    }
+    .info-box p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e5e7eb;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--text-color); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Card Rain Section</h1>
+      <p class="subtitle">Playground interactivo</p>
+      <div class="nav-links">
+        <a href="index.html">&larr; Demo tradicional</a>
+        <a href="../../../">Todos los componentes</a>
+        <a href="https://github.com/manufosela/ui-components/tree/main/packages/card-rain-section" target="_blank">GitHub</a>
+        <a href="https://www.npmjs.com/package/@manufosela/card-rain-section" target="_blank">npm</a>
+      </div>
+    </header>
+
+    <div class="info-box">
+      <p>Modifica los atributos en el panel "Knobs" y observa los cambios en tiempo real. El codigo HTML se actualiza automaticamente.</p>
+    </div>
+
+
+    <api-demo src="../custom-elements.json" only="card-rain-section"></api-demo>
+
+    <footer>
+      <p>
+        <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+        <a href="https://www.npmjs.com/package/@manufosela/card-rain-section">npm</a>
+      </p>
+      <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
+          <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
+        </a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
+  <script type="module">
+    // api-demo element (incluye Lit 2 bundled)
+    import 'https://esm.sh/@api-viewer/demo@1.0.0-pre.10?bundle';
+
+    // Componente local (usa Lit 3 del import map)
+    import '../src/card-rain-section.js';
+  </script>
+</body>
+</html>

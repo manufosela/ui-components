@@ -27,14 +27,14 @@
               "default": "#22c55e"
             },
             {
-              "description": "Inactive segment color)",
+              "description": "Inactive segment color",
               "name": "--lcd-digit-off-color",
-              "default": "rgba(0,0,0,0.1"
+              "default": "rgba(0,0,0,0.1)"
             },
             {
-              "description": "Glow effect color)",
+              "description": "Glow effect color",
               "name": "--lcd-digit-glow-color",
-              "default": "rgba(34,197,94,0.5"
+              "default": "rgba(34,197,94,0.5)"
             }
           ],
           "members": [

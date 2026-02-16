@@ -169,7 +169,33 @@
             },
             {
               "kind": "method",
+              "name": "_handleKeydown",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "_renderGradientStops"
+            },
+            {
+              "kind": "method",
+              "name": "_renderLimits"
+            },
+            {
+              "kind": "method",
+              "name": "_renderTicks"
+            },
+            {
+              "kind": "method",
+              "name": "_renderThumbValue",
+              "parameters": [
+                {
+                  "name": "thumbPos"
+                }
+              ]
             },
             {
               "kind": "field",
@@ -296,6 +322,56 @@
               },
               "default": "false",
               "attribute": "reverse"
+            },
+            {
+              "kind": "field",
+              "name": "valuePosition",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'bottom'",
+              "attribute": "value-position"
+            },
+            {
+              "kind": "field",
+              "name": "showValueOnThumb",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "show-value-on-thumb"
+            },
+            {
+              "kind": "field",
+              "name": "showLimits",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "show-limits"
+            },
+            {
+              "kind": "field",
+              "name": "showTicks",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "show-ticks"
+            },
+            {
+              "kind": "field",
+              "name": "hideValue",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "hide-value"
             },
             {
               "kind": "field",
@@ -431,6 +507,51 @@
               "name": "stroke-width",
               "default": "8",
               "fieldName": "strokeWidth"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Position of value display: top, bottom, center (default: bottom)",
+              "name": "value-position",
+              "default": "'bottom'",
+              "fieldName": "valuePosition"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show value as badge on the thumb",
+              "name": "show-value-on-thumb",
+              "default": "false",
+              "fieldName": "showValueOnThumb"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show min/max values at arc ends",
+              "name": "show-limits",
+              "default": "false",
+              "fieldName": "showLimits"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Number of tick marks to show on the arc (0 = none)",
+              "name": "show-ticks",
+              "default": "0",
+              "fieldName": "showTicks"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide the value display entirely",
+              "name": "hide-value",
+              "default": "false",
+              "fieldName": "hideValue"
             },
             {
               "name": "clockwise",

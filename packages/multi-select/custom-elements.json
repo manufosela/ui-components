@@ -72,6 +72,15 @@
             },
             {
               "kind": "method",
+              "name": "_handleHeaderKeydown",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "toggleOption",
               "parameters": [
                 {

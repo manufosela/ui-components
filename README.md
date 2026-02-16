@@ -17,11 +17,14 @@ Visit the [live demo](https://manufosela.github.io/ui-components/) to see all co
 | [@manufosela/before-after](./packages/before-after) | ![npm](https://img.shields.io/npm/v/@manufosela/before-after) | Before/after image comparison slider |
 | [@manufosela/behaviour-accordion](./packages/behaviour-accordion) | ![npm](https://img.shields.io/npm/v/@manufosela/behaviour-accordion) | Accessible accordion with animations |
 | [@manufosela/calendar-inline](./packages/calendar-inline) | ![npm](https://img.shields.io/npm/v/@manufosela/calendar-inline) | Inline calendar with date selection |
+| [@manufosela/card-rain-section](./packages/card-rain-section) | ![npm](https://img.shields.io/npm/v/@manufosela/card-rain-section) | Scroll-driven card rain animation |
 | [@manufosela/circle-percent](./packages/circle-percent) | ![npm](https://img.shields.io/npm/v/@manufosela/circle-percent) | Circular progress indicator |
 | [@manufosela/circle-steps](./packages/circle-steps) | ![npm](https://img.shields.io/npm/v/@manufosela/circle-steps) | Step indicator with circular progress |
 | [@manufosela/click-clock](./packages/click-clock) | ![npm](https://img.shields.io/npm/v/@manufosela/click-clock) | Countdown, stopwatch, and clock |
 | [@manufosela/data-card](./packages/data-card) | ![npm](https://img.shields.io/npm/v/@manufosela/data-card) | Versatile card with cover, icon, and modal |
+| [@manufosela/device-card-stack](./packages/device-card-stack) | ![npm](https://img.shields.io/npm/v/@manufosela/device-card-stack) | Accordion card stack with 3D perspective |
 | [@manufosela/header-nav](./packages/header-nav) | ![npm](https://img.shields.io/npm/v/@manufosela/header-nav) | Responsive header with hamburger menu |
+| [@manufosela/hero-scroll-animation](./packages/hero-scroll-animation) | ![npm](https://img.shields.io/npm/v/@manufosela/hero-scroll-animation) | Hero with scroll-driven parallax animation |
 | [@manufosela/historical-line](./packages/historical-line) | ![npm](https://img.shields.io/npm/v/@manufosela/historical-line) | Horizontal timeline visualization |
 | [@manufosela/lcd-digit](./packages/lcd-digit) | ![npm](https://img.shields.io/npm/v/@manufosela/lcd-digit) | 7-segment LCD digit display |
 | [@manufosela/loading-layer](./packages/loading-layer) | ![npm](https://img.shields.io/npm/v/@manufosela/loading-layer) | Full-screen loading overlay |
@@ -116,11 +119,14 @@ ui-components/
 │   ├── before-after/
 │   ├── behaviour-accordion/
 │   ├── calendar-inline/
+│   ├── card-rain-section/
 │   ├── circle-percent/
 │   ├── circle-steps/
 │   ├── click-clock/
 │   ├── data-card/
+│   ├── device-card-stack/
 │   ├── header-nav/
+│   ├── hero-scroll-animation/
 │   ├── historical-line/
 │   ├── lcd-digit/
 │   ├── loading-layer/

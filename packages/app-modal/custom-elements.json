@@ -8,33 +8,166 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A feature-rich modal component with configurable buttons and content.\n\nSupports both programmatic usage via showModal() and declarative usage with the open attribute.",
+          "description": "A feature-rich modal component with configurable buttons and content.\n\nSupports both programmatic usage via showModal() and declarative usage with the open attribute.\nFully themeable via CSS custom properties with design system token fallbacks.",
           "name": "AppModal",
           "cssProperties": [
             {
-              "description": "Z-index",
+              "description": "Z-index of the modal overlay",
               "name": "--app-modal-z-index",
               "default": "1000"
             },
             {
-              "description": "Modal background",
-              "name": "--app-modal-bg",
-              "default": "white"
+              "description": "Modal background (falls back to --bg-primary or #ffffff)",
+              "name": "--modal-bg"
             },
             {
-              "description": "Border radius",
-              "name": "--app-modal-radius",
-              "default": "8px"
+              "description": "Modal text color (falls back to --text-primary or #333333)",
+              "name": "--modal-text-color"
             },
             {
-              "description": "Confirm button background",
-              "name": "--app-modal-confirm-bg",
-              "default": "#4caf50"
+              "description": "Border radius (falls back to --radius-lg or 8px)",
+              "name": "--modal-border-radius"
             },
             {
-              "description": "Cancel button background",
-              "name": "--app-modal-cancel-bg",
-              "default": "#f44336"
+              "description": "Box shadow (falls back to --shadow-xl)",
+              "name": "--modal-shadow"
+            },
+            {
+              "description": "Overlay background color",
+              "name": "--modal-overlay-bg",
+              "default": "rgba(0,0,0,0.6)"
+            },
+            {
+              "description": "Default max width",
+              "name": "--modal-max-width",
+              "default": "80vw"
+            },
+            {
+              "description": "Default max height",
+              "name": "--modal-max-height",
+              "default": "80vh"
+            },
+            {
+              "description": "Header background (falls back to --bg-secondary)",
+              "name": "--modal-header-bg"
+            },
+            {
+              "description": "Header text color (falls back to --text-primary)",
+              "name": "--modal-header-text"
+            },
+            {
+              "description": "Header padding (falls back to --spacing-md or 1rem)",
+              "name": "--modal-header-padding"
+            },
+            {
+              "description": "Header font size (falls back to --font-size-xl or 1.5rem)",
+              "name": "--modal-header-font-size"
+            },
+            {
+              "description": "Body padding (falls back to --spacing-lg or 1.5rem)",
+              "name": "--modal-body-padding"
+            },
+            {
+              "description": "Body text color (falls back to --text-primary or #333333)",
+              "name": "--modal-body-color"
+            },
+            {
+              "description": "Footer background (falls back to --bg-secondary)",
+              "name": "--modal-footer-bg"
+            },
+            {
+              "description": "Footer padding (falls back to --spacing-md or 1rem)",
+              "name": "--modal-footer-padding"
+            },
+            {
+              "description": "Border color for header/footer (falls back to --border-default or #e0e0e0)",
+              "name": "--modal-border-color"
+            },
+            {
+              "description": "Close button background (falls back to --bg-muted)",
+              "name": "--modal-close-bg"
+            },
+            {
+              "description": "Close button color (falls back to --text-secondary or #666666)",
+              "name": "--modal-close-color"
+            },
+            {
+              "description": "Close button hover background",
+              "name": "--modal-close-hover-bg"
+            },
+            {
+              "description": "Close button hover color",
+              "name": "--modal-close-hover-color"
+            },
+            {
+              "description": "Primary button background (falls back to --brand-primary or #4caf50)",
+              "name": "--modal-btn-primary-bg"
+            },
+            {
+              "description": "Primary button text (falls back to --text-inverse or #ffffff)",
+              "name": "--modal-btn-primary-text"
+            },
+            {
+              "description": "Primary button hover background",
+              "name": "--modal-btn-primary-hover-bg"
+            },
+            {
+              "description": "Secondary button background (falls back to --brand-danger or #f44336)",
+              "name": "--modal-btn-secondary-bg"
+            },
+            {
+              "description": "Secondary button text (falls back to --text-inverse or #ffffff)",
+              "name": "--modal-btn-secondary-text"
+            },
+            {
+              "description": "Secondary button hover background",
+              "name": "--modal-btn-secondary-hover-bg"
+            },
+            {
+              "description": "Tertiary button background (falls back to --bg-muted or #e9ecef)",
+              "name": "--modal-btn-tertiary-bg"
+            },
+            {
+              "description": "Tertiary button text (falls back to --text-primary or #333333)",
+              "name": "--modal-btn-tertiary-text"
+            },
+            {
+              "description": "Tertiary button hover background",
+              "name": "--modal-btn-tertiary-hover-bg"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The modal container element",
+              "name": "container"
+            },
+            {
+              "description": "The modal header element",
+              "name": "header"
+            },
+            {
+              "description": "The modal body element",
+              "name": "body"
+            },
+            {
+              "description": "The modal footer element",
+              "name": "footer"
+            },
+            {
+              "description": "The close button",
+              "name": "close-btn"
+            },
+            {
+              "description": "The primary action button (button1)",
+              "name": "btn-primary"
+            },
+            {
+              "description": "The secondary action button (button2)",
+              "name": "btn-secondary"
+            },
+            {
+              "description": "The tertiary action button (button3)",
+              "name": "btn-tertiary"
             }
           ],
           "slots": [
@@ -259,6 +392,27 @@
             },
             {
               "kind": "field",
+              "name": "interceptClose",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "intercept-close"
+            },
+            {
+              "kind": "field",
+              "name": "fullHeight",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "full-height",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "button1Action"
             },
             {
@@ -331,10 +485,28 @@
               "type": {
                 "text": "CustomEvent"
               },
-              "description": "Fired when modal close is requested"
+              "description": "Fired when modal close is requested (can be intercepted with intercept-close)"
             }
           ],
           "attributes": [
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "When true, modal won't auto-close on close request. Listen to modal-closed-requested and dispatch close-modal event to close manually.",
+              "name": "intercept-close",
+              "default": "false",
+              "fieldName": "interceptClose"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "When true, modal content expands to fill the maxHeight",
+              "name": "full-height",
+              "default": "false",
+              "fieldName": "fullHeight"
+            },
             {
               "type": {
                 "text": "string"

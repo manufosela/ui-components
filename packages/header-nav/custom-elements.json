@@ -22,9 +22,9 @@
               "default": "#fff"
             },
             {
-              "description": "Box shadow)",
+              "description": "Box shadow",
               "name": "--header-shadow",
-              "default": "0 2px 4px rgba(0,0,0,0.1"
+              "default": "0 2px 4px rgba(0,0,0,0.1)"
             },
             {
               "description": "Link color",

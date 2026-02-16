@@ -1,0 +1,37 @@
+{
+  "name": "@manufosela/card-rain-section",
+  "version": "1.0.0",
+  "description": "Scroll-driven card rain animation section with drop and zoom modes",
+  "license": "MIT",
+  "author": "manufosela",
+  "type": "module",
+  "main": "./src/card-rain-section.js",
+  "module": "./src/card-rain-section.js",
+  "types": "./src/card-rain-section.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/card-rain-section.d.ts",
+      "import": "./src/card-rain-section.js"
+    }
+  },
+  "files": ["src"],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/card-rain-section.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/card-rain-section"
+  },
+  "keywords": ["web-components", "lit", "card-rain", "scroll-animation", "parallax"],
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/card-rain-section#readme",
+  "bugs": {"url": "https://github.com/manufosela/ui-components/issues"},
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "customElements": "custom-elements.json"
+}

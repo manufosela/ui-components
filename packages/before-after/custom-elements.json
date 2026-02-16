@@ -1,0 +1,330 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/before-after.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Before/after image comparison slider.\n\nDrag the divider to reveal more of either image. Supports mouse, touch,\nand keyboard interaction with full ARIA slider semantics.",
+          "name": "BeforeAfter",
+          "cssProperties": [
+            {
+              "description": "Divider line color",
+              "name": "--before-after-divider-color",
+              "default": "#ffffff"
+            },
+            {
+              "description": "Divider line width",
+              "name": "--before-after-divider-width",
+              "default": "3px"
+            },
+            {
+              "description": "Handle diameter",
+              "name": "--before-after-handle-size",
+              "default": "40px"
+            },
+            {
+              "description": "Handle color",
+              "name": "--before-after-handle-color",
+              "default": "#ffffff"
+            },
+            {
+              "description": "Label background",
+              "name": "--before-after-label-bg",
+              "default": "rgba(0,0,0,0.5)"
+            },
+            {
+              "description": "Label text color",
+              "name": "--before-after-label-color",
+              "default": "#ffffff"
+            },
+            {
+              "description": "Focus ring color",
+              "name": "--before-after-focus-color",
+              "default": "#3b82f6"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Image to show on the left (before)",
+              "name": "before"
+            },
+            {
+              "description": "Image to show on the right (after)",
+              "name": "after"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_clamp",
+              "parameters": [
+                {
+                  "name": "val"
+                }
+              ],
+              "description": "Clamp a value between 0 and 100"
+            },
+            {
+              "kind": "method",
+              "name": "_clientXToPosition",
+              "parameters": [
+                {
+                  "name": "clientX"
+                }
+              ],
+              "description": "Convert a clientX to a percentage position"
+            },
+            {
+              "kind": "method",
+              "name": "_setPosition",
+              "parameters": [
+                {
+                  "name": "pos"
+                }
+              ],
+              "description": "Update position and dispatch input event"
+            },
+            {
+              "kind": "method",
+              "name": "_fireChange",
+              "description": "Dispatch change event"
+            },
+            {
+              "kind": "field",
+              "name": "_container",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_onHandlePointerDown",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onPointerMove",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onPointerUp"
+            },
+            {
+              "kind": "method",
+              "name": "_onKeyDown",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "50",
+              "attribute": "position"
+            },
+            {
+              "kind": "field",
+              "name": "beforeLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Before'",
+              "attribute": "before-label"
+            },
+            {
+              "kind": "field",
+              "name": "afterLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'After'",
+              "attribute": "after-label"
+            },
+            {
+              "kind": "field",
+              "name": "hideLabels",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "hide-labels"
+            },
+            {
+              "kind": "field",
+              "name": "hoverMode",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "hover-mode"
+            },
+            {
+              "kind": "field",
+              "name": "noAnimation",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "no-animation"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "_dragging",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_dragging"
+            }
+          ],
+          "events": [
+            {
+              "name": "before-after-input",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired continuously during drag"
+            },
+            {
+              "name": "before-after-change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when position changes (on release / key)"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Divider position in percent 0-100 (default: 50)",
+              "name": "position",
+              "default": "50",
+              "fieldName": "position"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Label for the before image (default: \"Before\")",
+              "name": "before-label",
+              "default": "'Before'",
+              "fieldName": "beforeLabel"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Label for the after image (default: \"After\")",
+              "name": "after-label",
+              "default": "'After'",
+              "fieldName": "afterLabel"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Hide labels",
+              "name": "hide-labels",
+              "default": "false",
+              "fieldName": "hideLabels"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Move divider on hover without clicking",
+              "name": "hover-mode",
+              "default": "false",
+              "fieldName": "hoverMode"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disable transitions",
+              "name": "no-animation",
+              "default": "false",
+              "fieldName": "noAnimation"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disable all interaction",
+              "name": "disabled",
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "_dragging",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_dragging"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "before-after",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BeforeAfter",
+          "declaration": {
+            "name": "BeforeAfter",
+            "module": "src/before-after.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "before-after",
+          "declaration": {
+            "name": "BeforeAfter",
+            "module": "src/before-after.js"
+          }
+        }
+      ]
+    }
+  ]
+}

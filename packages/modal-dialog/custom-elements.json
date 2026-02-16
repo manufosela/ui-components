@@ -17,9 +17,9 @@
               "default": "9999"
             },
             {
-              "description": "Overlay background)",
+              "description": "Overlay background",
               "name": "--modal-overlay-bg",
-              "default": "rgba(0,0,0,0.5"
+              "default": "rgba(0,0,0,0.5)"
             },
             {
               "description": "Modal background",

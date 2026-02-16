@@ -59,20 +59,26 @@
       text-decoration: underline;
     }
 
+    /* API Demo styling */
     api-demo {
       display: block;
       background: var(--card-bg);
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       overflow: hidden;
+
+      /* CSS custom properties for api-viewer theming */
       --ave-accent-color: var(--accent);
       --ave-border-color: #e5e7eb;
       --ave-header-color: var(--text-color);
       --ave-item-color: var(--text-muted);
       --ave-monospace-font: 'SF Mono', Monaco, Consolas, monospace;
+
+      /* Minimum height for demo area */
       --ave-demo-min-height: 300px;
     }
 
+    /* Force minimum size on the component preview wrapper */
     api-demo::part(demo-output) {
       min-height: 300px;
       min-width: 300px;
@@ -81,6 +87,13 @@
       justify-content: center;
       padding: 2rem;
       background: #fafafa;
+    }
+
+    /* Layout: controles izquierda, preview derecha en desktop */
+    @media (min-width: 900px) {
+      api-demo::part(demo-tabs) {
+        flex-direction: row-reverse;
+      }
     }
 
     .info-box {
@@ -112,9 +125,6 @@
     <header>
       <h1>Before After</h1>
       <p class="subtitle">Playground interactivo</p>
-      <div class="demo-theme-toggle">
-        <theme-toggle theme="dark"></theme-toggle>
-      </div>
       <div class="nav-links">
         <a href="index.html">&larr; Demo tradicional</a>
         <a href="../../../">Todos los componentes</a>
@@ -126,6 +136,7 @@
     <div class="info-box">
       <p>Modifica los atributos en el panel "Knobs" y observa los cambios en tiempo real. El codigo HTML se actualiza automaticamente.</p>
     </div>
+
 
     <api-demo src="../custom-elements.json" only="before-after"></api-demo>
 
@@ -147,24 +158,11 @@
     document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
   </script>
   <script type="module">
+    // api-demo element (incluye Lit 2 bundled)
     import 'https://esm.sh/@api-viewer/demo@1.0.0-pre.10?bundle';
+
+    // Componente local (usa Lit 3 del import map)
     import '../src/before-after.js';
-  </script>
-  <script type="module">
-    import '../../theme-toggle/src/theme-toggle.js';
-
-    const root = document.documentElement;
-    root.classList.add('dark');
-
-    const toggle = document.querySelector('theme-toggle');
-    if (toggle) {
-      toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
-      toggle.addEventListener('theme-changed', (event) => {
-        const theme = event.detail?.theme;
-        if (!theme) return;
-        root.classList.toggle('dark', theme === 'dark');
-      });
-    }
   </script>
 </body>
 </html>

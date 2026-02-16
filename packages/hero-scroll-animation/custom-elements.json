@@ -1,0 +1,441 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/hero-scroll-animation.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Hero section with scroll-driven parallax animation.\n\nAs the user scrolls, the hero content fades out and slides up, while\na center image rises and side images slide in from the edges. Supports\nboth desktop (scroll-linked) and mobile (intersection-triggered) modes.\n\nImages are provided via named slots (`background`, `center`, `left`, `right`)\nand their `src` attributes are extracted to render internal `<img>` elements.\nThe `content` slot holds arbitrary markup displayed over the hero background.",
+          "name": "HeroScrollAnimation",
+          "cssProperties": [
+            {
+              "description": "Accent color used for decorative elements",
+              "name": "--hero-accent-color",
+              "default": "#bfa15f"
+            },
+            {
+              "description": "Default text color inside the hero",
+              "name": "--hero-text-color",
+              "default": "#f0f0f0"
+            },
+            {
+              "description": "Start color for the background text gradient",
+              "name": "--hero-bg-gradient-start",
+              "default": "#d4af37"
+            },
+            {
+              "description": "End color for the background text gradient",
+              "name": "--hero-bg-gradient-end",
+              "default": "#f4e4b0"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Main content displayed over the hero (headings, text, CTAs)",
+              "name": "content"
+            },
+            {
+              "description": "Hidden `<img>` whose `src` is used as the hero background image",
+              "name": "background"
+            },
+            {
+              "description": "Hidden `<img>` whose `src` is used for the center parallax image",
+              "name": "center"
+            },
+            {
+              "description": "Hidden `<img>` whose `src` is used for the left side parallax image",
+              "name": "left"
+            },
+            {
+              "description": "Hidden `<img>` whose `src` is used for the right side parallax image",
+              "name": "right"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_extractSlotSources"
+            },
+            {
+              "kind": "method",
+              "name": "_checkMobile"
+            },
+            {
+              "kind": "method",
+              "name": "_onResize"
+            },
+            {
+              "kind": "method",
+              "name": "_cleanup"
+            },
+            {
+              "kind": "method",
+              "name": "_setupAnimation"
+            },
+            {
+              "kind": "method",
+              "name": "_setupDesktopAnimation"
+            },
+            {
+              "kind": "method",
+              "name": "_setupMobileAnimation"
+            },
+            {
+              "kind": "method",
+              "name": "_handleMobileA11y"
+            },
+            {
+              "kind": "method",
+              "name": "_onScroll"
+            },
+            {
+              "kind": "method",
+              "name": "_startRafLoop"
+            },
+            {
+              "kind": "method",
+              "name": "_easeOutCubic",
+              "parameters": [
+                {
+                  "name": "t"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getSubProgress",
+              "parameters": [
+                {
+                  "name": "progress"
+                },
+                {
+                  "name": "start"
+                },
+                {
+                  "name": "end"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_applyDesktopTransforms",
+              "parameters": [
+                {
+                  "name": "progress"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_setContentA11y",
+              "parameters": [
+                {
+                  "name": "hidden"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getScrollerHeight"
+            },
+            {
+              "kind": "field",
+              "name": "backgroundText",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "background-text"
+            },
+            {
+              "kind": "field",
+              "name": "scrollHeight",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "450",
+              "attribute": "scroll-height"
+            },
+            {
+              "kind": "field",
+              "name": "overlayOpacity",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0.5",
+              "attribute": "overlay-opacity"
+            },
+            {
+              "kind": "field",
+              "name": "scrub",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "attribute": "scrub"
+            },
+            {
+              "kind": "field",
+              "name": "mobileBreakpoint",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "768",
+              "attribute": "mobile-breakpoint"
+            },
+            {
+              "kind": "field",
+              "name": "mobileScrollHeight",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "220",
+              "attribute": "mobile-scroll-height"
+            },
+            {
+              "kind": "field",
+              "name": "_progress",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "_progress"
+            },
+            {
+              "kind": "field",
+              "name": "_isMobile",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_isMobile"
+            },
+            {
+              "kind": "field",
+              "name": "_reducedMotion",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_reducedMotion"
+            },
+            {
+              "kind": "field",
+              "name": "_mobileTriggered",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_mobileTriggered"
+            },
+            {
+              "kind": "field",
+              "name": "_currentProgress",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_targetProgress",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_rafId",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_scrollHandler",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_resizeHandler",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_observer",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_bgSrc",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "_centerSrc",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "_leftSrc",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "_rightSrc",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Large decorative text rendered behind the images",
+              "name": "background-text",
+              "default": "''",
+              "fieldName": "backgroundText"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Scroll distance in vh units for the parallax effect (default: 450)",
+              "name": "scroll-height",
+              "default": "450",
+              "fieldName": "scrollHeight"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Opacity of the dark overlay on the background image (default: 0.5)",
+              "name": "overlay-opacity",
+              "default": "0.5",
+              "fieldName": "overlayOpacity"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Smoothing factor for the scroll interpolation (default: 1)",
+              "name": "scrub",
+              "default": "1",
+              "fieldName": "scrub"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Viewport width in px below which mobile mode is used (default: 768)",
+              "name": "mobile-breakpoint",
+              "default": "768",
+              "fieldName": "mobileBreakpoint"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Scroll distance in vh units for mobile mode (default: 220)",
+              "name": "mobile-scroll-height",
+              "default": "220",
+              "fieldName": "mobileScrollHeight"
+            },
+            {
+              "name": "_progress",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "_progress"
+            },
+            {
+              "name": "_isMobile",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_isMobile"
+            },
+            {
+              "name": "_reducedMotion",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_reducedMotion"
+            },
+            {
+              "name": "_mobileTriggered",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_mobileTriggered"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "hero-scroll-animation",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "HeroScrollAnimation",
+          "declaration": {
+            "name": "HeroScrollAnimation",
+            "module": "src/hero-scroll-animation.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "hero-scroll-animation",
+          "declaration": {
+            "name": "HeroScrollAnimation",
+            "module": "src/hero-scroll-animation.js"
+          }
+        }
+      ]
+    }
+  ]
+}

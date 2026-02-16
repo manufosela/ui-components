@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="importmap">
+    {
+      "imports": {
+        "lit": "https://esm.sh/lit@3",
+        "lit/": "https://esm.sh/lit@3/"
+      }
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Scroll Animation - Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f7;
+    }
+    h1 { color: #1d1d1f; }
+    .demo-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .info-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    h2 { margin-top: 0; color: #1d1d1f; }
+    p { color: #86868b; line-height: 1.6; }
+    a { color: #3b82f6; }
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow: auto;
+      max-height: 300px;
+      white-space: pre;
+    }
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 2rem;
+      border-top: 1px solid #d2d2d7;
+      color: #86868b;
+      font-size: 0.9rem;
+    }
+    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Hero content styles for the demos */
+    .hero-content {
+      color: #f0f0f0;
+      max-width: 700px;
+      padding: 2rem;
+    }
+    .hero-content h1 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin: 0 0 1rem;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .hero-content p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: #e0e0e0;
+      margin: 0;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+    }
+
+    /* CSS table */
+    .props-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .props-table th,
+    .props-table td {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .props-table th {
+      background: #f9fafb;
+      color: #1d1d1f;
+      font-weight: 600;
+    }
+    .props-table td {
+      color: #374151;
+    }
+    .props-table code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+
+    /* Spacer between hero demos */
+    .demo-spacer {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f5f7;
+    }
+    .demo-spacer p {
+      font-size: 1.5rem;
+      color: #86868b;
+    }
+  </style>
+  <link rel="stylesheet" href="../../demo-theme.css" />
+</head>
+<body>
+  <div class="info-section">
+    <h1>Hero Scroll Animation</h1>
+    <p class="subtitle">Hero section with scroll-driven parallax animation. Content fades out as images slide in on scroll.</p>
+    <div class="demo-links">
+      <a href="https://manufosela.github.io/ui-components/">&larr; Back to components</a>
+      <a href="https://github.com/manufosela/ui-components/tree/main/packages/hero-scroll-animation" target="_blank" rel="noopener">GitHub Repo</a>
+      <a href="playground.html">Playground</a>
+    </div>
+    <div class="demo-theme-toggle">
+      <theme-toggle theme="dark"></theme-toggle>
+    </div>
+  </div>
+
+  <!-- Demo 1: Basic Usage -->
+  <div class="info-section">
+    <div class="demo-section">
+      <h2>Basic Usage</h2>
+      <p>Scroll down through the hero to see the parallax effect. The content fades out while a center image rises and side images slide in.</p>
+    </div>
+  </div>
+
+  <hero-scroll-animation>
+    <img slot="background" src="https://picsum.photos/id/1015/1920/1080" />
+    <img slot="center" src="https://picsum.photos/id/1025/600/800" />
+    <img slot="left" src="https://picsum.photos/id/1035/500/700" />
+    <img slot="right" src="https://picsum.photos/id/1040/500/700" />
+    <div slot="content" class="hero-content">
+      <h1>Discover Amazing Places</h1>
+      <p>Scroll down to explore a beautiful parallax experience with images sliding into view.</p>
+    </div>
+  </hero-scroll-animation>
+
+  <div class="demo-spacer">
+    <p>Keep scrolling for the next demo...</p>
+  </div>
+
+  <div class="info-section">
+    <div class="demo-section">
+      <h2>Basic Usage - Code</h2>
+      <div class="code-block">&lt;hero-scroll-animation&gt;
+  &lt;img slot="background" src="bg.jpg" /&gt;
+  &lt;img slot="center" src="center.png" /&gt;
+  &lt;img slot="left" src="left.png" /&gt;
+  &lt;img slot="right" src="right.png" /&gt;
+  &lt;div slot="content"&gt;
+    &lt;h1&gt;Discover Amazing Places&lt;/h1&gt;
+    &lt;p&gt;Scroll down to explore...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/hero-scroll-animation&gt;</div>
+    </div>
+  </div>
+
+  <!-- Demo 2: With Background Text -->
+  <div class="info-section">
+    <div class="demo-section">
+      <h2>With Background Text</h2>
+      <p>Use the <code>background-text</code> attribute to add large decorative text behind the images.</p>
+    </div>
+  </div>
+
+  <hero-scroll-animation background-text="PREMIUM" scroll-height="400">
+    <img slot="background" src="https://picsum.photos/id/1060/1920/1080" />
+    <img slot="center" src="https://picsum.photos/id/1062/600/800" />
+    <img slot="left" src="https://picsum.photos/id/1064/500/700" />
+    <img slot="right" src="https://picsum.photos/id/1067/500/700" />
+    <div slot="content" class="hero-content">
+      <h1>Premium Collection</h1>
+      <p>A curated selection of the finest experiences.</p>
+    </div>
+  </hero-scroll-animation>
+
+  <div class="demo-spacer">
+    <p>Keep scrolling for the next demo...</p>
+  </div>
+
+  <div class="info-section">
+    <div class="demo-section">
+      <h2>With Background Text - Code</h2>
+      <div class="code-block">&lt;hero-scroll-animation background-text="PREMIUM" scroll-height="400"&gt;
+  &lt;img slot="background" src="bg.jpg" /&gt;
+  &lt;img slot="center" src="center.png" /&gt;
+  &lt;img slot="left" src="left.png" /&gt;
+  &lt;img slot="right" src="right.png" /&gt;
+  &lt;div slot="content"&gt;
+    &lt;h1&gt;Premium Collection&lt;/h1&gt;
+    &lt;p&gt;A curated selection...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/hero-scroll-animation&gt;</div>
+    </div>
+  </div>
+
+  <!-- Demo 3: Custom Overlay Opacity -->
+  <div class="info-section">
+    <div class="demo-section">
+      <h2>Custom Overlay Opacity</h2>
+      <p>Adjust the dark overlay with <code>overlay-opacity="0.7"</code> for a more dramatic effect.</p>
+    </div>
+  </div>
+
+  <hero-scroll-animation overlay-opacity="0.7" scroll-height="350">
+    <img slot="background" src="https://picsum.photos/id/1036/1920/1080" />
+    <img slot="center" src="https://picsum.photos/id/1043/600/800" />
+    <img slot="left" src="https://picsum.photos/id/1047/500/700" />
+    <img slot="right" src="https://picsum.photos/id/1050/500/700" />
+    <div slot="content" class="hero-content">
+      <h1>Dark Overlay</h1>
+      <p>A heavier overlay makes the content text more readable on busy backgrounds.</p>
+    </div>
+  </hero-scroll-animation>
+
+  <div class="demo-spacer">
+    <p>End of demos</p>
+  </div>
+
+  <div class="info-section">
+    <div class="demo-section">
+      <h2>Custom Overlay Opacity - Code</h2>
+      <div class="code-block">&lt;hero-scroll-animation overlay-opacity="0.7" scroll-height="350"&gt;
+  &lt;img slot="background" src="bg.jpg" /&gt;
+  ...
+&lt;/hero-scroll-animation&gt;</div>
+    </div>
+  </div>
+
+  <!-- CSS Custom Properties Reference -->
+  <div class="info-section">
+    <div class="demo-section">
+      <h2>CSS Custom Properties</h2>
+      <p>Customize the hero appearance with CSS custom properties.</p>
+      <table class="props-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>--hero-accent-color</code></td>
+            <td><code>#bfa15f</code></td>
+            <td>Accent color for decorative elements</td>
+          </tr>
+          <tr>
+            <td><code>--hero-text-color</code></td>
+            <td><code>#f0f0f0</code></td>
+            <td>Default text color inside the hero</td>
+          </tr>
+          <tr>
+            <td><code>--hero-bg-gradient-start</code></td>
+            <td><code>#d4af37</code></td>
+            <td>Start color for the background text gradient</td>
+          </tr>
+          <tr>
+            <td><code>--hero-bg-gradient-end</code></td>
+            <td><code>#f4e4b0</code></td>
+            <td>End color for the background text gradient</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="code-block">&lt;hero-scroll-animation style="
+  --hero-accent-color: #e63946;
+  --hero-bg-gradient-start: #e63946;
+  --hero-bg-gradient-end: #f4a261;
+"&gt;
+  ...
+&lt;/hero-scroll-animation&gt;</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+      <a href="https://www.npmjs.com/package/@manufosela/hero-scroll-animation">npm</a>
+    </p>
+    <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
+  <script type="module">
+    import '../src/hero-scroll-animation.js';
+  </script>
+  <script type="module">
+    import '../../theme-toggle/src/theme-toggle.js';
+
+    const root = document.documentElement;
+    root.classList.add('dark');
+
+    const toggle = document.querySelector('theme-toggle');
+    if (toggle) {
+      toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
+      toggle.addEventListener('theme-changed', (event) => {
+        const theme = event.detail?.theme;
+        if (!theme) return;
+        root.classList.toggle('dark', theme === 'dark');
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/device-card-stack.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Accordion-style card stack with 3D perspective and image preview panel.\n\nCards are provided via slotted elements with `slot=\"card\"` and expand on click\nto reveal their content. A preview panel on the right displays the image\nassociated with the active card. On mobile viewports the preview panel is\nhidden and images are shown inline within each card.",
+          "name": "DeviceCardStack",
+          "cssProperties": [
+            {
+              "description": "Border radius of the outer wrapper",
+              "name": "--dcs-border-radius",
+              "default": "20px"
+            },
+            {
+              "description": "Height of the component in desktop mode",
+              "name": "--dcs-height",
+              "default": "700px"
+            },
+            {
+              "description": "Background color of the preview panel",
+              "name": "--dcs-preview-bg",
+              "default": "#000"
+            },
+            {
+              "description": "Text color for the card body title",
+              "name": "--dcs-text-color",
+              "default": "#fff"
+            },
+            {
+              "description": "Font size of the expanded card title",
+              "name": "--dcs-title-size",
+              "default": "3.5rem"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Card elements with data-title, data-color, data-image, and data-num attributes",
+              "name": "card"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "_extractCards"
+            },
+            {
+              "kind": "method",
+              "name": "_applyTransitionDuration"
+            },
+            {
+              "kind": "method",
+              "name": "_checkMobile"
+            },
+            {
+              "kind": "method",
+              "name": "_onResize"
+            },
+            {
+              "kind": "method",
+              "name": "_activateCard",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onCardKeydown",
+              "parameters": [
+                {
+                  "name": "e"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_focusActiveTab"
+            },
+            {
+              "kind": "method",
+              "name": "_getCardTransform",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getCardShadow",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "activeIndex",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "active-index"
+            },
+            {
+              "kind": "field",
+              "name": "mobileBreakpoint",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "768",
+              "attribute": "mobile-breakpoint"
+            },
+            {
+              "kind": "field",
+              "name": "stackRotation",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "3",
+              "attribute": "stack-rotation"
+            },
+            {
+              "kind": "field",
+              "name": "transitionDuration",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "500",
+              "attribute": "transition-duration"
+            },
+            {
+              "kind": "field",
+              "name": "_cards",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "_cards"
+            },
+            {
+              "kind": "field",
+              "name": "_isMobile",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_isMobile"
+            },
+            {
+              "kind": "field",
+              "name": "_reducedMotion",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_reducedMotion"
+            },
+            {
+              "kind": "field",
+              "name": "_resizeHandler",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            }
+          ],
+          "events": [
+            {
+              "description": "Fired when a card is activated. detail: { index, title }",
+              "name": "card-activated"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Index of the currently active card (default: 0)",
+              "name": "active-index",
+              "default": "0",
+              "fieldName": "activeIndex"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Viewport width in px below which mobile layout is used (default: 768)",
+              "name": "mobile-breakpoint",
+              "default": "768",
+              "fieldName": "mobileBreakpoint"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Rotation angle in degrees applied to inactive cards (default: 3)",
+              "name": "stack-rotation",
+              "default": "3",
+              "fieldName": "stackRotation"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Transition duration in milliseconds (default: 500)",
+              "name": "transition-duration",
+              "default": "500",
+              "fieldName": "transitionDuration"
+            },
+            {
+              "name": "_cards",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "_cards"
+            },
+            {
+              "name": "_isMobile",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_isMobile"
+            },
+            {
+              "name": "_reducedMotion",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_reducedMotion"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "device-card-stack",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DeviceCardStack",
+          "declaration": {
+            "name": "DeviceCardStack",
+            "module": "src/device-card-stack.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "device-card-stack",
+          "declaration": {
+            "name": "DeviceCardStack",
+            "module": "src/device-card-stack.js"
+          }
+        }
+      ]
+    }
+  ]
+}
