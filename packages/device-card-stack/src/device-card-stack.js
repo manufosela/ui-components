@@ -3,27 +3,12 @@ import { LitElement, html, css } from 'lit';
 /**
  * Accordion-style card stack with 3D perspective and image preview panel.
  *
- * Cards are provided via slotted elements with `slot="card"` and expand on click
- * to reveal their content. A preview panel on the right displays the image
- * associated with the active card. On mobile viewports the preview panel is
- * hidden and images are shown inline within each card.
- *
  * @element device-card-stack
- *
  * @attr {Number} active-index - Index of the currently active card (default: 0)
- * @attr {Number} mobile-breakpoint - Viewport width in px below which mobile layout is used (default: 768)
- * @attr {Number} stack-rotation - Rotation angle in degrees applied to inactive cards (default: 3)
- * @attr {Number} transition-duration - Transition duration in milliseconds (default: 500)
- *
- * @cssprop [--dcs-border-radius=20px] - Border radius of the outer wrapper
- * @cssprop [--dcs-height=700px] - Height of the component in desktop mode
- * @cssprop [--dcs-preview-bg=#000] - Background color of the preview panel
- * @cssprop [--dcs-text-color=#fff] - Text color for the card body title
- * @cssprop [--dcs-title-size=3.5rem] - Font size of the expanded card title
- *
- * @slot card - Card elements with data-title, data-color, data-image, and data-num attributes
- *
- * @fires card-activated - Fired when a card is activated. detail: { index, title }
+ * @attr {Number} mobile-breakpoint - Viewport width below which mobile layout is used (default: 768)
+ * @attr {Number} stack-rotation - Rotation angle in degrees for inactive cards (default: 3)
+ * @attr {Number} transition-duration - Transition duration in ms (default: 500)
+ * @slot card - Card elements with data-title, data-color, data-image, data-num attributes
  */
 export class DeviceCardStack extends LitElement {
   static properties = {
@@ -111,6 +96,14 @@ export class DeviceCardStack extends LitElement {
       flex-shrink: 0;
     }
 
+    .card[data-light] .card-header {
+      color: rgba(0, 0, 0, 0.85);
+    }
+
+    .card[data-light] .card-body-title {
+      color: #1a1618;
+    }
+
     .card-num {
       margin-right: 15px;
       font-weight: 400;
@@ -146,19 +139,16 @@ export class DeviceCardStack extends LitElement {
     /* Mobile inline image */
     .card-mobile-image {
       display: none;
+      width: 100%;
+      height: auto;
+      max-height: 200px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      border-radius: 8px;
     }
 
     :host([data-mobile]) .card[data-active] .card-mobile-image {
       display: block;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    :host([data-mobile]) .card[data-active] .card-mobile-image img {
-      width: 100%;
-      max-height: 200px;
-      object-fit: contain;
-      border-radius: 8px;
     }
 
     /* Preview panel (right) */
@@ -228,7 +218,7 @@ export class DeviceCardStack extends LitElement {
       font-size: 2rem;
     }
 
-    :host([data-mobile]) .card-mobile-image img {
+    :host([data-mobile]) .card-mobile-image {
       max-height: 160px;
     }
 
@@ -381,6 +371,15 @@ export class DeviceCardStack extends LitElement {
     });
   }
 
+  _isLightColor(hex) {
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    const toLinear = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+    const luminance = 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+    return luminance > 0.18;
+  }
+
   _getCardTransform(index) {
     if (this._reducedMotion) return 'none';
 
@@ -430,6 +429,7 @@ export class DeviceCardStack extends LitElement {
                 role="tab"
                 data-index="${i}"
                 ?data-active=${i === this.activeIndex}
+                ?data-light=${this._isLightColor(card.color)}
                 aria-selected=${i === this.activeIndex ? 'true' : 'false'}
                 aria-controls="panel-${i}"
                 tabindex=${i === this.activeIndex ? '0' : '-1'}
@@ -451,13 +451,15 @@ export class DeviceCardStack extends LitElement {
                   class="card-body"
                   role="tabpanel"
                   aria-hidden=${i === this.activeIndex ? 'false' : 'true'}
+                  .inert=${i !== this.activeIndex}
                 >
                   ${card.image
-                    ? html`<picture class="card-mobile-image">
+                    ? html`<picture>
                         ${card.imageWebp
-                          ? html`<source type="image/webp" srcset="${card.imageWebp}" />`
+                          ? html`<source srcset="${card.imageWebp}" type="image/webp" />`
                           : ''}
                         <img
+                          class="card-mobile-image"
                           src="${card.image}"
                           alt="${card.title}"
                           loading="lazy"
@@ -481,7 +483,7 @@ export class DeviceCardStack extends LitElement {
                 ${card.image
                   ? html`<picture>
                       ${card.imageWebp
-                        ? html`<source type="image/webp" srcset="${card.imageWebp}" />`
+                        ? html`<source srcset="${card.imageWebp}" type="image/webp" />`
                         : ''}
                       <img
                         src="${card.image}"

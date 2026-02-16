@@ -3,33 +3,18 @@ import { LitElement, html, css } from 'lit';
 /**
  * Hero section with scroll-driven parallax animation.
  *
- * As the user scrolls, the hero content fades out and slides up, while
- * a center image rises and side images slide in from the edges. Supports
- * both desktop (scroll-linked) and mobile (intersection-triggered) modes.
- *
- * Images are provided via named slots (`background`, `center`, `left`, `right`)
- * and their `src` attributes are extracted to render internal `<img>` elements.
- * The `content` slot holds arbitrary markup displayed over the hero background.
- *
  * @element hero-scroll-animation
- *
  * @attr {String} background-text - Large decorative text rendered behind the images
- * @attr {Number} scroll-height - Scroll distance in vh units for the parallax effect (default: 450)
- * @attr {Number} overlay-opacity - Opacity of the dark overlay on the background image (default: 0.5)
- * @attr {Number} scrub - Smoothing factor for the scroll interpolation (default: 1)
- * @attr {Number} mobile-breakpoint - Viewport width in px below which mobile mode is used (default: 768)
- * @attr {Number} mobile-scroll-height - Scroll distance in vh units for mobile mode (default: 220)
- *
- * @cssprop [--hero-accent-color=#bfa15f] - Accent color used for decorative elements
- * @cssprop [--hero-text-color=#f0f0f0] - Default text color inside the hero
- * @cssprop [--hero-bg-gradient-start=#d4af37] - Start color for the background text gradient
- * @cssprop [--hero-bg-gradient-end=#f4e4b0] - End color for the background text gradient
- *
- * @slot content - Main content displayed over the hero (headings, text, CTAs)
- * @slot background - Hidden `<img>` whose `src` is used as the hero background image
- * @slot center - Hidden `<img>` whose `src` is used for the center parallax image
- * @slot left - Hidden `<img>` whose `src` is used for the left side parallax image
- * @slot right - Hidden `<img>` whose `src` is used for the right side parallax image
+ * @attr {Number} scroll-height - Scroll distance in vh units (default: 450)
+ * @attr {Number} overlay-opacity - Dark overlay opacity on background (default: 0.5)
+ * @attr {Number} scrub - Smoothing factor for scroll interpolation (default: 1)
+ * @attr {Number} mobile-breakpoint - Viewport width for mobile mode (default: 768)
+ * @attr {Number} mobile-scroll-height - Scroll distance in vh for mobile (default: 220)
+ * @slot content - Main content (headings, text, CTAs)
+ * @slot background - Background image
+ * @slot center - Center parallax image
+ * @slot left - Left side parallax image
+ * @slot right - Right side parallax image
  */
 export class HeroScrollAnimation extends LitElement {
   static properties = {
@@ -372,29 +357,28 @@ export class HeroScrollAnimation extends LitElement {
     this._setupAnimation();
   }
 
-  _getImgSrc(slotEl) {
-    if (!slotEl) return '';
-    if (slotEl.tagName === 'PICTURE') {
-      const webpSource = slotEl.querySelector('source[type="image/webp"]');
-      if (webpSource) return webpSource.getAttribute('srcset') || '';
-      const img = slotEl.querySelector('img');
-      return img ? img.getAttribute('src') || '' : '';
-    }
-    return slotEl.getAttribute('src') || '';
-  }
-
   _extractSlotSources() {
     const bgSlot = this.querySelector('[slot="background"]');
     const centerSlot = this.querySelector('[slot="center"]');
     const leftSlot = this.querySelector('[slot="left"]');
     const rightSlot = this.querySelector('[slot="right"]');
 
-    this._bgSrc = this._getImgSrc(bgSlot);
-    this._centerSrc = this._getImgSrc(centerSlot);
-    this._leftSrc = this._getImgSrc(leftSlot);
-    this._rightSrc = this._getImgSrc(rightSlot);
+    if (bgSlot) this._bgSrc = this._getImgSrc(bgSlot);
+    if (centerSlot) this._centerSrc = this._getImgSrc(centerSlot);
+    if (leftSlot) this._leftSrc = leftSlot.getAttribute('src') || '';
+    if (rightSlot) this._rightSrc = rightSlot.getAttribute('src') || '';
 
     this.requestUpdate();
+  }
+
+  _getImgSrc(el) {
+    if (el.tagName === 'PICTURE') {
+      const source = el.querySelector('source[type="image/webp"]');
+      if (source) return source.getAttribute('srcset') || '';
+      const img = el.querySelector('img');
+      return img ? img.getAttribute('src') || '' : '';
+    }
+    return el.getAttribute('src') || '';
   }
 
   _checkMobile() {
@@ -635,8 +619,8 @@ export class HeroScrollAnimation extends LitElement {
                     alt=""
                     loading="lazy"
                     decoding="async"
-                    width="960"
-                    height="540"
+                    width="588"
+                    height="331"
                   />
                 </div>
               `
@@ -649,8 +633,8 @@ export class HeroScrollAnimation extends LitElement {
                     alt=""
                     loading="lazy"
                     decoding="async"
-                    width="960"
-                    height="540"
+                    width="588"
+                    height="331"
                   />
                 </div>
               `

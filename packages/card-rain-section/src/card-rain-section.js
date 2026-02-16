@@ -11,29 +11,13 @@ const POSES = [
 /**
  * Scroll-driven card rain animation section.
  *
- * Cards fall (or zoom) into view as the user scrolls through the page.
- * Supports two animation modes: "drop" (cards fall from above) and "zoom"
- * (cards scale down from a large size with a blur effect). The component
- * adapts to mobile viewports with a simpler trigger-based animation and
- * respects `prefers-reduced-motion` for accessibility.
- *
  * @element card-rain-section
- *
- * @attr {Number} scroll-height - Height of the scroll area in viewport units (default: 300)
- * @attr {Number} mobile-breakpoint - Viewport width threshold for mobile layout in pixels (default: 768)
+ * @attr {Number} scroll-height - Scroll area height in vh (default: 300)
+ * @attr {Number} mobile-breakpoint - Mobile layout threshold in px (default: 768)
  * @attr {String} fall-mode - Animation mode: "drop" or "zoom" (default: "drop")
- *
- * @cssprop [--crs-bg=#1a1618] - Background color of the canvas area
- * @cssprop [--crs-card-bg=var(--accent-gold, #bfa15f)] - Card background color
- * @cssprop [--crs-card-radius=16px] - Card border radius
- * @cssprop [--crs-card-width=440px] - Card width
- * @cssprop [--crs-card-padding=48px] - Card inner padding
- * @cssprop [--crs-title-size=10rem] - Title font size
- * @cssprop [--crs-title-color=rgba(255, 255, 255, 1)] - Title text color
- *
- * @slot title - Title content displayed behind the cards (parsed as innerHTML)
- * @slot card - Card elements that animate into view (multiple allowed)
- * @slot actions - Action buttons displayed at the bottom of the section
+ * @slot title - Title content displayed behind the cards
+ * @slot card - Card elements that animate into view
+ * @slot actions - Action buttons at the bottom
  */
 export class CardRainSection extends LitElement {
   static properties = {

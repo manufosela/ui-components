@@ -1,6 +1,6 @@
 {
   "name": "@manufosela/device-card-stack",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Accordion-style card stack with 3D perspective and image preview panel",
   "license": "MIT",
   "author": "manufosela",
@@ -30,6 +30,6 @@
   "keywords": ["web-components", "lit", "card-stack", "accordion", "device-showcase"],
   "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/device-card-stack#readme",
   "bugs": {"url": "https://github.com/manufosela/ui-components/issues"},
-  "dependencies": {"lit": "^3.2.1"},
+  "peerDependencies": {"lit": "^3.0.0"},
   "customElements": "custom-elements.json"
 }
