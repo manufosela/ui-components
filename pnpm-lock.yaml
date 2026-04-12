@@ -81,7 +81,7 @@ importers:
   packages/card-rain-section:
     dependencies:
       lit:
-        specifier: ^3.2.1
+        specifier: ^3.0.0
         version: 3.3.2
 
   packages/circle-percent:
@@ -111,7 +111,7 @@ importers:
   packages/device-card-stack:
     dependencies:
       lit:
-        specifier: ^3.2.1
+        specifier: ^3.0.0
         version: 3.3.2
 
   packages/header-nav:
@@ -123,7 +123,7 @@ importers:
   packages/hero-scroll-animation:
     dependencies:
       lit:
-        specifier: ^3.2.1
+        specifier: ^3.0.0
         version: 3.3.2
 
   packages/historical-line:
@@ -169,6 +169,12 @@ importers:
         version: 3.3.2
 
   packages/nav-list:
+    dependencies:
+      lit:
+        specifier: ^3.2.1
+        version: 3.3.2
+
+  packages/photo-collage:
     dependencies:
       lit:
         specifier: ^3.2.1

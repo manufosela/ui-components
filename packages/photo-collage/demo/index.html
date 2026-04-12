@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="importmap">
+    {
+      "imports": {
+        "lit": "https://esm.sh/lit@3",
+        "lit/": "https://esm.sh/lit@3/"
+      }
+    }
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photo Collage - Demo</title>
+  <style>
+    :root {
+      --bg-color: #f5f5f7;
+      --card-bg: #ffffff;
+      --text-color: #1d1d1f;
+      --text-muted: #86868b;
+      --border-color: #d2d2d7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.5;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    header p a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    header p a:hover {
+      text-decoration: underline;
+    }
+
+    .demo-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .demo-card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .demo-card > p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .demo-content {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      overflow: auto;
+    }
+
+    .controls {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .controls input[type="checkbox"] {
+      accent-color: #007aff;
+    }
+
+    .controls input[type="number"] {
+      border: 1px solid var(--border-color);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      width: 60px;
+    }
+
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Photo Collage</h1>
+      <p class="subtitle">Photo grid with random rotations, polaroid style, image cycling, and zoom on click.</p>
+      <p>
+        <a href="../../../">&larr; Back to components</a> |
+        <a href="https://github.com/manufosela/ui-components/tree/main/packages/photo-collage" target="_blank">GitHub Repo</a>
+      </p>
+    </header>
+
+    <div class="demo-card">
+      <h2>Interactive Demo</h2>
+      <p>4x3 grid with 16 images. Toggle options to see the effects.</p>
+
+      <div class="controls">
+        <label>
+          Cols:
+          <input type="number" id="cols" value="4" min="1" max="10">
+        </label>
+        <label>
+          Rows:
+          <input type="number" id="rows" value="3" min="1" max="10">
+        </label>
+        <label>
+          Interval (s):
+          <input type="number" id="interval" value="5" min="1" max="30">
+        </label>
+        <label>
+          <input type="checkbox" id="randomize"> Randomize
+        </label>
+        <label>
+          <input type="checkbox" id="shuffle"> Shuffle
+        </label>
+        <label>
+          <input type="checkbox" id="polaroid" checked> Polaroid
+        </label>
+        <label>
+          <input type="checkbox" id="zoomable" checked> Zoomable
+        </label>
+      </div>
+
+      <div class="demo-content">
+        <photo-collage
+          id="collage"
+          width="1200"
+          height="700"
+          cols="4"
+          rows="3"
+          max-rotation="15"
+          interval="5"
+          polaroid
+          zoomable
+        >
+          <img src="https://picsum.photos/seed/c01/600/400" alt="Photo 1">
+          <img src="https://picsum.photos/seed/c02/600/400" alt="Photo 2">
+          <img src="https://picsum.photos/seed/c03/600/400" alt="Photo 3">
+          <img src="https://picsum.photos/seed/c04/600/400" alt="Photo 4">
+          <img src="https://picsum.photos/seed/c05/600/400" alt="Photo 5">
+          <img src="https://picsum.photos/seed/c06/600/400" alt="Photo 6">
+          <img src="https://picsum.photos/seed/c07/600/400" alt="Photo 7">
+          <img src="https://picsum.photos/seed/c08/600/400" alt="Photo 8">
+          <img src="https://picsum.photos/seed/c09/600/400" alt="Photo 9">
+          <img src="https://picsum.photos/seed/c10/600/400" alt="Photo 10">
+          <img src="https://picsum.photos/seed/c11/600/400" alt="Photo 11">
+          <img src="https://picsum.photos/seed/c12/600/400" alt="Photo 12">
+          <img src="https://picsum.photos/seed/c13/600/400" alt="Photo 13">
+          <img src="https://picsum.photos/seed/c14/600/400" alt="Photo 14">
+          <img src="https://picsum.photos/seed/c15/600/400" alt="Photo 15">
+          <img src="https://picsum.photos/seed/c16/600/400" alt="Photo 16">
+        </photo-collage>
+      </div>
+
+      <div class="code-block">&lt;photo-collage
+  width="1200" height="700"
+  cols="4" rows="3"
+  max-rotation="15"
+  interval="5"
+  polaroid zoomable randomize
+&gt;
+  &lt;img src="photo1.jpg" alt="Photo 1"&gt;
+  &lt;img src="photo2.jpg" alt="Photo 2"&gt;
+  &lt;!-- ... more images than cols*rows to enable randomize --&gt;
+&lt;/photo-collage&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Minimal (no polaroid, no zoom)</h2>
+      <p>3x2 grid with subtle rotation and no decorations.</p>
+
+      <div class="demo-content">
+        <photo-collage
+          width="600"
+          height="400"
+          cols="3"
+          rows="2"
+          max-rotation="8"
+        >
+          <img src="https://picsum.photos/seed/m01/600/400" alt="Photo 1">
+          <img src="https://picsum.photos/seed/m02/600/400" alt="Photo 2">
+          <img src="https://picsum.photos/seed/m03/600/400" alt="Photo 3">
+          <img src="https://picsum.photos/seed/m04/600/400" alt="Photo 4">
+          <img src="https://picsum.photos/seed/m05/600/400" alt="Photo 5">
+          <img src="https://picsum.photos/seed/m06/600/400" alt="Photo 6">
+        </photo-collage>
+      </div>
+
+      <div class="code-block">&lt;photo-collage width="600" height="400" cols="3" rows="2" max-rotation="8"&gt;
+  &lt;img src="photo1.jpg" alt="Photo 1"&gt;
+  ...
+&lt;/photo-collage&gt;</div>
+    </div>
+
+    <footer>
+      <p>
+        <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+        <a href="https://www.npmjs.com/package/@manufosela/photo-collage">npm</a>
+      </p>
+    </footer>
+  </div>
+
+  <script type="module">
+    import '../src/photo-collage.js';
+
+    const collage = document.getElementById('collage');
+
+    document.getElementById('cols').addEventListener('change', e => {
+      collage.setAttribute('cols', e.target.value);
+    });
+    document.getElementById('rows').addEventListener('change', e => {
+      collage.setAttribute('rows', e.target.value);
+    });
+    document.getElementById('interval').addEventListener('change', e => {
+      collage.setAttribute('interval', e.target.value);
+    });
+    document.getElementById('randomize').addEventListener('change', e => {
+      collage.toggleAttribute('randomize', e.target.checked);
+    });
+    document.getElementById('shuffle').addEventListener('change', e => {
+      collage.toggleAttribute('shuffle', e.target.checked);
+    });
+    document.getElementById('polaroid').addEventListener('change', e => {
+      collage.toggleAttribute('polaroid', e.target.checked);
+    });
+    document.getElementById('zoomable').addEventListener('change', e => {
+      collage.toggleAttribute('zoomable', e.target.checked);
+    });
+  </script>
+</body>
+</html>

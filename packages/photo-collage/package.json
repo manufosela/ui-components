@@ -1,0 +1,48 @@
+{
+  "name": "@manufosela/photo-collage",
+  "version": "1.0.0",
+  "description": "A photo collage web component with random rotations, polaroid style, image cycling, and zoom on click",
+  "license": "MIT",
+  "author": "manufosela",
+  "type": "module",
+  "main": "./src/photo-collage.js",
+  "module": "./src/photo-collage.js",
+  "types": "./src/photo-collage.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/photo-collage.d.ts",
+      "import": "./src/photo-collage.js"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/photo-collage.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/photo-collage"
+  },
+  "keywords": [
+    "web-components",
+    "lit",
+    "photo-collage",
+    "collage",
+    "gallery",
+    "polaroid"
+  ],
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/photo-collage#readme",
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "customElements": "custom-elements.json"
+}
