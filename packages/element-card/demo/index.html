@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="importmap">
+    {
+      "imports": {
+        "lit": "https://esm.sh/lit@3",
+        "lit/": "https://esm.sh/lit@3/"
+      }
+    }
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>element-card - Demo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: #131313;
+      color: #f4f5f2;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+    .container { max-width: 1280px; margin: 0 auto; }
+    header { margin-bottom: 3rem; }
+    h1 {
+      font-family: "Manrope", system-ui, sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .subtitle { color: #b9cbc2; margin: 0.5rem 0 0.75rem; }
+    .back-link { font-size: 0.85rem; color: #b9cbc2; text-decoration: none; }
+    .back-link:hover { color: #00e0b3; }
+    #first {
+      --font-size: 12px;
+      --fsize-element-title: 2rem;
+      --fsize-element-desc: 1.5rem;
+    }
+    #second {
+      --fsize-element-title: 3rem;
+      --fsize-element-desc: 1.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <p><a class="back-link" href="../../../">&larr; Back to components</a></p>
+      <h1>element-card</h1>
+      <p class="subtitle">Card with cover image, title, description, and slotted grid content.</p>
+    </header>
+
+    <element-card id="first">
+      <div>Default element-card with slotted content</div>
+      <div>Another item on the grid</div>
+      <div>The last child spans the full row</div>
+    </element-card>
+
+    <element-card
+      id="second"
+      title="Javascript"
+      description="ES6+, functional programming, web components"
+      cover-bgcolor="rgba(255, 255, 0, 0.3)"
+      text-color="#111"
+    >
+      <div>Years experience: &gt; 10</div>
+      <div>Level: Senior</div>
+      <div>Focus: modern web, Lit 3, design systems</div>
+    </element-card>
+  </div>
+
+  <script type="module" src="../src/element-card.js"></script>
+</body>
+</html>

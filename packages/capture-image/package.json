@@ -1,0 +1,48 @@
+{
+  "name": "@manufosela/capture-image",
+  "version": "2.0.0",
+  "description": "Webcam capture component with snap, reset, save and optional mask overlay, built with Lit 3",
+  "license": "MIT",
+  "author": "manufosela",
+  "type": "module",
+  "main": "./src/capture-image.js",
+  "module": "./src/capture-image.js",
+  "types": "./src/capture-image.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/capture-image.d.ts",
+      "import": "./src/capture-image.js"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open demo/ --watch",
+    "test": "web-test-runner",
+    "test:watch": "web-test-runner --watch",
+    "test:coverage": "web-test-runner --coverage",
+    "build:types": "tsc --declaration --declarationMap --emitDeclarationOnly --allowJs --checkJs --outDir ./src ./src/capture-image.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/ui-components",
+    "directory": "packages/capture-image"
+  },
+  "keywords": [
+    "web-components",
+    "lit",
+    "webcam",
+    "camera",
+    "capture",
+    "media"
+  ],
+  "homepage": "https://github.com/manufosela/ui-components/tree/main/packages/capture-image#readme",
+  "bugs": {
+    "url": "https://github.com/manufosela/ui-components/issues"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "customElements": "custom-elements.json"
+}
