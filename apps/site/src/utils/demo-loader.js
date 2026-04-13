@@ -22,17 +22,20 @@ const collectLinkTags = (html) => html.match(/<link[^>]*?>/gi) || [];
 
 const stripTags = (html) =>
   html
-    .replace(new RegExp("<script[\\s\\S]*?</script>", "gi"), "")
-    .replace(new RegExp("<style[\\s\\S]*?</style>", "gi"), "")
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
     .replace(/<link[^>]*?>/gi, "");
 
 const stripShell = (html) =>
   html
-    .replace(new RegExp("<header[\\s\\S]*?</header>", "i"), "")
-    .replace(new RegExp("<footer[\\s\\S]*?</footer>", "i"), "");
+    .replace(/<header[\s\S]*?<\/header>/i, "")
+    .replace(/<footer[\s\S]*?<\/footer>/i, "");
 
 const stripGlobalSelectors = (styles) =>
-  styles.replace(new RegExp("[^}]*\\b(html|body)\\b[^}]*\\{[\\s\\S]*?\\}", "gi"), "");
+  styles.replace(
+    /(?<=^|[}>])\s*(?:html|body)\b[^{]*\{[^}]*\}/gi,
+    ""
+  );
 
 const extractHref = (tag) => {
   const match = tag.match(/href=["']([^"']+)["']/i);
