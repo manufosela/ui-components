@@ -78,6 +78,18 @@ importers:
         specifier: ^3.2.1
         version: 3.3.2
 
+  packages/canvas-polygon:
+    dependencies:
+      lit:
+        specifier: ^3.2.1
+        version: 3.3.2
+
+  packages/capture-image:
+    dependencies:
+      lit:
+        specifier: ^3.2.1
+        version: 3.3.2
+
   packages/card-rain-section:
     dependencies:
       lit:
@@ -112,6 +124,12 @@ importers:
     dependencies:
       lit:
         specifier: ^3.0.0
+        version: 3.3.2
+
+  packages/element-card:
+    dependencies:
+      lit:
+        specifier: ^3.2.1
         version: 3.3.2
 
   packages/header-nav:
