@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="importmap">
+    {
+      "imports": {
+        "lit": "https://esm.sh/lit@3",
+        "lit/": "https://esm.sh/lit@3/"
+      }
+    }
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>canvas-polygon - Demo</title>
+  <style>
+    :root {
+      --bg-color: #131313;
+      --card-bg: #1c1b1b;
+      --text-color: #f4f5f2;
+      --text-muted: #b9cbc2;
+      --primary: #00e0b3;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      padding: 2rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header { margin-bottom: 3rem; }
+    h1 { font-family: "Manrope", system-ui, sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    .subtitle { color: var(--text-muted); margin: 0.5rem 0 0.75rem; }
+    .back-link { font-size: 0.85rem; color: var(--text-muted); text-decoration: none; }
+    .back-link:hover { color: var(--primary); }
+    .demo-card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .demo-card h2 { font-family: "Manrope", system-ui, sans-serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .demo-card > p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .demo-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      padding: 2rem 0;
+    }
+    .code-block {
+      background: #0e0e0e;
+      color: var(--text-color);
+      padding: 1rem 1.25rem;
+      border-radius: 0.5rem;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <p><a class="back-link" href="../../../">&larr; Back to components</a></p>
+      <h1>canvas-polygon</h1>
+      <p class="subtitle">Canvas-based regular polygon renderer. Drop in, set sides, fill.</p>
+    </header>
+
+    <div class="demo-card">
+      <h2>Shapes gallery</h2>
+      <p>Five polygons with increasing sides, different fills.</p>
+      <div class="demo-content">
+        <canvas-polygon size="180" sides="3" bg-color="#e94560" line-width="2"></canvas-polygon>
+        <canvas-polygon size="180" sides="4" bg-color="#00e0b3" line-width="2"></canvas-polygon>
+        <canvas-polygon size="180" sides="5" bg-color="#4cc9f0" line-width="2"></canvas-polygon>
+        <canvas-polygon size="180" sides="6" bg-color="#f4c430" line-width="2"></canvas-polygon>
+        <canvas-polygon size="180" sides="25" bg-color="#ff8a3d" line-width="2"></canvas-polygon>
+      </div>
+      <div class="code-block">&lt;canvas-polygon size="180" sides="3" bg-color="#e94560"&gt;&lt;/canvas-polygon&gt;
+&lt;canvas-polygon size="180" sides="6" bg-color="#f4c430"&gt;&lt;/canvas-polygon&gt;
+&lt;canvas-polygon size="180" sides="25" bg-color="#ff8a3d"&gt;&lt;!-- looks like a circle --&gt;&lt;/canvas-polygon&gt;</div>
+    </div>
+  </div>
+
+  <script type="module" src="../src/canvas-polygon.js"></script>
+</body>
+</html>
