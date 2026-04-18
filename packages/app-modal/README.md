@@ -3,28 +3,44 @@
 [![npm version](https://img.shields.io/npm/v/@manufosela/app-modal)](https://www.npmjs.com/package/@manufosela/app-modal)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Feature-rich modal web component with configurable buttons and dynamic content. Built with [Lit](https://lit.dev/).
+**`<dialog>` on steroids.** A feature-rich modal web component built on the native `<dialog>` element. You get focus trap, `aria-modal`, Escape key, inert background, and `::backdrop` for free from the browser — plus configurable buttons, theming, events, and two operation modes on top.
 
-## Installation
+Built with [Lit](https://lit.dev/).
+
+## Why not just `<dialog>`?
+
+Native `<dialog>` is great for accessibility but bare-bones for UI. `app-modal` wraps it and adds:
+
+| Native `<dialog>` (free) | `app-modal` adds |
+|--------------------------|------------------|
+| Focus trap | Up to 3 configurable buttons with callbacks |
+| `aria-modal="true"` | Declarative (`open` attr) + programmatic (`showModal()`) modes |
+| Escape to close | `intercept-close` to prevent accidental dismissal |
+| `::backdrop` | ~30 CSS custom properties for full theming |
+| Inert background | Global `close-modal` event to close from anywhere |
+| Top layer (no z-index) | Dynamic content injection via `setContent()` |
+| | HTML messages, slotted content, CSS parts |
+| | `prefers-reduced-motion` support |
+
+## Install
 
 ```bash
 npm install @manufosela/app-modal
 ```
 
-## Usage
+## Quick Start
 
-### Declarative (Recommended)
+### Declarative (recommended)
 
-Use the `open` attribute to control visibility. The modal persists in the DOM and can be reused.
+The modal lives in your HTML. Control it with the `open` attribute.
 
 ```html
 <app-modal
   id="confirmModal"
   title="Delete Item?"
-  message="Are you sure you want to delete this item?"
+  message="This action cannot be undone."
   button1-text="Delete"
   button2-text="Cancel"
-  button1-css="background: #ef4444;"
 ></app-modal>
 
 <button onclick="document.getElementById('confirmModal').open = true">
@@ -35,7 +51,6 @@ Use the `open` attribute to control visibility. The modal persists in the DOM an
   import '@manufosela/app-modal';
 
   const modal = document.getElementById('confirmModal');
-  // Declarative modals are hidden by default - no initialization needed
 
   modal.addEventListener('modal-action1', () => {
     console.log('Deleted!');
@@ -47,178 +62,244 @@ Use the `open` attribute to control visibility. The modal persists in the DOM an
 </script>
 ```
 
-### With Slotted Content
-
-```html
-<app-modal id="customModal" title="Custom Content" button1-text="Got it">
-  <p>This content is <strong>slotted</strong> into the modal.</p>
-  <form>
-    <input type="text" placeholder="Enter something..." />
-  </form>
-</app-modal>
-```
-
 ### Programmatic
 
-Use the `showModal()` helper for quick modals that auto-destroy on close.
+For one-shot modals that self-destruct on close.
 
 ```javascript
 import { showModal } from '@manufosela/app-modal';
 
-// Simple modal
 showModal({
   title: 'Welcome',
   message: 'Hello, world!',
-  button1Text: 'OK'
+  button1Text: 'OK',
 });
 
-// Confirmation dialog
+// Confirmation with callback
 showModal({
-  title: 'Delete Item?',
-  message: 'Are you sure?',
+  title: 'Are you sure?',
+  message: 'This will delete everything.',
   button1Text: 'Delete',
   button2Text: 'Cancel',
   button1Action: () => {
-    // Handle delete
-  }
+    deleteEverything();
+    // return false to prevent auto-close
+  },
 });
 ```
 
-## Features
+### With Slotted Content
 
-- **Declarative mode** with `open` attribute (modal persists, reusable)
-- **Programmatic mode** via `showModal()` (modal auto-destroys)
-- Up to 3 configurable buttons
-- Custom button actions and styles
-- Slotted content support
-- Dynamic content injection via `setContent()`
-- HTML message support
-- Escape key to close
-- Global close events
-- Auto-generated modal IDs
-- CSS custom properties for theming
+```html
+<app-modal id="formModal" title="Edit Profile" button1-text="Save">
+  <form>
+    <label>Name <input type="text" name="name" /></label>
+    <label>Email <input type="email" name="email" /></label>
+  </form>
+</app-modal>
+```
+
+### Intercept Close
+
+Prevent the modal from closing until a condition is met.
+
+```html
+<app-modal
+  id="unsavedModal"
+  title="Unsaved Changes"
+  message="You have unsaved changes."
+  button1-text="Discard"
+  button2-text="Keep Editing"
+  intercept-close
+></app-modal>
+
+<script type="module">
+  import '@manufosela/app-modal';
+
+  const modal = document.getElementById('unsavedModal');
+
+  modal.addEventListener('modal-closed-requested', (e) => {
+    if (userConfirmsDiscard()) {
+      document.dispatchEvent(
+        new CustomEvent('close-modal', {
+          detail: { modalId: e.detail.modalId },
+        })
+      );
+    }
+  });
+</script>
+```
 
 ## Attributes
 
-| Attribute       | Type    | Default  | Description                                      |
-| --------------- | ------- | -------- | ------------------------------------------------ |
-| `open`          | Boolean | -        | Controls visibility in declarative mode          |
-| `title`         | String  | `''`     | Modal title                                      |
-| `message`       | String  | `''`     | Modal message (supports HTML)                    |
-| `max-width`     | String  | `400px`  | Maximum width                                    |
-| `max-height`    | String  | `90vh`   | Maximum height                                   |
-| `show-header`   | Boolean | `true`   | Show header section                              |
-| `show-footer`   | Boolean | `true`   | Show footer section                              |
-| `button1-text`  | String  | `''`     | First button text                                |
-| `button2-text`  | String  | `''`     | Second button text                               |
-| `button3-text`  | String  | `''`     | Third button text                                |
-| `button1-css`   | String  | `''`     | First button inline CSS                          |
-| `button2-css`   | String  | `''`     | Second button inline CSS                         |
-| `button3-css`   | String  | `''`     | Third button inline CSS                          |
-| `modal-id`      | String  | auto     | Unique modal identifier                          |
-
-> **Note:** Declarative modals (placed in HTML) are hidden by default and shown when `open` is set to `true`. In declarative mode, `close()` hides the modal instead of destroying it, allowing reuse. Modals created via `showModal()` auto-show and auto-destroy on close.
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `open` | Boolean | — | Show/hide the modal (declarative mode) |
+| `title` | String | `""` | Header text |
+| `message` | String | `""` | Body message (supports HTML) |
+| `max-width` | String | `"400px"` | Modal max width |
+| `max-height` | String | `"90vh"` | Modal max height |
+| `show-header` | Boolean | `true` | Show/hide the header section |
+| `show-footer` | Boolean | `true` | Show/hide the footer section |
+| `full-height` | Boolean | `false` | Expand content to fill max-height |
+| `modal-id` | String | auto | Unique ID (auto-generated if omitted) |
+| `intercept-close` | Boolean | `false` | Prevent auto-close on dismiss |
+| `button1-text` | String | `""` | Primary button label |
+| `button2-text` | String | `""` | Secondary button label |
+| `button3-text` | String | `""` | Tertiary button label |
+| `button1-css` | String | `""` | Inline style override for button 1 |
+| `button2-css` | String | `""` | Inline style override for button 2 |
+| `button3-css` | String | `""` | Inline style override for button 3 |
 
 ## Methods
 
-| Method                      | Description                                                      |
-| --------------------------- | ---------------------------------------------------------------- |
-| `show()`                    | Show modal (sets `open=true` in declarative mode)                |
-| `close()`                   | Close modal (hides in declarative mode, destroys in programmatic)|
-| `setContent(element)`       | Set custom element as modal content                              |
+| Method | Description |
+|--------|-------------|
+| `show()` | Open the modal |
+| `close()` | Close the modal (removes from DOM in programmatic mode) |
+| `setContent(element)` | Inject a DOM element into the modal body |
 
 ## Events
 
-| Event                    | Description                      |
-| ------------------------ | -------------------------------- |
-| `modal-action1`          | Fired when button 1 is clicked   |
-| `modal-action2`          | Fired when button 2 is clicked   |
-| `modal-action3`          | Fired when button 3 is clicked   |
-| `modal-closed-requested` | Fired when close is requested    |
+### Emitted
 
-## showModal() Options
+| Event | Detail | When |
+|-------|--------|------|
+| `modal-action1` | `{ contentElementId, contentElementType }` | Button 1 clicked |
+| `modal-action2` | `{ contentElementId, contentElementType }` | Button 2 clicked |
+| `modal-action3` | `{ contentElementId, contentElementType }` | Button 3 clicked |
+| `modal-closed-requested` | `{ modalId, contentElementId, contentElementType }` | Close requested (Escape, backdrop click, close button) |
+
+### Listened (global)
 
 ```javascript
-showModal({
-  title: 'Modal Title',
-  message: '<strong>HTML</strong> content',
+// Close a specific modal
+document.dispatchEvent(new CustomEvent('close-modal', {
+  detail: { modalId: 'my-modal-id' },
+}));
+
+// Close all modals
+document.dispatchEvent(new CustomEvent('close-modal', {
+  detail: { target: 'all' },
+}));
+```
+
+## `showModal()` Options
+
+```javascript
+import { showModal } from '@manufosela/app-modal';
+
+const modal = showModal({
+  title: 'Confirm',
+  message: 'Are you sure?',
   maxWidth: '500px',
   maxHeight: '80vh',
   showHeader: true,
   showFooter: true,
   button1Text: 'Confirm',
   button2Text: 'Cancel',
-  button3Text: 'Other',
-  button1Css: 'background: green;',
-  button2Css: 'background: red;',
-  button3Css: 'background: gray;',
+  button3Text: 'Details',
+  button1Css: '',
+  button2Css: '',
+  button3Css: '',
   button1Action: () => { /* return false to prevent close */ },
   button2Action: () => {},
   button3Action: () => {},
-  contentElement: document.createElement('div')
+  interceptClose: false,
+  fullHeight: false,
+  contentElement: document.createElement('div'),
 });
 ```
 
-## Global Close Event
-
-Close modals programmatically:
-
-```javascript
-// Close specific modal
-document.dispatchEvent(new CustomEvent('close-modal', {
-  detail: { modalId: 'my-modal-id' }
-}));
-
-// Close all modals
-document.dispatchEvent(new CustomEvent('close-modal', {
-  detail: { target: 'all' }
-}));
-```
+Returns the `AppModal` instance (already appended to `document.body`).
 
 ## CSS Custom Properties
 
-| Property                      | Default         | Description              |
-| ----------------------------- | --------------- | ------------------------ |
-| `--app-modal-z-index`         | `1000`          | Z-index                  |
-| `--app-modal-bg`              | `white`         | Modal background         |
-| `--app-modal-radius`          | `8px`           | Border radius            |
-| `--app-modal-padding`         | `1.5rem`        | Modal padding            |
-| `--app-modal-title-size`      | `1.5rem`        | Title font size          |
-| `--app-modal-title-color`     | `inherit`       | Title color              |
-| `--app-modal-body-color`      | `#333`          | Body text color          |
-| `--app-modal-confirm-bg`      | `#4caf50`       | Confirm button bg        |
-| `--app-modal-cancel-bg`       | `#f44336`       | Cancel button bg         |
+### Modal container
 
-## app-modal vs modal-dialog
+| Property | Fallback | Default |
+|----------|----------|---------|
+| `--modal-bg` | `--bg-primary` | `#ffffff` |
+| `--modal-text-color` | `--text-primary` | `#333333` |
+| `--modal-border-radius` | `--radius-lg` | `8px` |
+| `--modal-shadow` | `--shadow-xl` | `0 8px 32px rgba(0,0,0,0.3)` |
+| `--modal-overlay-bg` | — | `rgba(0,0,0,0.6)` |
+| `--modal-max-width` | — | `80vw` |
+| `--modal-max-height` | — | `80vh` |
 
-This library includes two modal components. Choose based on your needs:
+### Header
 
-| Feature | app-modal | modal-dialog |
-|---------|-----------|--------------|
-| **Use case** | Confirmations, alerts, action dialogs | Custom content, forms, complex layouts |
-| **Buttons** | 3 configurable buttons with callbacks | Slot-based (any content) |
-| **Content** | `message` attribute + slots + `setContent()` | Default slot (full control) |
-| **API** | Declarative (`open`) + Programmatic (`showModal()`) | Declarative (HTML-first) |
-| **Close events** | Global `close-modal` event | `modal-close` event |
-| **Best for** | "Are you sure?" dialogs, confirmations | Complex forms, custom UI |
+| Property | Fallback | Default |
+|----------|----------|---------|
+| `--modal-header-bg` | `--bg-secondary` | `transparent` |
+| `--modal-header-text` | `--text-primary` | `inherit` |
+| `--modal-header-padding` | `--spacing-md` | `1rem` |
+| `--modal-header-font-size` | `--font-size-xl` | `1.5rem` |
 
-**Use `app-modal` when:**
-- You need quick confirmation dialogs
-- You want predefined button layouts (OK/Cancel/Other)
-- You need both declarative and programmatic control
+### Body
 
-**Use `modal-dialog` when:**
-- You need full control over modal content
-- You're building complex forms inside modals
-- You need multiple custom footer actions
+| Property | Fallback | Default |
+|----------|----------|---------|
+| `--modal-body-padding` | `--spacing-lg` | `1.5rem` |
+| `--modal-body-color` | `--text-primary` | `#333333` |
+
+### Footer
+
+| Property | Fallback | Default |
+|----------|----------|---------|
+| `--modal-footer-bg` | `--bg-secondary` | `transparent` |
+| `--modal-footer-padding` | `--spacing-md` | `1rem` |
+| `--modal-border-color` | `--border-default` | `#e0e0e0` |
+
+### Buttons
+
+| Property | Fallback | Default |
+|----------|----------|---------|
+| `--modal-btn-primary-bg` | `--brand-primary` | `#4caf50` |
+| `--modal-btn-primary-text` | `--text-inverse` | `#ffffff` |
+| `--modal-btn-primary-hover-bg` | `--brand-primary-hover` | `#45a047` |
+| `--modal-btn-secondary-bg` | `--brand-danger` | `#f44336` |
+| `--modal-btn-secondary-text` | `--text-inverse` | `#ffffff` |
+| `--modal-btn-secondary-hover-bg` | `--brand-danger-hover` | `#e53935` |
+| `--modal-btn-tertiary-bg` | `--bg-muted` | `#e9ecef` |
+| `--modal-btn-tertiary-text` | `--text-primary` | `#333333` |
+| `--modal-btn-tertiary-hover-bg` | `--bg-muted-hover` | `#dee2e6` |
+
+### Close button
+
+| Property | Fallback | Default |
+|----------|----------|---------|
+| `--modal-close-bg` | `--bg-muted` | `rgba(0,0,0,0.1)` |
+| `--modal-close-color` | `--text-secondary` | `#666666` |
+| `--modal-close-hover-bg` | `--bg-muted-hover` | `rgba(0,0,0,0.2)` |
+| `--modal-close-hover-color` | `--text-primary` | `#333333` |
+
+## CSS Parts
+
+Style internal elements from outside using `::part()`:
+
+```css
+app-modal::part(container) { /* the <dialog> element */ }
+app-modal::part(header)    { /* header section */ }
+app-modal::part(body)      { /* content area */ }
+app-modal::part(footer)    { /* button area */ }
+app-modal::part(close-btn) { /* close ✕ button */ }
+app-modal::part(btn-primary)   { /* button 1 */ }
+app-modal::part(btn-secondary) { /* button 2 */ }
+app-modal::part(btn-tertiary)  { /* button 3 */ }
+```
 
 ## Accessibility
 
-- Escape key closes the modal
-- Click outside overlay closes the modal
-- Close button provides explicit dismiss action
-- Global close event allows programmatic closing
-- Respects `prefers-reduced-motion` by disabling animations
+Built on native `<dialog>`, so you get for free:
+
+- **Focus trap** — Tab/Shift-Tab stays inside the modal
+- **`aria-modal="true"`** — screen readers know it's a modal
+- **`role="dialog"`** — correct semantic role
+- **Escape key** — closes the modal (native `cancel` event)
+- **Inert background** — content behind the modal is non-interactive
+- **Top layer** — no z-index conflicts
+- **`prefers-reduced-motion`** — animations disabled when requested
 
 ## License
 
