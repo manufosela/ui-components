@@ -66,7 +66,7 @@
 </head>
 <body>
   <h1>Calendar Inline</h1>
-<p class="subtitle">Inline calendar with date selection and localization.</p>
+<p class="subtitle">Date picker on steroids — range selection, view switching, holidays, keyboard navigation, and form association in a single web component.</p>
 <div class="demo-links">
   <a href="https://manufosela.dev/ui-components/">← Back to components</a>
   <a href="https://github.com/manufosela/ui-components/tree/main/packages/calendar-inline" target="_blank" rel="noopener">GitHub Repo</a>
@@ -206,6 +206,96 @@
   </div>
 
   
+  <div class="demo-section">
+    <h2>Range Selection</h2>
+    <p>Select a start and end date. Hover over days to preview the range before confirming.</p>
+    <calendar-inline id="rangeCalendar" mode="range"></calendar-inline>
+    <div class="output" id="rangeOutput">Click a start date, then an end date...</div>
+    <div class="code-block">&lt;calendar-inline mode="range"&gt;&lt;/calendar-inline&gt;
+
+&lt;script&gt;
+  cal.addEventListener('range-select', (e) =&gt; {
+    console.log('Start:', e.detail.start); // "2025-06-10"
+    console.log('End:',   e.detail.end);   // "2025-06-20"
+  });
+&lt;/script&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Month / Year Navigation</h2>
+    <p>Click the <strong>month name</strong> in the calendar header to open the month picker. Click the <strong>year number</strong> to open the year/decade picker. Press <kbd>Escape</kbd> or select an item to go back to the day grid.</p>
+    <calendar-inline id="viewSwitcher"></calendar-inline>
+    <div class="output" id="viewOutput">View: days</div>
+    <div class="code-block">&lt;!-- Click month or year in the header to switch views --&gt;
+&lt;calendar-inline&gt;&lt;/calendar-inline&gt;
+
+&lt;script&gt;
+  cal.addEventListener('view-change', (e) =&gt; {
+    console.log('View switched to:', e.detail.view); // 'days' | 'months' | 'years'
+  });
+  cal.addEventListener('month-change', (e) =&gt; {
+    console.log('Month:', e.detail.month, 'Year:', e.detail.year);
+  });
+
+  // Programmatic navigation
+  cal.goToMonth(2025, 11); // December 2025 (0-based month)
+  cal.goToToday();
+&lt;/script&gt;</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Keyboard Navigation</h2>
+    <p>Click any date in the calendar below, then use the keyboard to navigate.</p>
+    <calendar-inline id="keyboardCalendar"></calendar-inline>
+    <table style="margin-top:1.5rem;border-collapse:collapse;width:100%;font-size:0.9rem;">
+      <thead>
+        <tr style="background:#f5f5f7;">
+          <th style="padding:0.5rem 1rem;text-align:left;border-bottom:1px solid #d2d2d7;">Key</th>
+          <th style="padding:0.5rem 1rem;text-align:left;border-bottom:1px solid #d2d2d7;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;font-family:monospace;">←  →</td><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;">Move focus one day back / forward</td></tr>
+        <tr><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;font-family:monospace;">↑  ↓</td><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;">Move focus one week back / forward</td></tr>
+        <tr><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;font-family:monospace;">Home</td><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;">First day of the current week</td></tr>
+        <tr><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;font-family:monospace;">End</td><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;">Last day of the current week</td></tr>
+        <tr><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;font-family:monospace;">PageUp / PageDown</td><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;">Previous / next month</td></tr>
+        <tr><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;font-family:monospace;">Shift + PageUp/Down</td><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;">Previous / next year</td></tr>
+        <tr><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;font-family:monospace;">Enter / Space</td><td style="padding:0.4rem 1rem;border-bottom:1px solid #e8e8ed;">Select the focused date</td></tr>
+        <tr><td style="padding:0.4rem 1rem;font-family:monospace;">Escape</td><td style="padding:0.4rem 1rem;">Cancel range in progress; return to day view from month/year picker</td></tr>
+      </tbody>
+    </table>
+    <div class="output" id="keyboardOutput">Click a date, then use the keyboard...</div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Form Integration</h2>
+    <p><code>calendar-inline</code> is a form-associated custom element. It appears in <code>FormData</code> and participates in form validation just like a native input.</p>
+    <form id="bookingForm" style="display:flex;flex-direction:column;gap:1rem;max-width:360px;">
+      <label style="display:flex;flex-direction:column;gap:0.5rem;font-weight:600;font-size:0.9rem;">
+        Pick a date
+        <calendar-inline name="date" id="formCalendar"></calendar-inline>
+      </label>
+      <button type="submit" style="padding:0.6rem 1.2rem;background:#3b82f6;color:white;border:none;border-radius:8px;font-size:0.9rem;cursor:pointer;align-self:flex-start;">Submit form</button>
+    </form>
+    <div class="output" id="formOutput">FormData will appear here after submit...</div>
+    <div class="code-block">&lt;form id="bookingForm"&gt;
+  &lt;label&gt;
+    Pick a date
+    &lt;calendar-inline name="date"&gt;&lt;/calendar-inline&gt;
+  &lt;/label&gt;
+  &lt;button type="submit"&gt;Submit form&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+  document.getElementById('bookingForm').addEventListener('submit', (e) =&gt; {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    console.log('date:', data.get('date')); // "2025-06-15"
+  });
+&lt;/script&gt;</div>
+  </div>
+
   <script>
     document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
   </script>
@@ -228,6 +318,46 @@
       } else {
         holidaysOutput.textContent = `Selected: ${e.detail.date}`;
       }
+    });
+
+    // Range selection
+    const rangeCalendar = document.getElementById('rangeCalendar');
+    const rangeOutput = document.getElementById('rangeOutput');
+    rangeCalendar.addEventListener('range-select', (e) => {
+      rangeOutput.textContent = `Start: ${e.detail.start}  →  End: ${e.detail.end}`;
+    });
+    rangeCalendar.addEventListener('date-select', (e) => {
+      rangeOutput.textContent = `Start: ${e.detail.date} — waiting for end date...`;
+    });
+
+    // View switching
+    const viewSwitcher = document.getElementById('viewSwitcher');
+    const viewOutput = document.getElementById('viewOutput');
+    viewSwitcher.addEventListener('view-change', (e) => {
+      viewOutput.textContent = `View: ${e.detail.view}`;
+    });
+    viewSwitcher.addEventListener('month-change', (e) => {
+      const monthName = new Date(e.detail.year, e.detail.month).toLocaleString('en', { month: 'long' });
+      viewOutput.textContent = `Navigated to: ${monthName} ${e.detail.year}`;
+    });
+
+    // Keyboard demo
+    const keyboardCalendar = document.getElementById('keyboardCalendar');
+    const keyboardOutput = document.getElementById('keyboardOutput');
+    keyboardCalendar.addEventListener('date-select', (e) => {
+      keyboardOutput.textContent = `Selected: ${e.detail.date}`;
+    });
+
+    // Form integration
+    const bookingForm = document.getElementById('bookingForm');
+    const formOutput = document.getElementById('formOutput');
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const date = data.get('date');
+      formOutput.textContent = date
+        ? `FormData → date: "${date}"`
+        : 'No date selected — pick a date first.';
     });
   </script>
 <script type="module">

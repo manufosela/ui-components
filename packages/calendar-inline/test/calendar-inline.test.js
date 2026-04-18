@@ -1,4 +1,4 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import { html, fixture, expect, oneEvent, aTimeout } from '@open-wc/testing';
 import '../src/calendar-inline.js';
 
 // Helper to format date without timezone issues
@@ -389,6 +389,329 @@ describe('CalendarInline', () => {
         <calendar-inline style="--calendar-accent: red;"></calendar-inline>
       `);
       expect(el).to.exist;
+    });
+  });
+
+  // ─── New feature tests ────────────────────────────────────────────────────
+
+  describe('_parseLocalDate', () => {
+    it('parses ISO string without timezone shift', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      const date = el._parseLocalDate('2025-03-15');
+      expect(date).to.be.instanceOf(Date);
+      expect(date.getFullYear()).to.equal(2025);
+      expect(date.getMonth()).to.equal(2); // 0-based
+      expect(date.getDate()).to.equal(15);
+    });
+
+    it('returns null for empty string', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      expect(el._parseLocalDate('')).to.be.null;
+      expect(el._parseLocalDate(null)).to.be.null;
+    });
+
+    it('handles leap year dates correctly', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      const date = el._parseLocalDate('2024-02-29');
+      expect(date).to.be.instanceOf(Date);
+      expect(date.getFullYear()).to.equal(2024);
+      expect(date.getMonth()).to.equal(1);
+      expect(date.getDate()).to.equal(29);
+    });
+  });
+
+  describe('view navigation', () => {
+    it('clicking month-year header switches to months view', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      expect(el._view).to.equal('days');
+      const btn = el.shadowRoot.querySelector('.month-year-btn.month-year');
+      btn.click();
+      await el.updateComplete;
+      expect(el._view).to.equal('months');
+    });
+
+    it('clicking a month cell returns to days view with correct month', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      el._switchView('months');
+      await el.updateComplete;
+      // Click the first month button (January, index 0)
+      const monthBtns = el.shadowRoot.querySelectorAll('.picker-btn');
+      monthBtns[0].click();
+      await el.updateComplete;
+      expect(el._view).to.equal('days');
+      expect(el._currentMonth).to.equal(0);
+    });
+
+    it('clicking year button in months view switches to years view', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      el._switchView('months');
+      await el.updateComplete;
+      // In months view the header shows the year as a .month-year-btn button
+      const yearBtn = el.shadowRoot.querySelector('.month-year-btn');
+      yearBtn.click();
+      await el.updateComplete;
+      expect(el._view).to.equal('years');
+    });
+
+    it('clicking a year returns to months view with correct year', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      el._switchView('years');
+      await el.updateComplete;
+      const yearBtns = el.shadowRoot.querySelectorAll('.picker-btn');
+      const targetYear = el._decadeStart + 3;
+      yearBtns[3].click();
+      await el.updateComplete;
+      expect(el._view).to.equal('months');
+      expect(el._currentYear).to.equal(targetYear);
+    });
+
+    it('Today button navigates to current month in days view', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      el._currentMonth = 0;
+      el._currentYear = 2020;
+      el._view = 'months';
+      await el.updateComplete;
+      // today-btn is only rendered in days view header, so switch first
+      el._view = 'days';
+      await el.updateComplete;
+      const todayBtn = el.shadowRoot.querySelector('.today-btn');
+      todayBtn.click();
+      await el.updateComplete;
+      const today = new Date();
+      expect(el._view).to.equal('days');
+      expect(el._currentMonth).to.equal(today.getMonth());
+      expect(el._currentYear).to.equal(today.getFullYear());
+    });
+
+    it('Escape in days view while selecting range end cancels selection', async () => {
+      const el = await fixture(html`<calendar-inline mode="range"></calendar-inline>`);
+      // Start a range selection
+      const day = el.shadowRoot.querySelector('.day:not(.other-month):not(.disabled)');
+      day.click();
+      await el.updateComplete;
+      expect(el._selectingEnd).to.be.true;
+      // Dispatch Escape on the table
+      const table = el.shadowRoot.querySelector('table.days-table');
+      table.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      await el.updateComplete;
+      expect(el._selectingEnd).to.be.false;
+    });
+  });
+
+  describe('keyboard navigation', () => {
+    it('ArrowRight moves focus to next day', async () => {
+      const el = await fixture(html`<calendar-inline value="2025-06-15"></calendar-inline>`);
+      await el.updateComplete;
+      const btn = el.shadowRoot.querySelector('button.day[data-date="2025-06-15"]');
+      btn.focus();
+      const table = el.shadowRoot.querySelector('table.days-table');
+      table.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+      await el.updateComplete;
+      expect(el._focusedDate).to.equal('2025-06-16');
+    });
+
+    it('ArrowLeft moves focus to previous day', async () => {
+      const el = await fixture(html`<calendar-inline value="2025-06-15"></calendar-inline>`);
+      await el.updateComplete;
+      const table = el.shadowRoot.querySelector('table.days-table');
+      table.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
+      await el.updateComplete;
+      expect(el._focusedDate).to.equal('2025-06-14');
+    });
+
+    it('ArrowDown moves focus to next week', async () => {
+      const el = await fixture(html`<calendar-inline value="2025-06-15"></calendar-inline>`);
+      await el.updateComplete;
+      const table = el.shadowRoot.querySelector('table.days-table');
+      table.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+      await el.updateComplete;
+      expect(el._focusedDate).to.equal('2025-06-22');
+    });
+
+    it('PageDown navigates to next month', async () => {
+      const el = await fixture(html`<calendar-inline value="2025-06-15"></calendar-inline>`);
+      await el.updateComplete;
+      const table = el.shadowRoot.querySelector('table.days-table');
+      table.dispatchEvent(new KeyboardEvent('keydown', { key: 'PageDown', bubbles: true }));
+      await el.updateComplete;
+      expect(el._currentMonth).to.equal(6); // July
+      expect(el._currentYear).to.equal(2025);
+    });
+
+    it('Enter selects the focused date', async () => {
+      const el = await fixture(html`<calendar-inline value="2025-06-15"></calendar-inline>`);
+      await el.updateComplete;
+      const table = el.shadowRoot.querySelector('table.days-table');
+      table.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      await el.updateComplete;
+      expect(el.value).to.equal('2025-06-15');
+    });
+
+    it('Home moves focus to first day of current week', async () => {
+      const el = await fixture(
+        html`<calendar-inline value="2025-06-18" first-day-of-week="1"></calendar-inline>`
+      );
+      await el.updateComplete;
+      const table = el.shadowRoot.querySelector('table.days-table');
+      table.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home', bubbles: true }));
+      await el.updateComplete;
+      // June 18 is Wednesday; with Monday start, week starts on June 16
+      expect(el._focusedDate).to.equal('2025-06-16');
+    });
+  });
+
+  describe('range selection', () => {
+    it('first click sets valueStart', async () => {
+      const el = await fixture(html`<calendar-inline mode="range"></calendar-inline>`);
+      el._currentMonth = 0;
+      el._currentYear = 2025;
+      await el.updateComplete;
+      const day15 = el.shadowRoot.querySelector('button.day[data-date="2025-01-15"]');
+      day15.click();
+      await el.updateComplete;
+      expect(el.valueStart).to.equal('2025-01-15');
+      expect(el._selectingEnd).to.be.true;
+    });
+
+    it('second click sets valueEnd', async () => {
+      const el = await fixture(html`<calendar-inline mode="range"></calendar-inline>`);
+      el._currentMonth = 0;
+      el._currentYear = 2025;
+      await el.updateComplete;
+      const day15 = el.shadowRoot.querySelector('button.day[data-date="2025-01-15"]');
+      day15.click();
+      await aTimeout(50);
+      const day20 = el.shadowRoot.querySelector('button.day[data-date="2025-01-20"]');
+      day20.click();
+      await el.updateComplete;
+      expect(el.valueEnd).to.equal('2025-01-20');
+    });
+
+    it('fires range-select event with start and end', async () => {
+      const el = await fixture(html`<calendar-inline mode="range"></calendar-inline>`);
+      el._currentMonth = 0;
+      el._currentYear = 2025;
+      await el.updateComplete;
+      const day15 = el.shadowRoot.querySelector('button.day[data-date="2025-01-15"]');
+      day15.click();
+      await aTimeout(50);
+      setTimeout(() => {
+        const day20 = el.shadowRoot.querySelector('button.day[data-date="2025-01-20"]');
+        day20.click();
+      });
+      const event = await oneEvent(el, 'range-select');
+      expect(event.detail).to.have.property('start');
+      expect(event.detail).to.have.property('end');
+      expect(event.detail.start).to.equal('2025-01-15');
+      expect(event.detail.end).to.equal('2025-01-20');
+    });
+
+    it('auto-swaps start and end when end is before start', async () => {
+      const el = await fixture(html`<calendar-inline mode="range"></calendar-inline>`);
+      el._currentMonth = 0;
+      el._currentYear = 2025;
+      await el.updateComplete;
+      // Click day 20 first, then day 10 (reverse order)
+      const day20 = el.shadowRoot.querySelector('button.day[data-date="2025-01-20"]');
+      day20.click();
+      await aTimeout(50);
+      const day10 = el.shadowRoot.querySelector('button.day[data-date="2025-01-10"]');
+      day10.click();
+      await el.updateComplete;
+      expect(el.valueStart).to.equal('2025-01-10');
+      expect(el.valueEnd).to.equal('2025-01-20');
+    });
+
+    it('in-range class applied to td cells between start and end', async () => {
+      const el = await fixture(
+        html`<calendar-inline
+          mode="range"
+          value-start="2025-01-10"
+          value-end="2025-01-20"
+        ></calendar-inline>`
+      );
+      el._currentMonth = 0;
+      el._currentYear = 2025;
+      await el.updateComplete;
+      const inRangeCells = el.shadowRoot.querySelectorAll('td.in-range');
+      // Days 11–19 (9 days) should have in-range class
+      expect(inRangeCells.length).to.equal(9);
+    });
+
+    it('single mode does NOT fire range-select', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      el._currentMonth = 0;
+      el._currentYear = 2025;
+      await el.updateComplete;
+      let rangeSelectFired = false;
+      el.addEventListener('range-select', () => {
+        rangeSelectFired = true;
+      });
+      const day15 = el.shadowRoot.querySelector('button.day[data-date="2025-01-15"]');
+      day15.click();
+      await aTimeout(50);
+      expect(rangeSelectFired).to.be.false;
+    });
+  });
+
+  describe('form association', () => {
+    it('has formAssociated static property set to true', async () => {
+      const { CalendarInline } = await import('../src/calendar-inline.js');
+      expect(CalendarInline.formAssociated).to.be.true;
+    });
+
+    it('disabled prevents date selection', async () => {
+      const el = await fixture(html`<calendar-inline disabled></calendar-inline>`);
+      el._currentMonth = 0;
+      el._currentYear = 2025;
+      await el.updateComplete;
+      el._selectDate(2025, 0, 15);
+      expect(el.value).to.equal('');
+    });
+
+    it('readonly prevents date selection', async () => {
+      const el = await fixture(html`<calendar-inline readonly></calendar-inline>`);
+      el._currentMonth = 0;
+      el._currentYear = 2025;
+      await el.updateComplete;
+      el._selectDate(2025, 0, 15);
+      expect(el.value).to.equal('');
+    });
+  });
+
+  describe('accessibility', () => {
+    it('days grid is a table with role="grid"', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      const grid = el.shadowRoot.querySelector('table[role="grid"]');
+      expect(grid).to.exist;
+    });
+
+    it('day buttons have aria-label with full date text', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      el._currentMonth = 0;
+      el._currentYear = 2025;
+      await el.updateComplete;
+      const day15 = el.shadowRoot.querySelector('button.day[data-date="2025-01-15"]');
+      expect(day15).to.exist;
+      const label = day15.getAttribute('aria-label');
+      expect(label).to.be.a('string');
+      expect(label.length).to.be.above(0);
+    });
+
+    it('today button has aria-current="date"', async () => {
+      const el = await fixture(html`<calendar-inline></calendar-inline>`);
+      const todayCell = el.shadowRoot.querySelector('button.day.today');
+      expect(todayCell).to.exist;
+      expect(todayCell.getAttribute('aria-current')).to.equal('date');
+    });
+
+    it('selected day has aria-selected="true"', async () => {
+      const today = new Date();
+      const dateStr = formatDate(today.getFullYear(), today.getMonth(), today.getDate());
+      const el = await fixture(html`<calendar-inline value="${dateStr}"></calendar-inline>`);
+      const selectedBtn = el.shadowRoot.querySelector('button.day.selected');
+      expect(selectedBtn).to.exist;
+      expect(selectedBtn.getAttribute('aria-selected')).to.equal('true');
     });
   });
 });

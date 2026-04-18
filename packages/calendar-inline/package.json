@@ -1,7 +1,7 @@
 {
   "name": "@manufosela/calendar-inline",
-  "version": "2.0.0",
-  "description": "Inline calendar web component with horizontal scrolling",
+  "version": "3.0.0",
+  "description": "Date picker on steroids — inline calendar with range selection, month/year picker views, full WAI-ARIA keyboard navigation, and form association. 100% accessible.",
   "license": "Apache-2.0",
   "author": "manufosela",
   "type": "module",
