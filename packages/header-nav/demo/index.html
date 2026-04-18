@@ -111,7 +111,7 @@
       <h2>Basic Usage</h2>
       <p>Responsive header with navigation links.</p>
       <div class="demo-header">
-        <header-nav logo="logo.svg">
+        <header-nav logo="logo.svg" style="--header-bg:#1e293b; --header-link-color:#94a3b8; --header-link-hover:#f1f5f9;">
           <a href="#home">Home</a>
           <a href="#about">About</a>
           <a href="#services">Services</a>
@@ -176,7 +176,7 @@
       <h2>Taller Header</h2>
       <p>Customize header height.</p>
       <div class="demo-header">
-        <header-nav logo="logo.svg" style="--header-height: 80px; ">
+        <header-nav logo="logo.svg" style="--header-height:80px; --header-bg:#1e293b; --header-link-color:#94a3b8; --header-link-hover:#f1f5f9;">
           <a href="#section1">Section 1</a>
           <a href="#section2">Section 2</a>
           <a href="#section3">Section 3</a>
@@ -193,7 +193,7 @@
       <h2>Custom Breakpoint</h2>
       <p>Change when the hamburger menu appears.</p>
       <div class="demo-header">
-        <header-nav logo="logo.svg" mobile-breakpoint="1200">
+        <header-nav logo="logo.svg" mobile-breakpoint="1200" style="--header-bg:#1e293b; --header-link-color:#94a3b8; --header-link-hover:#f1f5f9;">
           <a href="#home">Home</a>
           <a href="#about">About</a>
           <a href="#services">Services</a>
@@ -213,29 +213,81 @@
     </div>
 
     <div class="demo-section">
-      <h2>Event Handling</h2>
-      <p>Listen for menu toggle events.</p>
+      <h2>Active State</h2>
+      <p>Click a nav link to see the active highlight. The <code>nav-click</code> event fires with the link details.</p>
       <div class="demo-header">
-        <header-nav id="eventDemo" logo="logo.svg">
+        <header-nav id="activeDemo" logo="logo.svg" active-index="0" style="--header-bg:#1e293b; --header-link-color:#94a3b8; --header-link-hover:#f1f5f9; --header-link-active:#38bdf8; --header-link-active-bg:rgba(56,189,248,0.15);">
+          <a href="#dashboard">Dashboard</a>
+          <a href="#projects">Projects</a>
+          <a href="#team">Team</a>
+          <a href="#settings">Settings</a>
+        </header-nav>
+      </div>
+      <div id="activeOutput" style="margin-top:1rem; padding:1rem; background:var(--demo-event-bg); border-radius:8px; font-family:monospace; color:var(--demo-muted);">
+        Active: Dashboard (index 0)
+      </div>
+      <div class="code-block">&lt;header-nav active-index="0"&gt;
+  &lt;a href="/dashboard"&gt;Dashboard&lt;/a&gt;
+  &lt;a href="/projects"&gt;Projects&lt;/a&gt;
+  &lt;a href="/team"&gt;Team&lt;/a&gt;
+  &lt;a href="/settings"&gt;Settings&lt;/a&gt;
+&lt;/header-nav&gt;
+
+&lt;script&gt;
+  nav.addEventListener('nav-click', (e) =&gt; {
+    console.log('Clicked:', e.detail.text, 'index:', e.detail.index);
+  });
+&lt;/script&gt;</div>
+    </div>
+
+    <div class="demo-section">
+      <h2>Disabled Links + Interactive Controls</h2>
+      <p>Use <code>setDisabled(index, true/false)</code> to enable/disable nav items programmatically.</p>
+      <div class="demo-header">
+        <header-nav id="disabledDemo" logo="logo.svg" active-index="0" style="--header-bg:#1e293b; --header-link-color:#94a3b8; --header-link-hover:#f1f5f9; --header-link-active:#22c55e; --header-link-active-bg:rgba(34,197,94,0.15);">
+          <a href="#home">Home</a>
+          <a href="#profile">Profile</a>
+          <a href="#admin">Admin</a>
+          <a href="#logout">Logout</a>
+        </header-nav>
+      </div>
+      <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <button onclick="document.getElementById('disabledDemo').setDisabled(2, true)" style="padding:0.4rem 1rem; border:1px solid var(--demo-border); background:var(--demo-card-bg); color:var(--demo-text); border-radius:6px; cursor:pointer;">Disable "Admin"</button>
+        <button onclick="document.getElementById('disabledDemo').setDisabled(2, false)" style="padding:0.4rem 1rem; border:1px solid var(--demo-border); background:var(--demo-card-bg); color:var(--demo-text); border-radius:6px; cursor:pointer;">Enable "Admin"</button>
+        <button onclick="document.getElementById('disabledDemo').activeIndex = 2; document.getElementById('disabledDemo')._updateActiveState()" style="padding:0.4rem 1rem; border:1px solid var(--demo-border); background:var(--demo-card-bg); color:var(--demo-text); border-radius:6px; cursor:pointer;">Activate "Admin"</button>
+      </div>
+      <div class="code-block">const nav = document.querySelector('header-nav');
+
+// Disable a link by index
+nav.setDisabled(2, true);   // "Admin" becomes greyed out
+
+// Enable it back
+nav.setDisabled(2, false);
+
+// Set active programmatically
+nav.activeIndex = 0;        // "Home" becomes active</div>
+    </div>
+
+    <div class="demo-section">
+      <h2>Event Handling</h2>
+      <p>Listen for menu toggle and nav click events.</p>
+      <div class="demo-header">
+        <header-nav id="eventDemo" logo="logo.svg" style="--header-bg:#1e293b; --header-link-color:#94a3b8; --header-link-hover:#f1f5f9;">
           <a href="#link1">Link 1</a>
           <a href="#link2">Link 2</a>
           <a href="#link3">Link 3</a>
         </header-nav>
       </div>
-      <div id="eventOutput" style="margin-top:1rem; padding:1rem; background:var(--demo-event-bg); border-radius:8px; font-family:monospace; color:var(--demo-muted);">
-        Menu state: closed
+      <div id="eventOutput" style="margin-top:1rem; padding:1rem; background:var(--demo-event-bg); border-radius:8px; font-family:monospace; color:var(--demo-muted); min-height:2rem;">
+        Click a link or toggle the menu...
       </div>
-      <div class="code-block">&lt;header-nav id="nav" logo="logo.svg"&gt;
-  &lt;a href="/link1"&gt;Link 1&lt;/a&gt;
-  &lt;a href="/link2"&gt;Link 2&lt;/a&gt;
-  &lt;a href="/link3"&gt;Link 3&lt;/a&gt;
-&lt;/header-nav&gt;
-
-&lt;script&gt;
-  document.querySelector('#nav')
-    .addEventListener('menu-toggle', (e) =&gt; {
-      console.log('Menu open:', e.detail.open);
-    });
+      <div class="code-block">&lt;script&gt;
+  nav.addEventListener('nav-click', (e) =&gt; {
+    console.log('Clicked:', e.detail.text, 'at index', e.detail.index);
+  });
+  nav.addEventListener('menu-toggle', (e) =&gt; {
+    console.log('Menu:', e.detail.open ? 'open' : 'closed');
+  });
 &lt;/script&gt;</div>
     </div>
 
@@ -259,11 +311,35 @@
   <script type="module">
     import '../src/header-nav.js';
 
+    // Active state demo
+    const activeDemo = document.getElementById('activeDemo');
+    const activeOutput = document.getElementById('activeOutput');
+    activeDemo.addEventListener('nav-click', (e) => {
+      activeOutput.textContent = `Active: ${e.detail.text} (index ${e.detail.index})`;
+    });
+
+    // Disabled demo — disable "Admin" by default
+    const disabledDemo = document.getElementById('disabledDemo');
+    disabledDemo.updateComplete.then(() => {
+      disabledDemo.setDisabled(2, true);
+    });
+
+    // Event handling demo
     const eventDemo = document.getElementById('eventDemo');
     const eventOutput = document.getElementById('eventOutput');
 
+    const logEvent = (msg) => {
+      const line = document.createElement('div');
+      line.textContent = msg;
+      eventOutput.prepend(line);
+      if (eventOutput.children.length > 5) eventOutput.lastChild.remove();
+    };
+
+    eventDemo.addEventListener('nav-click', (e) => {
+      logEvent(`nav-click → "${e.detail.text}" (index ${e.detail.index})`);
+    });
     eventDemo.addEventListener('menu-toggle', (e) => {
-      eventOutput.textContent = `Menu state: ${e.detail.open ? 'open' : 'closed'}`;
+      logEvent(`menu-toggle → ${e.detail.open ? 'open' : 'closed'}`);
     });
   </script>
   <script type="module">
