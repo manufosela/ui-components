@@ -3,14 +3,15 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { appModalStyles } from './app-modal.styles.js';
 
 function generateDefaultId(prefix = 'modal') {
-  return `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  return `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
 }
 
 /**
- * A feature-rich modal component with configurable buttons and content.
+ * A feature-rich modal component built on native `<dialog>`.
  *
  * Supports both programmatic usage via showModal() and declarative usage with the open attribute.
  * Fully themeable via CSS custom properties with design system token fallbacks.
+ * Uses native `<dialog>` for built-in focus trap, aria-modal, Escape handling, and top-layer.
  *
  * @element app-modal
  * @fires modal-action1 - Fired when button 1 is clicked
@@ -44,8 +45,6 @@ function generateDefaultId(prefix = 'modal') {
  * @csspart btn-primary - The primary action button (button1)
  * @csspart btn-secondary - The secondary action button (button2)
  * @csspart btn-tertiary - The tertiary action button (button3)
- *
- * @cssprop [--app-modal-z-index=1000] - Z-index of the modal overlay
  *
  * @cssprop [--modal-bg] - Modal background (falls back to --bg-primary or #ffffff)
  * @cssprop [--modal-text-color] - Modal text color (falls back to --text-primary or #333333)
@@ -103,9 +102,9 @@ export class AppModal extends LitElement {
     button1Css: { type: String, attribute: 'button1-css' },
     button2Css: { type: String, attribute: 'button2-css' },
     button3Css: { type: String, attribute: 'button3-css' },
-    open: { type: Boolean, reflect: true },
     interceptClose: { type: Boolean, attribute: 'intercept-close' },
     fullHeight: { type: Boolean, attribute: 'full-height', reflect: true },
+    open: { type: Boolean, reflect: true },
   };
 
   constructor() {
@@ -114,181 +113,118 @@ export class AppModal extends LitElement {
     this.message = '';
     this.maxWidth = '400px';
     this.maxHeight = '90vh';
+    this.showHeader = true;
+    this.showFooter = true;
+    this.contentElementId = '';
+    this.contentElementType = '';
+    this.modalId = '';
     this.button1Text = '';
     this.button2Text = '';
     this.button3Text = '';
     this.button1Css = '';
     this.button2Css = '';
     this.button3Css = '';
-    this.showHeader = true;
-    this.showFooter = true;
-    this.contentElementId = '';
-    this.contentElementType = '';
-    this.modalId = '';
-    this.interceptClose = false;
-    this.fullHeight = false;
-    // open is intentionally not initialized to detect declarative usage
-
     this.button1Action = () => {};
     this.button2Action = () => {};
     this.button3Action = () => {};
-    this._pendingContent = null;
-    this._declarativeMode = false;
-    this._programmaticMode = false;
+    this.interceptClose = false;
+    this.fullHeight = false;
 
-    this._handleKeydown = this._handleKeydown.bind(this);
+    this._programmaticMode = false;
+    this._pendingContent = null;
+    this._closeTimeout = null;
+    this._boundGlobalCloseHandler = this._handleGlobalClose.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
-
     if (!this.modalId) {
-      this.modalId = generateDefaultId('modal');
+      this.modalId = generateDefaultId();
     }
 
-    // Detect declarative mode: if 'open' attribute exists, open property was set, or NOT programmatic
-    // Programmatic mode (via showModal()) auto-shows; declarative mode requires open attribute
-    this._declarativeMode =
-      this.hasAttribute('open') || this.open !== undefined || !this._programmaticMode;
-
-    // In programmatic mode, auto-show; in declarative mode, respect the open property
-    const shouldShow = this._programmaticMode || (this._declarativeMode && this.open);
-
-    if (shouldShow) {
-      this._showModal();
-    } else {
-      // Hide initially in declarative mode when open is false/undefined
-      this.style.display = 'none';
+    // Detect declarative mode: open attribute present before connect
+    if (this.open !== undefined && this.open !== null) {
+      this._programmaticMode = false;
     }
 
-    window.addEventListener('keydown', this._handleKeydown);
+    document.addEventListener('close-modal', this._boundGlobalCloseHandler);
 
-    this._globalCloseHandler = (e) => {
-      const { modalId, target } = e.detail || {};
-      if (target === 'all' || modalId === this.modalId) {
-        this.close();
-      }
-    };
-    document.addEventListener('close-modal', this._globalCloseHandler);
-  }
-
-  _showModal() {
-    this.style.display = '';
-    requestAnimationFrame(() => {
-      const modal = this.shadowRoot?.querySelector('.modal');
-      if (modal) {
-        modal.style.opacity = '1';
-      }
-      this.style.opacity = '1';
-      this.style.background = 'rgba(0, 0, 0, 0.5)';
-
-      if (this._pendingContent) {
-        this.setContent(this._pendingContent);
-        this._pendingContent = null;
-      }
-    });
-  }
-
-  _hideModal() {
-    const modal = this.shadowRoot?.querySelector('.modal');
-    if (modal) {
-      modal.style.opacity = '0';
+    // Auto-show in programmatic mode or if declarative with open=true
+    if (this._programmaticMode || this.open) {
+      this.updateComplete.then(() => this._showModal());
     }
-    this.style.opacity = '0';
-    this.style.background = 'rgba(0, 0, 0, 0)';
-
-    setTimeout(() => {
-      this.style.display = 'none';
-    }, 300);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    window.removeEventListener('keydown', this._handleKeydown);
-    document.removeEventListener('close-modal', this._globalCloseHandler);
-
+    document.removeEventListener('close-modal', this._boundGlobalCloseHandler);
     if (this._closeTimeout) {
       clearTimeout(this._closeTimeout);
       this._closeTimeout = null;
     }
-
-    this._contentElement = null;
   }
 
   updated(changedProperties) {
     if (changedProperties.has('maxWidth') || changedProperties.has('maxHeight')) {
-      this.style.setProperty('--max-width', this.maxWidth);
-      this.style.setProperty('--max-height', this.maxHeight);
+      const dialog = this.shadowRoot?.querySelector('dialog');
+      if (dialog) {
+        dialog.style.setProperty('--max-width', this.maxWidth);
+        dialog.style.setProperty('--max-height', this.maxHeight);
+      }
     }
 
-    if (changedProperties.has('open') && this._declarativeMode) {
+    // Handle declarative open/close
+    if (changedProperties.has('open') && !this._programmaticMode) {
       if (this.open) {
         this._showModal();
-      } else {
+      } else if (changedProperties.get('open') === true) {
         this._hideModal();
       }
     }
   }
 
-  _handleKeydown(e) {
-    if (e.key === 'Escape') {
-      this._requestClose();
+  /** @private */
+  get _dialog() {
+    return this.shadowRoot?.querySelector('dialog');
+  }
+
+  _showModal() {
+    const dialog = this._dialog;
+    if (!dialog || dialog.open) return;
+    dialog.showModal();
+
+    // Inject any pending content
+    if (this._pendingContent) {
+      const body = dialog.querySelector('.modal-body');
+      if (body) {
+        body.insertBefore(this._pendingContent, body.firstChild);
+        this._pendingContent = null;
+      }
     }
   }
 
-  _handleButton1() {
-    const result = this.button1Action();
-    this.dispatchEvent(
-      new CustomEvent('modal-action1', {
-        bubbles: true,
-        composed: true,
-        detail: {
-          contentElementId: this.contentElementId,
-          contentElementType: this.contentElementType,
-        },
-      })
-    );
-    if (result !== false) {
-      this.close();
-    }
+  _hideModal() {
+    const dialog = this._dialog;
+    if (!dialog?.open) return;
+    dialog.close();
   }
 
-  _handleButton2() {
-    const result = this.button2Action();
-    this.dispatchEvent(
-      new CustomEvent('modal-action2', {
-        bubbles: true,
-        composed: true,
-        detail: {
-          contentElementId: this.contentElementId,
-          contentElementType: this.contentElementType,
-        },
-      })
-    );
-    if (result !== false) {
-      this.close();
-    }
+  /**
+   * Handle native dialog cancel event (Escape key).
+   * We prevent the default close so we can route through _requestClose
+   * which supports intercept-close.
+   */
+  _handleCancel(e) {
+    e.preventDefault();
+    this._requestClose();
   }
 
-  _handleButton3() {
-    const result = this.button3Action();
-    this.dispatchEvent(
-      new CustomEvent('modal-action3', {
-        bubbles: true,
-        composed: true,
-        detail: {
-          contentElementId: this.contentElementId,
-          contentElementType: this.contentElementType,
-        },
-      })
-    );
-    if (result !== false) {
-      this.close();
-    }
-  }
-
-  _handleOverlayClick(e) {
-    if (e.target === e.currentTarget) {
+  /**
+   * Handle clicks on the dialog backdrop.
+   * A click on the <dialog> element itself (not its children) = backdrop click.
+   */
+  _handleDialogClick(e) {
+    if (e.target === this._dialog) {
       this._requestClose();
     }
   }
@@ -296,104 +232,142 @@ export class AppModal extends LitElement {
   _requestClose() {
     this.dispatchEvent(
       new CustomEvent('modal-closed-requested', {
-        bubbles: true,
-        composed: true,
         detail: {
+          modalId: this.modalId,
           contentElementId: this.contentElementId,
           contentElementType: this.contentElementType,
-          modalId: this.modalId,
         },
+        bubbles: true,
+        composed: true,
       })
     );
 
-    // If intercept-close is enabled, don't auto-close - let external code decide
-    // External code should dispatch 'close-modal' event with { detail: { modalId } } to close
-    if (this.interceptClose) {
-      return;
+    if (!this.interceptClose) {
+      this._closeTimeout = setTimeout(() => this.close(), 200);
     }
-
-    if (this._closeTimeout) {
-      clearTimeout(this._closeTimeout);
-    }
-    this._closeTimeout = setTimeout(() => {
-      this.close();
-    }, 200);
   }
 
+  _handleGlobalClose(e) {
+    const { modalId, target } = e.detail ?? {};
+    if (target === 'all' || modalId === this.modalId) {
+      this.close();
+    }
+  }
+
+  /**
+   * Show the modal.
+   * In declarative mode, sets the open attribute.
+   * In programmatic mode, appends to body if needed.
+   */
   show() {
-    if (this._declarativeMode) {
+    if (!this._programmaticMode) {
       this.open = true;
     } else {
-      document.body.appendChild(this);
+      if (!this.isConnected) {
+        document.body.appendChild(this);
+      }
+      this.updateComplete.then(() => this._showModal());
     }
   }
 
+  /**
+   * Close the modal.
+   * In declarative mode, removes the open attribute.
+   * In programmatic mode, removes element from DOM.
+   */
   close() {
-    if (this._declarativeMode) {
-      // In declarative mode, just hide the modal (don't destroy)
+    if (this._closeTimeout) {
+      clearTimeout(this._closeTimeout);
+      this._closeTimeout = null;
+    }
+
+    this._hideModal();
+
+    if (!this._programmaticMode) {
       this.open = false;
     } else {
-      // Legacy behavior: destroy the modal
-      const modal = this.shadowRoot?.querySelector('.modal');
-      if (modal) {
-        modal.style.opacity = '0';
-      }
-      this.style.opacity = '0';
-      this.style.background = 'rgba(0, 0, 0, 0)';
-
-      setTimeout(() => {
-        this.remove();
-      }, 300);
+      // Programmatic modals auto-destroy
+      this.remove();
     }
   }
 
+  /**
+   * Inject a custom DOM element into the modal body.
+   * @param {HTMLElement} element - The element to inject
+   * @returns {boolean} false if not ready (content is queued)
+   */
   setContent(element) {
-    const applyContent = () => {
-      const modal = this.shadowRoot?.querySelector('.modal');
-      const body = modal?.querySelector('.modal-body');
-      if (!modal || !body) return false;
+    if (element.id) this.contentElementId = element.id;
+    if (element.tagName) this.contentElementType = element.tagName.toLowerCase();
 
-      // Remove existing content except slot
-      const slot = body.querySelector('slot');
-      while (body.firstChild) {
-        if (body.firstChild === slot) break;
-        body.removeChild(body.firstChild);
-      }
-      body.insertBefore(element, slot);
-
-      this.contentElementId = element.id || '';
-      this.contentElementType = element.tagName.toLowerCase();
-      this._contentElement = element;
+    const body = this.shadowRoot?.querySelector('.modal-body');
+    if (body) {
+      body.insertBefore(element, body.firstChild);
       return true;
-    };
-
-    if (!applyContent()) {
-      this._pendingContent = element;
-      requestAnimationFrame(() => applyContent());
     }
+    this._pendingContent = element;
+    return false;
+  }
+
+  _handleButton(index) {
+    const action = this[`button${index}Action`];
+    const result = action?.();
+
+    this.dispatchEvent(
+      new CustomEvent(`modal-action${index}`, {
+        detail: {
+          contentElementId: this.contentElementId,
+          contentElementType: this.contentElementType,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    );
+
+    if (result !== false) {
+      this.close();
+    }
+  }
+
+  _handleButton1() {
+    this._handleButton(1);
+  }
+  _handleButton2() {
+    this._handleButton(2);
+  }
+  _handleButton3() {
+    this._handleButton(3);
   }
 
   render() {
+    const closeButton = html`
+      <button
+        class="close-btn ${!this.showHeader ? 'standalone' : ''}"
+        part="close-btn"
+        aria-label="Close"
+        @click="${this._requestClose}"
+      >
+        ✕
+      </button>
+    `;
+
     return html`
-      <div class="modal" part="container" @click="${(e) => e.stopPropagation()}">
+      <dialog
+        part="container"
+        style="--max-width: ${this.maxWidth}; --max-height: ${this.maxHeight}"
+        @cancel="${this._handleCancel}"
+        @click="${this._handleDialogClick}"
+      >
         ${this.showHeader
           ? html`
               <div class="modal-header" part="header">
-                ${this.title}
-                <button class="close-btn" part="close-btn" @click="${this._requestClose}">
-                  &times;
-                </button>
+                <span>${this.title}</span>
+                ${closeButton}
               </div>
             `
-          : html`
-              <button class="close-btn standalone" part="close-btn" @click="${this._requestClose}">
-                &times;
-              </button>
-            `}
+          : closeButton}
         <div class="modal-body" part="body">
-          ${this.message
-            ? html`<div class="modal-message">${unsafeHTML(this.message)}</div>`
-            : nothing}
+          ${this.message ? html`<p>${unsafeHTML(this.message)}</p>` : nothing}
           <slot></slot>
         </div>
         ${this.showFooter
@@ -437,7 +411,7 @@ export class AppModal extends LitElement {
               </div>
             `
           : nothing}
-      </div>
+      </dialog>
     `;
   }
 }
@@ -469,7 +443,6 @@ export function showModal(options = {}) {
   modal.interceptClose = options.interceptClose ?? false;
   modal.fullHeight = options.fullHeight ?? false;
 
-  // Mark as programmatic so it auto-shows on append
   modal._programmaticMode = true;
 
   document.body.appendChild(modal);

@@ -21,8 +21,8 @@ describe('AppModal', () => {
 
     it('renders modal container', async () => {
       const el = await fixture(html`<app-modal></app-modal>`);
-      const modal = el.shadowRoot.querySelector('.modal');
-      expect(modal).to.exist;
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog).to.exist;
     });
 
     it('renders title when provided', async () => {
@@ -52,9 +52,9 @@ describe('AppModal', () => {
 
     it('renders message with HTML', async () => {
       const el = await fixture(html`<app-modal message="<strong>Bold</strong>"></app-modal>`);
-      const message = el.shadowRoot.querySelector('.modal-message');
-      expect(message).to.exist;
-      expect(message.innerHTML).to.include('<strong>Bold</strong>');
+      const body = el.shadowRoot.querySelector('.modal-body');
+      expect(body).to.exist;
+      expect(body.innerHTML).to.include('<strong>Bold</strong>');
     });
   });
 
@@ -153,10 +153,12 @@ describe('AppModal', () => {
     });
 
     it('dispatches modal-closed-requested on Escape key', async () => {
-      const el = await fixture(html`<app-modal></app-modal>`);
+      const el = await fixture(html`<app-modal open></app-modal>`);
+      await el.updateComplete;
+      const dialog = el.shadowRoot.querySelector('dialog');
 
       setTimeout(() => {
-        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+        dialog.dispatchEvent(new Event('cancel'));
       });
       const event = await oneEvent(el, 'modal-closed-requested');
       expect(event).to.exist;
@@ -172,7 +174,8 @@ describe('AppModal', () => {
       el.close();
       await new Promise((resolve) => setTimeout(resolve, 350));
       expect(el.open).to.be.false;
-      expect(el.style.display).to.equal('none');
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog.open).to.be.false;
       expect(el.isConnected).to.be.true; // Modal stays in DOM
     });
 
@@ -270,13 +273,15 @@ describe('AppModal', () => {
     it('applies max-width CSS variable', async () => {
       const el = await fixture(html`<app-modal max-width="600px"></app-modal>`);
       await el.updateComplete;
-      expect(el.style.getPropertyValue('--max-width')).to.equal('600px');
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog.style.getPropertyValue('--max-width')).to.equal('600px');
     });
 
     it('applies max-height CSS variable', async () => {
       const el = await fixture(html`<app-modal max-height="80vh"></app-modal>`);
       await el.updateComplete;
-      expect(el.style.getPropertyValue('--max-height')).to.equal('80vh');
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog.style.getPropertyValue('--max-height')).to.equal('80vh');
     });
   });
 
@@ -284,25 +289,28 @@ describe('AppModal', () => {
     it('is hidden when open attribute is false', async () => {
       const el = await fixture(html`<app-modal .open="${false}"></app-modal>`);
       await el.updateComplete;
-      expect(el.style.display).to.equal('none');
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog.open).to.be.false;
     });
 
     it('is visible when open attribute is true', async () => {
       const el = await fixture(html`<app-modal open></app-modal>`);
       await el.updateComplete;
       await new Promise((resolve) => setTimeout(resolve, 50));
-      expect(el.style.display).to.not.equal('none');
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog.open).to.be.true;
     });
 
     it('shows modal when open changes from false to true', async () => {
       const el = await fixture(html`<app-modal .open="${false}"></app-modal>`);
       await el.updateComplete;
-      expect(el.style.display).to.equal('none');
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog.open).to.be.false;
 
       el.open = true;
       await el.updateComplete;
       await new Promise((resolve) => setTimeout(resolve, 50));
-      expect(el.style.display).to.not.equal('none');
+      expect(dialog.open).to.be.true;
     });
 
     it('hides modal when open changes from true to false', async () => {
@@ -313,7 +321,8 @@ describe('AppModal', () => {
       el.open = false;
       await el.updateComplete;
       await new Promise((resolve) => setTimeout(resolve, 350));
-      expect(el.style.display).to.equal('none');
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog.open).to.be.false;
     });
 
     it('does not destroy modal on close() in declarative mode', async () => {
@@ -362,7 +371,8 @@ describe('AppModal', () => {
       const el = showModal({ title: 'Test' });
       await el.updateComplete;
       await new Promise((resolve) => setTimeout(resolve, 50));
-      expect(el.style.display).to.not.equal('none');
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog.open).to.be.true;
     });
 
     it('destroys modal on close() in programmatic mode', async () => {
@@ -378,7 +388,8 @@ describe('AppModal', () => {
       // Declarative modals (in HTML) should NOT auto-show
       const el = await fixture(html`<app-modal></app-modal>`);
       await el.updateComplete;
-      expect(el.style.display).to.equal('none');
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog.open).to.be.false;
     });
   });
 
