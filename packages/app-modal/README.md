@@ -291,15 +291,30 @@ app-modal::part(btn-tertiary)  { /* button 3 */ }
 
 ## Accessibility
 
-Built on native `<dialog>`, so you get for free:
+`app-modal` is **exactly as accessible as a native `<dialog>`** — because it *is* a native `<dialog>` under the hood.
 
-- **Focus trap** — Tab/Shift-Tab stays inside the modal
-- **`aria-modal="true"`** — screen readers know it's a modal
-- **`role="dialog"`** — correct semantic role
-- **Escape key** — closes the modal (native `cancel` event)
-- **Inert background** — content behind the modal is non-interactive
-- **Top layer** — no z-index conflicts
-- **`prefers-reduced-motion`** — animations disabled when requested
+The component renders a `<dialog>` element inside its Shadow DOM and opens it with `showModal()`. This gives you every browser-native accessibility feature for free:
+
+- **Focus trap** — Tab/Shift-Tab stays inside the modal. Slotted content (light DOM) participates in the focus cycle too.
+- **`role="dialog"` + `aria-modal="true"`** — the browser exposes these implicitly to assistive technology (they won't appear as HTML attributes, but screen readers see them in the accessibility tree).
+- **Escape key** — handled natively via the `cancel` event, not a JavaScript `keydown` listener.
+- **Inert background** — all content outside the modal becomes non-interactive and invisible to screen readers. This is the browser's "blocked by a modal dialog" behavior — it works even though the `<dialog>` is inside a Shadow DOM.
+- **Top layer** — the dialog renders above everything regardless of DOM position or `z-index`. No stacking context issues.
+- **`prefers-reduced-motion`** — all animations are disabled when the user requests reduced motion.
+
+### But doesn't Shadow DOM break any of this?
+
+No. When `dialog.showModal()` is called from a Shadow DOM:
+
+1. The dialog is promoted to the **top layer** — a browser-managed rendering layer independent of the DOM tree. Shadow DOM boundaries don't affect it.
+2. Everything outside the dialog is marked as **"blocked by a modal dialog"** at the document level. This is not the `inert` HTML attribute — it's an internal browser state with the same effect. Elements outside the modal can't receive focus, aren't clickable, and are hidden from screen readers.
+3. **Slotted content works** — elements passed via `<slot>` (light DOM projection) are part of the dialog for focus trapping purposes.
+
+This has been verified in Chrome, Firefox, and Safari. The combination of Shadow DOM + `<dialog>` + slots is a well-supported pattern.
+
+### What `app-modal` adds (without compromising accessibility)
+
+The wrapper adds application-level features that `<dialog>` alone doesn't provide — configurable buttons, theming, events, dual operation modes — while delegating 100% of the accessibility behavior to the browser's native implementation. Nothing is reimplemented in JavaScript.
 
 ## License
 
