@@ -306,8 +306,8 @@ export class CalendarInline extends LitElement {
     }
 
     .picker-btn {
-      background: var(--calendar-picker-bg, #f8fafc);
-      border: none;
+      background: var(--calendar-picker-bg, var(--calendar-hover-bg, rgba(128, 128, 128, 0.1)));
+      border: 1px solid var(--calendar-muted, rgba(128, 128, 128, 0.2));
       padding: 0.75rem 0.5rem;
       cursor: pointer;
       border-radius: 8px;
@@ -316,13 +316,18 @@ export class CalendarInline extends LitElement {
       color: var(--calendar-text, #1f2937);
       transition:
         background-color 0.2s,
-        color 0.2s;
+        color 0.2s,
+        border-color 0.2s;
       font-family: inherit;
       outline: none;
     }
 
     .picker-btn:hover {
-      background: var(--calendar-picker-hover-bg, #e0f2fe);
+      background: var(
+        --calendar-picker-hover-bg,
+        var(--calendar-hover-bg, rgba(128, 128, 128, 0.2))
+      );
+      border-color: var(--calendar-text, #1f2937);
     }
 
     .picker-btn:focus-visible {
