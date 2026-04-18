@@ -5,27 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Device Card Stack - Demo</title>
   <style>
+    :root {
+      --demo-bg: #f5f5f7;
+      --demo-card-bg: #ffffff;
+      --demo-text: #1d1d1f;
+      --demo-muted: #86868b;
+      --demo-border: #d2d2d7;
+      --demo-code-bg: #1d1d1f;
+      --demo-code-text: #f5f5f7;
+      --demo-table-header-bg: #f9fafb;
+      --demo-table-border: #e5e7eb;
+      --demo-table-text: #374151;
+      --demo-inline-code-bg: #f3f4f6;
+    }
+    :root.dark {
+      --demo-bg: #0f1117;
+      --demo-card-bg: #1c2233;
+      --demo-text: #f3f6ff;
+      --demo-muted: #b8c0d9;
+      --demo-border: #2b3247;
+      --demo-code-bg: #0b0f1a;
+      --demo-code-text: #d6d9e6;
+      --demo-table-header-bg: #1c2233;
+      --demo-table-border: #2b3247;
+      --demo-table-text: #b8c0d9;
+      --demo-inline-code-bg: rgba(255, 255, 255, 0.1);
+    }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       max-width: 1100px;
       margin: 0 auto;
       padding: 2rem;
-      background: #f5f5f7;
+      background: var(--demo-bg);
+      color: var(--demo-text);
     }
-    h1 { color: #1d1d1f; }
+    h1 { color: var(--demo-text); }
     .demo-section {
-      background: white;
+      background: var(--demo-card-bg);
       padding: 2rem;
       border-radius: 12px;
       margin-bottom: 2rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    h2 { margin-top: 0; color: #1d1d1f; }
-    p { color: #86868b; line-height: 1.6; }
+    h2 { margin-top: 0; color: var(--demo-text); }
+    p { color: var(--demo-muted); line-height: 1.6; }
     a { color: #3b82f6; }
     .code-block {
-      background: #1d1d1f;
-      color: #f5f5f7;
+      background: var(--demo-code-bg);
+      color: var(--demo-code-text);
       padding: 1rem;
       border-radius: 8px;
       font-family: monospace;
@@ -39,11 +66,11 @@
       text-align: center;
       margin-top: 3rem;
       padding-top: 2rem;
-      border-top: 1px solid #d2d2d7;
-      color: #86868b;
+      border-top: 1px solid var(--demo-border);
+      color: var(--demo-muted);
       font-size: 0.9rem;
     }
-    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a { color: var(--demo-text); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     table {
       width: 100%;
@@ -54,16 +81,16 @@
     th, td {
       text-align: left;
       padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid var(--demo-table-border);
     }
     th {
-      background: #f9fafb;
-      color: #1d1d1f;
+      background: var(--demo-table-header-bg);
+      color: var(--demo-text);
       font-weight: 600;
     }
-    td { color: #374151; }
+    td { color: var(--demo-table-text); }
     td code {
-      background: #f3f4f6;
+      background: var(--demo-inline-code-bg);
       padding: 1px 4px;
       border-radius: 3px;
       font-size: 0.8rem;

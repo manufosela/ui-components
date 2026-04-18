@@ -419,7 +419,7 @@ export class DeviceCardStack extends LitElement {
         <div
           class="stack-panel"
           role="tablist"
-          aria-label="Dispositivos"
+          aria-label="Device cards"
           aria-orientation="vertical"
         >
           ${this._cards.map(
