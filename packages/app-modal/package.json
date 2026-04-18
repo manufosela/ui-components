@@ -1,7 +1,7 @@
 {
   "name": "@manufosela/app-modal",
-  "version": "2.3.0",
-  "description": "Feature-rich modal web component with configurable buttons and content",
+  "version": "3.0.0",
+  "description": "<dialog> on steroids — modal web component with focus trap, configurable buttons, theming, and two operation modes. Built on native <dialog> for accessibility.",
   "license": "MIT",
   "author": "manufosela",
   "type": "module",
