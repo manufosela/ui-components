@@ -49,8 +49,12 @@
 
       .demo-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(4, 1fr);
         gap: 2rem;
+      }
+
+      .half-card {
+        grid-column: span 2;
       }
 
       .demo-card {
@@ -150,8 +154,18 @@
       }
 
       @media (max-width: 768px) {
-        .wide-card {
-          grid-column: span 1;
+        .demo-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .wide-card,
+        .half-card {
+          grid-column: 1 / -1;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .demo-grid {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -233,40 +247,33 @@
         </div>
 
         <!-- Simulated Loading -->
-        <div class="demo-card">
+        <div class="demo-card half-card">
           <h2>Simulated Loading</h2>
           <p>Non-linear progress with status change on completion</p>
           <div class="demo-content">
             <circle-percent id="loading-demo" percent="0" stroke-color="#8b5cf6" title="Loading..."></circle-percent>
             <button id="loading-demo-btn" style="padding: 0.4rem 1.2rem; background: #8b5cf6; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem;">Run</button>
           </div>
-          <div class="code-block">&lt;circle-percent id="loader" percent="0"
+          <details>
+            <summary style="cursor: pointer; color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Show code</summary>
+            <div class="code-block">&lt;circle-percent id="loader" percent="0"
   stroke-color="#8b5cf6" title="Loading..."&gt;
 &lt;/circle-percent&gt;
 
 &lt;script type="module"&gt;
-  import '@manufosela/circle-percent';
   const el = document.getElementById('loader');
-
-  // Non-linear steps: [targetPercent, delayMs]
   const steps = [
-    [12, 300], [25, 500], [30, 200], [45, 800],
-    [48, 1200], // pause — slow resource
-    [60, 400], [72, 300], [78, 600],
-    [85, 900],  // another pause
-    [90, 200], [95, 400], [100, 300],
+    [12,300],[25,500],[30,200],[45,800],
+    [48,1200],[60,400],[72,300],[78,600],
+    [85,900],[90,200],[95,400],[100,300],
   ];
-  const wait = (ms) =&gt; new Promise(r =&gt; setTimeout(r, ms));
-
+  const wait = ms =&gt; new Promise(r =&gt; setTimeout(r, ms));
   async function simulateLoad() {
-    el.percent = 0;
-    el.title = 'Loading...';
     for (const [target, delay] of steps) {
       await wait(delay);
-      const start = el.percent;
-      for (let i = 1; i &lt;= target - start; i++) {
-        await wait(30);
-        el.percent = start + i;
+      const s = el.percent;
+      for (let i=1; i&lt;=target-s; i++) {
+        await wait(30); el.percent = s+i;
       }
     }
     el.title = 'Load OK ✓';
@@ -274,10 +281,11 @@
   }
   simulateLoad();
 &lt;/script&gt;</div>
+          </details>
         </div>
 
         <!-- Thick Stroke -->
-        <div class="demo-card">
+        <div class="demo-card half-card">
           <h2>Thick Stroke</h2>
           <p>Larger stroke width for emphasis</p>
           <div class="demo-content">
