@@ -119,10 +119,6 @@ export class CircleSteps extends LitElement {
       background: var(--steps-line-complete, #22c55e);
     }
 
-    .line:first-child {
-      visibility: hidden;
-    }
-
     .step:first-child .line:first-child {
       visibility: hidden;
     }
