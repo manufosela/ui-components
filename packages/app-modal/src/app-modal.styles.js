@@ -2,26 +2,7 @@ import { css } from 'lit';
 
 export const appModalStyles = css`
   :host {
-    /* Layout */
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: var(--app-modal-z-index, 1000);
-    opacity: 0;
-    transition:
-      opacity 0.3s ease-out,
-      background 0.3s ease-out;
-    background: rgba(0, 0, 0, 0);
-
-    /* ========================================
-       Design System Tokens
-       ======================================== */
+    /* Design System Tokens */
 
     /* Modal container */
     --modal-bg: var(--bg-primary, #ffffff);
@@ -69,19 +50,37 @@ export const appModalStyles = css`
     --modal-btn-tertiary-hover-bg: var(--bg-muted-hover, #dee2e6);
   }
 
-  .modal {
+  dialog {
     background: var(--modal-bg);
     color: var(--modal-text-color);
     border-radius: var(--modal-border-radius);
     box-shadow: var(--modal-shadow);
+    border: none;
+    padding: 0;
     width: 90%;
     max-width: var(--max-width, var(--modal-max-width));
     max-height: var(--max-height, var(--modal-max-height));
     text-align: center;
-    position: relative;
     overflow: auto;
-    opacity: 0;
-    transition: opacity 0.3s ease-out;
+  }
+
+  dialog::backdrop {
+    background: var(--modal-overlay-bg);
+  }
+
+  dialog[open] {
+    animation: modal-fade-in 0.3s ease-out;
+  }
+
+  @keyframes modal-fade-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   .modal-header {
@@ -100,54 +99,59 @@ export const appModalStyles = css`
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    font-size: 1.5rem;
-    cursor: pointer;
     background: var(--modal-close-bg);
     border: none;
-    color: var(--modal-close-color);
-    z-index: 1;
+    font-size: 1.2rem;
+    cursor: pointer;
     width: 2rem;
     height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: all 0.2s ease;
+    color: var(--modal-close-color);
+    transition:
+      background 0.2s,
+      color 0.2s;
+    z-index: 1;
   }
 
   .close-btn:hover {
-    color: var(--modal-close-hover-color);
     background: var(--modal-close-hover-bg);
+    color: var(--modal-close-hover-color);
   }
 
   .close-btn.standalone {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    background: var(--modal-close-bg);
-    color: var(--modal-close-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 10;
+    background: var(--modal-close-bg);
+    transition:
+      background 0.2s,
+      color 0.2s,
+      transform 0.2s;
   }
 
   .close-btn.standalone:hover {
-    background: var(--modal-close-hover-bg);
     transform: scale(1.1);
   }
 
   .modal-body {
     padding: var(--modal-body-padding);
-    font-size: 1rem;
+    text-align: left;
     color: var(--modal-body-color);
+    overflow: auto;
   }
 
   .modal-footer {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.5rem;
     padding: var(--modal-footer-padding);
     background: var(--modal-footer-bg);
     border-top: 1px solid var(--modal-border-color);
+    flex-wrap: wrap;
   }
 
   button {
@@ -188,7 +192,7 @@ export const appModalStyles = css`
   }
 
   /* Full height mode - content expands to fill maxHeight */
-  :host([full-height]) .modal {
+  :host([full-height]) dialog {
     height: var(--max-height, var(--modal-max-height));
     display: flex;
     flex-direction: column;
@@ -207,12 +211,8 @@ export const appModalStyles = css`
   }
 
   @media (prefers-reduced-motion: reduce) {
-    :host {
-      transition: none;
-    }
-
-    .modal {
-      transition: none;
+    dialog[open] {
+      animation: none;
     }
 
     .close-btn {
