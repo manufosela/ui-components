@@ -1,7 +1,7 @@
 {
   "name": "@manufosela/behaviour-accordion",
-  "version": "2.0.0",
-  "description": "Accessible accordion web component with smooth animations",
+  "version": "3.0.0",
+  "description": "<details>/<summary> on steroids — accordion web component with exclusive mode, keyboard navigation, theming, and programmatic control. Built on native <details> for accessibility.",
   "license": "Apache-2.0",
   "author": "manufosela",
   "type": "module",

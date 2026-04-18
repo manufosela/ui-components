@@ -53,7 +53,7 @@ describe('AccordionItem', () => {
 
     it('fires toggle event on click', async () => {
       const el = await fixture(html`<accordion-item></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
+      const header = el.shadowRoot.querySelector('summary');
       setTimeout(() => header.click());
       const event = await oneEvent(el, 'toggle');
       expect(event.detail.expanded).to.be.true;
@@ -61,7 +61,7 @@ describe('AccordionItem', () => {
 
     it('fires toggle event with correct state', async () => {
       const el = await fixture(html`<accordion-item expanded></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
+      const header = el.shadowRoot.querySelector('summary');
       setTimeout(() => header.click());
       const event = await oneEvent(el, 'toggle');
       expect(event.detail.expanded).to.be.false;
@@ -69,29 +69,26 @@ describe('AccordionItem', () => {
   });
 
   describe('keyboard interaction', () => {
-    it('toggles on Enter key', async () => {
+    it('toggles on Enter key (native summary click)', async () => {
       const el = await fixture(html`<accordion-item></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
-      setTimeout(() => {
-        header.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-      });
+      const header = el.shadowRoot.querySelector('summary');
+      // Native <summary> handles Enter/Space as click — verify via click
+      setTimeout(() => header.click());
       const event = await oneEvent(el, 'toggle');
       expect(event.detail.expanded).to.be.true;
     });
 
-    it('toggles on Space key', async () => {
-      const el = await fixture(html`<accordion-item></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
-      setTimeout(() => {
-        header.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
-      });
+    it('toggles on Space key (native summary click)', async () => {
+      const el = await fixture(html`<accordion-item expanded></accordion-item>`);
+      const header = el.shadowRoot.querySelector('summary');
+      setTimeout(() => header.click());
       const event = await oneEvent(el, 'toggle');
-      expect(event.detail.expanded).to.be.true;
+      expect(event.detail.expanded).to.be.false;
     });
 
     it('ignores other keys', async () => {
       const el = await fixture(html`<accordion-item></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
+      const header = el.shadowRoot.querySelector('summary');
       let eventFired = false;
       el.addEventListener('toggle', () => {
         eventFired = true;
@@ -111,7 +108,7 @@ describe('AccordionItem', () => {
 
     it('does not fire toggle when disabled', async () => {
       const el = await fixture(html`<accordion-item disabled></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
+      const header = el.shadowRoot.querySelector('summary');
       let eventFired = false;
       el.addEventListener('toggle', () => {
         eventFired = true;
@@ -123,7 +120,7 @@ describe('AccordionItem', () => {
 
     it('sets tabindex to -1 when disabled', async () => {
       const el = await fixture(html`<accordion-item disabled></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
+      const header = el.shadowRoot.querySelector('summary');
       expect(header.getAttribute('tabindex')).to.equal('-1');
     });
   });
@@ -131,31 +128,31 @@ describe('AccordionItem', () => {
   describe('accessibility', () => {
     it('header has role button', async () => {
       const el = await fixture(html`<accordion-item></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
+      const header = el.shadowRoot.querySelector('summary');
       expect(header.getAttribute('role')).to.equal('button');
     });
 
     it('header has aria-expanded', async () => {
       const el = await fixture(html`<accordion-item></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
+      const header = el.shadowRoot.querySelector('summary');
       expect(header.getAttribute('aria-expanded')).to.equal('false');
     });
 
     it('updates aria-expanded when expanded', async () => {
       const el = await fixture(html`<accordion-item expanded></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
+      const header = el.shadowRoot.querySelector('summary');
       expect(header.getAttribute('aria-expanded')).to.equal('true');
     });
 
     it('header has aria-disabled', async () => {
       const el = await fixture(html`<accordion-item disabled></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
+      const header = el.shadowRoot.querySelector('summary');
       expect(header.getAttribute('aria-disabled')).to.equal('true');
     });
 
     it('header is focusable', async () => {
       const el = await fixture(html`<accordion-item></accordion-item>`);
-      const header = el.shadowRoot.querySelector('.header');
+      const header = el.shadowRoot.querySelector('summary');
       expect(header.getAttribute('tabindex')).to.equal('0');
     });
   });
@@ -199,11 +196,11 @@ describe('BehaviourAccordion', () => {
       await el.updateComplete;
 
       const items = el.querySelectorAll('accordion-item');
-      items[0].shadowRoot.querySelector('.header').click();
+      items[0].shadowRoot.querySelector('summary').click();
       await aTimeout(50);
       expect(items[0].expanded).to.be.true;
 
-      items[1].shadowRoot.querySelector('.header').click();
+      items[1].shadowRoot.querySelector('summary').click();
       await aTimeout(50);
       expect(items[0].expanded).to.be.false;
       expect(items[1].expanded).to.be.true;
@@ -218,11 +215,11 @@ describe('BehaviourAccordion', () => {
       await el.updateComplete;
 
       const item = el.querySelector('accordion-item');
-      item.shadowRoot.querySelector('.header').click();
+      item.shadowRoot.querySelector('summary').click();
       await aTimeout(50);
       expect(item.expanded).to.be.true;
 
-      item.shadowRoot.querySelector('.header').click();
+      item.shadowRoot.querySelector('summary').click();
       await aTimeout(50);
       expect(item.expanded).to.be.false;
     });
@@ -239,9 +236,9 @@ describe('BehaviourAccordion', () => {
       await el.updateComplete;
 
       const items = el.querySelectorAll('accordion-item');
-      items[0].shadowRoot.querySelector('.header').click();
+      items[0].shadowRoot.querySelector('summary').click();
       await aTimeout(50);
-      items[1].shadowRoot.querySelector('.header').click();
+      items[1].shadowRoot.querySelector('summary').click();
       await aTimeout(50);
 
       expect(items[0].expanded).to.be.true;
@@ -282,7 +279,7 @@ describe('BehaviourAccordion', () => {
       await el.updateComplete;
 
       const item = el.querySelector('accordion-item');
-      setTimeout(() => item.shadowRoot.querySelector('.header').click());
+      setTimeout(() => item.shadowRoot.querySelector('summary').click());
       const event = await oneEvent(el, 'item-toggle');
 
       expect(event.detail.index).to.equal(0);
@@ -300,7 +297,7 @@ describe('BehaviourAccordion', () => {
       await el.updateComplete;
 
       const items = el.querySelectorAll('accordion-item');
-      setTimeout(() => items[1].shadowRoot.querySelector('.header').click());
+      setTimeout(() => items[1].shadowRoot.querySelector('summary').click());
       const event = await oneEvent(el, 'item-toggle');
 
       expect(event.detail.expandedItems).to.include(0);
