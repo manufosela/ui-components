@@ -5,31 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hero Scroll Animation - Demo</title>
   <style>
+    :root {
+      --demo-bg: #f5f5f7;
+      --demo-card-bg: #ffffff;
+      --demo-text: #1d1d1f;
+      --demo-muted: #86868b;
+      --demo-border: #d2d2d7;
+      --demo-code-bg: #1d1d1f;
+      --demo-code-text: #f5f5f7;
+      --demo-table-header-bg: #f9fafb;
+      --demo-table-border: #e5e7eb;
+      --demo-table-text: #374151;
+      --demo-inline-code-bg: #f3f4f6;
+    }
+    :root.dark {
+      --demo-bg: #0f1117;
+      --demo-card-bg: #1c2233;
+      --demo-text: #f3f6ff;
+      --demo-muted: #b8c0d9;
+      --demo-border: #2b3247;
+      --demo-code-bg: #0b0f1a;
+      --demo-code-text: #d6d9e6;
+      --demo-table-header-bg: #1c2233;
+      --demo-table-border: #2b3247;
+      --demo-table-text: #b8c0d9;
+      --demo-inline-code-bg: rgba(255, 255, 255, 0.1);
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f5f5f7;
+      background: var(--demo-bg);
+      transition: background 0.3s ease, color 0.3s ease;
     }
-    h1 { color: #1d1d1f; }
+    h1 { color: var(--demo-text); }
     .demo-section {
-      background: white;
+      background: var(--demo-card-bg);
       padding: 2rem;
       border-radius: 12px;
       margin-bottom: 2rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: background 0.3s ease;
     }
     .info-section {
       max-width: 900px;
       margin: 0 auto;
       padding: 2rem;
     }
-    h2 { margin-top: 0; color: #1d1d1f; }
-    p { color: #86868b; line-height: 1.6; }
+    h2 { margin-top: 0; color: var(--demo-text); }
+    p { color: var(--demo-muted); line-height: 1.6; }
     a { color: #3b82f6; }
     .code-block {
-      background: #1d1d1f;
-      color: #f5f5f7;
+      background: var(--demo-code-bg);
+      color: var(--demo-code-text);
       padding: 1rem;
       border-radius: 8px;
       font-family: monospace;
@@ -38,16 +67,18 @@
       overflow: auto;
       max-height: 300px;
       white-space: pre;
+      transition: background 0.3s ease, color 0.3s ease;
     }
     footer {
       text-align: center;
       margin-top: 3rem;
       padding: 2rem;
-      border-top: 1px solid #d2d2d7;
-      color: #86868b;
+      border-top: 1px solid var(--demo-border);
+      color: var(--demo-muted);
       font-size: 0.9rem;
+      transition: border-color 0.3s ease;
     }
-    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a { color: var(--demo-text); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
     /* Hero content styles for the demos */
@@ -79,21 +110,26 @@
     .props-table td {
       text-align: left;
       padding: 0.75rem 1rem;
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid var(--demo-table-border);
+      transition: border-color 0.3s ease;
     }
     .props-table th {
-      background: #f9fafb;
-      color: #1d1d1f;
+      background: var(--demo-table-header-bg);
+      color: var(--demo-text);
       font-weight: 600;
+      transition: background 0.3s ease, color 0.3s ease;
     }
     .props-table td {
-      color: #374151;
+      color: var(--demo-table-text);
+      transition: color 0.3s ease;
     }
     .props-table code {
-      background: #f3f4f6;
+      background: var(--demo-inline-code-bg);
+      color: var(--demo-text);
       padding: 2px 6px;
       border-radius: 4px;
       font-size: 0.85rem;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     /* Spacer between hero demos */
@@ -102,11 +138,30 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #f5f5f7;
+      background: var(--demo-bg);
+      transition: background 0.3s ease;
     }
     .demo-spacer p {
       font-size: 1.5rem;
-      color: #86868b;
+      color: var(--demo-muted);
+    }
+
+    /* Reduced motion note */
+    .motion-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--demo-inline-code-bg);
+      color: var(--demo-text);
+      border: 1px solid var(--demo-border);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    .motion-note::before {
+      content: "ℹ️";
+      font-size: 1rem;
     }
   </style>
   <link rel="stylesheet" href="../../demo-theme.css" />
@@ -126,22 +181,22 @@
     </div>
   </div>
 
-  <!-- Demo 1: Basic Usage -->
+  <!-- Demo 1: Basic Usage — Default with 3 images -->
   <div class="info-section">
     <div class="demo-section">
       <h2>Basic Usage</h2>
-      <p>Scroll down through the hero to see the parallax effect. The content fades out while a center image rises and side images slide in.</p>
+      <p>Scroll down through the hero to see the parallax effect. The content fades out while a center image rises and side images slide in from the sides.</p>
     </div>
   </div>
 
-  <hero-scroll-animation>
-    <img slot="background" src="https://picsum.photos/id/1015/1920/1080" />
-    <img slot="center" src="https://picsum.photos/id/1025/600/800" />
-    <img slot="left" src="https://picsum.photos/id/1035/500/700" />
-    <img slot="right" src="https://picsum.photos/id/1040/500/700" />
+  <hero-scroll-animation background-text="EXPLORE">
+    <img slot="background" src="https://picsum.photos/id/1018/1200/800" alt="Mountain landscape" />
+    <img slot="center" src="https://picsum.photos/id/1015/600/400" alt="River in the forest" />
+    <img slot="left" src="https://picsum.photos/id/1019/400/600" alt="Bridge over a canyon" />
+    <img slot="right" src="https://picsum.photos/id/1016/400/600" alt="Dramatic cliff face" />
     <div slot="content" class="hero-content">
-      <h1>Discover Amazing Places</h1>
-      <p>Scroll down to explore a beautiful parallax experience with images sliding into view.</p>
+      <h1>Explore the World</h1>
+      <p>Scroll down to discover a beautiful parallax experience with images sliding into view.</p>
     </div>
   </hero-scroll-animation>
 
@@ -151,36 +206,38 @@
 
   <div class="info-section">
     <div class="demo-section">
-      <h2>Basic Usage - Code</h2>
-      <div class="code-block">&lt;hero-scroll-animation&gt;
-  &lt;img slot="background" src="bg.jpg" /&gt;
-  &lt;img slot="center" src="center.png" /&gt;
-  &lt;img slot="left" src="left.png" /&gt;
-  &lt;img slot="right" src="right.png" /&gt;
+      <h2>Basic Usage — Code</h2>
+      <div class="code-block">&lt;hero-scroll-animation background-text="EXPLORE"&gt;
+  &lt;img slot="background" src="mountains.jpg" /&gt;
+  &lt;img slot="center" src="river.jpg" /&gt;
+  &lt;img slot="left" src="bridge.jpg" /&gt;
+  &lt;img slot="right" src="cliff.jpg" /&gt;
   &lt;div slot="content"&gt;
-    &lt;h1&gt;Discover Amazing Places&lt;/h1&gt;
-    &lt;p&gt;Scroll down to explore...&lt;/p&gt;
+    &lt;h1&gt;Explore the World&lt;/h1&gt;
+    &lt;p&gt;Scroll down to discover...&lt;/p&gt;
   &lt;/div&gt;
 &lt;/hero-scroll-animation&gt;</div>
     </div>
   </div>
 
-  <!-- Demo 2: With Background Text -->
+  <!-- Demo 2: Minimal — Center Only -->
   <div class="info-section">
     <div class="demo-section">
-      <h2>With Background Text</h2>
-      <p>Use the <code>background-text</code> attribute to add large decorative text behind the images.</p>
+      <h2>Minimal — Center Only</h2>
+      <p>Use only the <code>center</code> slot for a focused, single-image experience. Pair with a custom accent color and a shorter <code>scroll-height</code> for a more compact section.</p>
     </div>
   </div>
 
-  <hero-scroll-animation background-text="PREMIUM" scroll-height="400">
-    <img slot="background" src="https://picsum.photos/id/1060/1920/1080" />
-    <img slot="center" src="https://picsum.photos/id/1062/600/800" />
-    <img slot="left" src="https://picsum.photos/id/1064/500/700" />
-    <img slot="right" src="https://picsum.photos/id/1067/500/700" />
+  <hero-scroll-animation
+    background-text="FOCUS"
+    scroll-height="400"
+    style="--hero-accent-color: #e63946; --hero-bg-gradient-start: #e63946; --hero-bg-gradient-end: #f4a261;"
+  >
+    <img slot="background" src="https://picsum.photos/id/1040/1200/800" alt="Person in a landscape" />
+    <img slot="center" src="https://picsum.photos/id/1043/600/400" alt="Colorful food arrangement" />
     <div slot="content" class="hero-content">
-      <h1>Premium Collection</h1>
-      <p>A curated selection of the finest experiences.</p>
+      <h1>Keep the Focus</h1>
+      <p>Sometimes one powerful image is all you need. No distractions — just the story you want to tell.</p>
     </div>
   </hero-scroll-animation>
 
@@ -190,36 +247,92 @@
 
   <div class="info-section">
     <div class="demo-section">
-      <h2>With Background Text - Code</h2>
-      <div class="code-block">&lt;hero-scroll-animation background-text="PREMIUM" scroll-height="400"&gt;
+      <h2>Minimal — Center Only — Code</h2>
+      <div class="code-block">&lt;hero-scroll-animation
+  background-text="FOCUS"
+  scroll-height="400"
+  style="
+    --hero-accent-color: #e63946;
+    --hero-bg-gradient-start: #e63946;
+    --hero-bg-gradient-end: #f4a261;
+  "
+&gt;
   &lt;img slot="background" src="bg.jpg" /&gt;
-  &lt;img slot="center" src="center.png" /&gt;
-  &lt;img slot="left" src="left.png" /&gt;
-  &lt;img slot="right" src="right.png" /&gt;
+  &lt;img slot="center" src="center.jpg" /&gt;
   &lt;div slot="content"&gt;
-    &lt;h1&gt;Premium Collection&lt;/h1&gt;
-    &lt;p&gt;A curated selection...&lt;/p&gt;
+    &lt;h1&gt;Keep the Focus&lt;/h1&gt;
+    &lt;p&gt;Sometimes one powerful image is all you need.&lt;/p&gt;
   &lt;/div&gt;
 &lt;/hero-scroll-animation&gt;</div>
     </div>
   </div>
 
-  <!-- Demo 3: Custom Overlay Opacity -->
+  <!-- Demo 3: Full Layout with Custom Colors -->
   <div class="info-section">
     <div class="demo-section">
-      <h2>Custom Overlay Opacity</h2>
-      <p>Adjust the dark overlay with <code>overlay-opacity="0.7"</code> for a more dramatic effect.</p>
+      <h2>Full Layout with Custom Colors</h2>
+      <p>All four slots (<code>background</code>, <code>center</code>, <code>left</code>, <code>right</code>) combined with a bold blue/cyan theme via CSS custom properties and a taller <code>scroll-height</code>.</p>
     </div>
   </div>
 
-  <hero-scroll-animation overlay-opacity="0.7" scroll-height="350">
-    <img slot="background" src="https://picsum.photos/id/1036/1920/1080" />
-    <img slot="center" src="https://picsum.photos/id/1043/600/800" />
-    <img slot="left" src="https://picsum.photos/id/1047/500/700" />
-    <img slot="right" src="https://picsum.photos/id/1050/500/700" />
+  <hero-scroll-animation
+    background-text="CREATE"
+    scroll-height="700"
+    style="--hero-accent-color: #06b6d4; --hero-bg-gradient-start: #0284c7; --hero-bg-gradient-end: #67e8f9;"
+  >
+    <img slot="background" src="https://picsum.photos/id/180/1200/800" alt="Creative desk setup" />
+    <img slot="center" src="https://picsum.photos/id/160/600/400" alt="Scenic landscape" />
+    <img slot="left" src="https://picsum.photos/id/167/400/600" alt="Water reflection" />
+    <img slot="right" src="https://picsum.photos/id/177/400/600" alt="Classic car" />
     <div slot="content" class="hero-content">
-      <h1>Dark Overlay</h1>
-      <p>A heavier overlay makes the content text more readable on busy backgrounds.</p>
+      <h1>Create Without Limits</h1>
+      <p>A full four-image layout with a vivid cyan palette — use the CSS custom properties to match any brand identity.</p>
+    </div>
+  </hero-scroll-animation>
+
+  <div class="demo-spacer">
+    <p>Keep scrolling for the next demo...</p>
+  </div>
+
+  <div class="info-section">
+    <div class="demo-section">
+      <h2>Full Layout with Custom Colors — Code</h2>
+      <div class="code-block">&lt;hero-scroll-animation
+  background-text="CREATE"
+  scroll-height="700"
+  style="
+    --hero-accent-color: #06b6d4;
+    --hero-bg-gradient-start: #0284c7;
+    --hero-bg-gradient-end: #67e8f9;
+  "
+&gt;
+  &lt;img slot="background" src="desk.jpg" /&gt;
+  &lt;img slot="center" src="landscape.jpg" /&gt;
+  &lt;img slot="left" src="water.jpg" /&gt;
+  &lt;img slot="right" src="car.jpg" /&gt;
+  &lt;div slot="content"&gt;
+    &lt;h1&gt;Create Without Limits&lt;/h1&gt;
+    &lt;p&gt;A full four-image layout with a vivid cyan palette.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/hero-scroll-animation&gt;</div>
+    </div>
+  </div>
+
+  <!-- Demo 4: Reduced Motion -->
+  <div class="info-section">
+    <div class="demo-section">
+      <h2>Reduced Motion</h2>
+      <p>A compact demo with <code>scroll-height="300"</code>. The component automatically respects the user's <code>prefers-reduced-motion</code> OS setting — animations are disabled when the user has opted for reduced motion.</p>
+      <span class="motion-note">This component honours <code>prefers-reduced-motion: reduce</code> — no extra configuration needed.</span>
+    </div>
+  </div>
+
+  <hero-scroll-animation background-text="CALM" scroll-height="300">
+    <img slot="background" src="https://picsum.photos/id/1047/1200/800" alt="Calm misty forest" />
+    <img slot="center" src="https://picsum.photos/id/1050/600/400" alt="Peaceful nature scene" />
+    <div slot="content" class="hero-content">
+      <h1>Calm &amp; Accessible</h1>
+      <p>Animations pause automatically for users who prefer reduced motion, keeping the experience comfortable for everyone.</p>
     </div>
   </hero-scroll-animation>
 
@@ -229,10 +342,15 @@
 
   <div class="info-section">
     <div class="demo-section">
-      <h2>Custom Overlay Opacity - Code</h2>
-      <div class="code-block">&lt;hero-scroll-animation overlay-opacity="0.7" scroll-height="350"&gt;
-  &lt;img slot="background" src="bg.jpg" /&gt;
-  ...
+      <h2>Reduced Motion — Code</h2>
+      <div class="code-block">&lt;!-- No extra config needed — prefers-reduced-motion is handled automatically --&gt;
+&lt;hero-scroll-animation background-text="CALM" scroll-height="300"&gt;
+  &lt;img slot="background" src="forest.jpg" /&gt;
+  &lt;img slot="center" src="nature.jpg" /&gt;
+  &lt;div slot="content"&gt;
+    &lt;h1&gt;Calm &amp;amp; Accessible&lt;/h1&gt;
+    &lt;p&gt;Animations pause automatically for users who prefer reduced motion.&lt;/p&gt;
+  &lt;/div&gt;
 &lt;/hero-scroll-animation&gt;</div>
     </div>
   </div>
@@ -241,7 +359,7 @@
   <div class="info-section">
     <div class="demo-section">
       <h2>CSS Custom Properties</h2>
-      <p>Customize the hero appearance with CSS custom properties.</p>
+      <p>Customize the hero appearance with CSS custom properties applied directly to the element.</p>
       <table class="props-table">
         <thead>
           <tr>
