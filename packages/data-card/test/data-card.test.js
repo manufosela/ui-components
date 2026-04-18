@@ -96,22 +96,28 @@ describe('DataCard', () => {
 
   describe('link behavior', () => {
     it('renders as link when url is provided', async () => {
-      const el = await fixture(html`<data-card url="https://example.com"></data-card>`);
-      const link = el.shadowRoot.querySelector('a.card-link');
+      const el = await fixture(
+        html`<data-card card-title="Test" url="https://example.com"></data-card>`
+      );
+      const link = el.shadowRoot.querySelector('.title a');
       expect(link).to.exist;
       expect(link.getAttribute('href')).to.equal('https://example.com');
     });
 
     it('opens in new tab when newtab is true', async () => {
-      const el = await fixture(html`<data-card url="https://example.com" newtab></data-card>`);
-      const link = el.shadowRoot.querySelector('a.card-link');
+      const el = await fixture(
+        html`<data-card card-title="Test" url="https://example.com" newtab></data-card>`
+      );
+      const link = el.shadowRoot.querySelector('.title a');
       expect(link.getAttribute('target')).to.equal('_blank');
       expect(link.getAttribute('rel')).to.include('noopener');
     });
 
     it('opens in same tab when newtab is false', async () => {
-      const el = await fixture(html`<data-card url="https://example.com"></data-card>`);
-      const link = el.shadowRoot.querySelector('a.card-link');
+      const el = await fixture(
+        html`<data-card card-title="Test" url="https://example.com"></data-card>`
+      );
+      const link = el.shadowRoot.querySelector('.title a');
       expect(link.getAttribute('target')).to.equal('_self');
     });
 

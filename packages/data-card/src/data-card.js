@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, nothing } from 'lit';
 
 /**
  * A versatile card component for displaying data with optional cover image,
@@ -85,10 +85,20 @@ export class DataCard extends LitElement {
       box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.15);
     }
 
+    .card:focus-within {
+      outline: 2px solid var(--data-card-focus, #3b82f6);
+      outline-offset: 2px;
+    }
+
+    /* Card link — only wraps cover + title, not buttons */
     .card-link {
       text-decoration: none;
       color: inherit;
       display: block;
+    }
+
+    .card-link:focus-visible {
+      outline: none; /* handled by .card:focus-within */
     }
 
     .cover {
@@ -143,6 +153,21 @@ export class DataCard extends LitElement {
       line-height: 1.3;
     }
 
+    .title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .title a:hover {
+      text-decoration: underline;
+    }
+
+    .title a:focus-visible {
+      outline: 2px solid var(--data-card-focus, #3b82f6);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
     .description {
       margin: 0 0 1rem 0;
       font-size: var(--data-card-desc-size, 0.875rem);
@@ -166,6 +191,12 @@ export class DataCard extends LitElement {
 
     .more-info-trigger:hover {
       color: var(--data-card-info-trigger-hover, #2563eb);
+    }
+
+    .more-info-trigger:focus-visible {
+      outline: 2px solid var(--data-card-focus, #3b82f6);
+      outline-offset: 2px;
+      border-radius: 2px;
     }
 
     .more-info-panel {
@@ -210,6 +241,11 @@ export class DataCard extends LitElement {
 
     .more-info-close:hover {
       background: var(--data-card-info-close-hover-bg, #e5e7eb);
+    }
+
+    .more-info-close:focus-visible {
+      outline: 2px solid var(--data-card-focus, #3b82f6);
+      outline-offset: 2px;
     }
 
     .more-info-content {
@@ -293,11 +329,37 @@ export class DataCard extends LitElement {
     this._moreInfoContent = '';
     this._showMoreInfo = false;
     this._loading = false;
+    this._boundKeydown = this._handleKeydown.bind(this);
   }
 
-  async _fetchMoreInfo() {
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener('keydown', this._boundKeydown);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener('keydown', this._boundKeydown);
+  }
+
+  // ─── Keyboard ────────────────────────────────────────────────────────────
+
+  _handleKeydown(e) {
+    if (e.key === 'Escape' && this._showMoreInfo) {
+      e.stopPropagation();
+      this._closeMoreInfo();
+    }
+  }
+
+  // ─── More Info ───────────────────────────────────────────────────────────
+
+  async _fetchMoreInfo(e) {
+    e?.preventDefault();
+    e?.stopPropagation();
+
     if (!this.moreInfo || this._moreInfoContent) {
       this._showMoreInfo = true;
+      this._focusCloseButton();
       return;
     }
 
@@ -306,22 +368,44 @@ export class DataCard extends LitElement {
 
     try {
       const response = await fetch(this.moreInfo);
-      this._moreInfoContent = await response.text();
+      const rawHtml = await response.text();
+      // Sanitize fetched HTML to prevent XSS
+      this._moreInfoContent = this._sanitizeHtml(rawHtml);
     } catch {
       this._moreInfoContent = '<p>Error loading content</p>';
     } finally {
       this._loading = false;
+      this._focusCloseButton();
     }
+  }
+
+  _sanitizeHtml(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    // Remove scripts and event handlers
+    doc.querySelectorAll('script, [onload], [onerror], [onclick]').forEach((el) => el.remove());
+    return doc.body.innerHTML;
   }
 
   _closeMoreInfo() {
     this._showMoreInfo = false;
+    // Return focus to the trigger button
+    this.updateComplete.then(() => {
+      this.shadowRoot.querySelector('.more-info-trigger')?.focus();
+    });
+  }
+
+  _focusCloseButton() {
+    this.updateComplete.then(() => {
+      this.shadowRoot.querySelector('.more-info-close')?.focus();
+    });
   }
 
   _handleCardClick(e) {
-    if (!this.url) {
-      e.preventDefault();
+    // Don't fire card-click if user clicked the more-info trigger
+    if (e.target.closest?.('.more-info-trigger') || e.target.closest?.('.more-info-close')) {
+      return;
     }
+
     this.dispatchEvent(
       new CustomEvent('data-card-click', {
         detail: {
@@ -335,6 +419,8 @@ export class DataCard extends LitElement {
     );
   }
 
+  // ─── Render helpers ──────────────────────────────────────────────────────
+
   _renderCover() {
     const coverStyle = this.coverBgColor ? `background-color: ${this.coverBgColor}` : '';
 
@@ -343,7 +429,7 @@ export class DataCard extends LitElement {
         <div class="cover" style="${coverStyle}">
           <img
             src="${this.imgCover}"
-            alt="${this.cardTitle}"
+            alt="${this.cardTitle || ''}"
             loading="lazy"
             width="280"
             height="140"
@@ -356,7 +442,7 @@ export class DataCard extends LitElement {
     if (this.icon) {
       return html`
         <div class="cover" style="${coverStyle}">
-          <div class="icon-container">${this.icon}</div>
+          <div class="icon-container" aria-hidden="true">${this.icon}</div>
           ${this.group ? html`<span class="group-badge">${this.group}</span>` : ''}
         </div>
       `;
@@ -372,79 +458,105 @@ export class DataCard extends LitElement {
       `;
     }
 
-    return '';
+    return nothing;
   }
 
   _renderMoreInfoPanel() {
-    if (!this.moreInfo) return '';
+    if (!this.moreInfo) return nothing;
 
     return html`
       <div
         id="more-info-panel"
         class="more-info-panel ${this._showMoreInfo ? 'visible' : ''}"
         role="dialog"
-        aria-label="More information"
+        aria-label="More information about ${this.cardTitle || 'this item'}"
+        aria-modal="true"
+        @click="${(e) => e.stopPropagation()}"
       >
         <button class="more-info-close" @click="${this._closeMoreInfo}" aria-label="Close">
           &times;
         </button>
         ${this._loading
-          ? html`<div class="loading">Loading...</div>`
-          : html`<div class="more-info-content" .innerHTML="${this._moreInfoContent}"></div>`}
+          ? html`<div class="loading" aria-live="polite">Loading...</div>`
+          : html`<div class="more-info-content"></div>`}
       </div>
     `;
+  }
+
+  updated(changed) {
+    // Safely inject sanitized HTML content
+    if (changed.has('_moreInfoContent') || changed.has('_showMoreInfo')) {
+      const contentEl = this.shadowRoot.querySelector('.more-info-content');
+      if (contentEl && this._moreInfoContent) {
+        contentEl.innerHTML = this._moreInfoContent;
+      }
+    }
   }
 
   render() {
     const contentStyle = this.textColor ? `color: ${this.textColor}` : '';
     const hasFooterSlot = this.querySelector('[slot="footer"]');
 
-    const cardContent = html`
-      ${this._renderCover()}
-      <div class="content" style="${contentStyle}">
-        ${this.cardTitle ? html`<h3 class="title">${this.cardTitle}</h3>` : ''}
-        ${this.description ? html`<p class="description">${this.description}</p>` : ''}
-        <slot></slot>
-        ${this.moreInfo
-          ? html`
-              <button
-                class="more-info-trigger"
-                @click="${this._fetchMoreInfo}"
-                aria-expanded="${this._showMoreInfo}"
-                aria-controls="more-info-panel"
-              >
-                + Info
-              </button>
-            `
-          : ''}
-      </div>
-      ${hasFooterSlot
-        ? html`
-            <div class="footer">
-              <slot name="footer"></slot>
-            </div>
-          `
-        : ''}
-      ${this._renderMoreInfoPanel()}
-    `;
+    // Title: if URL exists, the title itself is the link (not the whole card)
+    const titleContent = this.cardTitle
+      ? this.url
+        ? html`<h3 class="title">
+            <a
+              href="${this.url}"
+              target="${this.newtab ? '_blank' : '_self'}"
+              rel="${this.newtab ? 'noopener noreferrer' : ''}"
+              @click="${this._handleCardClick}"
+              >${this.cardTitle}</a
+            >
+          </h3>`
+        : html`<h3 class="title">${this.cardTitle}</h3>`
+      : nothing;
 
-    if (this.url) {
-      return html`
-        <article class="card">
-          <a
+    // Cover: if URL exists, cover is also clickable
+    const cover = this._renderCover();
+    const coverContent =
+      cover !== nothing && this.url
+        ? html`<a
             class="card-link"
             href="${this.url}"
             target="${this.newtab ? '_blank' : '_self'}"
             rel="${this.newtab ? 'noopener noreferrer' : ''}"
-            @click="${this._handleCardClick}"
-          >
-            ${cardContent}
-          </a>
-        </article>
-      `;
-    }
+            aria-hidden="true"
+            tabindex="-1"
+            >${cover}</a
+          >`
+        : cover;
 
-    return html` <article class="card" @click="${this._handleCardClick}">${cardContent}</article> `;
+    return html`
+      <article class="card" @click="${this._handleCardClick}">
+        ${coverContent}
+        <div class="content" style="${contentStyle}">
+          ${titleContent}
+          ${this.description ? html`<p class="description">${this.description}</p>` : nothing}
+          <slot></slot>
+          ${this.moreInfo
+            ? html`
+                <button
+                  class="more-info-trigger"
+                  @click="${this._fetchMoreInfo}"
+                  aria-expanded="${this._showMoreInfo}"
+                  aria-controls="more-info-panel"
+                >
+                  + Info
+                </button>
+              `
+            : nothing}
+        </div>
+        ${hasFooterSlot
+          ? html`
+              <div class="footer">
+                <slot name="footer"></slot>
+              </div>
+            `
+          : nothing}
+        ${this._renderMoreInfoPanel()}
+      </article>
+    `;
   }
 }
 
