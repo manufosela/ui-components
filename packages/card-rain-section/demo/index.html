@@ -5,27 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Card Rain Section - Demo</title>
   <style>
+    :root {
+      --demo-bg: #f5f5f7;
+      --demo-card-bg: #ffffff;
+      --demo-text: #1d1d1f;
+      --demo-muted: #86868b;
+      --demo-border: #d2d2d7;
+      --demo-code-bg: #1d1d1f;
+      --demo-code-text: #f5f5f7;
+      --demo-table-header-bg: #f9fafb;
+      --demo-table-border: #e5e7eb;
+      --demo-inline-code-bg: #f3f4f6;
+    }
+    :root.dark {
+      --demo-bg: #0f1117;
+      --demo-card-bg: #1c2233;
+      --demo-text: #f3f6ff;
+      --demo-muted: #b8c0d9;
+      --demo-border: #2b3247;
+      --demo-code-bg: #0b0f1a;
+      --demo-code-text: #d6d9e6;
+      --demo-table-header-bg: #1c2233;
+      --demo-table-border: #2b3247;
+      --demo-inline-code-bg: rgba(255, 255, 255, 0.1);
+    }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       max-width: 900px;
       margin: 0 auto;
       padding: 2rem;
-      background: #f5f5f7;
+      background: var(--demo-bg);
+      color: var(--demo-text);
     }
-    h1 { color: #1d1d1f; }
+    h1 { color: var(--demo-text); }
     .demo-section {
-      background: white;
+      background: var(--demo-card-bg);
       padding: 2rem;
       border-radius: 12px;
       margin-bottom: 2rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    h2 { margin-top: 0; color: #1d1d1f; }
-    p { color: #86868b; line-height: 1.6; }
+    h2 { margin-top: 0; color: var(--demo-text); }
+    p { color: var(--demo-muted); line-height: 1.6; }
     a { color: #3b82f6; }
     .code-block {
-      background: #1d1d1f;
-      color: #f5f5f7;
+      background: var(--demo-code-bg);
+      color: var(--demo-code-text);
       padding: 1rem;
       border-radius: 8px;
       font-family: monospace;
@@ -39,11 +64,11 @@
       text-align: center;
       margin-top: 3rem;
       padding-top: 2rem;
-      border-top: 1px solid #d2d2d7;
-      color: #86868b;
+      border-top: 1px solid var(--demo-border);
+      color: var(--demo-muted);
       font-size: 0.9rem;
     }
-    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a { color: var(--demo-text); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
     /* Sample card content styles */
@@ -67,7 +92,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #86868b;
+      color: var(--demo-muted);
       font-size: 1.1rem;
     }
 
@@ -81,21 +106,31 @@
     .props-table td {
       text-align: left;
       padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid var(--demo-table-border);
     }
     .props-table th {
-      background: #f9fafb;
-      color: #1d1d1f;
+      background: var(--demo-table-header-bg);
+      color: var(--demo-text);
       font-weight: 600;
     }
     .props-table td {
-      color: #374151;
+      color: var(--demo-muted);
     }
     .props-table code {
-      background: #f3f4f6;
+      background: var(--demo-inline-code-bg);
       padding: 0.15rem 0.35rem;
       border-radius: 4px;
       font-size: 0.8rem;
+    }
+
+    /* Custom styled card-rain-section */
+    .custom-card-rain {
+      --crs-bg: #0a192f;
+      --crs-card-bg: #112240;
+      --crs-card-radius: 4px;
+      --crs-card-padding: 32px;
+      --crs-title-color: rgba(100, 255, 218, 0.8);
+      --crs-title-size: 8rem;
     }
 
     /* Action button style */
@@ -238,14 +273,7 @@
 
   <card-rain-section
     scroll-height="300"
-    style="
-      --crs-bg: #0a192f;
-      --crs-card-bg: #112240;
-      --crs-card-radius: 4px;
-      --crs-card-padding: 32px;
-      --crs-title-color: rgba(100, 255, 218, 0.8);
-      --crs-title-size: 8rem;
-    "
+    class="custom-card-rain"
   >
     <span slot="title">Tech<br>Stack</span>
 
@@ -271,17 +299,18 @@
     </div>
   </card-rain-section>
 
-  <div class="code-block">&lt;card-rain-section
-  scroll-height="300"
-  style="
+  <div class="code-block">&lt;style&gt;
+  .my-custom-rain {
     --crs-bg: #0a192f;
     --crs-card-bg: #112240;
     --crs-card-radius: 4px;
     --crs-card-padding: 32px;
     --crs-title-color: rgba(100, 255, 218, 0.8);
     --crs-title-size: 8rem;
-  "
-&gt;
+  }
+&lt;/style&gt;
+
+&lt;card-rain-section scroll-height="300" class="my-custom-rain"&gt;
   &lt;span slot="title"&gt;Tech&lt;br&gt;Stack&lt;/span&gt;
   &lt;div slot="card"&gt;...&lt;/div&gt;
   &lt;div slot="card"&gt;...&lt;/div&gt;
