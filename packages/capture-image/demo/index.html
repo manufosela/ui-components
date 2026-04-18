@@ -54,10 +54,130 @@
     </div>
 
     <div class="demo-card">
-      <capture-image size-x="480" size-y="360" mask maskpercent="20"></capture-image>
+      <capture-image id="cam" size-x="480" size-y="360" mask maskpercent="20"></capture-image>
+    </div>
+
+    <div id="event-output" style="background: #1c1b1b; border-radius: 0.5rem; padding: 1rem 1.25rem; font-family: monospace; font-size: 0.85rem; color: #b9cbc2; min-height: 2rem; margin-bottom: 2rem;">
+      Events will appear here...
+    </div>
+
+    <h2 style="margin-top: 2rem;">Usage</h2>
+
+    <div style="background: #1c1b1b; border-radius: 0.5rem; padding: 1.25rem; margin-bottom: 2rem;">
+      <pre style="margin: 0; color: #e0e0e0; font-size: 0.85rem; white-space: pre-wrap; overflow-x: auto;"><code>&lt;capture-image
+  size-x="480"
+  size-y="360"
+  mask
+  maskpercent="20"
+&gt;&lt;/capture-image&gt;
+
+&lt;script type="module"&gt;
+  import '@manufosela/capture-image';
+
+  const cam = document.querySelector('capture-image');
+
+  cam.addEventListener('capture-image-snap', (e) =&gt; {
+    console.log('Snap!', e.detail.image); // base64 data URL
+  });
+
+  cam.addEventListener('capture-image-save', (e) =&gt; {
+    console.log('Saved!', e.detail.image);
+  });
+
+  cam.addEventListener('capture-image-error', (e) =&gt; {
+    console.error('Camera error:', e.detail.error);
+  });
+&lt;/script&gt;</code></pre>
+    </div>
+
+    <h2>Attributes</h2>
+
+    <div style="overflow-x: auto; margin-bottom: 2rem;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+        <thead>
+          <tr style="border-bottom: 1px solid #333; text-align: left;">
+            <th style="padding: 0.75rem 1rem; color: #b9cbc2;">Attribute</th>
+            <th style="padding: 0.75rem 1rem; color: #b9cbc2;">Type</th>
+            <th style="padding: 0.75rem 1rem; color: #b9cbc2;">Default</th>
+            <th style="padding: 0.75rem 1rem; color: #b9cbc2;">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #222;">
+            <td style="padding: 0.75rem 1rem;"><code>size-x</code></td>
+            <td style="padding: 0.75rem 1rem;">Number</td>
+            <td style="padding: 0.75rem 1rem;">320</td>
+            <td style="padding: 0.75rem 1rem;">Video/canvas width in pixels</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #222;">
+            <td style="padding: 0.75rem 1rem;"><code>size-y</code></td>
+            <td style="padding: 0.75rem 1rem;">Number</td>
+            <td style="padding: 0.75rem 1rem;">240</td>
+            <td style="padding: 0.75rem 1rem;">Video/canvas height in pixels</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #222;">
+            <td style="padding: 0.75rem 1rem;"><code>mask</code></td>
+            <td style="padding: 0.75rem 1rem;">Boolean</td>
+            <td style="padding: 0.75rem 1rem;">false</td>
+            <td style="padding: 0.75rem 1rem;">Show a circular mask overlay on the video feed</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75rem 1rem;"><code>maskpercent</code></td>
+            <td style="padding: 0.75rem 1rem;">Number</td>
+            <td style="padding: 0.75rem 1rem;">0</td>
+            <td style="padding: 0.75rem 1rem;">Size of the mask hole as percentage of the smallest dimension</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Events</h2>
+
+    <div style="overflow-x: auto; margin-bottom: 2rem;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+        <thead>
+          <tr style="border-bottom: 1px solid #333; text-align: left;">
+            <th style="padding: 0.75rem 1rem; color: #b9cbc2;">Event</th>
+            <th style="padding: 0.75rem 1rem; color: #b9cbc2;">Detail</th>
+            <th style="padding: 0.75rem 1rem; color: #b9cbc2;">When</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #222;">
+            <td style="padding: 0.75rem 1rem;"><code>capture-image-snap</code></td>
+            <td style="padding: 0.75rem 1rem;"><code>{ image }</code></td>
+            <td style="padding: 0.75rem 1rem;">User clicks Snap — <code>image</code> is a base64 data URL</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #222;">
+            <td style="padding: 0.75rem 1rem;"><code>capture-image-save</code></td>
+            <td style="padding: 0.75rem 1rem;"><code>{ image }</code></td>
+            <td style="padding: 0.75rem 1rem;">User clicks Save — <code>image</code> is a base64 data URL</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75rem 1rem;"><code>capture-image-error</code></td>
+            <td style="padding: 0.75rem 1rem;"><code>{ error }</code></td>
+            <td style="padding: 0.75rem 1rem;">Camera access denied or getUserMedia fails</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <script type="module" src="../src/capture-image.js"></script>
+  <script type="module">
+    import '../src/capture-image.js';
+
+    const cam = document.getElementById('cam');
+    const output = document.getElementById('event-output');
+
+    const log = (msg) => {
+      const line = document.createElement('div');
+      line.textContent = `${new Date().toLocaleTimeString()} — ${msg}`;
+      output.prepend(line);
+    };
+
+    cam.addEventListener('capture-image-snap', () => log('capture-image-snap fired'));
+    cam.addEventListener('capture-image-save', () => log('capture-image-save fired'));
+    cam.addEventListener('capture-image-error', (e) => log(`capture-image-error: ${e.detail.error}`));
+  </script>
 </body>
 </html>
