@@ -96,8 +96,17 @@ export class CircleSteps extends LitElement {
     .line {
       flex: 1;
       height: 2px;
+      min-width: 0;
       background: var(--steps-line, #e5e7eb);
       transition: background-color 0.3s;
+    }
+
+    .step:not(:first-child) .line:first-child {
+      margin-left: calc(var(--steps-size, 40px) / -2);
+    }
+
+    .step:not(:last-child) .line:last-child {
+      margin-right: calc(var(--steps-size, 40px) / -2);
     }
 
     .container.vertical .line {
