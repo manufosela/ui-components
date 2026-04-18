@@ -162,7 +162,17 @@ export class CaptureImage extends LitElement {
     const offsetY = (this.sizeY * this.maskpercent) / 200;
     const width = this.sizeX - offsetX * 2;
     const height = this.sizeY - offsetY * 2;
-    this._ctx.drawImage(this._video, offsetX, offsetY, width, height, 0, 0, width, height);
+    this._ctx.drawImage(
+      this._video,
+      offsetX,
+      offsetY,
+      width,
+      height,
+      offsetX,
+      offsetY,
+      width,
+      height
+    );
     this._saveReady = true;
     this.requestUpdate();
 
