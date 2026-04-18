@@ -232,14 +232,48 @@
 &lt;circle-percent radius="70" stroke-width="8" size="large"&gt;&lt;/circle-percent&gt;</div>
         </div>
 
-        <!-- Without Percent Text -->
+        <!-- Simulated Loading -->
         <div class="demo-card">
-          <h2>Without Percentage</h2>
-          <p>Hide the percentage text</p>
+          <h2>Simulated Loading</h2>
+          <p>Non-linear progress with status change on completion</p>
           <div class="demo-content">
-            <circle-percent percent="80" stroke-color="#8b5cf6" title="Loading..."></circle-percent>
+            <circle-percent id="loading-demo" percent="0" stroke-color="#8b5cf6" title="Loading..."></circle-percent>
+            <button id="loading-demo-btn" style="padding: 0.4rem 1.2rem; background: #8b5cf6; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem;">Run</button>
           </div>
-          <div class="code-block">&lt;circle-percent percent="80" show-percent="false" title="Loading..."&gt;&lt;/circle-percent&gt;</div>
+          <div class="code-block">&lt;circle-percent id="loader" percent="0"
+  stroke-color="#8b5cf6" title="Loading..."&gt;
+&lt;/circle-percent&gt;
+
+&lt;script type="module"&gt;
+  import '@manufosela/circle-percent';
+  const el = document.getElementById('loader');
+
+  // Non-linear steps: [targetPercent, delayMs]
+  const steps = [
+    [12, 300], [25, 500], [30, 200], [45, 800],
+    [48, 1200], // pause — slow resource
+    [60, 400], [72, 300], [78, 600],
+    [85, 900],  // another pause
+    [90, 200], [95, 400], [100, 300],
+  ];
+  const wait = (ms) =&gt; new Promise(r =&gt; setTimeout(r, ms));
+
+  async function simulateLoad() {
+    el.percent = 0;
+    el.title = 'Loading...';
+    for (const [target, delay] of steps) {
+      await wait(delay);
+      const start = el.percent;
+      for (let i = 1; i &lt;= target - start; i++) {
+        await wait(30);
+        el.percent = start + i;
+      }
+    }
+    el.title = 'Load OK ✓';
+    el.strokeColor = '#10b981';
+  }
+  simulateLoad();
+&lt;/script&gt;</div>
         </div>
 
         <!-- Thick Stroke -->
@@ -280,24 +314,46 @@
           <div class="code-block" id="interactive-code">&lt;circle-percent percent="50" stroke-color="#3b82f6" radius="60"&gt;&lt;/circle-percent&gt;</div>
         </div>
 
-        <!-- Animated Progress -->
+        <!-- Animated Progress (realistic loading simulation) -->
         <div class="demo-card">
           <h2>Animated Progress</h2>
-          <p>Watch the progress animate from 0 to 100%</p>
+          <p>Simulated loading with non-linear progress and status text</p>
           <div class="demo-content">
-            <circle-percent id="animated" percent="0" stroke-color="#22c55e" radius="60" title="Loading"></circle-percent>
+            <circle-percent id="animated" percent="0" stroke-color="#22c55e" radius="60" title="Loading..."></circle-percent>
             <div class="controls">
               <button id="start-btn" style="padding: 0.5rem 1.5rem; background: #22c55e; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">Start</button>
               <button id="reset-btn" style="padding: 0.5rem 1.5rem; background: #6b7280; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">Reset</button>
             </div>
           </div>
-          <div class="code-block">// Animate 1% every 100ms
-let percent = 0;
-const interval = setInterval(() => {
-  percent++;
-  element.percent = percent;
-  if (percent >= 100) clearInterval(interval);
-}, 100);</div>
+          <div class="code-block">const el = document.querySelector('circle-percent');
+el.title = 'Loading...';
+el.strokeColor = '#22c55e';
+
+// Non-linear steps: [targetPercent, delayMs]
+const steps = [
+  [12, 300], [25, 500], [30, 200], [45, 800],
+  [48, 1200], // pause — simulates a slow resource
+  [60, 400], [72, 300], [78, 600],
+  [85, 900],  // another pause
+  [90, 200], [95, 400], [100, 300],
+];
+
+async function simulateLoad() {
+  for (const [target, delay] of steps) {
+    await new Promise(r => setTimeout(r, delay));
+    // Animate smoothly from current to target
+    const start = el.percent;
+    const diff = target - start;
+    for (let i = 1; i <= diff; i++) {
+      await new Promise(r => setTimeout(r, 30));
+      el.percent = start + i;
+    }
+  }
+  el.title = 'Load OK';
+  el.strokeColor = '#10b981';
+}
+
+simulateLoad();</div>
         </div>
       </div>
 
@@ -358,34 +414,110 @@ const interval = setInterval(() => {
         updateCode();
       });
 
-      // Animated progress demo
+      // Loading demo — non-linear simulation with status text change
+      {
+        const loader = document.getElementById('loading-demo');
+        const runBtn = document.getElementById('loading-demo-btn');
+        let running = false;
+
+        const loadSteps = [
+          [12, 300], [25, 500], [30, 200], [45, 800],
+          [48, 1200], [60, 400], [72, 300], [78, 600],
+          [85, 900], [90, 200], [95, 400], [100, 300],
+        ];
+        const wait = (ms) => new Promise(r => setTimeout(r, ms));
+
+        async function runLoad() {
+          if (running) return;
+          running = true;
+          runBtn.disabled = true;
+          runBtn.style.opacity = '0.5';
+          loader.percent = 0;
+          loader.title = 'Loading...';
+          loader.strokeColor = '#8b5cf6';
+
+          for (const [target, delay] of loadSteps) {
+            await wait(delay);
+            const start = loader.percent ?? 0;
+            for (let i = 1; i <= target - start; i++) {
+              await wait(30);
+              loader.percent = start + i;
+            }
+          }
+
+          loader.title = 'Load OK ✓';
+          loader.strokeColor = '#10b981';
+          running = false;
+          runBtn.disabled = false;
+          runBtn.style.opacity = '1';
+        }
+
+        runBtn.addEventListener('click', runLoad);
+        // Auto-run on page load
+        runLoad();
+      }
+
+      // Animated progress demo — non-linear loading simulation
       const animated = document.getElementById('animated');
       const startBtn = document.getElementById('start-btn');
       const resetBtn = document.getElementById('reset-btn');
-      let animationInterval = null;
+      let animationRunning = false;
+      let animationAborted = false;
 
-      startBtn.addEventListener('click', () => {
-        if (animationInterval) return; // Already running
+      const loadSteps = [
+        [12, 300], [25, 500], [30, 200], [45, 800],
+        [48, 1200],
+        [60, 400], [72, 300], [78, 600],
+        [85, 900],
+        [90, 200], [95, 400], [100, 300],
+      ];
+
+      const wait = (ms) => new Promise(r => setTimeout(r, ms));
+
+      async function simulateLoad() {
+        animationRunning = true;
+        animationAborted = false;
         startBtn.disabled = true;
         startBtn.style.opacity = '0.5';
+        animated.title = 'Loading...';
+        animated.strokeColor = '#22c55e';
 
-        animationInterval = setInterval(() => {
-          animated.percent = (animated.percent || 0) + 1;
-          if (animated.percent >= 100) {
-            clearInterval(animationInterval);
-            animationInterval = null;
-            startBtn.disabled = false;
-            startBtn.style.opacity = '1';
+        for (const [target, delay] of loadSteps) {
+          if (animationAborted) break;
+          await wait(delay);
+          if (animationAborted) break;
+
+          const start = animated.percent ?? 0;
+          const diff = target - start;
+          for (let i = 1; i <= diff; i++) {
+            if (animationAborted) break;
+            await wait(30);
+            animated.percent = start + i;
           }
-        }, 100);
+        }
+
+        if (!animationAborted) {
+          animated.title = 'Load OK ✓';
+          animated.strokeColor = '#10b981';
+        }
+
+        animationRunning = false;
+        startBtn.disabled = false;
+        startBtn.style.opacity = '1';
+      }
+
+      startBtn.addEventListener('click', () => {
+        if (animationRunning) return;
+        animated.percent = 0;
+        simulateLoad();
       });
 
       resetBtn.addEventListener('click', () => {
-        if (animationInterval) {
-          clearInterval(animationInterval);
-          animationInterval = null;
-        }
+        animationAborted = true;
         animated.percent = 0;
+        animated.title = 'Loading...';
+        animated.strokeColor = '#22c55e';
+        animationRunning = false;
         startBtn.disabled = false;
         startBtn.style.opacity = '1';
       });
