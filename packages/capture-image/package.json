@@ -1,7 +1,7 @@
 {
   "name": "@manufosela/capture-image",
-  "version": "2.0.0",
-  "description": "Webcam capture component with snap, reset, save and optional mask overlay, built with Lit 3",
+  "version": "3.0.0",
+  "description": "Webcam capture component with zoom, pan, snap, mask overlay, and save. Frame exactly what you want before capturing.",
   "license": "MIT",
   "author": "manufosela",
   "type": "module",
