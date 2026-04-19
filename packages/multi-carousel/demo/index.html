@@ -5,42 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Multi Carousel Demo</title>
   <style>
+    :root {
+      --demo-bg: #f5f5f7;
+      --demo-card-bg: #ffffff;
+      --demo-text: #1d1d1f;
+      --demo-muted: #86868b;
+      --demo-border: #d2d2d7;
+      --demo-code-bg: #1d1d1f;
+      --demo-code-text: #f5f5f7;
+      --demo-log-bg: #0a1210;
+      --demo-log-text: #86efac;
+      --demo-log-border: #1a3a2a;
+    }
+    :root.dark {
+      --demo-bg: #0f1117;
+      --demo-card-bg: #1c2233;
+      --demo-text: #f3f6ff;
+      --demo-muted: #b8c0d9;
+      --demo-border: #2b3247;
+      --demo-code-bg: #0b0f1a;
+      --demo-code-text: #d6d9e6;
+    }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       max-width: 900px;
       margin: 0 auto;
       padding: 2rem;
-      background: #f5f5f7;
+      background: var(--demo-bg);
+      color: var(--demo-text);
     }
-    h1 { color: #1d1d1f; }
+    h1 { color: var(--demo-text); }
     .demo-section {
-      background: white;
+      background: var(--demo-card-bg);
       padding: 2rem;
       border-radius: 12px;
       margin-bottom: 2rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    h2 { margin-top: 0; color: #1d1d1f; }
-    p { color: #86868b; line-height: 1.6; }
+    h2 { margin-top: 0; color: var(--demo-text); }
+    p { color: var(--demo-muted); line-height: 1.6; }
     a { color: #3b82f6; }
     .code-block {
-      background: #1d1d1f;
-      color: #f5f5f7;
+      background: var(--demo-code-bg);
+      color: var(--demo-code-text);
       padding: 1rem;
       border-radius: 8px;
-      font-family: monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
       margin-top: 1rem;
       overflow: auto;
       max-height: 300px;
       white-space: pre;
+      line-height: 1.6;
     }
-    .output {
-      margin-top: 1rem;
-      padding: 1rem;
-      background: #f5f5f7;
+    .event-log {
+      background: var(--demo-log-bg);
+      border: 1px solid var(--demo-log-border);
       border-radius: 8px;
-      font-family: monospace;
+      padding: 0.75rem 1rem;
+      margin-top: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--demo-log-text);
+      min-height: 2.5rem;
+      max-height: 120px;
+      overflow-y: auto;
+      line-height: 1.5;
+    }
+    .event-log::before {
+      content: '▸ events';
+      display: block;
+      font-size: 0.7rem;
+      color: var(--demo-muted);
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     .slide {
       display: flex;
@@ -55,154 +94,94 @@
     .slide-2 { background: linear-gradient(135deg, #22c55e, #14b8a6); }
     .slide-3 { background: linear-gradient(135deg, #f59e0b, #ef4444); }
     .slide-4 { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
-    multi-carousel {
-      --carousel-height: 250px;
-    }
-  
+    multi-carousel { --carousel-height: 250px; }
     footer {
       text-align: center;
       margin-top: 3rem;
       padding-top: 2rem;
-      border-top: 1px solid #d2d2d7;
-      color: #86868b;
+      border-top: 1px solid var(--demo-border);
+      color: var(--demo-muted);
       font-size: 0.9rem;
     }
-    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a { color: var(--demo-text); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
   </style>
-    <link rel="stylesheet" href="../../demo-theme.css" />
+  <link rel="stylesheet" href="../../demo-theme.css" />
 </head>
 <body>
   <h1>Multi Carousel</h1>
-<p class="subtitle">Responsive carousel with smooth transitions and keyboard support.</p>
-<div class="demo-links">
-  <a href="https://manufosela.dev/ui-components/">← Back to components</a>
-  <a href="https://github.com/manufosela/ui-components/tree/main/packages/multi-carousel" target="_blank" rel="noopener">GitHub Repo</a>
-  <a href="playground.html">Playground</a>
-  <a href="https://www.npmjs.com/package/@manufosela/multi-carousel" target="_blank" rel="noopener">npm</a>
-</div>
-<div class="demo-theme-toggle">
-  <theme-toggle theme="dark"></theme-toggle>
-</div>
-<div class="demo-section">
+  <p class="subtitle">Responsive carousel with smooth transitions, keyboard navigation, and sync.</p>
+  <div class="demo-links">
+    <a href="https://manufosela.dev/ui-components/">← Back to components</a>
+    <a href="https://github.com/manufosela/ui-components/tree/main/packages/multi-carousel" target="_blank" rel="noopener">GitHub Repo</a>
+    <a href="playground.html">Playground</a>
+    <a href="https://www.npmjs.com/package/@manufosela/multi-carousel" target="_blank" rel="noopener">npm</a>
+  </div>
+  <div class="demo-theme-toggle">
+    <theme-toggle theme="dark"></theme-toggle>
+  </div>
+
+  <!-- Basic Usage -->
+  <div class="demo-section">
     <h2>Basic Usage</h2>
-    <p>Navigate with arrows, dots, or keyboard (focus then use arrow keys).</p>
+    <p>Navigate with arrows, dots, or keyboard (click the carousel then use ← → Home End).</p>
     <multi-carousel id="basic">
       <div class="slide slide-1">Slide 1</div>
       <div class="slide slide-2">Slide 2</div>
       <div class="slide slide-3">Slide 3</div>
       <div class="slide slide-4">Slide 4</div>
     </multi-carousel>
-    <div class="output" id="basicOutput">Current: Slide 1</div>
+    <div id="basic-log" class="event-log">Navigate to see events...</div>
     <div class="code-block">&lt;multi-carousel&gt;
-  &lt;div class="slide slide-1"&gt;Slide 1&lt;/div&gt;
-  &lt;div class="slide slide-2"&gt;Slide 2&lt;/div&gt;
-  &lt;div class="slide slide-3"&gt;Slide 3&lt;/div&gt;
-  &lt;div class="slide slide-4"&gt;Slide 4&lt;/div&gt;
+  &lt;div class="slide"&gt;Slide 1&lt;/div&gt;
+  &lt;div class="slide"&gt;Slide 2&lt;/div&gt;
+  &lt;div class="slide"&gt;Slide 3&lt;/div&gt;
+  &lt;div class="slide"&gt;Slide 4&lt;/div&gt;
 &lt;/multi-carousel&gt;
 
-&lt;script type="module"&gt;
-  import '@manufosela/multi-carousel';
-
-  const carousel = document.querySelector('multi-carousel');
+&lt;script&gt;
   carousel.addEventListener('slide-change', (e) =&gt; {
     console.log(`Slide ${e.detail.index + 1} of ${e.detail.total}`);
   });
 &lt;/script&gt;</div>
-      <footer>
-        <p>
-          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
-          <a href="https://www.npmjs.com/package/@manufosela/multi-carousel">npm</a>
-        </p>
-        <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
-        <p style="margin-top: 0.5rem;">
-          <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
-            <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
-          </a>
-        </p>
-      </footer>
   </div>
 
-  <div class="demo-section">
-    <h2>Image Gallery</h2>
-    <p>Using free images from Picsum Photos.</p>
-    <multi-carousel style="--carousel-height: 300px;">
-      <img src="https://picsum.photos/seed/demo1/800/300" alt="Random image 1" style="width: 100%; height: 100%; object-fit: cover;">
-      <img src="https://picsum.photos/seed/demo2/800/300" alt="Random image 2" style="width: 100%; height: 100%; object-fit: cover;">
-      <img src="https://picsum.photos/seed/demo3/800/300" alt="Random image 3" style="width: 100%; height: 100%; object-fit: cover;">
-      <img src="https://picsum.photos/seed/demo4/800/300" alt="Random image 4" style="width: 100%; height: 100%; object-fit: cover;">
-    </multi-carousel>
-    <div class="code-block">&lt;multi-carousel style="--carousel-height: 300px;"&gt;
-  &lt;img src="https://picsum.photos/seed/demo1/800/300" alt="Image 1"&gt;
-  &lt;img src="https://picsum.photos/seed/demo2/800/300" alt="Image 2"&gt;
-  &lt;img src="https://picsum.photos/seed/demo3/800/300" alt="Image 3"&gt;
-  &lt;img src="https://picsum.photos/seed/demo4/800/300" alt="Image 4"&gt;
-&lt;/multi-carousel&gt;</div>
-  </div>
-
-  <div class="demo-section">
-    <h2>No Loop</h2>
-    <p>Stops at first/last slide instead of looping.</p>
-    <multi-carousel no-loop>
-      <div class="slide slide-1">First</div>
-      <div class="slide slide-2">Middle</div>
-      <div class="slide slide-3">Last</div>
-    </multi-carousel>
-    <div class="code-block">&lt;multi-carousel no-loop&gt;
-  &lt;div class="slide slide-1"&gt;First&lt;/div&gt;
-  &lt;div class="slide slide-2"&gt;Middle&lt;/div&gt;
-  &lt;div class="slide slide-3"&gt;Last&lt;/div&gt;
-&lt;/multi-carousel&gt;</div>
-  </div>
-
+  <!-- Autoplay -->
   <div class="demo-section">
     <h2>Autoplay</h2>
-    <p>Auto-advances every 3 seconds.</p>
-    <multi-carousel autoplay="3000">
-      <div class="slide slide-1">Auto 1</div>
-      <div class="slide slide-2">Auto 2</div>
-      <div class="slide slide-3">Auto 3</div>
+    <p>Auto-advances every 2 seconds. Loops infinitely.</p>
+    <multi-carousel autoplay="2000">
+      <div class="slide slide-2">Auto 1</div>
+      <div class="slide slide-3">Auto 2</div>
+      <div class="slide slide-4">Auto 3</div>
     </multi-carousel>
-    <div class="code-block">&lt;multi-carousel autoplay="3000"&gt;
-  &lt;div class="slide slide-1"&gt;Auto 1&lt;/div&gt;
-  &lt;div class="slide slide-2"&gt;Auto 2&lt;/div&gt;
-  &lt;div class="slide slide-3"&gt;Auto 3&lt;/div&gt;
+    <div class="code-block">&lt;multi-carousel autoplay="2000"&gt;
+  &lt;div class="slide"&gt;Auto 1&lt;/div&gt;
+  &lt;div class="slide"&gt;Auto 2&lt;/div&gt;
+  &lt;div class="slide"&gt;Auto 3&lt;/div&gt;
 &lt;/multi-carousel&gt;</div>
   </div>
 
+  <!-- No Loop -->
   <div class="demo-section">
-    <h2>Arrows Only</h2>
-    <p>Hide navigation dots.</p>
-    <multi-carousel hide-nav>
-      <div class="slide slide-1">Arrows</div>
-      <div class="slide slide-2">Only</div>
-      <div class="slide slide-3">Mode</div>
+    <h2>No Loop</h2>
+    <p>Stops at first and last slide. Arrows hide at boundaries.</p>
+    <multi-carousel no-loop>
+      <div class="slide slide-1">First</div>
+      <div class="slide slide-3">Middle</div>
+      <div class="slide slide-4">Last</div>
     </multi-carousel>
-    <div class="code-block">&lt;multi-carousel hide-nav&gt;
-  &lt;div class="slide slide-1"&gt;Arrows&lt;/div&gt;
-  &lt;div class="slide slide-2"&gt;Only&lt;/div&gt;
-  &lt;div class="slide slide-3"&gt;Mode&lt;/div&gt;
+    <div class="code-block">&lt;multi-carousel no-loop&gt;
+  &lt;div class="slide"&gt;First&lt;/div&gt;
+  &lt;div class="slide"&gt;Middle&lt;/div&gt;
+  &lt;div class="slide"&gt;Last&lt;/div&gt;
 &lt;/multi-carousel&gt;</div>
   </div>
 
-  <div class="demo-section">
-    <h2>Dots Only</h2>
-    <p>Hide arrow buttons.</p>
-    <multi-carousel hide-arrows>
-      <div class="slide slide-1">Dots</div>
-      <div class="slide slide-2">Only</div>
-      <div class="slide slide-3">Mode</div>
-    </multi-carousel>
-    <div class="code-block">&lt;multi-carousel hide-arrows&gt;
-  &lt;div class="slide slide-1"&gt;Dots&lt;/div&gt;
-  &lt;div class="slide slide-2"&gt;Only&lt;/div&gt;
-  &lt;div class="slide slide-3"&gt;Mode&lt;/div&gt;
-&lt;/multi-carousel&gt;</div>
-  </div>
-
+  <!-- Custom Styling -->
   <div class="demo-section">
     <h2>Custom Styling</h2>
-    <p>Use CSS variables for theming.</p>
+    <p>Customize via CSS custom properties.</p>
     <multi-carousel style="
       --carousel-height: 200px;
       --carousel-bg: #1e293b;
@@ -214,73 +193,87 @@
       <div class="slide slide-1">Styled 2</div>
       <div class="slide slide-2">Styled 3</div>
     </multi-carousel>
-    <div class="code-block">&lt;multi-carousel style="
-  --carousel-height: 200px;
-  --carousel-bg: #1e293b;
-  --carousel-nav-active: #ec4899;
-  --carousel-arrow-bg: rgba(30,41,59,0.8);
-  --carousel-arrow-color: white;
-"&gt;
-  &lt;div class="slide slide-4"&gt;Styled 1&lt;/div&gt;
-  &lt;div class="slide slide-1"&gt;Styled 2&lt;/div&gt;
-  &lt;div class="slide slide-2"&gt;Styled 3&lt;/div&gt;
+    <div class="code-block">&lt;style&gt;
+  .pink-carousel {
+    --carousel-height: 200px;
+    --carousel-bg: #1e293b;
+    --carousel-nav-active: #ec4899;
+    --carousel-arrow-bg: rgba(30,41,59,0.8);
+    --carousel-arrow-color: white;
+  }
+&lt;/style&gt;
+
+&lt;multi-carousel class="pink-carousel"&gt;
+  ...
 &lt;/multi-carousel&gt;</div>
   </div>
 
+  <!-- Synced Carousels -->
   <div class="demo-section">
     <h2>Synced Carousels</h2>
-    <p>Multiple carousels that stay in sync.</p>
+    <p>Multiple carousels that stay in sync. The top one is the master.</p>
     <multi-carousel id="syncMaster" master style="--carousel-height: 200px;">
       <div class="slide slide-1">Master 1</div>
       <div class="slide slide-2">Master 2</div>
       <div class="slide slide-3">Master 3</div>
     </multi-carousel>
-    <multi-carousel master-id="syncMaster" style="--carousel-height: 150px; margin-top: 1rem;">
+    <multi-carousel master-id="syncMaster" hide-arrows hide-nav style="--carousel-height: 120px; margin-top: 0.5rem; --carousel-bg: #0f172a;">
       <div class="slide slide-3">Synced 1</div>
       <div class="slide slide-1">Synced 2</div>
       <div class="slide slide-2">Synced 3</div>
     </multi-carousel>
-    <div class="code-block">&lt;multi-carousel id="syncMaster" master style="--carousel-height: 200px;"&gt;
-  &lt;div class="slide slide-1"&gt;Master 1&lt;/div&gt;
-  &lt;div class="slide slide-2"&gt;Master 2&lt;/div&gt;
-  &lt;div class="slide slide-3"&gt;Master 3&lt;/div&gt;
+    <div class="code-block">&lt;multi-carousel id="master" master&gt;
+  &lt;div class="slide"&gt;Master 1&lt;/div&gt;
+  &lt;div class="slide"&gt;Master 2&lt;/div&gt;
+  &lt;div class="slide"&gt;Master 3&lt;/div&gt;
 &lt;/multi-carousel&gt;
 
-&lt;multi-carousel master-id="syncMaster" style="--carousel-height: 150px;"&gt;
-  &lt;div class="slide slide-3"&gt;Synced 1&lt;/div&gt;
-  &lt;div class="slide slide-1"&gt;Synced 2&lt;/div&gt;
-  &lt;div class="slide slide-2"&gt;Synced 3&lt;/div&gt;
+&lt;!-- Follows the master, no controls --&gt;
+&lt;multi-carousel master-id="master" hide-arrows hide-nav&gt;
+  &lt;div class="slide"&gt;Detail 1&lt;/div&gt;
+  &lt;div class="slide"&gt;Detail 2&lt;/div&gt;
+  &lt;div class="slide"&gt;Detail 3&lt;/div&gt;
 &lt;/multi-carousel&gt;</div>
   </div>
 
-  
+  <footer>
+    <p>
+      <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+      <a href="https://www.npmjs.com/package/@manufosela/multi-carousel">npm</a>
+    </p>
+    <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+  </footer>
+
   <script>
     document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
   </script>
   <script type="module">
     import '../src/multi-carousel.js';
 
+    // Basic Usage event log
     const basic = document.getElementById('basic');
-    const output = document.getElementById('basicOutput');
+    const basicLog = document.getElementById('basic-log');
 
     basic.addEventListener('slide-change', (e) => {
-      output.textContent = `Current: Slide ${e.detail.index + 1} of ${e.detail.total}`;
+      const line = document.createElement('div');
+      line.textContent = `slide-change → index: ${e.detail.index}, total: ${e.detail.total}`;
+      basicLog.prepend(line);
+      while (basicLog.children.length > 6) basicLog.lastElementChild.remove();
     });
   </script>
-<script type="module">
-  import '../../theme-toggle/src/theme-toggle.js';
+  <script type="module">
+    import '../../theme-toggle/src/theme-toggle.js';
 
-  const root = document.documentElement;
-
-  const toggle = document.querySelector('theme-toggle');
-  if (toggle) {
-    toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
-    toggle.addEventListener('theme-changed', (event) => {
-      const theme = event.detail?.theme;
-      if (!theme) return;
-      root.classList.toggle('dark', theme === 'dark');
-    });
-  }
-</script>
+    const root = document.documentElement;
+    const toggle = document.querySelector('theme-toggle');
+    if (toggle) {
+      toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
+      toggle.addEventListener('theme-changed', (event) => {
+        const theme = event.detail?.theme;
+        if (!theme) return;
+        root.classList.toggle('dark', theme === 'dark');
+      });
+    }
+  </script>
 </body>
 </html>

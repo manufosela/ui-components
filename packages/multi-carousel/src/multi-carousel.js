@@ -107,6 +107,17 @@ export class MultiCarousel extends LitElement {
       this._stopAutoplay();
       this._startAutoplay();
     }
+    if (changedProperties.has('current')) {
+      this._updateSlideAria();
+    }
+  }
+
+  _updateSlideAria() {
+    const slot = this.shadowRoot?.querySelector('slot');
+    if (!slot) return;
+    slot.assignedElements().forEach((el, i) => {
+      el.setAttribute('aria-hidden', i === this.current ? 'false' : 'true');
+    });
   }
 
   _updateSlideCount() {
@@ -117,6 +128,13 @@ export class MultiCarousel extends LitElement {
       if (this.current >= this._slideCount) {
         this.current = Math.max(0, this._slideCount - 1);
       }
+      // Add ARIA attributes to each slide
+      elements.forEach((el, i) => {
+        el.setAttribute('role', 'group');
+        el.setAttribute('aria-roledescription', 'slide');
+        el.setAttribute('aria-label', `Slide ${i + 1} of ${elements.length}`);
+        el.setAttribute('aria-hidden', i === this.current ? 'false' : 'true');
+      });
     }
   }
 
@@ -213,11 +231,24 @@ export class MultiCarousel extends LitElement {
   }
 
   _handleKeydown(event) {
-    if (event.key === 'ArrowLeft') {
-      this.prev();
-    } else if (event.key === 'ArrowRight') {
-      this.next();
+    let handled = true;
+    switch (event.key) {
+      case 'ArrowLeft':
+        this.prev();
+        break;
+      case 'ArrowRight':
+        this.next();
+        break;
+      case 'Home':
+        this.goTo(0);
+        break;
+      case 'End':
+        this.goTo(this._slideCount - 1);
+        break;
+      default:
+        handled = false;
     }
+    if (handled) event.preventDefault();
   }
 
   _renderNavigation() {
