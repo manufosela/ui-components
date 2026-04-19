@@ -115,10 +115,15 @@
   </div>
 
   <div class="demo-section">
-    <h2>Spanish Language</h2>
-    <p>Use lang="es" for Spanish labels.</p>
-    <marked-calendar lang="es" name="Año en Pixeles" change-view></marked-calendar>
-    <div class="code-block">&lt;marked-calendar lang="es" name="Año en Pixeles"&gt;&lt;/marked-calendar&gt;</div>
+    <h2>Localization (i18n)</h2>
+    <p>Use <code>lang</code> to change month and weekday labels. The calendar below uses <code>lang="es"</code> — notice the month names (<em>Ene, Feb, Mar...</em>) and the title. Add <code>save-data</code> to make it interactive (click days to mark them).</p>
+    <marked-calendar lang="es" name="Año en Pixeles" change-view save-data></marked-calendar>
+    <div class="code-block">&lt;marked-calendar
+  lang="es"
+  name="Año en Pixeles"
+  save-data
+  change-view
+&gt;&lt;/marked-calendar&gt;</div>
   </div>
 
   <div class="demo-section">
