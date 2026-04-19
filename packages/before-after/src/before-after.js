@@ -157,6 +157,14 @@ export class BeforeAfter extends LitElement {
       --before-after-divider-color: #e5e7eb;
       --before-after-handle-color: #e5e7eb;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .transition .before-layer,
+      .transition .after-layer,
+      .transition .divider {
+        transition: none;
+      }
+    }
   `;
 
   constructor() {

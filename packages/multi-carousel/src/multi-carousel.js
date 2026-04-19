@@ -166,6 +166,8 @@ export class MultiCarousel extends LitElement {
             sourceId: this.id,
             index: this.current,
           },
+          bubbles: true,
+          composed: true,
         })
       );
     }

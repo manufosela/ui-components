@@ -199,6 +199,13 @@ export class ElementCard extends LitElement {
       transform: translateY(0);
       transition: all 1s;
     }
+    @media (prefers-reduced-motion: reduce) {
+      .element-card,
+      .showTitle,
+      .showDesc {
+        transition: none;
+      }
+    }
   `;
 
   constructor() {

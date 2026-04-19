@@ -108,4 +108,14 @@ export const photoCollageStyles = css`
   ::slotted(img) {
     display: none;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photo-wrapper,
+    .photo-wrapper:hover,
+    .overlay,
+    .overlay img {
+      transition: none;
+      animation: none;
+    }
+  }
 `;
