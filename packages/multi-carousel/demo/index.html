@@ -178,6 +178,31 @@
 &lt;/multi-carousel&gt;</div>
   </div>
 
+  <!-- Dynamic Slides -->
+  <div class="demo-section">
+    <h2>Dynamic Slides</h2>
+    <p>Add and remove slides on the fly. The carousel updates automatically via <code>slotchange</code>.</p>
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem;">
+      <button onclick="addSlide()">+ Add slide</button>
+      <button onclick="removeSlide()" style="background:#ef4444;">− Remove last</button>
+      <span id="dynamic-count" style="display:flex;align-items:center;color:var(--demo-muted);font-size:0.85rem;margin-left:0.5rem;">2 slides</span>
+    </div>
+    <multi-carousel id="dynamic">
+      <div class="slide slide-1">Slide 1</div>
+      <div class="slide slide-2">Slide 2</div>
+    </multi-carousel>
+    <div class="code-block">const carousel = document.querySelector('multi-carousel');
+
+// Add a slide
+const slide = document.createElement('div');
+slide.className = 'slide';
+slide.textContent = 'New Slide';
+carousel.appendChild(slide);
+
+// Remove last slide
+carousel.removeChild(carousel.lastElementChild);</div>
+  </div>
+
   <!-- Custom Styling -->
   <div class="demo-section">
     <h2>Custom Styling</h2>
@@ -249,6 +274,46 @@
   </script>
   <script type="module">
     import '../src/multi-carousel.js';
+
+    // Dynamic slides
+    const gradients = [
+      'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+      'linear-gradient(135deg, #22c55e, #14b8a6)',
+      'linear-gradient(135deg, #f59e0b, #ef4444)',
+      'linear-gradient(135deg, #ec4899, #8b5cf6)',
+      'linear-gradient(135deg, #06b6d4, #3b82f6)',
+      'linear-gradient(135deg, #a855f7, #ec4899)',
+    ];
+    let slideCounter = 2;
+    const dynamicCarousel = document.getElementById('dynamic');
+    const countLabel = document.getElementById('dynamic-count');
+
+    const updateCount = () => {
+      const n = dynamicCarousel.querySelectorAll('.slide').length;
+      countLabel.textContent = `${n} slide${n !== 1 ? 's' : ''}`;
+    };
+
+    window.addSlide = () => {
+      slideCounter++;
+      const slide = document.createElement('div');
+      slide.className = 'slide';
+      slide.style.background = gradients[(slideCounter - 1) % gradients.length];
+      slide.textContent = `Slide ${slideCounter}`;
+      dynamicCarousel.appendChild(slide);
+      // Navigate to the new slide
+      dynamicCarousel.updateComplete.then(() => {
+        dynamicCarousel.goTo(dynamicCarousel._slideCount - 1);
+      });
+      updateCount();
+    };
+
+    window.removeSlide = () => {
+      const slides = dynamicCarousel.querySelectorAll('.slide');
+      if (slides.length > 1) {
+        dynamicCarousel.removeChild(slides[slides.length - 1]);
+        updateCount();
+      }
+    };
 
     // Basic Usage event log
     const basic = document.getElementById('basic');
