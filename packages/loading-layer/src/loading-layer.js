@@ -157,6 +157,9 @@ export class LoadingLayer extends LitElement {
     }
   `;
 
+  /** @private Only one loading-layer can be active at a time */
+  static _activeInstance = null;
+
   static properties = {
     visible: { type: Boolean, reflect: true },
     message: { type: String },
@@ -334,6 +337,12 @@ export class LoadingLayer extends LitElement {
   // ─── Public API ───────────────────────────────────────────────────────────
 
   show() {
+    // Only one loading-layer can be active at a time
+    if (LoadingLayer._activeInstance && LoadingLayer._activeInstance !== this) {
+      return;
+    }
+    LoadingLayer._activeInstance = this;
+
     this._showTime = Date.now();
     this._hideReason = 'manual';
 
@@ -369,6 +378,11 @@ export class LoadingLayer extends LitElement {
   }
 
   hide() {
+    // Release the singleton lock
+    if (LoadingLayer._activeInstance === this) {
+      LoadingLayer._activeInstance = null;
+    }
+
     this._clearAllTimers();
     this._clearPhaseEventListeners();
 

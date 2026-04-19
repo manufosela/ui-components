@@ -1,8 +1,18 @@
 import { html } from 'lit';
 import { fixture, expect, oneEvent, aTimeout } from '@open-wc/testing';
-import '../src/loading-layer.js';
+import { LoadingLayer } from '../src/loading-layer.js';
 
 describe('LoadingLayer', () => {
+  afterEach(() => {
+    // Reset singleton so tests don't block each other
+    LoadingLayer._activeInstance = null;
+    // Close any open dialogs
+    document.querySelectorAll('loading-layer').forEach((el) => {
+      const dialog = el.shadowRoot?.querySelector('dialog');
+      if (dialog?.open) dialog.close();
+      el.visible = false;
+    });
+  });
   describe('Rendering', () => {
     it('renders with default values', async () => {
       const el = await fixture(html`<loading-layer></loading-layer>`);
