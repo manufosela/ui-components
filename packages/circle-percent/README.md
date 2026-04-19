@@ -102,6 +102,10 @@ const interval = setInterval(() => {
 }, 50);
 ```
 
+## Events
+
+This component does not emit custom events.
+
 ## CSS Custom Properties
 
 | Property                              | Default         | Description                  |

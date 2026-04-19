@@ -60,6 +60,10 @@ import '@manufosela/device-card-stack';
 | `data-image` | URL of the image shown in the preview panel |
 | `data-num` | Number label shown in the card header (defaults to zero-padded index) |
 
+## Events
+
+This component does not emit custom events.
+
 ## CSS Custom Properties
 
 | Property | Default | Description |

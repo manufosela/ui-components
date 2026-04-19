@@ -58,6 +58,10 @@ import '@manufosela/card-rain-section';
 | `card` | Card elements that animate into view (multiple allowed) |
 | `actions` | Action buttons displayed at the bottom of the section |
 
+## Events
+
+This component does not emit custom events.
+
 ## CSS Custom Properties
 
 | Property | Default | Description |

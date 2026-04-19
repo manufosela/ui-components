@@ -143,6 +143,10 @@ console.log(dataUrl);
 const jpegUrl = qr.toDataURL('image/jpeg');
 ```
 
+## Events
+
+This component does not emit custom events.
+
 ## CSS Custom Properties
 
 | Property    | Default   | Description           |

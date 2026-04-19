@@ -86,6 +86,10 @@ Set `max-zoom` to control how far the user can zoom in. The default is `5` (5×)
 | `capture-image-save` | `{ filename }` | Save link clicked — `filename` is the generated `snapshot-<timestamp>.png` name |
 | `capture-image-error` | `{ error }` | `getUserMedia` unavailable, permission denied, or any camera error |
 
+## CSS Custom Properties
+
+This component does not expose CSS custom properties for theming. Buttons and controls use internal styles; use the `Attributes` to control layout dimensions.
+
 ## Zoom & Pan
 
 The component renders a live video feed inside a fixed-size viewport. Zoom and pan apply a CSS transform to the video element — the rest of the component stays the same size.

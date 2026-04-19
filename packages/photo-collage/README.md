@@ -51,6 +51,14 @@ npm install @manufosela/photo-collage
 
 Pass `<img>` elements as children. If more images are provided than `cols * rows`, the extra images will be cycled in when `randomize` is enabled.
 
+## Events
+
+This component does not emit custom events.
+
+## CSS Custom Properties
+
+This component does not expose CSS custom properties. Layout and sizing are controlled via the `width`, `height`, `cols`, and `rows` attributes.
+
 ## Accessibility
 
 - **`prefers-reduced-motion`** — hover zoom, image-swap fade transitions, and rotation animations are all disabled via `@media (prefers-reduced-motion: reduce)` in the component styles

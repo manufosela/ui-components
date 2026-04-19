@@ -68,6 +68,20 @@ npm install @manufosela/circle-steps
 <circle-steps show-check="false" steps="4"></circle-steps>
 ```
 
+## Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `steps` | Array \| Number | `[]` | Step objects `[{label, description}]` or a number of steps |
+| `current` | Number | `0` | Current step index (0-based) |
+| `orientation` | String | `'horizontal'` | Layout direction: `horizontal` or `vertical` |
+| `clickable` | Boolean | `false` | Allow clicking steps to navigate |
+| `show-numbers` | Boolean | `true` | Show step numbers inside circles |
+| `hide-numbers` | Boolean | `false` | Declarative alternative to hide step numbers |
+| `show-check` | Boolean | `true` | Show checkmark icons for completed steps |
+| `hide-check` | Boolean | `false` | Declarative alternative to hide checkmarks |
+| `size` | String | `'medium'` | Size variant: `small`, `medium`, or `large` |
+
 ## Properties
 
 | Property | Type | Default | Description |

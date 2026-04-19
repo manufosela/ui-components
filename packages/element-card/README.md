@@ -38,6 +38,10 @@ npm install @manufosela/element-card
 | `text-color` | String | `#FFF` | Text color |
 | `img-cover` | String | — | Cover image source |
 
+## Events
+
+This component does not emit custom events.
+
 ## CSS Custom Properties
 
 | Property | Default | Description |

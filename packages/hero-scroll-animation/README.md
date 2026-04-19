@@ -53,6 +53,10 @@ import '@manufosela/hero-scroll-animation';
 | `left` | Hidden `<img>` whose `src` is used for the left side image |
 | `right` | Hidden `<img>` whose `src` is used for the right side image |
 
+## Events
+
+This component does not emit custom events.
+
 ## CSS Custom Properties
 
 | Property | Default | Description |

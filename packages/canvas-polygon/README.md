@@ -28,6 +28,10 @@ npm install @manufosela/canvas-polygon
 | `bg-color` | String | `transparent` | Fill color |
 | `offset-rotation` | Number | auto | Rotation offset in radians |
 
+## Events
+
+This component does not emit custom events.
+
 ## CSS Custom Properties
 
 | Property | Default | Description |
