@@ -1,5 +1,7 @@
 # @manufosela/modal-dialog
 
+> **⚠️ Deprecated** — Use [`@manufosela/app-modal`](https://manufosela.dev/ui-components/packages/app-modal/demo/) instead. It's built on native `<dialog>` with focus trap, inert background, `aria-modal`, configurable buttons, intercept-close, programmatic mode, and ~30 CSS custom properties.
+
 [![npm version](https://img.shields.io/npm/v/@manufosela/modal-dialog)](https://www.npmjs.com/package/@manufosela/modal-dialog)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
