@@ -13,10 +13,10 @@ describe('LoadingLayer', () => {
       expect(el.strokeWidth).to.equal(4);
     });
 
-    it('renders the overlay element', async () => {
+    it('renders a dialog element in shadow DOM', async () => {
       const el = await fixture(html`<loading-layer></loading-layer>`);
-      const overlay = el.shadowRoot.querySelector('.loading-overlay');
-      expect(overlay).to.exist;
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog).to.exist;
     });
 
     it('renders the spinner', async () => {
@@ -29,13 +29,20 @@ describe('LoadingLayer', () => {
       const el = await fixture(html`<loading-layer message="Loading..."></loading-layer>`);
       const message = el.shadowRoot.querySelector('.message');
       expect(message).to.exist;
-      expect(message.textContent).to.equal('Loading...');
+      expect(message.textContent.trim()).to.equal('Loading...');
     });
 
-    it('does not render message when not provided', async () => {
+    it('renders message element (empty) even when no message provided', async () => {
       const el = await fixture(html`<loading-layer></loading-layer>`);
       const message = el.shadowRoot.querySelector('.message');
-      expect(message).to.not.exist;
+      // Live region always present for screen readers
+      expect(message).to.exist;
+    });
+
+    it('dialog has aria-live assertive region', async () => {
+      const el = await fixture(html`<loading-layer></loading-layer>`);
+      const liveRegion = el.shadowRoot.querySelector('[aria-live="assertive"]');
+      expect(liveRegion).to.exist;
     });
   });
 
@@ -95,6 +102,21 @@ describe('LoadingLayer', () => {
       el.toggle();
       expect(el.visible).to.be.false;
     });
+
+    it('records _showTime when shown', async () => {
+      const el = await fixture(html`<loading-layer></loading-layer>`);
+      expect(el._showTime).to.be.null;
+      const before = Date.now();
+      el.show();
+      expect(el._showTime).to.be.at.least(before);
+    });
+
+    it('clears _showTime when hidden', async () => {
+      const el = await fixture(html`<loading-layer></loading-layer>`);
+      el.show();
+      el.hide();
+      expect(el._showTime).to.be.null;
+    });
   });
 
   describe('Events', () => {
@@ -114,11 +136,50 @@ describe('LoadingLayer', () => {
       expect(event).to.exist;
     });
 
+    it('dispatches loading-layer-complete event when hidden', async () => {
+      const el = await fixture(html`<loading-layer></loading-layer>`);
+      el.show();
+      await aTimeout(10);
+      const listener = oneEvent(el, 'loading-layer-complete');
+      el.hide();
+      const event = await listener;
+      expect(event).to.exist;
+      expect(event.detail).to.have.property('reason');
+      expect(event.detail).to.have.property('duration');
+      expect(event.detail.duration).to.be.at.least(0);
+    });
+
+    it('loading-layer-complete has reason="manual" when hidden manually', async () => {
+      const el = await fixture(html`<loading-layer></loading-layer>`);
+      el.show();
+      const listener = oneEvent(el, 'loading-layer-complete');
+      el.hide();
+      const event = await listener;
+      expect(event.detail.reason).to.equal('manual');
+    });
+
+    it('loading-layer-complete has reason="timeout" after timeout', async () => {
+      const el = await fixture(html`<loading-layer timeout="0.05"></loading-layer>`);
+      el.show();
+      const event = await oneEvent(el, 'loading-layer-complete');
+      expect(event.detail.reason).to.equal('timeout');
+    });
+
+    it('loading-layer-complete has reason="event" when hidden via global event', async () => {
+      const el = await fixture(html`<loading-layer></loading-layer>`);
+      el.show();
+      const listener = oneEvent(el, 'loading-layer-complete');
+      document.dispatchEvent(new CustomEvent('loading-layer-hide'));
+      const event = await listener;
+      expect(event.detail.reason).to.equal('event');
+    });
+
     it('responds to global loading-layer-show event', async () => {
       const el = await fixture(html`<loading-layer></loading-layer>`);
       expect(el.visible).to.be.false;
       document.dispatchEvent(new CustomEvent('loading-layer-show'));
       expect(el.visible).to.be.true;
+      el.hide();
     });
 
     it('responds to global loading-layer-hide event', async () => {
@@ -134,6 +195,7 @@ describe('LoadingLayer', () => {
         new CustomEvent('loading-layer-show', { detail: { message: 'Custom message' } })
       );
       expect(el.message).to.equal('Custom message');
+      el.hide();
     });
   });
 
@@ -172,6 +234,231 @@ describe('LoadingLayer', () => {
       const el = await fixture(html`<loading-layer stroke-width="6"></loading-layer>`);
       const circle = el.shadowRoot.querySelector('circle');
       expect(circle.getAttribute('stroke-width')).to.equal('6');
+    });
+  });
+
+  describe('Multi-phase messages', () => {
+    it('reads <loading-phase> children on show()', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="Step 1"></loading-phase>
+          <loading-phase message="Step 2" delay="10"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      expect(el._phases).to.have.length(2);
+      el.hide();
+    });
+
+    it('shows first phase message immediately on show()', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="Cargando..."></loading-phase>
+          <loading-phase message="Tardando..." delay="10"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      expect(el._currentMessage).to.equal('Cargando...');
+      el.hide();
+    });
+
+    it('advances to next phase after delay', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="Fase 1"></loading-phase>
+          <loading-phase message="Fase 2" delay="0.1"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      expect(el._currentMessage).to.equal('Fase 1');
+      await aTimeout(150);
+      expect(el._currentMessage).to.equal('Fase 2');
+      el.hide();
+    });
+
+    it('advances phase via setPhase()', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="Fase A"></loading-phase>
+          <loading-phase message="Fase B"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      expect(el._currentPhase).to.equal(0);
+      el.setPhase(1);
+      expect(el._currentPhase).to.equal(1);
+      expect(el._currentMessage).to.equal('Fase B');
+      el.hide();
+    });
+
+    it('dispatches loading-layer-phase-change event on phase advance', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="Fase A"></loading-phase>
+          <loading-phase message="Fase B"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      const listener = oneEvent(el, 'loading-layer-phase-change');
+      el.setPhase(1);
+      const event = await listener;
+      expect(event.detail.phase).to.equal(1);
+      expect(event.detail.message).to.equal('Fase B');
+      el.hide();
+    });
+
+    it('advances phase via global loading-layer-phase event', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="Alpha"></loading-phase>
+          <loading-phase message="Beta"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      document.dispatchEvent(new CustomEvent('loading-layer-phase', { detail: { phase: 1 } }));
+      expect(el._currentPhase).to.equal(1);
+      el.hide();
+    });
+
+    it('advances phase via named event attribute', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="Waiting..."></loading-phase>
+          <loading-phase message="Data loaded!" event="data-ready"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      expect(el._currentMessage).to.equal('Waiting...');
+      document.dispatchEvent(new CustomEvent('data-ready'));
+      await aTimeout(10);
+      expect(el._currentMessage).to.equal('Data loaded!');
+      el.hide();
+    });
+
+    it('shows phase indicator dots when 2+ phases', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="Fase 1"></loading-phase>
+          <loading-phase message="Fase 2" delay="10"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      await el.updateComplete;
+      const dots = el.shadowRoot.querySelectorAll('.phase-dot');
+      expect(dots.length).to.equal(2);
+      el.hide();
+    });
+
+    it('first dot is active on phase 0', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="One"></loading-phase>
+          <loading-phase message="Two" delay="10"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      await el.updateComplete;
+      const dots = el.shadowRoot.querySelectorAll('.phase-dot');
+      expect(dots[0].classList.contains('active')).to.be.true;
+      expect(dots[1].classList.contains('active')).to.be.false;
+      el.hide();
+    });
+
+    it('falls back to message attribute when no <loading-phase> children', async () => {
+      const el = await fixture(html`<loading-layer message="Fallback"></loading-layer>`);
+      el.show();
+      expect(el._currentMessage).to.equal('Fallback');
+      el.hide();
+    });
+
+    it('clears phase timers on hide()', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="Step 1"></loading-phase>
+          <loading-phase message="Step 2" delay="0.1"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      el.hide();
+      // After hide, advancing to phase should not happen even after delay
+      await aTimeout(150);
+      expect(el._currentPhase).to.equal(0);
+    });
+
+    it('auto-closes after last phase auto-close delay', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="Step 1"></loading-phase>
+          <loading-phase message="Done!" delay="0.05" auto-close="0.05"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      // Wait for delay phase, then auto-close
+      await aTimeout(250);
+      expect(el.visible).to.be.false;
+    });
+
+    it('loading-layer-complete has reason="phases-complete" on auto-close', async () => {
+      const el = await fixture(html`
+        <loading-layer>
+          <loading-phase message="Step 1"></loading-phase>
+          <loading-phase message="Step 2" delay="0.05" auto-close="0.05"></loading-phase>
+        </loading-layer>
+      `);
+      el.show();
+      const event = await oneEvent(el, 'loading-layer-complete');
+      expect(event.detail.reason).to.equal('phases-complete');
+    });
+  });
+
+  describe('LoadingPhase element', () => {
+    it('reads message attribute', async () => {
+      const phase = document.createElement('loading-phase');
+      phase.setAttribute('message', 'Hello');
+      expect(phase.message).to.equal('Hello');
+    });
+
+    it('reads delay attribute as number', async () => {
+      const phase = document.createElement('loading-phase');
+      phase.setAttribute('delay', '5');
+      expect(phase.delay).to.equal(5);
+    });
+
+    it('reads event attribute', async () => {
+      const phase = document.createElement('loading-phase');
+      phase.setAttribute('event', 'my-event');
+      expect(phase.event).to.equal('my-event');
+    });
+
+    it('reads auto-close attribute as number', async () => {
+      const phase = document.createElement('loading-phase');
+      phase.setAttribute('auto-close', '3');
+      expect(phase.autoClose).to.equal(3);
+    });
+
+    it('returns defaults when attributes missing', async () => {
+      const phase = document.createElement('loading-phase');
+      expect(phase.message).to.equal('');
+      expect(phase.delay).to.equal(0);
+      expect(phase.event).to.equal('');
+      expect(phase.autoClose).to.equal(0);
+    });
+  });
+
+  describe('Dialog accessibility', () => {
+    it('dialog has aria-modal="true"', async () => {
+      const el = await fixture(html`<loading-layer></loading-layer>`);
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog.getAttribute('aria-modal')).to.equal('true');
+    });
+
+    it('dialog has aria-busy="true" when visible', async () => {
+      const el = await fixture(html`<loading-layer></loading-layer>`);
+      el.show();
+      await el.updateComplete;
+      const dialog = el.shadowRoot.querySelector('dialog');
+      expect(dialog.getAttribute('aria-busy')).to.equal('true');
+      el.hide();
     });
   });
 });
