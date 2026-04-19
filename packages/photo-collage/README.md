@@ -51,6 +51,13 @@ npm install @manufosela/photo-collage
 
 Pass `<img>` elements as children. If more images are provided than `cols * rows`, the extra images will be cycled in when `randomize` is enabled.
 
+## Accessibility
+
+- **`prefers-reduced-motion`** — hover zoom, image-swap fade transitions, and rotation animations are all disabled via `@media (prefers-reduced-motion: reduce)` in the component styles
+- Each displayed photo renders with `alt="Collage photo N"` (auto-generated from position index); for meaningful content, provide `alt` text on the slotted `<img>` elements — the component reads `src` from them but does not override their `alt`
+- When `zoomable` is enabled, pressing `Escape` closes the zoomed overlay (keyboard handler is attached to the document)
+- The zoom overlay `<img>` carries `alt="Zoomed photo"`; images cycle with `loading="lazy"` to avoid unnecessary network requests
+
 ## License
 
 MIT

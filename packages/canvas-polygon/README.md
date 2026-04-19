@@ -34,6 +34,13 @@ npm install @manufosela/canvas-polygon
 |----------|---------|-------------|
 | `--canvas-polygon-text-color` | `#000` | Host text color |
 
+## Accessibility
+
+- **`prefers-reduced-motion`** — no animations are present in this component; the polygon is rendered statically on a `<canvas>` element
+- Canvas content is **not accessible to screen readers** — the `<canvas>` element renders a bitmap with no text alternative by default
+- If the polygon conveys meaningful information, add an `aria-label` or visually hidden description on the host element (e.g. `<canvas-polygon aria-label="Hexagonal shape">`)
+- The component is purely decorative in most uses; mark it with `aria-hidden="true"` on the host to hide it from assistive technology when that is the case
+
 ## License
 
 MIT

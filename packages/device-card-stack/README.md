@@ -79,6 +79,16 @@ import '@manufosela/device-card-stack';
 | Home | Activate first card |
 | End | Activate last card |
 
+## Accessibility
+
+- **`prefers-reduced-motion`** — 3D perspective transitions and card open/close animations are disabled when the user requests reduced motion; the component also checks `window.matchMedia` at runtime to skip JavaScript-driven transitions
+- Implements the **WAI-ARIA tablist pattern**: the card list has `role="tablist"` with `aria-label="Device cards"` and `aria-orientation="vertical"`
+- Each card header has `role="tab"` with `aria-selected` and `aria-controls` pointing to its panel
+- Each content panel has `role="tabpanel"` and `aria-hidden` toggled by the active state
+- Roving `tabindex` — only the active tab holds `tabindex="0"`; all others are `tabindex="-1"`
+- Keyboard navigation: Arrow Down/Up, Home, End; focus is moved programmatically to the newly activated tab
+- The image preview panel carries `aria-hidden="true"` since it is a decorative duplicate of each card's image
+
 ## License
 
 MIT

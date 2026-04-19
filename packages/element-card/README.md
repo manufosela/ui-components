@@ -49,6 +49,13 @@ npm install @manufosela/element-card
 | `--imgcover-max-width` | `100%` | Max width of cover image |
 | `--imgcover-opacity` | `1` | Opacity of cover image |
 
+## Accessibility
+
+- **`prefers-reduced-motion`** — hover/transition animations on the card are disabled when the user requests reduced motion
+- The cover image uses the `title` attribute value as its `alt` text (e.g. `alt="Javascript"`) so screen readers announce a meaningful label
+- The component renders standard HTML (`<h2>`, `<p>`, slotted content) — no custom ARIA roles are added, relying on native semantics
+- Slotted child elements retain their own semantics and tab order unchanged
+
 ## License
 
 MIT

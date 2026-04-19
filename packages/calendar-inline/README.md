@@ -316,6 +316,10 @@ The element uses `ElementInternals` (`static formAssociated = true`) to integrat
 
 No polyfill is required — `ElementInternals` is supported in all modern browsers (Chrome 77+, Firefox 93+, Safari 16.4+).
 
+### Reduced motion
+
+When the user has enabled the **reduce motion** preference, all CSS transitions and animations inside `calendar-inline` are suppressed via `@media (prefers-reduced-motion: reduce)`. Navigation and selection remain fully functional — only the visual motion is removed.
+
 ---
 
 ## License

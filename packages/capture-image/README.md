@@ -103,6 +103,14 @@ When `mask` is enabled the snap further crops to the unmasked area, so the frami
 
 `navigator.mediaDevices.getUserMedia` is only available on **secure contexts**: `https://` origins and `localhost`. Serving the page over plain `http://` on any non-localhost host will cause the component to fire `capture-image-error` immediately on load.
 
+## Accessibility
+
+- **`prefers-reduced-motion`** — button hover/active transitions are disabled when the user requests reduced motion
+- Zoom buttons carry `aria-label="Zoom in"` and `aria-label="Zoom out"` so screen readers announce their purpose (the visible labels are `+` and `−`)
+- Snap, Reset, and 1:1 buttons are native `<button type="button">` elements — keyboard-focusable and announced by screen readers
+- The component requires a **secure context** (`https://` or `localhost`) — `getUserMedia` is unavailable on plain HTTP and the component fires `capture-image-error` immediately in that case
+- Camera permission must be granted by the user; denial is reported via the `capture-image-error` event
+
 ## License
 
 MIT

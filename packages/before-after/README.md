@@ -106,6 +106,16 @@ import '@manufosela/before-after';
 </before-after>
 ```
 
+## Accessibility
+
+- **`prefers-reduced-motion`** — all slide transitions are disabled when the user requests reduced motion
+- The divider handle uses `role="slider"` with `aria-valuemin`, `aria-valuemax`, and `aria-valuenow` so screen readers announce position as a percentage
+- `aria-label="Image comparison slider"` describes the interactive element
+- Full keyboard control: Arrow Left/Right (1%), Page Up/Down (10%), Home/End (0%/100%)
+- `tabindex="-1"` is set on the handle when the `disabled` attribute is present, removing it from the tab order
+- Focus-visible ring is shown on the handle (color customisable via `--before-after-focus-color`)
+- Slot `<img>` elements should carry meaningful `alt` text — the component does not override them
+
 ## License
 
 MIT

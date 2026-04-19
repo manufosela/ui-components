@@ -108,6 +108,14 @@ import '@manufosela/hero-scroll-animation';
 </hero-scroll-animation>
 ```
 
+## Accessibility
+
+- **`prefers-reduced-motion`** — all scroll-driven animations and CSS keyframes are disabled via both a CSS `@media (prefers-reduced-motion: reduce)` block and a runtime `window.matchMedia` check; when reduced motion is active the `_setupAnimation()` call is skipped entirely
+- The hero wrapper uses `role="region"` with `aria-label="Hero animado con scroll"` to create a landmark for screen readers
+- When the hero animates out of view, the `content` slot receives `aria-hidden="true"` and all focusable children get `tabindex="-1"` so they are unreachable while hidden; both are restored when the content is back in view
+- Content placed in the `content` slot (headings, links, CTAs) retains its own semantic structure and tab order
+- Slot `<img>` elements (`background`, `center`, `left`, `right`) should carry `alt=""` if decorative, or a descriptive `alt` value if they convey meaning
+
 ## License
 
 MIT
