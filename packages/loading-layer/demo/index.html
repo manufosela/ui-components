@@ -5,52 +5,138 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Loading Layer - Demo</title>
   <style>
+    :root {
+      --demo-bg: #f5f5f7;
+      --demo-card-bg: #ffffff;
+      --demo-text: #1d1d1f;
+      --demo-muted: #86868b;
+      --demo-border: #d2d2d7;
+      --demo-code-bg: #1d1d1f;
+      --demo-code-text: #f5f5f7;
+      --demo-log-bg: #0b0f1a;
+      --demo-log-text: #a5f3a0;
+      --demo-log-border: #1e3a2f;
+    }
+    :root.dark {
+      --demo-bg: #0f1117;
+      --demo-card-bg: #1c2233;
+      --demo-text: #f3f6ff;
+      --demo-muted: #b8c0d9;
+      --demo-border: #2b3247;
+      --demo-code-bg: #0b0f1a;
+      --demo-code-text: #d6d9e6;
+      --demo-log-bg: #0a1210;
+      --demo-log-text: #86efac;
+      --demo-log-border: #1a3a2a;
+    }
     * { box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f1117; color: #f3f6ff; margin: 0; padding: 2rem; }
-    :root:not(.dark) body { background: #f5f5f7; color: #1d1d1f; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--demo-bg);
+      color: var(--demo-text);
+      margin: 0;
+      padding: 2rem;
+    }
     .container { max-width: 800px; margin: 0 auto; }
     header { text-align: center; margin-bottom: 3rem; }
     h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .subtitle { color: #86868b; }
-    .demo-card { background: #fff; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .subtitle { color: var(--demo-muted); }
+    .demo-card {
+      background: var(--demo-card-bg);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
     .demo-card h2 { margin: 0 0 0.5rem 0; }
-    .demo-card p { color: #86868b; margin: 0 0 1.5rem 0; }
+    .demo-card p { color: var(--demo-muted); margin: 0 0 1.5rem 0; }
     .buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
-    button { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; background: #3b82f6; color: #fff; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      background: #3b82f6;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
     button:hover { background: #2563eb; }
     button.secondary { background: #6b7280; }
     button.secondary:hover { background: #4b5563; }
-    .code-block { background: #1d1d1f; color: #f5f5f7; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.8rem; margin-top: 1rem; overflow-x: auto; }
-  
+    .code-block {
+      background: var(--demo-code-bg);
+      color: var(--demo-code-text);
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', 'SF Mono', Monaco, monospace;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.6;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .event-log {
+      background: var(--demo-log-bg);
+      border: 1px solid var(--demo-log-border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-top: 1rem;
+      font-family: 'JetBrains Mono', 'SF Mono', Monaco, monospace;
+      font-size: 0.8rem;
+      color: var(--demo-log-text);
+      min-height: 3rem;
+      max-height: 160px;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+    .event-log::before {
+      content: '▸ console';
+      display: block;
+      font-size: 0.7rem;
+      color: var(--demo-muted);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .event-log .log-line {
+      opacity: 0.9;
+    }
+    .event-log .log-line .timestamp {
+      color: var(--demo-muted);
+    }
     footer {
       text-align: center;
       margin-top: 3rem;
       padding-top: 2rem;
-      border-top: 1px solid #d2d2d7;
-      color: #86868b;
+      border-top: 1px solid var(--demo-border);
+      color: var(--demo-muted);
       font-size: 0.9rem;
     }
-    footer a { color: #1d1d1f; text-decoration: none; }
+    footer a { color: var(--demo-text); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
   </style>
-    <link rel="stylesheet" href="../../demo-theme.css" />
+  <link rel="stylesheet" href="../../demo-theme.css" />
 </head>
 <body>
   <div class="container">
     <header>
       <h1>Loading Layer</h1>
-<p class="subtitle">Full-screen loading overlay with spinner and optional message.</p>
-<div class="demo-links">
-  <a href="https://manufosela.dev/ui-components/">← Back to components</a>
-  <a href="https://github.com/manufosela/ui-components/tree/main/packages/loading-layer" target="_blank" rel="noopener">GitHub Repo</a>
-  <a href="playground.html">Playground</a>
-  <a href="https://www.npmjs.com/package/@manufosela/loading-layer" target="_blank" rel="noopener">npm</a>
-</div>
-<div class="demo-theme-toggle">
-  <theme-toggle theme="dark"></theme-toggle>
-</div>
-      </header>
+      <p class="subtitle">Full-screen loading overlay with spinner, multi-phase messages, and completion events.</p>
+      <div class="demo-links">
+        <a href="https://manufosela.dev/ui-components/">← Back to components</a>
+        <a href="https://github.com/manufosela/ui-components/tree/main/packages/loading-layer" target="_blank" rel="noopener">GitHub Repo</a>
+        <a href="playground.html">Playground</a>
+        <a href="https://www.npmjs.com/package/@manufosela/loading-layer" target="_blank" rel="noopener">npm</a>
+      </div>
+      <div class="demo-theme-toggle">
+        <theme-toggle theme="dark"></theme-toggle>
+      </div>
+    </header>
 
+    <!-- Basic -->
     <div class="demo-card">
       <h2>Basic Usage</h2>
       <p>Show a loading overlay with spinner (auto-hides in 3s)</p>
@@ -58,10 +144,14 @@
         <button onclick="document.getElementById('basic').show()">Show Loading (3s)</button>
       </div>
       <loading-layer id="basic" timeout="3"></loading-layer>
-      <div class="code-block">&lt;loading-layer timeout="3"&gt;&lt;/loading-layer&gt;
-document.getElementById('basic').show();</div>
+      <div class="code-block">&lt;loading-layer id="loader" timeout="3"&gt;&lt;/loading-layer&gt;
+
+&lt;script&gt;
+  document.getElementById('loader').show();
+&lt;/script&gt;</div>
     </div>
 
+    <!-- With Message -->
     <div class="demo-card">
       <h2>With Message</h2>
       <p>Display a message below the spinner</p>
@@ -69,9 +159,13 @@ document.getElementById('basic').show();</div>
         <button onclick="document.getElementById('message').show()">Show with Message (3s)</button>
       </div>
       <loading-layer id="message" timeout="3" message="Loading data, please wait..."></loading-layer>
-      <div class="code-block">&lt;loading-layer message="Loading data, please wait..."&gt;&lt;/loading-layer&gt;</div>
+      <div class="code-block">&lt;loading-layer
+  timeout="3"
+  message="Loading data, please wait..."
+&gt;&lt;/loading-layer&gt;</div>
     </div>
 
+    <!-- Custom Colors -->
     <div class="demo-card">
       <h2>Custom Colors</h2>
       <p>Customize spinner color and size</p>
@@ -79,9 +173,16 @@ document.getElementById('basic').show();</div>
         <button onclick="document.getElementById('custom').show()">Show Custom (3s)</button>
       </div>
       <loading-layer id="custom" timeout="3" color="#22c55e" size="80" stroke-width="6" message="Almost done..."></loading-layer>
-      <div class="code-block">&lt;loading-layer color="#22c55e" size="80" stroke-width="6"&gt;&lt;/loading-layer&gt;</div>
+      <div class="code-block">&lt;loading-layer
+  color="#22c55e"
+  size="80"
+  stroke-width="6"
+  message="Almost done..."
+  timeout="3"
+&gt;&lt;/loading-layer&gt;</div>
     </div>
 
+    <!-- Timeouts -->
     <div class="demo-card">
       <h2>Different Timeouts</h2>
       <p>Auto-hide after specified seconds</p>
@@ -93,32 +194,52 @@ document.getElementById('basic').show();</div>
       <loading-layer id="t1" timeout="1" message="Hiding in 1 second..."></loading-layer>
       <loading-layer id="t2" timeout="2" message="Hiding in 2 seconds..."></loading-layer>
       <loading-layer id="t5" timeout="5" message="Hiding in 5 seconds..."></loading-layer>
-      <div class="code-block">&lt;loading-layer timeout="2" message="Hiding in 2 seconds..."&gt;&lt;/loading-layer&gt;</div>
+      <div class="code-block">&lt;loading-layer
+  timeout="2"
+  message="Hiding in 2 seconds..."
+&gt;&lt;/loading-layer&gt;</div>
     </div>
 
+    <!-- Global Events -->
     <div class="demo-card">
       <h2>Global Events</h2>
-      <p>Trigger loading layer via custom events</p>
+      <p>Trigger loading via document-level custom events. Use <code>detail.id</code> to target a specific instance.</p>
       <div class="buttons">
-        <button onclick="showGlobal()">Show via Event (3s)</button>
+        <button onclick="showGlobal()">Dispatch loading-layer-show</button>
       </div>
       <loading-layer id="global" timeout="3"></loading-layer>
-      <div class="code-block">document.dispatchEvent(new CustomEvent('loading-layer-show', {
-  detail: { message: 'Triggered via event!' }
-}));</div>
+      <div id="global-log" class="event-log">Waiting for events...</div>
+      <div class="code-block">// Show a specific loading-layer by id
+document.dispatchEvent(
+  new CustomEvent('loading-layer-show', {
+    detail: {
+      id: 'global',
+      message: 'Triggered via global event!'
+    }
+  })
+);
+
+// Hide all / specific
+document.dispatchEvent(
+  new CustomEvent('loading-layer-hide', {
+    detail: { id: 'global' }
+  })
+);</div>
     </div>
 
+    <!-- Multi-Phase by Delay -->
     <div class="demo-card">
       <h2>Multi-Phase Messages (by delay)</h2>
-      <p>Phases advance automatically by time. Delays are absolute from show() time.</p>
+      <p>Messages change automatically at specified intervals from <code>show()</code>.</p>
       <div class="buttons">
-        <button onclick="document.getElementById('phases-delay').show()">Start (auto-closes in 12s)</button>
+        <button onclick="startDelayPhases()">Start (auto-closes in 12s)</button>
       </div>
       <loading-layer id="phases-delay">
         <loading-phase message="Cargando tus datos..."></loading-phase>
         <loading-phase message="Parece que está tardando..." delay="3"></loading-phase>
         <loading-phase message="Esto tiene mala pinta..." delay="7" auto-close="5"></loading-phase>
       </loading-layer>
+      <div id="delay-log" class="event-log">Waiting for phases...</div>
       <div class="code-block">&lt;loading-layer&gt;
   &lt;loading-phase message="Cargando tus datos..."&gt;&lt;/loading-phase&gt;
   &lt;loading-phase message="Parece que está tardando..." delay="3"&gt;&lt;/loading-phase&gt;
@@ -126,9 +247,10 @@ document.getElementById('basic').show();</div>
 &lt;/loading-layer&gt;</div>
     </div>
 
+    <!-- Multi-Phase by Event -->
     <div class="demo-card">
       <h2>Multi-Phase Messages (by event)</h2>
-      <p>Simulates 3 async tasks. Each dispatches a custom event when complete, advancing the loading phase automatically.</p>
+      <p>Simulates 3 async tasks. Each dispatches a custom event when complete, advancing the phase.</p>
       <div class="buttons">
         <button onclick="simulateAsyncTasks()">Run 3 async tasks</button>
       </div>
@@ -137,6 +259,7 @@ document.getElementById('basic').show();</div>
         <loading-phase message="Fetching user data..." event="task-connected"></loading-phase>
         <loading-phase message="Almost there..." event="task-data-loaded" auto-close="2"></loading-phase>
       </loading-layer>
+      <div id="event-log" class="event-log">Waiting for tasks...</div>
       <div class="code-block">&lt;loading-layer id="loader"&gt;
   &lt;loading-phase message="Connecting..."&gt;&lt;/loading-phase&gt;
   &lt;loading-phase message="Fetching data..." event="task-connected"&gt;&lt;/loading-phase&gt;
@@ -146,7 +269,6 @@ document.getElementById('basic').show();</div>
 &lt;script&gt;
   loader.show();
 
-  // Your code dispatches events as tasks complete:
   await connectToServer();
   document.dispatchEvent(new CustomEvent('task-connected'));
 
@@ -156,84 +278,135 @@ document.getElementById('basic').show();</div>
 &lt;/script&gt;</div>
     </div>
 
+    <!-- Completion Event -->
     <div class="demo-card">
       <h2>Completion Event</h2>
-      <p>loading-layer-complete fires when the layer hides, with reason and duration.</p>
+      <p><code>loading-layer-complete</code> fires when the layer hides, with reason and duration.</p>
       <div class="buttons">
-        <button onclick="showAndListenComplete()">Show (2s) — watch console</button>
+        <button onclick="showAndListenComplete()">Show (2s timeout)</button>
       </div>
       <loading-layer id="complete-demo" timeout="2" message="Completing soon..."></loading-layer>
-      <div id="complete-output" style="margin-top:1rem;font-family:monospace;font-size:0.85rem;color:#374151;min-height:1.5em;"></div>
-      <div class="code-block">loader.addEventListener('loading-layer-complete', (e) => {
-  console.log(e.detail); // { reason: 'timeout', duration: 2003 }
+      <div id="complete-log" class="event-log">Click the button to see the completion event...</div>
+      <div class="code-block">loader.addEventListener('loading-layer-complete', (e) =&gt; {
+  console.log(e.detail.reason);   // 'timeout' | 'manual' | 'event' | 'phases-complete'
+  console.log(e.detail.duration); // ms elapsed since show()
 });</div>
     </div>
 
-      <footer>
-        <p>
-          <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
-          <a href="https://www.npmjs.com/package/@manufosela/loading-layer">npm</a>
-        </p>
-        <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
-        <p style="margin-top: 0.5rem;">
-          <a href="https://librecounter.org/referer/show" target="_blank" title="View site statistics">
-            <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" alt="LibreCounter" style="height: 24px; vertical-align: middle;" />
-          </a>
-        </p>
-      </footer>
+    <footer>
+      <p>
+        <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
+        <a href="https://www.npmjs.com/package/@manufosela/loading-layer">npm</a>
+      </p>
+      <p>Copyright &copy; <span class="footer-year"></span> <a href="https://github.com/manufosela" target="_blank">@manufosela</a> | MIT License</p>
+    </footer>
   </div>
-  
+
   <script>
     document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
   </script>
   <script type="module">
-    import '../src/loading-layer.js';
+    import { LoadingLayer } from '../src/loading-layer.js';
+
+    // ─── Event log helper ──────────────────────────────────────────────────
+    function log(targetId, msg) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      const line = document.createElement('div');
+      line.classList.add('log-line');
+      const ts = new Date().toLocaleTimeString('en', { hour12: false, fractionalSecondDigits: 1 });
+      line.innerHTML = `<span class="timestamp">${ts}</span>  ${msg}`;
+      el.prepend(line);
+      // Trim old entries
+      while (el.querySelectorAll('.log-line').length > 8) {
+        el.lastElementChild?.remove();
+      }
+    }
+
+    // ─── Global Events demo ────────────────────────────────────────────────
+    const globalLoader = document.getElementById('global');
+
+    globalLoader.addEventListener('loading-layer-shown', () => {
+      log('global-log', '<span style="color:#86efac">loading-layer-shown</span>');
+    });
+    globalLoader.addEventListener('loading-layer-hidden', () => {
+      log('global-log', '<span style="color:#fca5a5">loading-layer-hidden</span>');
+    });
+    globalLoader.addEventListener('loading-layer-complete', (e) => {
+      log('global-log', `<span style="color:#93c5fd">loading-layer-complete</span>  reason="${e.detail.reason}"  duration=${e.detail.duration}ms`);
+    });
 
     window.showGlobal = () => {
       document.dispatchEvent(new CustomEvent('loading-layer-show', {
-        detail: { message: 'Triggered via global event!' }
+        detail: { id: 'global', message: 'Triggered via global event!' }
       }));
+      log('global-log', '<span style="color:#fde68a">→ dispatched loading-layer-show</span>');
     };
+
+    // ─── Phases by Delay demo ──────────────────────────────────────────────
+    const delayLoader = document.getElementById('phases-delay');
+
+    delayLoader.addEventListener('loading-layer-phase-change', (e) => {
+      log('delay-log', `<span style="color:#86efac">phase-change</span>  phase=${e.detail.phase}  "${e.detail.message}"`);
+    });
+    delayLoader.addEventListener('loading-layer-complete', (e) => {
+      log('delay-log', `<span style="color:#93c5fd">complete</span>  reason="${e.detail.reason}"  duration=${e.detail.duration}ms`);
+    });
+
+    window.startDelayPhases = () => {
+      log('delay-log', '<span style="color:#fde68a">→ show()</span>');
+      delayLoader.show();
+    };
+
+    // ─── Phases by Event demo ──────────────────────────────────────────────
+    const eventLoader = document.getElementById('phases-event');
+
+    eventLoader.addEventListener('loading-layer-phase-change', (e) => {
+      log('event-log', `<span style="color:#86efac">phase-change</span>  phase=${e.detail.phase}  "${e.detail.message}"`);
+    });
+    eventLoader.addEventListener('loading-layer-complete', (e) => {
+      log('event-log', `<span style="color:#93c5fd">complete</span>  reason="${e.detail.reason}"  duration=${e.detail.duration}ms`);
+    });
 
     window.simulateAsyncTasks = async () => {
-      const loader = document.getElementById('phases-event');
-      loader.show();
+      log('event-log', '<span style="color:#fde68a">→ show() — starting tasks</span>');
+      eventLoader.show();
 
-      // Simulate task 1: connecting (2 seconds)
       await new Promise(r => setTimeout(r, 2000));
+      log('event-log', '<span style="color:#fde68a">→ dispatch task-connected</span>');
       document.dispatchEvent(new CustomEvent('task-connected'));
 
-      // Simulate task 2: fetching data (3 seconds)
       await new Promise(r => setTimeout(r, 3000));
+      log('event-log', '<span style="color:#fde68a">→ dispatch task-data-loaded</span>');
       document.dispatchEvent(new CustomEvent('task-data-loaded'));
-
-      // Phase 3 auto-closes after 2 seconds
     };
 
+    // ─── Completion Event demo ─────────────────────────────────────────────
     window.showAndListenComplete = () => {
       const loader = document.getElementById('complete-demo');
-      const output = document.getElementById('complete-output');
-      output.textContent = 'Waiting for loading-layer-complete...';
+      log('complete-log', '<span style="color:#fde68a">→ show() with timeout=2</span>');
+      loader.addEventListener('loading-layer-shown', () => {
+        log('complete-log', '<span style="color:#86efac">loading-layer-shown</span>');
+      }, { once: true });
       loader.addEventListener('loading-layer-complete', (e) => {
-        output.textContent = `Complete! reason="${e.detail.reason}" duration=${e.detail.duration}ms`;
+        log('complete-log', `<span style="color:#93c5fd">loading-layer-complete</span>  reason="${e.detail.reason}"  duration=${e.detail.duration}ms`);
       }, { once: true });
       loader.show();
     };
   </script>
-<script type="module">
-  import '../../theme-toggle/src/theme-toggle.js';
+  <script type="module">
+    import '../../theme-toggle/src/theme-toggle.js';
 
-  const root = document.documentElement;
-
-  const toggle = document.querySelector('theme-toggle');
-  if (toggle) {
-    toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
-    toggle.addEventListener('theme-changed', (event) => {
-      const theme = event.detail?.theme;
-      if (!theme) return;
-      root.classList.toggle('dark', theme === 'dark');
-    });
-  }
-</script>
+    const root = document.documentElement;
+    const toggle = document.querySelector('theme-toggle');
+    if (toggle) {
+      toggle.theme = root.classList.contains('dark') ? 'dark' : 'light';
+      toggle.addEventListener('theme-changed', (event) => {
+        const theme = event.detail?.theme;
+        if (!theme) return;
+        root.classList.toggle('dark', theme === 'dark');
+      });
+    }
+  </script>
 </body>
 </html>
