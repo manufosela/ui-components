@@ -212,18 +212,33 @@ export class LoadingLayer extends LitElement {
   // ─── Global event handlers ────────────────────────────────────────────────
 
   _handleShowEvent(e) {
+    // If targeting a specific loading-layer by id, skip if not us
+    const targetId = e.detail?.id;
+    if (targetId && targetId !== this.id) return;
+
+    // Prevent multiple loading-layers from activating simultaneously
+    if (this.visible) return;
+
     if (e.detail?.message) {
       this.message = e.detail.message;
     }
     this.show();
   }
 
-  _handleHideEvent() {
+  _handleHideEvent(e) {
+    // If targeting a specific loading-layer by id, skip if not us
+    const targetId = e.detail?.id;
+    if (targetId && targetId !== this.id) return;
+
     this._hideReason = 'event';
     this.hide();
   }
 
   _handlePhaseEvent(e) {
+    const targetId = e.detail?.id;
+    if (targetId && targetId !== this.id) return;
+    if (!this.visible) return;
+
     const phase = e.detail?.phase;
     if (typeof phase === 'number') {
       this.setPhase(phase);
