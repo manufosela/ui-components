@@ -128,23 +128,32 @@ document.getElementById('basic').show();</div>
 
     <div class="demo-card">
       <h2>Multi-Phase Messages (by event)</h2>
-      <p>Click buttons to manually advance through phases, or dispatch custom events.</p>
+      <p>Simulates 3 async tasks. Each dispatches a custom event when complete, advancing the loading phase automatically.</p>
       <div class="buttons">
-        <button onclick="document.getElementById('phases-event').show()">Start</button>
-        <button class="secondary" onclick="advancePhase(1)">Phase 2: Processing</button>
-        <button class="secondary" onclick="advancePhase(2)">Phase 3: Done!</button>
-        <button class="secondary" onclick="document.getElementById('phases-event').hide()">Hide</button>
+        <button onclick="simulateAsyncTasks()">Run 3 async tasks</button>
       </div>
       <loading-layer id="phases-event">
-        <loading-phase message="Initializing..."></loading-phase>
-        <loading-phase message="Processing your request..." event="phase-processing"></loading-phase>
-        <loading-phase message="Almost done!" event="phase-done" auto-close="2"></loading-phase>
+        <loading-phase message="Connecting to server..."></loading-phase>
+        <loading-phase message="Fetching user data..." event="task-connected"></loading-phase>
+        <loading-phase message="Almost there..." event="task-data-loaded" auto-close="2"></loading-phase>
       </loading-layer>
-      <div class="code-block">// Advance via setPhase()
-loader.setPhase(1);
+      <div class="code-block">&lt;loading-layer id="loader"&gt;
+  &lt;loading-phase message="Connecting..."&gt;&lt;/loading-phase&gt;
+  &lt;loading-phase message="Fetching data..." event="task-connected"&gt;&lt;/loading-phase&gt;
+  &lt;loading-phase message="Almost there..." event="task-data-loaded" auto-close="2"&gt;&lt;/loading-phase&gt;
+&lt;/loading-layer&gt;
 
-// Or dispatch custom event
-document.dispatchEvent(new CustomEvent('phase-processing'));</div>
+&lt;script&gt;
+  loader.show();
+
+  // Your code dispatches events as tasks complete:
+  await connectToServer();
+  document.dispatchEvent(new CustomEvent('task-connected'));
+
+  await fetchUserData();
+  document.dispatchEvent(new CustomEvent('task-data-loaded'));
+  // → auto-closes after 2 seconds
+&lt;/script&gt;</div>
     </div>
 
     <div class="demo-card">
@@ -186,9 +195,19 @@ document.dispatchEvent(new CustomEvent('phase-processing'));</div>
       }));
     };
 
-    window.advancePhase = (index) => {
+    window.simulateAsyncTasks = async () => {
       const loader = document.getElementById('phases-event');
-      loader.setPhase(index);
+      loader.show();
+
+      // Simulate task 1: connecting (2 seconds)
+      await new Promise(r => setTimeout(r, 2000));
+      document.dispatchEvent(new CustomEvent('task-connected'));
+
+      // Simulate task 2: fetching data (3 seconds)
+      await new Promise(r => setTimeout(r, 3000));
+      document.dispatchEvent(new CustomEvent('task-data-loaded'));
+
+      // Phase 3 auto-closes after 2 seconds
     };
 
     window.showAndListenComplete = () => {
