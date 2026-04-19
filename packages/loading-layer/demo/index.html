@@ -106,6 +106,59 @@ document.getElementById('basic').show();</div>
   detail: { message: 'Triggered via event!' }
 }));</div>
     </div>
+
+    <div class="demo-card">
+      <h2>Multi-Phase Messages (by delay)</h2>
+      <p>Phases advance automatically by time. Delays are absolute from show() time.</p>
+      <div class="buttons">
+        <button onclick="document.getElementById('phases-delay').show()">Start (auto-closes in 12s)</button>
+      </div>
+      <loading-layer id="phases-delay">
+        <loading-phase message="Cargando tus datos..."></loading-phase>
+        <loading-phase message="Parece que está tardando..." delay="3"></loading-phase>
+        <loading-phase message="Esto tiene mala pinta..." delay="7" auto-close="5"></loading-phase>
+      </loading-layer>
+      <div class="code-block">&lt;loading-layer&gt;
+  &lt;loading-phase message="Cargando tus datos..."&gt;&lt;/loading-phase&gt;
+  &lt;loading-phase message="Parece que está tardando..." delay="3"&gt;&lt;/loading-phase&gt;
+  &lt;loading-phase message="Esto tiene mala pinta..." delay="7" auto-close="5"&gt;&lt;/loading-phase&gt;
+&lt;/loading-layer&gt;</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Multi-Phase Messages (by event)</h2>
+      <p>Click buttons to manually advance through phases, or dispatch custom events.</p>
+      <div class="buttons">
+        <button onclick="document.getElementById('phases-event').show()">Start</button>
+        <button class="secondary" onclick="advancePhase(1)">Phase 2: Processing</button>
+        <button class="secondary" onclick="advancePhase(2)">Phase 3: Done!</button>
+        <button class="secondary" onclick="document.getElementById('phases-event').hide()">Hide</button>
+      </div>
+      <loading-layer id="phases-event">
+        <loading-phase message="Initializing..."></loading-phase>
+        <loading-phase message="Processing your request..." event="phase-processing"></loading-phase>
+        <loading-phase message="Almost done!" event="phase-done" auto-close="2"></loading-phase>
+      </loading-layer>
+      <div class="code-block">// Advance via setPhase()
+loader.setPhase(1);
+
+// Or dispatch custom event
+document.dispatchEvent(new CustomEvent('phase-processing'));</div>
+    </div>
+
+    <div class="demo-card">
+      <h2>Completion Event</h2>
+      <p>loading-layer-complete fires when the layer hides, with reason and duration.</p>
+      <div class="buttons">
+        <button onclick="showAndListenComplete()">Show (2s) — watch console</button>
+      </div>
+      <loading-layer id="complete-demo" timeout="2" message="Completing soon..."></loading-layer>
+      <div id="complete-output" style="margin-top:1rem;font-family:monospace;font-size:0.85rem;color:#374151;min-height:1.5em;"></div>
+      <div class="code-block">loader.addEventListener('loading-layer-complete', (e) => {
+  console.log(e.detail); // { reason: 'timeout', duration: 2003 }
+});</div>
+    </div>
+
       <footer>
         <p>
           <a href="https://github.com/manufosela/ui-components">View on GitHub</a> |
@@ -130,6 +183,21 @@ document.getElementById('basic').show();</div>
       document.dispatchEvent(new CustomEvent('loading-layer-show', {
         detail: { message: 'Triggered via global event!' }
       }));
+    };
+
+    window.advancePhase = (index) => {
+      const loader = document.getElementById('phases-event');
+      loader.setPhase(index);
+    };
+
+    window.showAndListenComplete = () => {
+      const loader = document.getElementById('complete-demo');
+      const output = document.getElementById('complete-output');
+      output.textContent = 'Waiting for loading-layer-complete...';
+      loader.addEventListener('loading-layer-complete', (e) => {
+        output.textContent = `Complete! reason="${e.detail.reason}" duration=${e.detail.duration}ms`;
+      }, { once: true });
+      loader.show();
     };
   </script>
 <script type="module">
