@@ -62,6 +62,10 @@ export class LoadingLayer extends LitElement {
       border: none;
       padding: 0;
       margin: 0;
+      outline: none;
+    }
+
+    dialog[open] {
       max-width: 100vw;
       max-height: 100vh;
       width: 100%;
@@ -69,15 +73,11 @@ export class LoadingLayer extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      outline: none;
+      animation: fadeIn var(--loading-layer-transition, 0.3s) ease;
     }
 
     dialog::backdrop {
       background: var(--loading-layer-bg, rgba(0, 0, 0, 0.5));
-    }
-
-    dialog[open] {
-      animation: fadeIn var(--loading-layer-transition, 0.3s) ease;
     }
 
     dialog[open]::backdrop {
